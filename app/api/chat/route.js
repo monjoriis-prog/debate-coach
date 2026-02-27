@@ -1,18 +1,32 @@
 import Anthropic from '@anthropic-ai/sdk';
 
-const client = new Anthropic();
+const client = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
+});
 
 export async function POST(request) {
-  const { messages, systemPrompt } = await request.json();
+  try {
+    const { messages, systemPrompt } = await request.json();
 
-  const response = await client.messages.create({
-    model: 'claude-sonnet-4-20250514',
-    max_tokens: 1024,
-    system: systemPrompt,
-    messages: messages,
-  });
+    const response = await client.messages.create({
+      model: 'claude-opus-4-6',
+      max_tokens: 1024,
+      system: systemPrompt,
+      messages: messages,
+    });
 
-  return Response.json({ 
-    content: response.content[0].text 
-  });
+    return Response.json({ 
+      content: response.content[0].text 
+    });
+  } catch (error) {
+    console.error('API Error:', error);
+    return Response.json({ error: error.message }, { status: 500 });
+  }
 }
+```
+
+Save it, then in Terminal:
+```
+git add .
+git commit -m "fix api route"
+git push
