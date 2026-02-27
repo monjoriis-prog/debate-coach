@@ -40,7 +40,7 @@ const SCENARIOS = [
   },
 ];
 
-const SYSTEM_PROMPT = (situation, aiRole) => `You are playing the role of ${aiRole} in a social skills training exercise.
+const SYSTEM_PROMPT = (situation: string, aiRole: string) => `You are playing the role of ${aiRole} in a social skills training exercise.
 
 The scenario: ${situation}
 
