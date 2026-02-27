@@ -25,8 +25,3 @@ export async function POST(request) {
 }
 ```
 
-Save it, then in Terminal:
-```
-git add .
-git commit -m "fix api route"
-git push
