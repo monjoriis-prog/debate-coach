@@ -6,22 +6,20 @@ const client = new Anthropic({
 
 export async function POST(request) {
   try {
-    const { messages, systemPrompt } = await request.json();
+    const body = await request.json();
+    const messages = body.messages;
+    const systemPrompt = body.systemPrompt;
 
     const response = await client.messages.create({
-      model: 'claude-opus-4-6',
+      model: 'claude-haiku-4-5-20251001',
       max_tokens: 1024,
       system: systemPrompt,
       messages: messages,
     });
 
-    return Response.json({ 
-      content: response.content[0].text 
-    });
+    return Response.json({ content: response.content[0].text });
   } catch (error) {
     console.error('API Error:', error);
     return Response.json({ error: error.message }, { status: 500 });
   }
 }
-```
-
