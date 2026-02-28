@@ -7,8 +7,13 @@ const client = new Anthropic({
 export async function POST(request) {
   try {
     const body = await request.json();
-    const messages = body.messages;
     const systemPrompt = body.systemPrompt;
+    
+    // Clean messages - only keep user and assistant roles, no empty content
+    const messages = body.messages
+      .filter(m => m.role === 'user' || m.role === 'assistant')
+      .filter(m => m.content && m.content.trim() !== '')
+      .map(m => ({ role: m.role, content: m.content }));
 
     const response = await client.messages.create({
       model: 'claude-haiku-4-5-20251001',
