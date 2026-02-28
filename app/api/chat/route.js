@@ -9,7 +9,6 @@ export async function POST(request) {
     const body = await request.json();
     const systemPrompt = body.systemPrompt;
     
-    // Clean messages - only keep user and assistant roles, no empty content
     const messages = body.messages
       .filter(m => m.role === 'user' || m.role === 'assistant')
       .filter(m => m.content && m.content.trim() !== '')
@@ -22,7 +21,9 @@ export async function POST(request) {
       messages: messages,
     });
 
-    return Response.json({ content: response.content[0].text });
+    const text = response.content[0].text;
+    console.log('Response text:', text);
+    return Response.json({ content: text });
   } catch (error) {
     console.error('API Error:', error);
     return Response.json({ error: error.message }, { status: 500 });
