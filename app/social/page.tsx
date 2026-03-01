@@ -1,84 +1,137 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 
+const ICONS = {
+  romance: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+  friends: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  work: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>`,
+  family: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+};
+
 const SCENARIOS = [
   {
     category: "Dating & Romance",
-    emoji: "💛",
-    color: "#fff7ed",
-    accent: "#f97316",
+    iconKey: "romance",
+    color: "#f0f7f4",
+    accent: "#2d6a4f",
     situations: [
-      { title: "First date at a café", prompt: "You are on a first date. You are warm and curious but a little nervous. Ask questions back. React naturally to what they say — if they are awkward, be a little awkward too. If they are charming, open up more.", ai_role: "your date", voice: { pitch: 1.2, rate: 1.0, preferFemale: true } },
-      { title: "Asking someone out", prompt: "You are someone the user has met a few times and likes. You are friendly but not sure if you are interested yet. React to how confident and genuine they are.", ai_role: "the person you like", voice: { pitch: 1.15, rate: 1.0, preferFemale: true } },
-      { title: "Recovering from awkward silence", prompt: "You are on a date and there was just an awkward silence. You are slightly uncomfortable but open to them saving the moment if they handle it well.", ai_role: "your date", voice: { pitch: 1.1, rate: 0.98, preferFemale: true } },
-      { title: "Keeping conversation flowing", prompt: "You are chatting with someone attractive. You respond to what they say but do not make it too easy — make them work a little to keep things interesting.", ai_role: "someone you just met", voice: { pitch: 1.05, rate: 1.02, preferFemale: false } },
+      {
+        title: "First meeting at a coffee shop",
+        subtitle: "You just sat down across from each other. Hearts racing.",
+        prompt: `You are meeting this person for the very first time at a coffee shop. You are warm but a little guarded — you don't know them yet. React naturally: if they are awkward, show mild discomfort. If they are charming and genuine, slowly open up. 
+
+BODY LANGUAGE: Every 2 messages, add a brief italicized body language cue in parentheses that reveals your emotional state. Examples: *(glances at their phone briefly)*, *(leans forward slightly)*, *(plays with hair, looking away)*, *(smiles and maintains eye contact)*. These cues should be realistic and shift based on how well the conversation is going.`,
+        ai_role: "someone you just met", voice: { pitch: 1.15, rate: 1.0, preferFemale: true }
+      },
+      {
+        title: "Met at a study group — feelings developing",
+        subtitle: "You've seen each other a few times. Something is there.",
+        prompt: `You met at a study group and have seen each other 3-4 times. There is a quiet mutual interest but neither of you has acknowledged it. You are friendly but slightly self-conscious around them. React to how they handle the tension — do they acknowledge it or pretend it isn't there?
+
+BODY LANGUAGE: Every 2 messages, add an italicized body language cue in parentheses. Examples: *(holds eye contact a beat too long)*, *(laughs and looks away quickly)*, *(shifts closer without realizing it)*. Make them feel true to the moment.`,
+        ai_role: "someone from your study group", voice: { pitch: 1.1, rate: 0.98, preferFemale: true }
+      },
+      {
+        title: "Third date — getting deeper",
+        subtitle: "The small talk is over. Time to really connect.",
+        prompt: `This is the third date. You are past surface-level small talk and starting to feel real feelings. You are open but also paying attention to whether they go deeper or stay surface-level. Share things about yourself if they create real space for it. Pull back if they seem distracted or uninterested.
+
+BODY LANGUAGE: Every 2 messages, add an italicized body language cue in parentheses showing emotional intimacy level. Examples: *(turns fully toward them)*, *(pauses and looks down thoughtfully)*, *(reaches across and touches their hand briefly)*.`,
+        ai_role: "your date", voice: { pitch: 1.1, rate: 0.97, preferFemale: true }
+      },
+      {
+        title: "Asking someone out after meeting twice",
+        subtitle: "You like them. Will you find the right moment?",
+        prompt: `You have met this person twice before and enjoyed their company. You sense they might like you too but you are not sure. React to how they handle this — are they direct? Do they beat around the bush? If they ask you out clearly and confidently, say yes warmly. If they are hesitant or confusing, be politely unclear.
+
+BODY LANGUAGE: Every 2 messages, add an italicized body language cue in parentheses. Examples: *(smiles and tilts head)*, *(fidgets with cup nervously)*, *(looks directly at them and waits)*.`,
+        ai_role: "someone you like", voice: { pitch: 1.12, rate: 1.0, preferFemale: false }
+      },
+      {
+        title: "Recovering from an awkward moment",
+        subtitle: "Something weird just happened. Can you save it?",
+        prompt: `Something slightly awkward just happened on the date — you said something that landed wrong, or there was an uncomfortable silence. You are a little thrown off. React to how they handle it — do they acknowledge it with humor and grace, or make it worse by over-explaining? Good recovery = you relax and warm up again.
+
+BODY LANGUAGE: Every 2 messages, add an italicized body language cue in parentheses. Examples: *(shifts in seat, glances away)*, *(lets out a small laugh and relaxes shoulders)*, *(looks down at hands)*.`,
+        ai_role: "your date", voice: { pitch: 1.1, rate: 0.99, preferFemale: true }
+      },
+      {
+        title: "Reading if they are interested",
+        subtitle: "Practice noticing the signals — and responding right.",
+        prompt: `You are on a first date. You start fairly neutral — not obviously interested or disinterested. Your interest level will rise or fall based on how engaging and perceptive they are. If they pick up on your signals and respond well, warm up noticeably. If they miss cues or talk about themselves too much, cool off.
+
+BODY LANGUAGE: Every single message, add an italicized body language cue in parentheses. Make them clear signals of interest or disinterest that a perceptive person could read. Examples: *(leans back and glances around the room)*, *(leans in and smiles slowly)*, *(checks phone briefly)*, *(holds eye contact and nods)*.`,
+        ai_role: "your date", voice: { pitch: 1.15, rate: 1.0, preferFemale: true }
+      },
     ]
   },
   {
     category: "Making Friends",
-    emoji: "🤝",
-    color: "#f0fdf4",
-    accent: "#22c55e",
+    iconKey: "friends",
+    color: "#f4f7f0",
+    accent: "#40916c",
     situations: [
-      { title: "Meeting someone at a party", prompt: "You are at a party and someone approaches you. You are friendly but not overly enthusiastic. Open up if they seem genuine and interesting.", ai_role: "someone at the party", voice: { pitch: 1.0, rate: 1.05, preferFemale: false } },
-      { title: "Joining a new group", prompt: "You are part of a group and someone new is trying to join the conversation. Be welcoming but realistic — do not make it too easy at first.", ai_role: "someone in the group", voice: { pitch: 1.1, rate: 1.0, preferFemale: true } },
-      { title: "Reconnecting with someone", prompt: "You are an old acquaintance who fell out of touch. Be warm but slightly guarded. Open up if they acknowledge the gap genuinely.", ai_role: "an old acquaintance", voice: { pitch: 1.05, rate: 0.98, preferFemale: false } },
-      { title: "Making small talk", prompt: "You are a friendly stranger waiting in line. Keep it light and natural. Respond to what they say and keep the energy casual.", ai_role: "a friendly stranger", voice: { pitch: 1.0, rate: 1.05, preferFemale: true } },
+      { title: "Meeting someone at a party", subtitle: "They seem interesting. Make your move.", prompt: `You are at a party and someone approaches you. You are friendly but not overly enthusiastic. Open up if they seem genuine and interesting. Every 2 messages add an italicized body language cue in parentheses.`, ai_role: "someone at the party", voice: { pitch: 1.0, rate: 1.05, preferFemale: false } },
+      { title: "Joining a group conversation", subtitle: "The group is mid-conversation. Jump in naturally.", prompt: `You are part of a group mid-conversation. Someone is trying to join. Be welcoming but realistic. Every 2 messages add an italicized body language cue in parentheses.`, ai_role: "someone in the group", voice: { pitch: 1.1, rate: 1.0, preferFemale: true } },
+      { title: "Reconnecting with someone", subtitle: "You lost touch. Time to bridge the gap.", prompt: `You are an old acquaintance who fell out of touch. Be warm but slightly guarded. Open up if they acknowledge the gap genuinely. Every 2 messages add an italicized body language cue in parentheses.`, ai_role: "an old friend", voice: { pitch: 1.05, rate: 0.98, preferFemale: false } },
+      { title: "Making small talk", subtitle: "Waiting in line. Thirty seconds to connect.", prompt: `You are a friendly stranger in a queue. Keep it natural and light. Every 2 messages add an italicized body language cue in parentheses.`, ai_role: "a stranger", voice: { pitch: 1.0, rate: 1.05, preferFemale: true } },
     ]
   },
   {
     category: "Work & Networking",
-    emoji: "💼",
-    color: "#eff6ff",
-    accent: "#3b82f6",
+    iconKey: "work",
+    color: "#f0f4f7",
+    accent: "#1b4332",
     situations: [
-      { title: "Networking at an event", prompt: "You are a professional at a networking event. Be polite but slightly guarded. Open up if they are interesting and not just pitching themselves.", ai_role: "a professional contact", voice: { pitch: 0.9, rate: 0.92, preferFemale: false } },
-      { title: "Asking for a raise", prompt: "You are a busy manager. Start noncommittal and ask for justification. Respond positively to confident evidence-based arguments. React negatively to vague requests.", ai_role: "your manager", voice: { pitch: 0.85, rate: 0.88, preferFemale: false } },
-      { title: "Handling a difficult colleague", prompt: "You have been unintentionally taking credit for shared work. Be defensive at first but not hostile — you are oblivious not mean. Soften if they handle it maturely.", ai_role: "your colleague", voice: { pitch: 1.0, rate: 1.02, preferFemale: true } },
-      { title: "Introducing yourself confidently", prompt: "You are meeting someone new at work on their first day. Be friendly and professional. See how well they introduce themselves and respond naturally.", ai_role: "a colleague", voice: { pitch: 1.05, rate: 1.0, preferFemale: false } },
+      { title: "Networking at an event", subtitle: "Make a real connection, not a pitch.", prompt: `You are a professional at a networking event. Be polite but slightly guarded. Open up if they are genuine. Every 2 messages add an italicized body language cue in parentheses.`, ai_role: "a professional contact", voice: { pitch: 0.9, rate: 0.92, preferFemale: false } },
+      { title: "Asking for a raise", subtitle: "Make your case with confidence.", prompt: `You are a busy manager. Start noncommittal. Respond positively to confident evidence-based arguments. Every 2 messages add an italicized body language cue in parentheses.`, ai_role: "your manager", voice: { pitch: 0.85, rate: 0.88, preferFemale: false } },
+      { title: "Handling a difficult colleague", subtitle: "Address it before it becomes a problem.", prompt: `You have been unintentionally taking credit for shared work. Be defensive at first, soften if they handle it maturely. Every 2 messages add an italicized body language cue in parentheses.`, ai_role: "your colleague", voice: { pitch: 1.0, rate: 1.02, preferFemale: true } },
+      { title: "Introducing yourself confidently", subtitle: "First impressions at a new job.", prompt: `You are a colleague meeting someone on their first day. Be friendly and professional. Every 2 messages add an italicized body language cue in parentheses.`, ai_role: "a colleague", voice: { pitch: 1.05, rate: 1.0, preferFemale: false } },
     ]
   },
   {
     category: "Family Conversations",
-    emoji: "🏡",
-    color: "#fdf4ff",
-    accent: "#a855f7",
+    iconKey: "family",
+    color: "#f7f4f0",
+    accent: "#52796f",
     situations: [
-      { title: "Talking to a distant teenager", prompt: "You are a 16-year-old who has been distant lately. Give short answers and seem distracted. Open up slightly if they are genuine and not pushy or preachy.", ai_role: "your teenager", voice: { pitch: 1.3, rate: 1.12, preferFemale: false } },
-      { title: "Setting boundaries with a parent", prompt: "You are a well-meaning parent who gives too much advice. Feel slightly hurt if pushed away harshly, but respect firm and kind boundaries.", ai_role: "your parent", voice: { pitch: 0.88, rate: 0.9, preferFemale: false } },
-      { title: "Comforting someone upset", prompt: "You are upset about something that happened today. You want to feel heard, not fixed. React well to empathy and badly to unsolicited advice.", ai_role: "a family member", voice: { pitch: 1.1, rate: 0.95, preferFemale: true } },
-      { title: "Sharing big news", prompt: "You are a family member hearing big news for the first time. React realistically — with questions, mild concern, and then warmth if handled well.", ai_role: "a family member", voice: { pitch: 1.05, rate: 0.98, preferFemale: true } },
+      { title: "Talking to a distant teenager", subtitle: "Get past the one-word answers.", prompt: `You are a 16-year-old who has been distant. Give short answers. Open up slightly if they are genuine and not pushy. Every 2 messages add an italicized body language cue in parentheses.`, ai_role: "your teenager", voice: { pitch: 1.3, rate: 1.12, preferFemale: false } },
+      { title: "Setting a boundary with a parent", subtitle: "Kind, clear, and firm.", prompt: `You are a well-meaning parent who gives too much advice. Feel slightly hurt if pushed away harshly, but respect kind firmness. Every 2 messages add an italicized body language cue in parentheses.`, ai_role: "your parent", voice: { pitch: 0.88, rate: 0.9, preferFemale: false } },
+      { title: "Comforting someone upset", subtitle: "Listen first. Fix nothing.", prompt: `You are upset about something today. You want to feel heard, not fixed. React well to empathy and badly to advice. Every 2 messages add an italicized body language cue in parentheses.`, ai_role: "a family member", voice: { pitch: 1.1, rate: 0.95, preferFemale: true } },
+      { title: "Sharing big news", subtitle: "How will they take it?", prompt: `You are hearing big news for the first time. React realistically — with questions and mild concern, then warmth if handled well. Every 2 messages add an italicized body language cue in parentheses.`, ai_role: "a family member", voice: { pitch: 1.05, rate: 0.98, preferFemale: true } },
     ]
   },
 ];
 
 const SYSTEM_PROMPT = (situation: string, aiRole: string) => `You are playing the role of ${aiRole} in a social confidence training exercise.
 
-Scenario: ${situation}
+${situation}
 
-Rules:
-1. Stay completely in character as ${aiRole}. Be realistic — add natural emotion and friction.
-2. Keep ALL responses very short: 1-2 sentences only. This is a spoken conversation.
-3. React authentically. Awkward input gets awkward reactions. Warm genuine input gets warm reactions.
-4. Never break character or give coaching advice during the conversation.
+Core rules:
+1. Stay completely in character. Be realistic — add natural emotion, hesitation, and friction.
+2. Keep ALL in-character responses SHORT: 1-3 sentences max. This is spoken conversation.
+3. React authentically to the quality of their communication.
+4. Include body language cues as instructed — these are critical for the training.
+5. Never break character or give coaching during the conversation.
 
-After exactly 6 user messages, step out of character and give feedback in this EXACT format:
+After exactly 6 user messages, give feedback in this EXACT format:
 
 ---FEEDBACK---
 WARMTH: [1-10]
 CLARITY: [1-10]
 LISTENING: [1-10]
 CONFIDENCE: [1-10]
-BEST_MOMENT: [the single best thing they said or did and why it worked]
-IMPROVE: [one specific, actionable thing to do differently next time]
-VERDICT: [2-3 sentence warm and honest coaching assessment spoken directly to them]
----END---
-
-Keep all in-character responses under 30 words.`;
+BODY_LANGUAGE_AWARENESS: [1-10]
+BEST_MOMENT: [the single best thing they said or did]
+BODY_LANGUAGE_NOTES: [2-3 sentences specifically on how well they read and responded to body language cues]
+IMPROVE: [one specific actionable thing to try next time]
+VERDICT: [2-3 sentence warm honest coaching summary spoken directly to them]
+---END---`;
 
 function speak(text: string, voiceConfig: { pitch: number; rate: number; preferFemale: boolean }, onEnd?: () => void) {
+  const clean = text.replace(/\(.*?\)/g, "").replace(/\*/g, "").trim();
   window.speechSynthesis.cancel();
-  const utter = new SpeechSynthesisUtterance(text);
+  const utter = new SpeechSynthesisUtterance(clean);
   utter.pitch = voiceConfig.pitch;
   utter.rate = voiceConfig.rate;
   utter.volume = 1;
@@ -107,22 +160,39 @@ function parseFeedback(text: string) {
     clarity: parseInt(get("CLARITY") || "0"),
     listening: parseInt(get("LISTENING") || "0"),
     confidence: parseInt(get("CONFIDENCE") || "0"),
+    bodyLanguage: parseInt(get("BODY_LANGUAGE_AWARENESS") || "0"),
     bestMoment: get("BEST_MOMENT"),
+    bodyLanguageNotes: get("BODY_LANGUAGE_NOTES"),
     improve: get("IMPROVE"),
     verdict: get("VERDICT"),
     raw: text.replace(/---FEEDBACK---[\s\S]*?---END---/, "").trim(),
   };
 }
 
+function renderMessage(content: string) {
+  const parts = content.split(/(\(.*?\)|\*.*?\*)/g);
+  return parts.map((part, i) => {
+    if ((part.startsWith("(") && part.endsWith(")")) || (part.startsWith("*") && part.endsWith("*"))) {
+      const clean = part.replace(/^\(|\)$|^\*|\*$/g, "");
+      return <span key={i} style={{ display: "block", marginTop: "8px", fontSize: "12px", color: "#52796f", fontStyle: "italic", fontFamily: "Georgia, serif" }}>— {clean}</span>;
+    }
+    return <span key={i}>{part}</span>;
+  });
+}
+
+function Icon({ html, size = 24, color = "currentColor" }: { html: string; size?: number; color?: string }) {
+  return <span style={{ display: "inline-flex", width: size, height: size, color }} dangerouslySetInnerHTML={{ __html: html }} />;
+}
+
 function ScoreBar({ label, score, accent }: { label: string; score: number; accent: string }) {
   return (
-    <div style={{ marginBottom: "16px" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
-        <span style={{ fontSize: "12px", color: "#666", fontWeight: "500" }}>{label}</span>
-        <span style={{ fontSize: "13px", fontWeight: "700", color: score >= 7 ? "#22c55e" : score >= 5 ? "#f97316" : "#ef4444" }}>{score}/10</span>
+    <div style={{ marginBottom: "14px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "5px" }}>
+        <span style={{ fontSize: "11px", color: "#52796f", fontWeight: "600", letterSpacing: "0.05em", textTransform: "uppercase" }}>{label}</span>
+        <span style={{ fontSize: "13px", fontWeight: "700", color: score >= 7 ? "#2d6a4f" : score >= 5 ? "#d4a017" : "#c0392b" }}>{score}/10</span>
       </div>
-      <div style={{ height: "6px", background: "#f1f5f9", borderRadius: "99px", overflow: "hidden" }}>
-        <div style={{ height: "100%", width: `${score * 10}%`, background: accent, borderRadius: "99px", transition: "width 1.2s ease" }} />
+      <div style={{ height: "5px", background: "#e8f0ec", borderRadius: "99px", overflow: "hidden" }}>
+        <div style={{ height: "100%", width: `${score * 10}%`, background: accent, borderRadius: "99px", transition: "width 1.4s cubic-bezier(0.16,1,0.3,1)" }} />
       </div>
     </div>
   );
@@ -142,16 +212,10 @@ export default function Forte() {
   const recognitionRef = useRef<any>(null);
   const bottomRef = useRef<any>(null);
 
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, loading]);
+  useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages, loading]);
+  useEffect(() => { window.speechSynthesis.onvoiceschanged = () => {}; window.speechSynthesis.getVoices(); }, []);
 
-  useEffect(() => {
-    window.speechSynthesis.onvoiceschanged = () => {};
-    window.speechSynthesis.getVoices();
-  }, []);
-
-  const accent = selectedCategory?.accent || "#f97316";
+  const accent = selectedCategory?.accent || "#2d6a4f";
 
   function startListening() {
     const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
@@ -177,9 +241,7 @@ export default function Forte() {
   function stopListeningAndSend() {
     if (recognitionRef.current) recognitionRef.current.stop();
     setListening(false);
-    setTimeout(() => {
-      if (transcript.trim()) sendMessage(transcript.trim());
-    }, 400);
+    setTimeout(() => { if (transcript.trim()) sendMessage(transcript.trim()); }, 400);
   }
 
   async function startChat(situation: any) {
@@ -189,11 +251,10 @@ export default function Forte() {
     setMessages([]);
     setUserTurns(0);
     setFeedback(null);
-    const opening = [{ role: "user", content: "Let's begin the scenario." }];
     const res = await fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ systemPrompt: SYSTEM_PROMPT(situation.prompt, situation.ai_role), messages: opening }),
+      body: JSON.stringify({ systemPrompt: SYSTEM_PROMPT(situation.prompt, situation.ai_role), messages: [{ role: "user", content: "Let's begin." }] }),
     });
     const data = await res.json();
     const reply = data.content || "Hey there.";
@@ -223,10 +284,10 @@ export default function Forte() {
     const parsed = parseFeedback(reply);
     if (parsed) {
       setFeedback(parsed);
-      setMessages([...newMessages, { role: "assistant", content: parsed.raw || "Great conversation!" }]);
+      setMessages([...newMessages, { role: "assistant", content: parsed.raw || "That was a great conversation." }]);
       setPhase("done");
       setSpeaking(true);
-      speak(parsed.verdict || "Well done!", { pitch: 1.0, rate: 0.9, preferFemale: true }, () => setSpeaking(false));
+      speak(parsed.verdict || "Well done.", { pitch: 1.0, rate: 0.9, preferFemale: true }, () => setSpeaking(false));
     } else {
       setMessages([...newMessages, { role: "assistant", content: reply }]);
       setSpeaking(true);
@@ -247,144 +308,170 @@ export default function Forte() {
   }
 
   const totalScore = feedback
-    ? Math.round((feedback.warmth + feedback.clarity + feedback.listening + feedback.confidence) / 4)
+    ? Math.round((feedback.warmth + feedback.clarity + feedback.listening + feedback.confidence + feedback.bodyLanguage) / 5)
     : null;
 
-  if (phase === "home") {
-    return (
-      <div style={{ minHeight: "100vh", background: "#fafafa", fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
-        <div style={{ maxWidth: "640px", margin: "0 auto", padding: "60px 24px 40px" }}>
-          <div style={{ textAlign: "center", marginBottom: "56px" }}>
-            <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "72px", height: "72px", background: "#fff", borderRadius: "20px", boxShadow: "0 2px 16px rgba(0,0,0,0.08)", marginBottom: "24px", fontSize: "32px" }}>🎯</div>
-            <h1 style={{ fontSize: "42px", fontWeight: "800", margin: "0 0 8px", color: "#0f172a", letterSpacing: "-1px" }}>FORTE</h1>
-            <p style={{ color: "#64748b", fontSize: "16px", margin: 0, lineHeight: 1.6 }}>Practice real conversations.<br />Build genuine confidence.</p>
+  // HOME
+  if (phase === "home") return (
+    <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "'Georgia', serif" }}>
+      <div style={{ maxWidth: "680px", margin: "0 auto", padding: "72px 24px 48px" }}>
+        <div style={{ marginBottom: "64px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "16px" }}>
+            <div style={{ width: "3px", height: "40px", background: "#2d6a4f", borderRadius: "2px" }} />
+            <h1 style={{ fontSize: "48px", fontWeight: "400", margin: 0, color: "#1a2e1a", letterSpacing: "-1px" }}>FORTE</h1>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-            {SCENARIOS.map((s) => (
-              <button key={s.category} onClick={() => { setSelectedCategory(s); setPhase("scenario"); }}
-                style={{ background: s.color, border: "1.5px solid transparent", borderRadius: "16px", padding: "24px 20px", textAlign: "left", cursor: "pointer", transition: "all 0.2s" }}
-                onMouseEnter={e => { e.currentTarget.style.border = `1.5px solid ${s.accent}`; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.08)"; }}
-                onMouseLeave={e => { e.currentTarget.style.border = "1.5px solid transparent"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
-                <div style={{ fontSize: "28px", marginBottom: "12px" }}>{s.emoji}</div>
-                <div style={{ fontSize: "15px", fontWeight: "700", color: "#0f172a", marginBottom: "4px" }}>{s.category}</div>
-                <div style={{ fontSize: "12px", color: "#94a3b8" }}>{s.situations.length} scenarios</div>
-              </button>
-            ))}
-          </div>
-          <p style={{ textAlign: "center", color: "#cbd5e1", fontSize: "12px", marginTop: "40px" }}>Hold the mic button to speak · Release to send</p>
+          <p style={{ color: "#52796f", fontSize: "16px", margin: "0 0 0 17px", lineHeight: 1.7, fontStyle: "italic" }}>
+            Practice real conversations.<br />Learn to read people. Build lasting confidence.
+          </p>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+          {SCENARIOS.map((s) => (
+            <button key={s.category}
+              onClick={() => { setSelectedCategory(s); setPhase("scenario"); }}
+              style={{ background: "#fff", border: "1px solid #d8e8e0", borderRadius: "16px", padding: "28px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.25s" }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = s.accent; e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = `0 12px 32px ${s.accent}18`; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+              <div style={{ color: s.accent, marginBottom: "14px" }}>
+                <Icon html={ICONS[s.iconKey as keyof typeof ICONS]} size={28} color={s.accent} />
+              </div>
+              <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>{s.category}</div>
+              <div style={{ fontSize: "12px", color: "#84a98c" }}>{s.situations.length} scenarios</div>
+            </button>
+          ))}
+        </div>
+        <p style={{ textAlign: "center", color: "#b7c9be", fontSize: "12px", marginTop: "48px", fontFamily: "-apple-system, sans-serif" }}>
+          Hold mic to speak · Body language cues appear in italics · 6 turns per session
+        </p>
+      </div>
+    </div>
+  );
+
+  // SCENARIO PICKER
+  if (phase === "scenario") return (
+    <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "'Georgia', serif" }}>
+      <div style={{ maxWidth: "600px", margin: "0 auto", padding: "48px 24px" }}>
+        <button onClick={() => setPhase("home")} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", marginBottom: "40px", padding: 0, fontFamily: "-apple-system, sans-serif", display: "flex", alignItems: "center", gap: "6px" }}>← Back</button>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
+          <Icon html={ICONS[selectedCategory.iconKey as keyof typeof ICONS]} size={24} color={selectedCategory.accent} />
+          <h2 style={{ fontSize: "28px", fontWeight: "400", margin: 0, color: "#1a2e1a", letterSpacing: "-0.5px" }}>{selectedCategory.category}</h2>
+        </div>
+        <p style={{ color: "#84a98c", fontSize: "14px", marginBottom: "32px", fontFamily: "-apple-system, sans-serif" }}>Choose a scenario to practice</p>
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          {selectedCategory.situations.map((s: any, i: number) => (
+            <button key={i} onClick={() => startChat(s)}
+              style={{ background: "#fff", border: "1px solid #d8e8e0", borderRadius: "14px", padding: "22px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.2s" }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = selectedCategory.accent; e.currentTarget.style.transform = "translateX(4px)"; e.currentTarget.style.boxShadow = `0 4px 20px ${selectedCategory.accent}14`; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+              <div style={{ fontSize: "15px", fontWeight: "600", color: "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>{s.title}</div>
+              <div style={{ fontSize: "13px", color: "#84a98c", fontStyle: "italic" }}>{s.subtitle}</div>
+            </button>
+          ))}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 
-  if (phase === "scenario") {
-    return (
-      <div style={{ minHeight: "100vh", background: "#fafafa", fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
-        <div style={{ maxWidth: "560px", margin: "0 auto", padding: "40px 24px" }}>
-          <button onClick={() => setPhase("home")} style={{ background: "transparent", border: "none", color: "#94a3b8", cursor: "pointer", fontSize: "14px", marginBottom: "32px", padding: 0 }}>← Back</button>
-          <div style={{ marginBottom: "32px" }}>
-            <div style={{ fontSize: "36px", marginBottom: "8px" }}>{selectedCategory.emoji}</div>
-            <h2 style={{ fontSize: "26px", fontWeight: "800", margin: "0 0 6px", color: "#0f172a", letterSpacing: "-0.5px" }}>{selectedCategory.category}</h2>
-            <p style={{ color: "#94a3b8", fontSize: "14px", margin: 0 }}>Pick a scenario to practice</p>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-            {selectedCategory.situations.map((s: any, i: number) => (
-              <button key={i} onClick={() => startChat(s)}
-                style={{ background: "#fff", border: "1.5px solid #f1f5f9", borderRadius: "14px", padding: "20px 22px", textAlign: "left", cursor: "pointer", transition: "all 0.2s" }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = selectedCategory.accent; e.currentTarget.style.transform = "translateY(-1px)"; e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.06)"; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = "#f1f5f9"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
-                <div style={{ fontSize: "15px", fontWeight: "700", color: "#0f172a", marginBottom: "4px" }}>{s.title}</div>
-                <div style={{ fontSize: "13px", color: "#94a3b8", lineHeight: 1.5 }}>{s.prompt.split(".")[0]}.</div>
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
+  // CHAT + DONE
   return (
-    <div style={{ minHeight: "100vh", background: "#fafafa", fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", display: "flex", flexDirection: "column" }}>
-      <div style={{ background: "#fff", borderBottom: "1px solid #f1f5f9", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
+    <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "'Georgia', serif", display: "flex", flexDirection: "column" }}>
+      {/* Header */}
+      <div style={{ background: "#fff", borderBottom: "1px solid #e8f0ec", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
         <div>
-          <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.1em", color: "#94a3b8", textTransform: "uppercase" }}>FORTE</div>
-          <div style={{ fontSize: "14px", fontWeight: "600", color: "#0f172a", marginTop: "2px" }}>{selectedSituation?.title}</div>
+          <div style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.15em", color: "#84a98c", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif" }}>FORTE</div>
+          <div style={{ fontSize: "15px", color: "#1a2e1a", marginTop: "2px" }}>{selectedSituation?.title}</div>
         </div>
-        <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
+        <div style={{ display: "flex", gap: "6px" }}>
           {[1,2,3,4,5,6].map((i) => (
-            <div key={i} style={{ width: "8px", height: "8px", borderRadius: "50%", background: i <= userTurns ? accent : "#e2e8f0", transition: "background 0.3s" }} />
+            <div key={i} style={{ width: "7px", height: "7px", borderRadius: "50%", background: i <= userTurns ? accent : "#d8e8e0", transition: "background 0.3s" }} />
           ))}
         </div>
       </div>
 
-      <div style={{ background: selectedCategory?.color || "#fff7ed", padding: "10px 24px", fontSize: "13px", color: "#64748b", borderBottom: "1px solid #f1f5f9" }}>
-        Talking to: <span style={{ fontWeight: "600", color: accent }}>{selectedSituation?.ai_role}</span>
-        <span style={{ color: "#cbd5e1", marginLeft: "12px" }}>{Math.max(0, 6 - userTurns)} turns left</span>
+      {/* Subtitle bar */}
+      <div style={{ background: selectedCategory?.color || "#f0f7f4", borderBottom: "1px solid #e8f0ec", padding: "10px 24px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <span style={{ fontSize: "13px", color: "#52796f", fontStyle: "italic" }}>Talking to: {selectedSituation?.ai_role}</span>
+        <span style={{ fontSize: "12px", color: "#84a98c", fontFamily: "-apple-system, sans-serif" }}>{Math.max(0, 6 - userTurns)} turns left</span>
       </div>
 
-      <div style={{ flex: 1, overflowY: "auto", padding: "24px", display: "flex", flexDirection: "column", gap: "16px" }}>
+      {/* Body language tip */}
+      <div style={{ background: "#eaf4ef", padding: "8px 24px", fontSize: "12px", color: "#2d6a4f", fontFamily: "-apple-system, sans-serif", borderBottom: "1px solid #d8edd6" }}>
+        💡 Watch for body language cues in <em>italics</em> — they reveal how the conversation is really going
+      </div>
+
+      {/* Messages */}
+      <div style={{ flex: 1, overflowY: "auto", padding: "28px 24px", display: "flex", flexDirection: "column", gap: "20px" }}>
         {messages.map((m: any, i: number) => (
-          <div key={i} style={{ display: "flex", flexDirection: m.role === "user" ? "row-reverse" : "row", gap: "10px", alignItems: "flex-end" }}>
-            <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: m.role === "user" ? accent : "#e2e8f0", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", flexShrink: 0 }}>
-              {m.role === "user" ? "🗣" : "💬"}
+          <div key={i} style={{ display: "flex", flexDirection: m.role === "user" ? "row-reverse" : "row", gap: "12px", alignItems: "flex-start" }}>
+            <div style={{ width: "34px", height: "34px", borderRadius: "50%", background: m.role === "user" ? accent : "#e8f0ec", border: m.role === "assistant" ? `1px solid #d8e8e0` : "none", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", flexShrink: 0, color: m.role === "user" ? "#fff" : "#52796f", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>
+              {m.role === "user" ? "You" : "AI"}
             </div>
-            <div style={{ maxWidth: "72%", padding: "12px 16px", background: m.role === "user" ? accent : "#fff", borderRadius: m.role === "user" ? "18px 18px 4px 18px" : "18px 18px 18px 4px", fontSize: "14px", lineHeight: "1.6", color: m.role === "user" ? "#fff" : "#0f172a", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
-              {m.content}
+            <div style={{ maxWidth: "74%", padding: "14px 18px", background: m.role === "user" ? accent : "#fff", borderRadius: m.role === "user" ? "18px 4px 18px 18px" : "4px 18px 18px 18px", fontSize: "14px", lineHeight: "1.7", color: m.role === "user" ? "#fff" : "#1a2e1a", boxShadow: "0 1px 6px rgba(0,0,0,0.05)" }}>
+              {m.role === "assistant" ? renderMessage(m.content) : m.content}
             </div>
           </div>
         ))}
 
         {(loading || speaking) && (
-          <div style={{ display: "flex", gap: "10px", alignItems: "flex-end" }}>
-            <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: "#e2e8f0", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px" }}>💬</div>
-            <div style={{ padding: "12px 16px", background: "#fff", borderRadius: "18px 18px 18px 4px", display: "flex", gap: "5px", alignItems: "center", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
-              {[0,1,2].map((i) => <div key={i} style={{ width: "7px", height: "7px", borderRadius: "50%", background: accent, animation: "pulse 1.2s ease-in-out infinite", animationDelay: `${i * 0.2}s`, opacity: 0.6 }} />)}
+          <div style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+            <div style={{ width: "34px", height: "34px", borderRadius: "50%", background: "#e8f0ec", border: "1px solid #d8e8e0", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", color: "#52796f", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>AI</div>
+            <div style={{ padding: "14px 18px", background: "#fff", borderRadius: "4px 18px 18px 18px", display: "flex", gap: "5px", alignItems: "center", boxShadow: "0 1px 6px rgba(0,0,0,0.05)" }}>
+              {[0,1,2].map((i) => <div key={i} style={{ width: "7px", height: "7px", borderRadius: "50%", background: accent, animation: "pulse 1.2s ease-in-out infinite", animationDelay: `${i * 0.2}s` }} />)}
+              <span style={{ fontSize: "12px", color: "#84a98c", marginLeft: "8px", fontFamily: "-apple-system, sans-serif" }}>{speaking ? "speaking..." : "thinking..."}</span>
             </div>
           </div>
         )}
 
         {phase === "done" && feedback && (
-          <div style={{ background: "#fff", borderRadius: "20px", padding: "28px", marginTop: "8px", boxShadow: "0 2px 16px rgba(0,0,0,0.06)" }}>
-            <div style={{ textAlign: "center", marginBottom: "28px" }}>
-              <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.1em", color: "#94a3b8", textTransform: "uppercase", marginBottom: "8px" }}>Your Score</div>
-              <div style={{ fontSize: "80px", fontWeight: "900", lineHeight: 1, color: accent }}>{totalScore}</div>
-              <div style={{ fontSize: "13px", color: "#94a3b8", marginTop: "4px" }}>out of 10</div>
+          <div style={{ background: "#fff", borderRadius: "20px", padding: "32px", marginTop: "8px", border: "1px solid #d8e8e0", boxShadow: "0 4px 24px rgba(45,106,79,0.06)" }}>
+            <div style={{ textAlign: "center", marginBottom: "32px" }}>
+              <div style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.2em", color: "#84a98c", textTransform: "uppercase", marginBottom: "10px", fontFamily: "-apple-system, sans-serif" }}>Session Score</div>
+              <div style={{ fontSize: "88px", fontWeight: "400", lineHeight: 1, color: accent }}>{totalScore}</div>
+              <div style={{ fontSize: "13px", color: "#84a98c", marginTop: "4px", fontFamily: "-apple-system, sans-serif" }}>out of 10</div>
             </div>
             <ScoreBar label="Warmth" score={feedback.warmth} accent={accent} />
             <ScoreBar label="Clarity" score={feedback.clarity} accent={accent} />
             <ScoreBar label="Listening" score={feedback.listening} accent={accent} />
             <ScoreBar label="Confidence" score={feedback.confidence} accent={accent} />
+            <ScoreBar label="Body Language Awareness" score={feedback.bodyLanguage} accent={accent} />
+
             {feedback.bestMoment && (
-              <div style={{ marginTop: "20px", padding: "16px", background: "#f0fdf4", borderRadius: "12px", borderLeft: "4px solid #22c55e" }}>
-                <div style={{ fontSize: "11px", fontWeight: "700", color: "#22c55e", textTransform: "uppercase", marginBottom: "6px" }}>✨ Best Moment</div>
-                <div style={{ fontSize: "14px", color: "#166534", lineHeight: 1.6 }}>{feedback.bestMoment}</div>
+              <div style={{ marginTop: "24px", padding: "18px", background: "#f0f7f4", borderRadius: "12px", borderLeft: "3px solid #2d6a4f" }}>
+                <div style={{ fontSize: "10px", fontWeight: "700", color: "#2d6a4f", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>✦ Best Moment</div>
+                <div style={{ fontSize: "14px", color: "#1a2e1a", lineHeight: 1.7, fontStyle: "italic" }}>{feedback.bestMoment}</div>
+              </div>
+            )}
+            {feedback.bodyLanguageNotes && (
+              <div style={{ marginTop: "12px", padding: "18px", background: "#f4f7f0", borderRadius: "12px", borderLeft: "3px solid #40916c" }}>
+                <div style={{ fontSize: "10px", fontWeight: "700", color: "#40916c", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>Body Language Reading</div>
+                <div style={{ fontSize: "14px", color: "#1a2e1a", lineHeight: 1.7 }}>{feedback.bodyLanguageNotes}</div>
               </div>
             )}
             {feedback.improve && (
-              <div style={{ marginTop: "10px", padding: "16px", background: "#fff7ed", borderRadius: "12px", borderLeft: "4px solid #f97316" }}>
-                <div style={{ fontSize: "11px", fontWeight: "700", color: "#f97316", textTransform: "uppercase", marginBottom: "6px" }}>🎯 Try This Next Time</div>
-                <div style={{ fontSize: "14px", color: "#9a3412", lineHeight: 1.6 }}>{feedback.improve}</div>
+              <div style={{ marginTop: "12px", padding: "18px", background: "#faf8f0", borderRadius: "12px", borderLeft: "3px solid #d4a017" }}>
+                <div style={{ fontSize: "10px", fontWeight: "700", color: "#d4a017", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>Try This Next Time</div>
+                <div style={{ fontSize: "14px", color: "#1a2e1a", lineHeight: 1.7 }}>{feedback.improve}</div>
               </div>
             )}
             {feedback.verdict && (
-              <div style={{ marginTop: "10px", padding: "16px", background: "#f8fafc", borderRadius: "12px" }}>
-                <div style={{ fontSize: "11px", fontWeight: "700", color: "#94a3b8", textTransform: "uppercase", marginBottom: "6px" }}>Coach Says</div>
-                <div style={{ fontSize: "14px", color: "#334155", lineHeight: 1.7 }}>{feedback.verdict}</div>
+              <div style={{ marginTop: "12px", padding: "18px", background: "#f8faf8", borderRadius: "12px" }}>
+                <div style={{ fontSize: "10px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>Coach's Note</div>
+                <div style={{ fontSize: "15px", color: "#1a2e1a", lineHeight: 1.8, fontStyle: "italic" }}>{feedback.verdict}</div>
               </div>
             )}
-            <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
-              <button onClick={() => startChat(selectedSituation)} style={{ flex: 1, padding: "14px", background: accent, color: "#fff", border: "none", fontSize: "14px", fontWeight: "700", borderRadius: "12px", cursor: "pointer" }}>Try Again</button>
-              <button onClick={reset} style={{ flex: 1, padding: "14px", background: "#f1f5f9", color: "#334155", border: "none", fontSize: "14px", fontWeight: "700", borderRadius: "12px", cursor: "pointer" }}>New Scenario</button>
+            <div style={{ display: "flex", gap: "12px", marginTop: "24px" }}>
+              <button onClick={() => startChat(selectedSituation)} style={{ flex: 1, padding: "15px", background: accent, color: "#fff", border: "none", fontSize: "14px", borderRadius: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", fontWeight: "600", letterSpacing: "0.02em" }}>Try Again</button>
+              <button onClick={reset} style={{ flex: 1, padding: "15px", background: "#f0f7f4", color: "#2d6a4f", border: "1px solid #d8e8e0", fontSize: "14px", borderRadius: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>New Scenario</button>
             </div>
           </div>
         )}
         <div ref={bottomRef} />
       </div>
 
+      {/* Voice button */}
       {phase === "chat" && (
-        <div style={{ background: "#fff", borderTop: "1px solid #f1f5f9", padding: "20px 24px", display: "flex", flexDirection: "column", alignItems: "center", gap: "10px", flexShrink: 0 }}>
+        <div style={{ background: "#fff", borderTop: "1px solid #e8f0ec", padding: "22px 24px", display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", flexShrink: 0 }}>
           {transcript && (
-            <div style={{ fontSize: "13px", color: "#94a3b8", fontStyle: "italic", textAlign: "center", maxWidth: "360px" }}>"{transcript}"</div>
+            <div style={{ fontSize: "13px", color: "#84a98c", fontStyle: "italic", textAlign: "center", maxWidth: "380px" }}>"{transcript}"</div>
           )}
           <button
             onMouseDown={startListening}
@@ -392,22 +479,22 @@ export default function Forte() {
             onTouchStart={startListening}
             onTouchEnd={stopListeningAndSend}
             disabled={loading || speaking}
-            style={{ width: "72px", height: "72px", borderRadius: "50%", background: listening ? "#ef4444" : loading || speaking ? "#e2e8f0" : accent, border: listening ? "4px solid #fca5a5" : "4px solid transparent", cursor: loading || speaking ? "not-allowed" : "pointer", fontSize: "26px", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: listening ? "0 0 0 12px rgba(239,68,68,0.15)" : `0 4px 16px ${accent}40`, transition: "all 0.15s" }}
+            style={{ width: "76px", height: "76px", borderRadius: "50%", background: listening ? "#c0392b" : loading || speaking ? "#e8f0ec" : accent, border: listening ? "4px solid #e8a89e" : `4px solid transparent`, cursor: loading || speaking ? "not-allowed" : "pointer", fontSize: "28px", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: listening ? "0 0 0 14px rgba(192,57,43,0.12)" : `0 6px 20px ${accent}30`, transition: "all 0.15s" }}
           >
             {listening ? "🎙️" : loading || speaking ? "⏳" : "🎤"}
           </button>
-          <div style={{ fontSize: "11px", color: "#94a3b8", letterSpacing: "0.05em", textTransform: "uppercase", fontWeight: "600" }}>
-            {listening ? "Release to send" : loading ? "Thinking..." : speaking ? "Listen..." : "Hold to speak"}
+          <div style={{ fontSize: "11px", color: "#84a98c", letterSpacing: "0.08em", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>
+            {listening ? "Release to send" : loading ? "Thinking..." : speaking ? "Listen carefully..." : "Hold to speak"}
           </div>
         </div>
       )}
 
       <style>{`
-        @keyframes pulse { 0%, 100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.2; transform: scale(0.7); } 50% { opacity: 1; transform: scale(1.1); } }
         * { box-sizing: border-box; }
         ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #f8fafc; }
-        ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 2px; }
+        ::-webkit-scrollbar-track { background: #f8faf8; }
+        ::-webkit-scrollbar-thumb { background: #d8e8e0; border-radius: 2px; }
       `}</style>
     </div>
   );
