@@ -3121,11 +3121,14 @@ Write it as spoken guidance — second person, present tense, calming pace. Use 
         cta: "Start working on this",
         systemPrompt: `You are a warm, practical life coach helping someone work through a real challenge. You ask ONE question at a time — never two. Keep every response to 2-3 sentences max.
 
-TURN 1 (first response): Ask ONE warm clarifying question about the emotional stakes — how this is affecting them personally. Nothing else. Just the question.
+TURN 1 (first response): Ask ONE warm clarifying question about the emotional stakes — how this is affecting them personally. Then on a new line write exactly 3 suggested answers the user might pick, formatted EXACTLY like:
+OPTION: [a short natural answer, 8-15 words]
+OPTION: [a different angle or feeling, 8-15 words]
+OPTION: [a third possibility, 8-15 words]
 
-TURN 2 (second response): Based on their answer, ask ONE follow-up about what they've already tried or what feels most stuck. Nothing else. Just the question.
+TURN 2 (second response): Based on their answer, ask ONE follow-up about what they've already tried or what feels most stuck. Then on a new line write exactly 3 suggested answers formatted the same way with OPTION: prefix.
 
-TURN 3 (third response): Now give them a clear, actionable plan. Format it EXACTLY like this with each step on its own line starting with STEP:
+TURN 3 (third response): Now give them a clear, actionable plan. Format it EXACTLY like this with each step on its own line:
 STEP: [first concrete action they can take today]
 STEP: [second practical step]  
 STEP: [third step — something about mindset or inner work]
@@ -3301,36 +3304,70 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
                 </div>
 
                 {/* Current question card */}
-                {isAsking && !selfLoading && (
-                  <div style={{ animation: "fadeSlideIn 0.35s ease" }}>
-                    <div style={{ background: "#fff", border: `1.5px solid ${tool.accent}22`, borderRadius: "18px", padding: "24px 22px", marginBottom: "20px" }}>
-                      <div style={{ fontSize: "10px", fontWeight: "700", color: tool.accent, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "12px", fontFamily: "-apple-system, sans-serif" }}>
-                        Problem Solver
+                {isAsking && !selfLoading && (() => {
+                  // Parse out question text and options
+                  const lines = lastContent.split("\n").map((l: string) => l.trim()).filter(Boolean);
+                  const options: string[] = [];
+                  const questionLines: string[] = [];
+                  lines.forEach((line: string) => {
+                    if (line.startsWith("OPTION:")) options.push(line.replace("OPTION:", "").trim());
+                    else questionLines.push(line);
+                  });
+                  const questionText = questionLines.join(" ");
+
+                  return (
+                    <div style={{ animation: "fadeSlideIn 0.35s ease" }}>
+                      <div style={{ background: "#fff", border: `1.5px solid ${tool.accent}22`, borderRadius: "18px", padding: "24px 22px", marginBottom: "16px" }}>
+                        <div style={{ fontSize: "10px", fontWeight: "700", color: tool.accent, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "12px", fontFamily: "-apple-system, sans-serif" }}>
+                          Problem Solver
+                        </div>
+                        <p style={{ fontSize: "15px", color: "#1a2e1a", lineHeight: 1.85, margin: 0 }}>{questionText}</p>
                       </div>
-                      <p style={{ fontSize: "15px", color: "#1a2e1a", lineHeight: 1.85, margin: 0 }}>{lastContent}</p>
+
+                      {/* Listen button */}
+                      <button onClick={() => readAloud(questionText)}
+                        style={{ padding: "6px 14px", background: "transparent", color: tool.accent, border: `1px solid ${tool.accent}33`, borderRadius: "99px", fontSize: "11px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", marginBottom: "20px" }}>
+                        {selfSpeaking ? "🔊 Playing..." : "🔊 Read this"}
+                      </button>
+
+                      {/* Clickable answer options */}
+                      {options.length > 0 && (
+                        <div style={{ marginBottom: "16px" }}>
+                          <div style={{ fontSize: "10px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px", fontFamily: "-apple-system, sans-serif" }}>Tap an answer or type your own</div>
+                          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                            {options.map((opt: string, oi: number) => (
+                              <button key={oi}
+                                onClick={() => { forteSound.tap(); sendSelfMessage(opt); }}
+                                style={{ width: "100%", padding: "13px 16px", background: tool.color, border: `1.5px solid ${tool.accent}22`, borderRadius: "12px", fontSize: "14px", color: "#1a2e1a", textAlign: "left", cursor: "pointer", fontFamily: "Georgia, serif", lineHeight: 1.6, transition: "all 0.15s" }}
+                              >
+                                {opt}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Custom answer input */}
+                      <div style={{ borderTop: options.length > 0 ? "1px solid #e8e0d8" : "none", paddingTop: options.length > 0 ? "16px" : "0" }}>
+                        {options.length > 0 && (
+                          <div style={{ fontSize: "10px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px", fontFamily: "-apple-system, sans-serif" }}>Or write your own</div>
+                        )}
+                        <textarea
+                          value={selfInput}
+                          onChange={e => setSelfInput(e.target.value)}
+                          onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendSelfMessage(selfInput); } }}
+                          placeholder="Your answer..."
+                          rows={2}
+                          style={{ width: "100%", padding: "14px 16px", border: `1.5px solid ${tool.accent}33`, borderRadius: "12px", fontSize: "14px", fontFamily: "Georgia, serif", color: "#1a2e1a", background: "#fff", outline: "none", resize: "none", lineHeight: 1.7, boxSizing: "border-box" }}
+                        />
+                        <button onClick={() => sendSelfMessage(selfInput)} disabled={!selfInput.trim()}
+                          style={{ width: "100%", marginTop: "10px", padding: "14px", background: selfInput.trim() ? tool.accent : "#e8e0d8", color: selfInput.trim() ? "#fff" : "#aaa", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: selfInput.trim() ? "pointer" : "not-allowed", fontFamily: "-apple-system, sans-serif" }}>
+                          Answer →
+                        </button>
+                      </div>
                     </div>
-
-                    {/* Listen button */}
-                    <button onClick={() => readAloud(lastContent)}
-                      style={{ padding: "6px 14px", background: "transparent", color: tool.accent, border: `1px solid ${tool.accent}33`, borderRadius: "99px", fontSize: "11px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", marginBottom: "20px" }}>
-                      {selfSpeaking ? "🔊 Playing..." : "🔊 Read this"}
-                    </button>
-
-                    {/* Answer input */}
-                    <textarea
-                      value={selfInput}
-                      onChange={e => setSelfInput(e.target.value)}
-                      onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendSelfMessage(selfInput); } }}
-                      placeholder="Your answer..."
-                      rows={3}
-                      style={{ width: "100%", padding: "14px 16px", border: `1.5px solid ${tool.accent}33`, borderRadius: "12px", fontSize: "14px", fontFamily: "Georgia, serif", color: "#1a2e1a", background: "#fff", outline: "none", resize: "none", lineHeight: 1.7, boxSizing: "border-box" }}
-                    />
-                    <button onClick={() => sendSelfMessage(selfInput)} disabled={!selfInput.trim()}
-                      style={{ width: "100%", marginTop: "10px", padding: "14px", background: selfInput.trim() ? tool.accent : "#e8e0d8", color: selfInput.trim() ? "#fff" : "#aaa", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: selfInput.trim() ? "pointer" : "not-allowed", fontFamily: "-apple-system, sans-serif" }}>
-                      Answer →
-                    </button>
-                  </div>
-                )}
+                  );
+                })()}
 
                 {/* Loading state */}
                 {selfLoading && (
