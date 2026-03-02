@@ -1007,6 +1007,7 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       },
       {
         subcategory: "Red Flags & Boundaries",
+        isRedFlag: true,
         title: "When a family member gaslights you",
         subtitle: "They make you question your own memory and reality. It's not okay.",
         ai_role: "a family member who gaslights",
@@ -1045,6 +1046,7 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       },
       {
         subcategory: "Red Flags & Boundaries",
+        isRedFlag: true,
         title: "When a family member repeatedly crosses your limits",
         subtitle: "You've said it before. They do it again. What now?",
         ai_role: "a family member who doesn't respect your limits",
@@ -1383,6 +1385,7 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       },
       {
         subcategory: "Red Flags & Boundaries",
+        isRedFlag: true,
         title: "Recognizing love bombing before it's too late",
         subtitle: "Overwhelming attention feels amazing — until it doesn't.",
         ai_role: "someone who is love bombing you",
@@ -1421,6 +1424,7 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       },
       {
         subcategory: "Red Flags & Boundaries",
+        isRedFlag: true,
         title: "When they guilt-trip you for having limits",
         subtitle: "You said no to something reasonable. They made you feel terrible.",
         ai_role: "a date or partner who guilt-trips you",
@@ -1901,6 +1905,7 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       },
       {
         subcategory: "Red Flags & Boundaries",
+        isRedFlag: true,
         title: "The passive aggressive friend",
         subtitle: "They say 'I'm fine' — but nothing about this is fine.",
         ai_role: "a passive aggressive friend",
@@ -1939,6 +1944,7 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       },
       {
         subcategory: "Red Flags & Boundaries",
+        isRedFlag: true,
         title: "When a friend never takes responsibility",
         subtitle: "It's always someone else's fault. You're always the one apologizing.",
         ai_role: "a friend who deflects all accountability",
@@ -2165,6 +2171,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       },
       {
         subcategory: "Red Flags & Boundaries",
+        isRedFlag: true,
+        isWorkRedFlag: true,
         title: "When your manager takes credit for your work",
         subtitle: "It happened again. How do you address it without blowing up your career?",
         ai_role: "your manager who has been taking credit for your work",
@@ -2188,6 +2196,12 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
             bad: { user: "I talked to them once and nothing changed so I just accepted it. I don't want to rock the boat.", ai: "*(continues the behavior)*", note: "🚩 Red flag: Accepting it teaches them it's costless. If one conversation doesn't work, the next step is a paper trail and potentially HR — not acceptance." },
             good: { user: "I'm documenting this conversation and if the pattern continues I'll need to bring it to HR. I'm telling you this directly because I'd rather resolve it here first.", ai: "*(very carefully now)* I understand. Let's make sure that doesn't become necessary.", note: "✓ You gave them a clear choice with a clear consequence. Calm and professional. They now know you are serious and are watching." },
           },
+          {
+            tip: "Build your paper trail — your future self will thank you",
+            why: "If this ever leads to retaliation or wrongful termination, your documentation is your protection. HR departments and employment lawyers work with evidence, not memory. Build the record before you need it.",
+            bad: { user: "I never wrote anything down. It was all verbal. When HR asked for specific examples I couldn't give dates or details.", ai: "*(HR officer tone)* Without documentation it's very difficult for us to act on this.", note: "📋 Reality: Without a paper trail, it's your word against a manager's — and the person with more institutional power almost always wins that contest." },
+            good: { user: "After every incident I send myself an email with the date, what happened, who was present, and what was said exactly. I have six months of records.", ai: "*(HR officer tone)* This is very helpful. This gives us something concrete to work with.", note: "✓ A timestamped email to yourself right after an incident is one of the most powerful tools you have. It's simple, quiet, and nearly impossible to dispute." },
+          },
         ],
         suggestions: [
           ["I have documentation of my original contribution — I'd like to talk about how attribution works on our team.", "I want to make sure my work is visible. Can we set up a process going forward?", "I've noticed a pattern I'd like to address professionally."],
@@ -2203,6 +2217,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       },
       {
         subcategory: "Red Flags & Boundaries",
+        isRedFlag: true,
+        isWorkRedFlag: true,
         title: "Recognizing a manipulative colleague",
         subtitle: "Something feels off. Learn to name what you're seeing.",
         ai_role: "a manipulative colleague",
@@ -2239,6 +2255,12 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
 
 BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
+          {
+            tip: "Protect yourself quietly and professionally",
+            why: "A colleague who manipulates may eventually try to push you out or damage your reputation. Build your protection now, before you need it — quietly, professionally, without tipping them off.",
+            bad: { user: "I had no record of anything. When they went to HR with their version of events I had nothing to counter it with.", ai: "*(HR officer tone)* We're hearing very different accounts here and without evidence it's hard to determine what happened.", note: "📋 Reality: A strategic manipulator may already be building a narrative about you. You need a counter-record that exists independently of their version." },
+            good: { user: "I keep a private log on my personal device — dates, what happened, exact quotes when I can. I also forward any concerning emails to my personal address immediately.", ai: "*(HR officer tone)* This level of documentation is exactly what helps us investigate these situations properly.", note: "✓ Three steps to take right now: (1) Start a private log — date, what happened, who witnessed it. (2) Forward any concerning emails to your personal address. (3) Note witnesses. Do this quietly — it protects you without escalating prematurely." },
+          },
     ],
   },
 ];
@@ -2382,6 +2404,7 @@ export default function Forte() {
   const [selfMessages, setSelfMessages] = useState<any[]>([]);
   const [selfStep, setSelfStep] = useState(0); // for problem solver clarifying steps
   const [selfSpeaking, setSelfSpeaking] = useState(false);
+  const [redFlagPath, setRedFlagPath] = useState<string>(""); // "navigate" | "leave" | "document"
   const [userTurns, setUserTurns] = useState(0);
   const [customWho, setCustomWho] = useState("");
   const [customSituation, setCustomSituation] = useState("");
@@ -2529,7 +2552,7 @@ export default function Forte() {
     setMessages([]); setFeedback(null); setUserTurns(0);
     setTranscript(""); setTypedMessage(""); setLessonIndex(0);
     setCustomWho(""); setCustomSituation(""); setCustomGoal("");
-    setSubcategoryFilter("All"); setShowFeedbackModal(false); setFeedbackReading(false); setDynamicSuggestions([]); setSelfTool(""); setSelfInput(""); setSelfResult(null); setSelfMessages([]); setSelfStep(0); setSelfSpeaking(false);
+    setSubcategoryFilter("All"); setShowFeedbackModal(false); setFeedbackReading(false); setDynamicSuggestions([]); setSelfTool(""); setSelfInput(""); setSelfResult(null); setSelfMessages([]); setSelfStep(0); setSelfSpeaking(false); setRedFlagPath("");
     window.speechSynthesis.cancel();
   }
 
@@ -3000,7 +3023,149 @@ Format the plan with gentle headers. Be warm, not clinical.`,
   }
 
   // LEARN PHASE
-  if (phase === "learn" && selectedSituation?.lessons) {
+  // ── RED FLAG VALIDATION SCREEN ──────────────────────────────────
+  if (phase === "learn" && selectedSituation?.isRedFlag && !selectedSituation?.isWorkRedFlag && !redFlagPath) {
+    const accent2 = selectedCategory?.accent || "#2d6a4f";
+    return (
+      <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
+        <div style={{ maxWidth: "600px", margin: "0 auto", padding: "48px 24px 64px" }}>
+          <button onClick={() => { setSubcategoryFilter("All"); setPhase("scenario"); }} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", marginBottom: "40px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
+
+          {/* Header */}
+          <div style={{ marginBottom: "36px" }}>
+            <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.2em", color: accent2, textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", marginBottom: "14px" }}>Before we begin</div>
+            <h2 style={{ fontSize: "32px", fontWeight: "400", color: "#1a2e1a", margin: "0 0 16px", lineHeight: 1.2 }}>{selectedSituation.title}</h2>
+            <p style={{ fontSize: "15px", color: "#52796f", lineHeight: 1.8, margin: 0, fontStyle: "italic" }}>{selectedSituation.subtitle}</p>
+          </div>
+
+          {/* Validation message */}
+          <div style={{ background: "#fff", border: `1.5px solid ${accent2}22`, borderRadius: "18px", padding: "28px 32px", marginBottom: "28px" }}>
+            <div style={{ fontSize: "22px", marginBottom: "14px" }}>🌿</div>
+            <p style={{ fontSize: "16px", color: "#1a2e1a", lineHeight: 1.9, margin: "0 0 16px", fontWeight: "500" }}>
+              First, something important:
+            </p>
+            <p style={{ fontSize: "15px", color: "#2d3e35", lineHeight: 1.9, margin: "0 0 16px" }}>
+              You don't owe anyone a conversation. You don't owe anyone repeated chances. You don't owe anyone access to you when that access consistently costs you your peace.
+            </p>
+            <p style={{ fontSize: "15px", color: "#2d3e35", lineHeight: 1.9, margin: "0 0 16px" }}>
+              <strong>Leaving a relationship — or creating distance from it — is a complete, valid, and sometimes the healthiest choice available to you.</strong> You do not have to explain it. You do not have to justify it. You do not have to try harder first.
+            </p>
+            <p style={{ fontSize: "15px", color: "#2d3e35", lineHeight: 1.9, margin: 0 }}>
+              FORTE can help you practice navigating difficult conversations — but it will never tell you that you should stay in something that isn't safe or healthy for you.
+            </p>
+          </div>
+
+          {/* Path choice */}
+          <p style={{ fontSize: "13px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginBottom: "16px", textAlign: "center" }}>What would you like to do?</p>
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+
+            <button onClick={() => setRedFlagPath("navigate")}
+              style={{ background: "#fff", border: `1.5px solid ${accent2}33`, borderRadius: "14px", padding: "22px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.2s", display: "flex", alignItems: "center", gap: "18px" }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = accent2; e.currentTarget.style.background = selectedCategory?.color || "#f0f7f4"; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = `${accent2}33`; e.currentTarget.style.background = "#fff"; }}>
+              <div style={{ fontSize: "28px", flexShrink: 0 }}>💬</div>
+              <div>
+                <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>I want to learn how to navigate this</div>
+                <div style={{ fontSize: "13px", color: "#84a98c", lineHeight: 1.5 }}>See what healthy responses look like and practice the conversation</div>
+              </div>
+            </button>
+
+            <button onClick={() => setRedFlagPath("leave")}
+              style={{ background: "#fff", border: "1.5px solid #e8d5f5", borderRadius: "14px", padding: "22px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.2s", display: "flex", alignItems: "center", gap: "18px" }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = "#7c5cbf"; e.currentTarget.style.background = "#f8f3ff"; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = "#e8d5f5"; e.currentTarget.style.background = "#fff"; }}>
+              <div style={{ fontSize: "28px", flexShrink: 0 }}>🚪</div>
+              <div>
+                <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>I want to create distance or leave this relationship</div>
+                <div style={{ fontSize: "13px", color: "#84a98c", lineHeight: 1.5 }}>Learn how to step back with clarity, self-respect, and without guilt</div>
+              </div>
+            </button>
+
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── LEAVING / DISTANCE PATH ───────────────────────────────────────
+  if (phase === "learn" && selectedSituation?.isRedFlag && !selectedSituation?.isWorkRedFlag && redFlagPath === "leave") {
+    const accent2 = selectedCategory?.accent || "#2d6a4f";
+    const leavingTips = [
+      {
+        heading: "You don't need a reason they accept",
+        body: "When you decide to end or distance from a relationship, the other person's disagreement with your decision does not make it wrong. Their hurt, their argument, their counter-narrative — none of that is a veto. You are the only one who gets to decide who you let into your life and how much access they have.",
+        action: "If they ask why: 'This isn't working for me' is a complete sentence. You don't owe them a debate.",
+      },
+      {
+        heading: "Guilt is not a sign you're doing the wrong thing",
+        body: "Feeling guilty when you end or limit a relationship — especially a long one — is normal. It does not mean you're being cruel. It often means you're a caring person doing something hard. Guilt and correctness can exist at the same time. Don't let guilt be the thing that keeps you in something unhealthy.",
+        action: "When guilt shows up, say to yourself: 'I can feel bad about this and still know it's right.'",
+      },
+      {
+        heading: "Fading out vs. direct conversation — both are valid",
+        body: "You don't always have to have a 'breakup conversation.' Slowly reducing contact, not initiating, keeping interactions brief — these are legitimate ways to create distance. You don't owe every relationship a formal ending. Sometimes the most self-protective thing is a quiet, gradual exit.",
+        action: "Only have a direct conversation if YOU need it for closure — not because you feel obligated to give them one.",
+      },
+      {
+        heading: "If you do choose to say something, keep it short and final",
+        body: "If you decide to say something directly, the most effective approach is brief, kind, and final. A long explanation is an invitation to argue. 'I've realized this relationship isn't healthy for me and I need to step back' closes the door gently. 'Here's everything that was wrong' opens a negotiation.",
+        action: "Script it once, say it once. You don't have to respond to their response.",
+      },
+      {
+        heading: "Protecting yourself from retaliation",
+        body: "Some people do not accept endings gracefully. They may escalate, guilt-trip loudly, involve mutual friends, or try to damage your reputation. Know in advance: this is their response to losing control, not evidence that you were wrong. Tell one trusted person what you're doing and why. Document anything that becomes harassment.",
+        action: "If the ending feels unsafe, tell someone you trust before you do it. You don't have to do this alone.",
+      },
+    ];
+    return (
+      <div style={{ minHeight: "100vh", background: "#f8f3ff", fontFamily: "Georgia, serif" }}>
+        <div style={{ maxWidth: "640px", margin: "0 auto", padding: "48px 24px 64px" }}>
+          <button onClick={() => setRedFlagPath("")} style={{ background: "transparent", border: "none", color: "#9b8abf", cursor: "pointer", fontSize: "14px", marginBottom: "40px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
+
+          <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.2em", color: "#7c5cbf", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", marginBottom: "14px" }}>Creating space · {selectedSituation.title}</div>
+          <h2 style={{ fontSize: "30px", fontWeight: "400", color: "#1a2e1a", margin: "0 0 8px" }}>You are allowed to leave.</h2>
+          <p style={{ fontSize: "15px", color: "#6b5a8a", lineHeight: 1.8, margin: "0 0 36px", fontStyle: "italic" }}>Here's how to do it with clarity and self-respect.</p>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px", marginBottom: "36px" }}>
+            {leavingTips.map((tip, i) => (
+              <div key={i} style={{ background: "#fff", border: "1px solid #e8d5f5", borderRadius: "16px", padding: "24px 28px" }}>
+                <div style={{ display: "flex", alignItems: "flex-start", gap: "14px" }}>
+                  <div style={{ width: "28px", height: "28px", borderRadius: "50%", background: "#f0e8ff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: "700", color: "#7c5cbf", flexShrink: 0, fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>{i + 1}</div>
+                  <div>
+                    <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", marginBottom: "10px", fontFamily: "-apple-system, sans-serif" }}>{tip.heading}</div>
+                    <p style={{ fontSize: "14px", color: "#2d3e35", lineHeight: 1.8, margin: "0 0 14px" }}>{tip.body}</p>
+                    <div style={{ background: "#f5f0ff", borderRadius: "10px", padding: "12px 16px", borderLeft: "3px solid #7c5cbf" }}>
+                      <div style={{ fontSize: "10px", fontWeight: "700", color: "#7c5cbf", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "6px", fontFamily: "-apple-system, sans-serif" }}>Try this</div>
+                      <div style={{ fontSize: "13px", color: "#3d2e5a", lineHeight: 1.7 }}>{tip.action}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ background: "#f0e8ff", borderRadius: "16px", padding: "24px 28px", marginBottom: "24px" }}>
+            <p style={{ fontSize: "15px", color: "#3d2e5a", lineHeight: 1.9, margin: 0, fontStyle: "italic" }}>
+              "The most loving thing you can do for yourself — and sometimes for others — is to stop participating in something that isn't working. That is not giving up. That is growing up."
+            </p>
+          </div>
+
+          <div style={{ display: "flex", gap: "10px" }}>
+            <button onClick={() => setRedFlagPath("navigate")}
+              style={{ flex: 1, padding: "14px", background: "#fff", color: "#7c5cbf", border: "1.5px solid #e8d5f5", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+              I still want to practice the conversation
+            </button>
+            <button onClick={() => { setSubcategoryFilter("All"); setPhase("scenario"); setRedFlagPath(""); }}
+              style={{ flex: 1, padding: "14px", background: "#7c5cbf", color: "#fff", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+              I'm good — back to topics
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (phase === "learn" && selectedSituation?.lessons && (!selectedSituation?.isRedFlag || selectedSituation?.isWorkRedFlag || redFlagPath === "navigate")) {
     const lessons = selectedSituation.lessons;
     const lesson = lessons[lessonIndex];
     const isLast = lessonIndex >= lessons.length - 1;
@@ -3008,7 +3173,7 @@ Format the plan with gentle headers. Be warm, not clinical.`,
       <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
         <div style={{ maxWidth: "720px", margin: "0 auto", padding: "40px 24px 60px" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "40px" }}>
-            <button onClick={() => setPhase("scenario")} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
+            <button onClick={() => { setPhase("scenario"); setRedFlagPath(""); }} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
             <div style={{ display: "flex", gap: "8px" }}>
               {lessons.map((_: any, i: number) => (
                 <div key={i} style={{ width: "28px", height: "4px", borderRadius: "2px", background: i <= lessonIndex ? accent : "#d8e8e0", transition: "background 0.3s" }} />
