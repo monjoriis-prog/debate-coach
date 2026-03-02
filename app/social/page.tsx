@@ -1951,6 +1951,8 @@ export default function Forte() {
   const [typedMessage, setTypedMessage] = useState("");
   const [inputMode, setInputMode] = useState<"voice"|"type">("type");
   const [feedback, setFeedback] = useState<any>(null);
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const [feedbackReading, setFeedbackReading] = useState(false);
   const [userTurns, setUserTurns] = useState(0);
   const [customWho, setCustomWho] = useState("");
   const [customSituation, setCustomSituation] = useState("");
@@ -2051,7 +2053,7 @@ export default function Forte() {
     if (parsed) {
       setFeedback(parsed);
       setMessages([...newMessages, { role: "assistant", content: parsed.raw || "That was a wonderful conversation." }]);
-      setPhase("done");
+      setPhase("done"); setTimeout(() => setShowFeedbackModal(true), 600);
       setSpeaking(true);
       speak(parsed.verdict || "Well done.", { pitch: 1.0, rate: 0.78, preferFemale: true }, () => setSpeaking(false));
     } else {
@@ -2067,7 +2069,7 @@ export default function Forte() {
     setMessages([]); setFeedback(null); setUserTurns(0);
     setTranscript(""); setTypedMessage(""); setLessonIndex(0);
     setCustomWho(""); setCustomSituation(""); setCustomGoal("");
-    setSubcategoryFilter("All");
+    setSubcategoryFilter("All"); setShowFeedbackModal(false); setFeedbackReading(false);
     window.speechSynthesis.cancel();
   }
 
@@ -2334,51 +2336,111 @@ export default function Forte() {
           </div>
         )}
 
-        {phase === "done" && feedback && (
-          <div style={{ background: "#fff", borderRadius: "20px", padding: "32px", marginTop: "8px", border: "1px solid #d8e8e0", boxShadow: "0 4px 24px rgba(45,106,79,0.06)" }}>
-            <div style={{ textAlign: "center", marginBottom: "32px" }}>
-              <div style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.2em", color: "#84a98c", textTransform: "uppercase", marginBottom: "10px", fontFamily: "-apple-system, sans-serif" }}>Your Session Score</div>
-              <div style={{ fontSize: "88px", fontWeight: "400", lineHeight: 1, color: accent }}>{totalScore}</div>
-              <div style={{ fontSize: "13px", color: "#84a98c", marginTop: "4px", fontFamily: "-apple-system, sans-serif" }}>out of 10</div>
-            </div>
-            <ScoreBar label="Warmth" score={feedback.warmth} accent={accent} />
-            <ScoreBar label="Clarity" score={feedback.clarity} accent={accent} />
-            <ScoreBar label="Listening" score={feedback.listening} accent={accent} />
-            <ScoreBar label="Confidence" score={feedback.confidence} accent={accent} />
-            <ScoreBar label="Body Language Awareness" score={feedback.bodyLanguage} accent={accent} />
-            {feedback.bestMoment && (
-              <div style={{ marginTop: "24px", padding: "18px", background: "#f0f7f4", borderRadius: "12px", borderLeft: "3px solid #2d6a4f" }}>
-                <div style={{ fontSize: "10px", fontWeight: "700", color: "#2d6a4f", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>✦ Best Moment</div>
-                <div style={{ fontSize: "14px", color: "#1a2e1a", lineHeight: 1.7, fontStyle: "italic" }}>{feedback.bestMoment}</div>
-              </div>
-            )}
-            {feedback.bodyLanguageNotes && (
-              <div style={{ marginTop: "12px", padding: "18px", background: "#f4f7f0", borderRadius: "12px", borderLeft: "3px solid #40916c" }}>
-                <div style={{ fontSize: "10px", fontWeight: "700", color: "#40916c", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>Body Language Reading</div>
-                <div style={{ fontSize: "14px", color: "#1a2e1a", lineHeight: 1.7 }}>{feedback.bodyLanguageNotes}</div>
-              </div>
-            )}
-            {feedback.improve && (
-              <div style={{ marginTop: "12px", padding: "18px", background: "#faf8f0", borderRadius: "12px", borderLeft: "3px solid #d4a017" }}>
-                <div style={{ fontSize: "10px", fontWeight: "700", color: "#d4a017", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>One Thing to Try Next Time</div>
-                <div style={{ fontSize: "14px", color: "#1a2e1a", lineHeight: 1.7 }}>{feedback.improve}</div>
-              </div>
-            )}
-            {feedback.verdict && (
-              <div style={{ marginTop: "12px", padding: "18px", background: "#f8faf8", borderRadius: "12px" }}>
-                <div style={{ fontSize: "10px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>Coach's Note</div>
-                <div style={{ fontSize: "15px", color: "#1a2e1a", lineHeight: 1.8, fontStyle: "italic" }}>{feedback.verdict}</div>
-              </div>
-            )}
-            <div style={{ display: "flex", gap: "10px", marginTop: "24px" }}>
-              <button onClick={() => { setLessonIndex(0); setPhase("learn"); }} style={{ flex: 1, padding: "13px", background: "#f0f7f4", color: "#2d6a4f", border: "1px solid #d8e8e0", fontSize: "13px", borderRadius: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>Review Tips</button>
-              <button onClick={() => startChat(selectedSituation)} style={{ flex: 1, padding: "13px", background: accent, color: "#fff", border: "none", fontSize: "13px", borderRadius: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>Try Again</button>
-              <button onClick={reset} style={{ flex: 1, padding: "13px", background: "#fff", color: "#84a98c", border: "1px solid #e8f0ec", fontSize: "13px", borderRadius: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>New</button>
-            </div>
-          </div>
-        )}
         <div ref={bottomRef} />
       </div>
+
+
+      {/* ── FEEDBACK CELEBRATION MODAL ──────────────────────────── */}
+      {showFeedbackModal && feedback && (
+        <div style={{ position: "fixed", inset: 0, zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: "16px" }}
+          onClick={(e) => { if (e.target === e.currentTarget) setShowFeedbackModal(false); }}>
+          {/* Backdrop */}
+          <div style={{ position: "absolute", inset: 0, background: "rgba(15,30,20,0.55)", backdropFilter: "blur(4px)" }} />
+          {/* Modal card */}
+          <div style={{ position: "relative", background: "#fff", borderRadius: "24px", width: "100%", maxWidth: "520px", maxHeight: "90vh", overflowY: "auto", boxShadow: "0 24px 80px rgba(0,0,0,0.25)", animation: "modalPop 0.4s cubic-bezier(0.34,1.56,0.64,1)" }}>
+            <style>{`
+              @keyframes modalPop { from { opacity: 0; transform: scale(0.85) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+              @keyframes confettiFall { 0% { transform: translateY(-10px) rotate(0deg); opacity: 1; } 100% { transform: translateY(60px) rotate(360deg); opacity: 0; } }
+            `}</style>
+
+            {/* Confetti burst */}
+            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "80px", overflow: "hidden", borderRadius: "24px 24px 0 0", pointerEvents: "none" }}>
+              {["#2d6a4f","#52796f","#95d5b2","#d4a017","#40916c","#b7e4c7"].map((color, i) => (
+                <div key={i} style={{ position: "absolute", left: `${10 + i * 15}%`, top: "-8px", width: "8px", height: "8px", background: color, borderRadius: i % 2 === 0 ? "50%" : "2px", animation: `confettiFall ${0.8 + i * 0.15}s ease-in ${i * 0.08}s both` }} />
+              ))}
+              {["#2d6a4f","#95d5b2","#d4a017","#52796f","#b7e4c7","#40916c"].map((color, i) => (
+                <div key={i+6} style={{ position: "absolute", left: `${5 + i * 16}%`, top: "-4px", width: "6px", height: "6px", background: color, borderRadius: i % 2 === 0 ? "2px" : "50%", animation: `confettiFall ${0.7 + i * 0.2}s ease-in ${0.1 + i * 0.1}s both` }} />
+              ))}
+            </div>
+
+            {/* Score header */}
+            <div style={{ background: `linear-gradient(135deg, ${accent}18, ${accent}08)`, borderRadius: "24px 24px 0 0", padding: "40px 32px 28px", textAlign: "center", borderBottom: "1px solid #e8f0ec" }}>
+              <div style={{ fontSize: "12px", fontWeight: "700", letterSpacing: "0.2em", color: accent, textTransform: "uppercase", marginBottom: "12px", fontFamily: "-apple-system, sans-serif" }}>Session Complete ✦</div>
+              <div style={{ fontSize: "80px", fontWeight: "300", lineHeight: 1, color: accent, fontFamily: "Georgia, serif" }}>{totalScore}</div>
+              <div style={{ fontSize: "14px", color: "#84a98c", marginTop: "4px", fontFamily: "-apple-system, sans-serif" }}>out of 10</div>
+
+              {/* Read choice buttons */}
+              <div style={{ display: "flex", gap: "10px", marginTop: "20px", justifyContent: "center" }}>
+                <button
+                  onClick={() => {
+                    setFeedbackReading(true);
+                    const text = [
+                      `Your session score is ${totalScore} out of 10.`,
+                      feedback.bestMoment ? `Your best moment: ${feedback.bestMoment}` : "",
+                      feedback.improve ? `One thing to try next time: ${feedback.improve}` : "",
+                      feedback.verdict ? `Coach's note: ${feedback.verdict}` : "",
+                    ].filter(Boolean).join(" ");
+                    const utter = new SpeechSynthesisUtterance(text);
+                    utter.rate = 0.88; utter.pitch = 1.05;
+                    utter.onend = () => setFeedbackReading(false);
+                    window.speechSynthesis.cancel();
+                    window.speechSynthesis.speak(utter);
+                  }}
+                  style={{ padding: "10px 20px", background: feedbackReading ? accent : "#f0f7f4", color: feedbackReading ? "#fff" : accent, border: `1.5px solid ${accent}44`, borderRadius: "99px", fontSize: "13px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s" }}>
+                  {feedbackReading ? "🔊 Reading..." : "🔊 Read it to me"}
+                </button>
+                {feedbackReading && (
+                  <button onClick={() => { window.speechSynthesis.cancel(); setFeedbackReading(false); }}
+                    style={{ padding: "10px 16px", background: "#fff", color: "#84a98c", border: "1.5px solid #e8f0ec", borderRadius: "99px", fontSize: "13px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+                    Stop
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Scores */}
+            <div style={{ padding: "24px 32px" }}>
+              <ScoreBar label="Warmth" score={feedback.warmth} accent={accent} />
+              <ScoreBar label="Clarity" score={feedback.clarity} accent={accent} />
+              <ScoreBar label="Listening" score={feedback.listening} accent={accent} />
+              <ScoreBar label="Confidence" score={feedback.confidence} accent={accent} />
+              <ScoreBar label="Body Language Awareness" score={feedback.bodyLanguage} accent={accent} />
+
+              {feedback.bestMoment && (
+                <div style={{ marginTop: "20px", padding: "18px", background: "#f0f7f4", borderRadius: "14px", borderLeft: "3px solid #2d6a4f" }}>
+                  <div style={{ fontSize: "10px", fontWeight: "700", color: "#2d6a4f", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>✦ Best Moment</div>
+                  <div style={{ fontSize: "14px", color: "#1a2e1a", lineHeight: 1.7, fontStyle: "italic" }}>{feedback.bestMoment}</div>
+                </div>
+              )}
+              {feedback.bodyLanguageNotes && (
+                <div style={{ marginTop: "10px", padding: "18px", background: "#f4f7f0", borderRadius: "14px", borderLeft: "3px solid #40916c" }}>
+                  <div style={{ fontSize: "10px", fontWeight: "700", color: "#40916c", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>Scene Awareness</div>
+                  <div style={{ fontSize: "14px", color: "#1a2e1a", lineHeight: 1.7 }}>{feedback.bodyLanguageNotes}</div>
+                </div>
+              )}
+              {feedback.improve && (
+                <div style={{ marginTop: "10px", padding: "18px", background: "#faf8f0", borderRadius: "14px", borderLeft: "3px solid #d4a017" }}>
+                  <div style={{ fontSize: "10px", fontWeight: "700", color: "#d4a017", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>One Thing to Try Next Time</div>
+                  <div style={{ fontSize: "14px", color: "#1a2e1a", lineHeight: 1.7 }}>{feedback.improve}</div>
+                </div>
+              )}
+              {feedback.verdict && (
+                <div style={{ marginTop: "10px", padding: "18px", background: "#f8faf8", borderRadius: "14px" }}>
+                  <div style={{ fontSize: "10px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>Coach's Note</div>
+                  <div style={{ fontSize: "15px", color: "#1a2e1a", lineHeight: 1.8, fontStyle: "italic" }}>{feedback.verdict}</div>
+                </div>
+              )}
+
+              {/* Action buttons */}
+              <div style={{ display: "flex", gap: "10px", marginTop: "24px" }}>
+                <button onClick={() => { setShowFeedbackModal(false); setLessonIndex(0); setPhase("learn"); }} style={{ flex: 1, padding: "13px", background: "#f0f7f4", color: "#2d6a4f", border: "1px solid #d8e8e0", fontSize: "13px", borderRadius: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>Review Tips</button>
+                <button onClick={() => { setShowFeedbackModal(false); startChat(selectedSituation); }} style={{ flex: 1, padding: "13px", background: accent, color: "#fff", border: "none", fontSize: "13px", borderRadius: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>Try Again</button>
+                <button onClick={() => { setShowFeedbackModal(false); reset(); }} style={{ flex: 1, padding: "13px", background: "#fff", color: "#84a98c", border: "1px solid #e8f0ec", fontSize: "13px", borderRadius: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>New</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {phase === "chat" && (
         <div style={{ background: "#fff", borderTop: "1px solid #e8f0ec", padding: "14px 24px", flexShrink: 0 }}>
