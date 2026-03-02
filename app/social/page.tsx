@@ -2642,110 +2642,37 @@ VERDICT: [2-3 sentence warm encouraging coaching summary — celebrate their gro
 
 // ── FORTE SOUND ENGINE ──────────────────────────────────────────
 // Unique synthesized audio signatures using Web Audio API
-// No sound files needed — these are algorithmically generated
-let _audioCtx: AudioContext | null = null;
-function getAudioCtx(): AudioContext | null {
-  if (typeof window === "undefined") return null;
+function _beep(freq: number, dur: number, wave: string, vol: number, t0: number) {
   try {
-    if (!_audioCtx) {
-      const AC = window.AudioContext || (window as any).webkitAudioContext;
-      if (!AC) return null;
-      _audioCtx = new AC();
-    }
-    if (_audioCtx.state === "suspended") _audioCtx.resume();
-    return _audioCtx;
-  } catch { return null; }
-}
-
-function playTone(freq: number, duration: number, type: OscillatorType = "sine", vol: number = 0.12, delay: number = 0) {
-  try {
-    const ctx = getAudioCtx();
-    if (!ctx) return;
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = type;
-    osc.frequency.setValueAtTime(freq, ctx.currentTime + delay);
-    gain.gain.setValueAtTime(0, ctx.currentTime + delay);
-    gain.gain.linearRampToValueAtTime(vol, ctx.currentTime + delay + 0.02);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + duration);
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start(ctx.currentTime + delay);
-    osc.stop(ctx.currentTime + delay + duration);
+    const AC = (window as any).AudioContext || (window as any).webkitAudioContext;
+    if (!AC) return;
+    const ctx = new AC();
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = wave as any;
+    o.frequency.value = freq;
+    g.gain.setValueAtTime(vol, ctx.currentTime + t0);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t0 + dur);
+    o.connect(g);
+    g.connect(ctx.destination);
+    o.start(ctx.currentTime + t0);
+    o.stop(ctx.currentTime + t0 + dur);
+    setTimeout(() => ctx.close(), (t0 + dur) * 1000 + 200);
   } catch {}
 }
 
 const forteSound = {
-  // Soft rising two-note chime — page navigation
-  pageIn: () => {
-    playTone(523.25, 0.15, "sine", 0.08);       // C5
-    playTone(659.25, 0.2, "sine", 0.1, 0.08);    // E5
-  },
-
-  // Subtle crisp tap — button press
-  tap: () => {
-    playTone(880, 0.06, "sine", 0.06);            // A5 quick
-  },
-
-  // Gentle ascending step — stepper forward
-  stepForward: () => {
-    playTone(440, 0.1, "triangle", 0.07);          // A4
-    playTone(554.37, 0.15, "triangle", 0.09, 0.07); // C#5
-  },
-
-  // Soft descending — stepper back
-  stepBack: () => {
-    playTone(554.37, 0.1, "triangle", 0.06);       // C#5
-    playTone(440, 0.15, "triangle", 0.07, 0.07);    // A4
-  },
-
-  // Warm opening — practice conversation starts
-  practiceStart: () => {
-    playTone(261.63, 0.2, "sine", 0.07);           // C4
-    playTone(329.63, 0.2, "sine", 0.08, 0.1);      // E4
-    playTone(392, 0.25, "sine", 0.09, 0.2);         // G4
-  },
-
-  // Achievement chord — coach feedback reveal
-  coachReveal: () => {
-    playTone(392, 0.3, "sine", 0.09);               // G4
-    playTone(493.88, 0.3, "sine", 0.09, 0.08);      // B4
-    playTone(587.33, 0.35, "sine", 0.1, 0.16);      // D5
-    playTone(783.99, 0.4, "triangle", 0.07, 0.28);  // G5 sparkle
-  },
-
-  // Attention double-ping — red flag popup
-  redFlag: () => {
-    playTone(740, 0.12, "square", 0.05);            // F#5
-    playTone(740, 0.12, "square", 0.05, 0.15);      // F#5 again
-  },
-
-  // Warm resolution — affirmation / chose yourself
-  affirm: () => {
-    playTone(349.23, 0.25, "sine", 0.08);           // F4
-    playTone(440, 0.25, "sine", 0.09, 0.12);        // A4
-    playTone(523.25, 0.3, "sine", 0.1, 0.24);       // C5
-    playTone(698.46, 0.4, "sine", 0.06, 0.38);      // F5 high
-  },
-
-  // Scenario select — quick bright pop
-  select: () => {
-    playTone(659.25, 0.08, "sine", 0.07);           // E5
-    playTone(783.99, 0.12, "sine", 0.09, 0.06);     // G5
-  },
-
-  // Category select — deeper warm tone
-  category: () => {
-    playTone(329.63, 0.15, "sine", 0.08);           // E4
-    playTone(415.3, 0.18, "sine", 0.09, 0.08);      // G#4
-    playTone(523.25, 0.2, "sine", 0.08, 0.16);      // C5
-  },
-
-  // Next lesson tip — soft pluck
-  nextTip: () => {
-    playTone(587.33, 0.1, "triangle", 0.08);        // D5
-    playTone(698.46, 0.14, "triangle", 0.07, 0.06); // F5
-  },
+  category: () => { _beep(330, 0.18, "sine", 0.4, 0); _beep(415, 0.2, "sine", 0.4, 0.1); _beep(523, 0.22, "sine", 0.35, 0.2); },
+  select: () => { _beep(659, 0.1, "sine", 0.4, 0); _beep(784, 0.14, "sine", 0.4, 0.07); },
+  tap: () => { _beep(880, 0.08, "sine", 0.35, 0); },
+  stepForward: () => { _beep(440, 0.12, "triangle", 0.35, 0); _beep(554, 0.16, "triangle", 0.4, 0.08); },
+  stepBack: () => { _beep(554, 0.12, "triangle", 0.3, 0); _beep(440, 0.16, "triangle", 0.35, 0.08); },
+  practiceStart: () => { _beep(262, 0.22, "sine", 0.35, 0); _beep(330, 0.22, "sine", 0.4, 0.12); _beep(392, 0.28, "sine", 0.4, 0.24); },
+  coachReveal: () => { _beep(392, 0.3, "sine", 0.4, 0); _beep(494, 0.3, "sine", 0.4, 0.1); _beep(587, 0.35, "sine", 0.4, 0.2); _beep(784, 0.4, "triangle", 0.3, 0.32); },
+  redFlag: () => { _beep(740, 0.14, "square", 0.25, 0); _beep(740, 0.14, "square", 0.25, 0.18); },
+  affirm: () => { _beep(349, 0.28, "sine", 0.4, 0); _beep(440, 0.28, "sine", 0.4, 0.14); _beep(523, 0.32, "sine", 0.4, 0.28); _beep(698, 0.4, "sine", 0.3, 0.42); },
+  nextTip: () => { _beep(587, 0.12, "triangle", 0.35, 0); _beep(698, 0.16, "triangle", 0.35, 0.07); },
+  pageIn: () => { _beep(523, 0.15, "sine", 0.4, 0); _beep(659, 0.2, "sine", 0.4, 0.1); },
 };
 
 function speak(text: string, voiceConfig: { pitch: number; rate: number; preferFemale: boolean }, onEnd?: () => void) {
