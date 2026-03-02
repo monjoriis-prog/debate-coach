@@ -1008,6 +1008,11 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       {
         subcategory: "Red Flags & Boundaries",
         isRedFlag: true,
+        redFlagAlert: {
+          keywords: ["that did happen", "i remember", "not crazy", "trust myself", "my experience is valid", "i know what happened", "don't rewrite", "gaslighting", "stop telling me what i felt", "i was there"],
+          warning: "You just stood your ground on your own reality. Gaslighting works by making you doubt what you know to be true. The fact that you held firm — even when someone you love tried to rewrite your experience — is incredibly important.",
+          affirmation: "You chose to trust yourself over someone else's version of your reality. That's one of the hardest and most powerful things a person can do. Your memory is valid. Your experience matters. You are not confused — you are clear.",
+        },
         title: "When a family member gaslights you",
         subtitle: "They make you question your own memory and reality. It's not okay.",
         ai_role: "a family member who gaslights",
@@ -1047,6 +1052,11 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       {
         subcategory: "Red Flags & Boundaries",
         isRedFlag: true,
+        redFlagAlert: {
+          keywords: ["said no", "my boundary", "not okay", "stop doing that", "i've told you", "won't tolerate", "consequence", "respect my", "final time", "done explaining", "crossed a line"],
+          warning: "You just enforced a boundary with someone who has repeatedly ignored your limits. This is one of the hardest things to do — especially with family, where love and obligation make it easy to keep giving second chances.",
+          affirmation: "You chose yourself without abandoning the relationship. Boundaries aren't walls — they're the architecture of healthy love. You taught someone how you need to be treated, and that's a gift to both of you.",
+        },
         title: "When a family member repeatedly crosses your limits",
         subtitle: "You've said it before. They do it again. What now?",
         ai_role: "a family member who doesn't respect your limits",
@@ -1386,6 +1396,11 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       {
         subcategory: "Red Flags & Boundaries",
         isRedFlag: true,
+        redFlagAlert: {
+          keywords: ["too fast", "too intense", "slow down", "pattern", "hot and cold", "withdrawal", "don't actually know me", "barely know me", "love bomb", "not healthy", "trap", "earned", "space to think"],
+          warning: "You just named a love bombing pattern. The cycle of overwhelming intensity followed by sudden withdrawal is designed to keep you off-balance and chasing the high. Recognizing it while you're in it takes real clarity.",
+          affirmation: "You saw the pattern for what it was — even when it felt like love. That takes extraordinary self-awareness. You deserve someone whose affection is steady, not strategic. Trust the version of you that can see clearly.",
+        },
         title: "Recognizing love bombing before it's too late",
         subtitle: "Overwhelming attention feels amazing — until it doesn't.",
         ai_role: "someone who is love bombing you",
@@ -1425,6 +1440,11 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       {
         subcategory: "Red Flags & Boundaries",
         isRedFlag: true,
+        redFlagAlert: {
+          keywords: ["not going to apologize", "my answer is no", "both be true", "won't change my mind", "reasonable limit", "don't owe", "not a betrayal", "manipulating", "guilt trip", "punishing me", "silent treatment is", "that's on you"],
+          warning: "You just held a boundary against emotional pressure. Guilt-tripping turns your reasonable 'no' into something you feel you need to apologize for. The fact that you recognized the tactic and stood firm is a sign of real emotional strength.",
+          affirmation: "You refused to let someone else's disappointment override your own needs. That's not cold — it's healthy. You can love someone and still say no. You can care about their feelings and still honor your own. Both things are true.",
+        },
         title: "When they guilt-trip you for having limits",
         subtitle: "You said no to something reasonable. They made you feel terrible.",
         ai_role: "a date or partner who guilt-trips you",
@@ -1463,10 +1483,16 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       },
       {
         subcategory: "Online Dating Safety",
+        isRedFlag: true,
         title: "Meeting someone from an app for the first time",
         subtitle: "They seem great online. Now keep yourself safe in person.",
         ai_role: "someone you matched with on a dating app",
         voice: { pitch: 1.1, rate: 0.8, preferFemale: true },
+        redFlagAlert: {
+          keywords: ["not comfortable", "public place", "my own car", "drive myself", "call it a night", "gut", "leaving", "head out", "going home", "not safe", "something off", "feel off", "weird vibe"],
+          warning: "You just set a safety boundary. That takes real courage — especially when someone is pressuring you to let your guard down. Protecting yourself is never rude. It's smart.",
+          affirmation: "You trusted your instincts and protected yourself. That's not paranoia — that's self-respect. The right person will never make you feel bad for keeping yourself safe.",
+        },
         lessons: [
           {
             tip: "Always meet in a public place — and tell someone where you'll be",
@@ -1499,10 +1525,16 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       },
       {
         subcategory: "Online Dating Safety",
+        isRedFlag: true,
         title: "Recognizing catfishing and fake profiles",
         subtitle: "Something doesn't add up. Trust what you see, not what you hope.",
         ai_role: "someone whose online profile doesn't quite add up",
         voice: { pitch: 1.12, rate: 0.82, preferFemale: false },
+        redFlagAlert: {
+          keywords: ["reverse image", "stock photo", "fake", "not real", "catfish", "won't video", "no video call", "refuse to video", "never seen your face", "prove", "show me", "something doesn't add up", "don't believe", "lying"],
+          warning: "You just identified a major catfishing red flag. Finding stolen photos, repeated refusal to video chat, guilt-tripping you for wanting basic verification — these are textbook signs that this person is not who they claim to be.",
+          affirmation: "You chose reality over fantasy. That takes strength — especially when your emotions are involved. You deserve someone who shows up as themselves. Never apologize for protecting your heart and your time.",
+        },
         lessons: [
           {
             tip: "Watch for stories that are always perfect but never verifiable",
@@ -1535,10 +1567,16 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       },
       {
         subcategory: "Online Dating Safety",
+        isRedFlag: true,
         title: "When to share personal information — and when not to",
         subtitle: "They're asking questions. Some are fine. Some are too much too soon.",
         ai_role: "someone you've been chatting with online",
         voice: { pitch: 1.08, rate: 0.8, preferFemale: false },
+        redFlagAlert: {
+          keywords: ["keep that private", "not sharing", "too specific", "vague for now", "don't need to know", "not comfortable sharing", "boundary", "that's personal", "none of your business", "why do you need", "that's a lot to ask", "collecting"],
+          warning: "You just protected your personal information. Sharing your address, workplace, daily routine, or whether you live alone with someone you haven't met is a real safety risk — no matter how good the connection feels online.",
+          affirmation: "You drew a clear line between emotional openness and personal safety. That's wisdom, not paranoia. You can be warm, real, and deeply connected with someone — without handing them a map to your life before they've earned your trust.",
+        },
         lessons: [
           {
             tip: "Share feelings and stories — not addresses, workplaces, and routines",
@@ -2122,6 +2160,11 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       {
         subcategory: "Red Flags & Boundaries",
         isRedFlag: true,
+        redFlagAlert: {
+          keywords: ["say what you mean", "that felt passive", "indirect", "what are you actually", "just tell me", "stop hinting", "that hurt", "mean that", "sarcasm", "be direct", "something behind that", "not okay to"],
+          warning: "You just named passive-aggressive behavior directly. Passive aggression works because it hides hostility behind plausible deniability — 'I was just joking' or 'You're reading into it.' Calling it out clearly breaks the cycle.",
+          affirmation: "You chose direct honesty over playing the same game. That takes courage — especially when the other person is making you question whether the problem is even real. It is real. And you handled it with clarity.",
+        },
         title: "The passive aggressive friend",
         subtitle: "They say 'I'm fine' — but nothing about this is fine.",
         ai_role: "a passive aggressive friend",
@@ -2161,6 +2204,11 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       {
         subcategory: "Red Flags & Boundaries",
         isRedFlag: true,
+        redFlagAlert: {
+          keywords: ["take responsibility", "accountability", "own it", "your part", "stop blaming", "not my fault this time", "tired of", "every time", "pattern of", "never your fault", "always someone else", "deflecting"],
+          warning: "You just asked someone to take accountability — and that's one of the hardest conversations to have with someone you care about. When a friend consistently avoids responsibility, the friendship becomes a one-way street where you absorb all the emotional cost.",
+          affirmation: "You valued the friendship enough to ask for something real instead of accepting something hollow. If they can hear you — this friendship just got stronger. If they can't — that's important information too. Either way, you showed up with integrity.",
+        },
         title: "When a friend never takes responsibility",
         subtitle: "It's always someone else's fault. You're always the one apologizing.",
         ai_role: "a friend who deflects all accountability",
@@ -2389,6 +2437,11 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         subcategory: "Red Flags & Boundaries",
         isRedFlag: true,
         isWorkRedFlag: true,
+        redFlagAlert: {
+          keywords: ["my work", "i did that", "credit", "recognize", "document", "email trail", "paper trail", "not okay", "stole", "took credit", "that was mine", "i built that", "own contribution"],
+          warning: "You just advocated for your own work. In professional settings, having your contributions erased or claimed by someone else is demoralizing — and it compounds over time. Speaking up about it, especially to a manager, takes real courage.",
+          affirmation: "You stood up for your professional value without burning bridges. That balance of self-advocacy and professionalism is rare. Your work matters, your name should be on it, and you deserve to be the one who says so.",
+        },
         title: "When your manager takes credit for your work",
         subtitle: "It happened again. How do you address it without blowing up your career?",
         ai_role: "your manager who has been taking credit for your work",
@@ -2435,6 +2488,11 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         subcategory: "Red Flags & Boundaries",
         isRedFlag: true,
         isWorkRedFlag: true,
+        redFlagAlert: {
+          keywords: ["manipulating", "playing me", "pattern", "not falling for", "see what you're doing", "won't work on me", "boundary at work", "not my job", "stop volunteering me", "gaslighting at work", "undermining", "setting me up"],
+          warning: "You just identified manipulation in a professional setting. Workplace manipulation is especially tricky because it hides behind professionalism, team dynamics, and power structures. Naming it clearly — even just to yourself — is the first step to protecting yourself.",
+          affirmation: "You saw the game for what it was and refused to play. In a professional context, that kind of clarity protects your career, your energy, and your self-respect. You can be a great colleague without being someone's pawn.",
+        },
         title: "Recognizing a manipulative colleague",
         subtitle: "Something feels off. Learn to name what you're seeing.",
         ai_role: "a manipulative colleague",
@@ -2620,7 +2678,10 @@ export default function Forte() {
   const [selfMessages, setSelfMessages] = useState<any[]>([]);
   const [selfStep, setSelfStep] = useState(0); // for problem solver clarifying steps
   const [selfSpeaking, setSelfSpeaking] = useState(false);
-  const [redFlagPath, setRedFlagPath] = useState<string>(""); // "navigate" | "leave" | "document"
+  const [redFlagPath, setRedFlagPath] = useState<string>("");
+  const [showRedFlagPopup, setShowRedFlagPopup] = useState(false);
+  const [redFlagPopupShown, setRedFlagPopupShown] = useState(false);
+  const [redFlagExited, setRedFlagExited] = useState(false); // "navigate" | "leave" | "document"
   const [userTurns, setUserTurns] = useState(0);
   const [customWho, setCustomWho] = useState("");
   const [customSituation, setCustomSituation] = useState("");
@@ -2759,6 +2820,14 @@ export default function Forte() {
       setSpeaking(true);
       speak(reply, selectedSituation.voice, () => setSpeaking(false));
       generateSuggestions(updatedMessages, selectedSituation);
+      // Red flag intervention check
+      if (selectedSituation?.isRedFlag && selectedSituation?.redFlagAlert && !redFlagPopupShown) {
+        const userMsg = text.toLowerCase();
+        const triggered = selectedSituation.redFlagAlert.keywords.some((kw: string) => userMsg.includes(kw.toLowerCase()));
+        if (triggered) {
+          setTimeout(() => { setShowRedFlagPopup(true); setRedFlagPopupShown(true); window.speechSynthesis.cancel(); setSpeaking(false); }, 1500);
+        }
+      }
     }
     setLoading(false);
   }
@@ -2768,7 +2837,7 @@ export default function Forte() {
     setMessages([]); setFeedback(null); setUserTurns(0);
     setTranscript(""); setTypedMessage(""); setLessonIndex(0);
     setCustomWho(""); setCustomSituation(""); setCustomGoal("");
-    setSubcategoryFilter("All"); setShowFeedbackModal(false); setFeedbackReading(false); setDynamicSuggestions([]); setSelfTool(""); setSelfInput(""); setSelfResult(null); setSelfMessages([]); setSelfStep(0); setSelfSpeaking(false); setRedFlagPath("");
+    setSubcategoryFilter("All"); setShowFeedbackModal(false); setFeedbackReading(false); setDynamicSuggestions([]); setSelfTool(""); setSelfInput(""); setSelfResult(null); setSelfMessages([]); setSelfStep(0); setSelfSpeaking(false); setRedFlagPath(""); setShowRedFlagPopup(false); setRedFlagPopupShown(false); setRedFlagExited(false);
     window.speechSynthesis.cancel();
   }
 
@@ -3515,6 +3584,96 @@ Format the plan with gentle headers. Be warm, not clinical.`,
 
 
       {/* ── FEEDBACK CELEBRATION MODAL ──────────────────────────── */}
+
+      {/* Red Flag Intervention Popup */}
+      {showRedFlagPopup && selectedSituation?.redFlagAlert && (
+        <div style={{ position: "fixed", inset: 0, zIndex: 1001, display: "flex", alignItems: "center", justifyContent: "center", padding: "16px" }}>
+          <div style={{ position: "absolute", inset: 0, background: "rgba(40,10,10,0.6)", backdropFilter: "blur(6px)" }} />
+          <div style={{ position: "relative", background: "#fff", borderRadius: "24px", width: "100%", maxWidth: "480px", maxHeight: "90vh", overflowY: "auto", boxShadow: "0 24px 80px rgba(0,0,0,0.3)", animation: "modalPop 0.4s cubic-bezier(0.34,1.56,0.64,1)" }}>
+
+            {/* Warning header */}
+            <div style={{ background: "linear-gradient(135deg, #dc354518, #dc354508)", borderRadius: "24px 24px 0 0", padding: "36px 28px 24px", textAlign: "center", borderBottom: "1px solid #f0d0d0" }}>
+              <div style={{ fontSize: "48px", marginBottom: "12px" }}>🚩</div>
+              <div style={{ fontSize: "12px", fontWeight: "700", letterSpacing: "0.2em", color: "#c0392b", textTransform: "uppercase", marginBottom: "10px", fontFamily: "-apple-system, sans-serif" }}>Pause — Red Flag Detected</div>
+              <div style={{ fontSize: "20px", fontWeight: "700", color: "#1a1a1a", fontFamily: "Georgia, serif", lineHeight: 1.3 }}>You spotted something important.</div>
+            </div>
+
+            {/* Warning body */}
+            <div style={{ padding: "24px 28px" }}>
+              <div style={{ fontSize: "15px", color: "#333", lineHeight: 1.8, fontFamily: "Georgia, serif", marginBottom: "28px" }}>
+                {selectedSituation.redFlagAlert.warning}
+              </div>
+
+              <div style={{ fontSize: "13px", color: "#666", lineHeight: 1.6, fontFamily: "-apple-system, sans-serif", marginBottom: "28px", padding: "16px", background: "#fdf6f6", borderRadius: "12px", borderLeft: "3px solid #c0392b" }}>
+                This is a practice scenario, but in real life, this would be a moment to seriously consider your safety and well-being before continuing.
+              </div>
+
+              {/* Action buttons */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                <button
+                  onClick={() => { setShowRedFlagPopup(false); }}
+                  style={{ width: "100%", padding: "15px", background: "#fff", color: "#52796f", border: "1.5px solid #d8e8e0", fontSize: "14px", borderRadius: "14px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", fontWeight: "600", transition: "all 0.15s" }}>
+                  I want to keep practicing this conversation →
+                </button>
+                <button
+                  onClick={() => {
+                    setShowRedFlagPopup(false);
+                    setRedFlagExited(true);
+                    setPhase("done");
+                    window.speechSynthesis.cancel();
+                    setSpeaking(false);
+                  }}
+                  style={{ width: "100%", padding: "15px", background: "#c0392b", color: "#fff", border: "none", fontSize: "14px", borderRadius: "14px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", fontWeight: "600", transition: "all 0.15s" }}>
+                  I've seen enough — I know what I need to know
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Red Flag Exit Affirmation */}
+      {redFlagExited && phase === "done" && selectedSituation?.redFlagAlert && (
+        <div style={{ position: "fixed", inset: 0, zIndex: 1001, display: "flex", alignItems: "center", justifyContent: "center", padding: "16px" }}>
+          <div style={{ position: "absolute", inset: 0, background: "rgba(15,30,20,0.55)", backdropFilter: "blur(4px)" }} />
+          <div style={{ position: "relative", background: "#fff", borderRadius: "24px", width: "100%", maxWidth: "480px", maxHeight: "90vh", overflowY: "auto", boxShadow: "0 24px 80px rgba(0,0,0,0.25)", animation: "modalPop 0.4s cubic-bezier(0.34,1.56,0.64,1)" }}>
+
+            {/* Affirmation header */}
+            <div style={{ background: "linear-gradient(135deg, #2d6a4f18, #2d6a4f08)", borderRadius: "24px 24px 0 0", padding: "40px 28px 28px", textAlign: "center", borderBottom: "1px solid #e8f0ec" }}>
+              <div style={{ fontSize: "48px", marginBottom: "12px" }}>💚</div>
+              <div style={{ fontSize: "12px", fontWeight: "700", letterSpacing: "0.2em", color: "#2d6a4f", textTransform: "uppercase", marginBottom: "10px", fontFamily: "-apple-system, sans-serif" }}>You Chose Yourself ✦</div>
+              <div style={{ fontSize: "20px", fontWeight: "700", color: "#1a1a1a", fontFamily: "Georgia, serif", lineHeight: 1.3 }}>That's the whole lesson.</div>
+            </div>
+
+            {/* Affirmation body */}
+            <div style={{ padding: "24px 28px" }}>
+              <div style={{ fontSize: "15px", color: "#333", lineHeight: 1.9, fontFamily: "Georgia, serif", marginBottom: "28px" }}>
+                {selectedSituation.redFlagAlert.affirmation}
+              </div>
+
+              <div style={{ padding: "18px", background: "#f0f7f4", borderRadius: "14px", borderLeft: "3px solid #2d6a4f", marginBottom: "24px" }}>
+                <div style={{ fontSize: "10px", fontWeight: "700", color: "#2d6a4f", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>✦ Remember</div>
+                <div style={{ fontSize: "14px", color: "#1a2e1a", lineHeight: 1.7, fontStyle: "italic", fontFamily: "Georgia, serif" }}>
+                  Walking away is not giving up. It's choosing yourself. And that is always the right answer.
+                </div>
+              </div>
+
+              {/* Action buttons */}
+              <div style={{ display: "flex", gap: "10px" }}>
+                <button onClick={() => { setRedFlagExited(false); setLessonIndex(0); setPhase("learn"); }}
+                  style={{ flex: 1, padding: "14px", background: "#f0f7f4", color: "#2d6a4f", border: "1px solid #d8e8e0", fontSize: "13px", borderRadius: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>
+                  Review Tips
+                </button>
+                <button onClick={() => { setRedFlagExited(false); reset(); }}
+                  style={{ flex: 1, padding: "14px", background: accent, color: "#fff", border: "none", fontSize: "13px", borderRadius: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>
+                  Back to Home
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {showFeedbackModal && feedback && (
         <div style={{ position: "fixed", inset: 0, zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: "16px" }}
           onClick={(e) => { if (e.target === e.currentTarget) setShowFeedbackModal(false); }}>
