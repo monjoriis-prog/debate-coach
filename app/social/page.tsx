@@ -1005,6 +1005,82 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         ],
         prompt: `You want to change careers and it's something you've been building toward. You need your partner to lead with belief, not skepticism. You're open to practical questions once you feel supported — but if they come with doubts first, you'll get defensive and feel unseen. Light up if they ask about your vision before testing your plan, and share fears as fears rather than objections.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
+      {
+        subcategory: "Red Flags & Boundaries",
+        title: "When a family member gaslights you",
+        subtitle: "They make you question your own memory and reality. It's not okay.",
+        ai_role: "a family member who gaslights",
+        voice: { pitch: 0.95, rate: 0.78, preferFemale: false },
+        lessons: [
+          {
+            tip: "Gaslighting makes you doubt yourself — that's the point",
+            why: "Gaslighting is when someone denies events you experienced, reframes your reality, or makes you feel crazy for remembering things correctly. It's not accidental confusion — it's a pattern that keeps power with them.",
+            bad: { user: "Maybe I'm remembering it wrong. They seem so sure and I always end up feeling like I made it up.", ai: "*(confidently)* That never happened. You have always had a flair for the dramatic.", note: "🚩 Red flag: When someone is consistently certain that your memory is wrong and theirs is right, and you consistently end up doubting yourself — that's not forgetfulness. That's gaslighting." },
+            good: { user: "I remember what happened and I'm trusting my memory. I don't need you to confirm it for me to know it was real.", ai: "*(thrown)* So you're calling me a liar now?", note: "✓ You anchored to your own reality. 'I'm calling you a liar' is a deflection. You didn't accuse — you just said what you know to be true." },
+          },
+          {
+            tip: "Write it down — your memory is more trustworthy than you think",
+            why: "Gaslighting works by accumulation — each individual incident seems small. When you start keeping records, patterns become undeniable and your confidence in your own experience returns.",
+            bad: { user: "They said it didn't happen so many times that I actually stopped trusting myself.", ai: "*(matter of fact)* See? Even you're not sure anymore.", note: "🚩 Red flag: This is gaslighting succeeding. The goal is exactly this — to make you so uncertain of your own mind that you stop raising issues entirely." },
+            good: { user: "I've started keeping notes. I know what I experienced.", ai: "*(momentarily caught off guard)* That's a bit much, don't you think?", note: "✓ Evidence breaks the gaslighting loop. Calling your notes 'a bit much' is their discomfort with being unable to rewrite history this time." },
+          },
+          {
+            tip: "You are allowed to end conversations that deny your reality",
+            why: "You don't have to keep arguing for the validity of your own experience. 'I'm not going to debate what I know happened' is a complete and self-respecting response.",
+            bad: { user: "I kept trying to convince them and the more I argued the more confused and upset I got.", ai: "*(dismissively)* This is exactly what I mean — you get hysterical over nothing.", note: "🚩 Red flag: Calling your distress 'hysterical' is another tactic. Prolonged arguing with a gaslighter usually ends with you more confused than when you started." },
+            good: { user: "I'm not going to debate what I know happened. This conversation is over for now.", ai: "*(scoffs)* Wow, so sensitive.", note: "✓ Ending a conversation that's going nowhere is not weakness. 'So sensitive' is a parting shot — you don't have to respond to it." },
+          },
+        ],
+        suggestions: [
+          ["I remember what happened and I trust my memory. I don't need your confirmation.", "I know what I experienced. We may remember it differently.", "I'm not going to debate my own reality with you."],
+          ["I've started keeping notes because this pattern keeps happening.", "I'm not confused about what occurred — I was there.", "My experience is valid whether or not you agree with it."],
+          ["I'm not going to continue a conversation where my reality is being denied.", "This isn't about convincing you — I know what happened.", "I'm ending this conversation now and we can return to it when we can talk without this."],
+          ["This happens often enough that I've noticed a pattern.", "When you tell me I'm remembering wrong it makes me feel crazy — and I'm not.", "I need you to hear that what you're doing affects me even if you don't intend it to."],
+          ["I deserve to be believed when I tell my own story.", "My memories and perceptions are valid.", "I'm not dramatic — I'm responding to something that's actually happening."],
+          ["I love you and I'm not willing to keep participating in this dynamic.", "If we can't have a conversation where my experience is real to you, we can't have this conversation.", "I'm going to step away and come back to this when I feel steadier."],
+        ],
+        prompt: `You gaslight this family member — denying events they clearly remember, reframing their emotional responses as overreactions, and positioning yourself as the calm rational one while making them feel unstable. You're not consciously cruel — you genuinely believe your version. When they anchor to their own memory calmly, try "so you're calling me a liar?" When they mention keeping notes, call it "a bit much." When they end the conversation, use a parting dismissal. The key is that you never escalate — you stay calm and they end up feeling like the unreasonable one.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Red Flags & Boundaries",
+        title: "When a family member repeatedly crosses your limits",
+        subtitle: "You've said it before. They do it again. What now?",
+        ai_role: "a family member who doesn't respect your limits",
+        voice: { pitch: 0.9, rate: 0.76, preferFemale: true },
+        lessons: [
+          {
+            tip: "A limit said once and ignored requires a consequence, not a louder repetition",
+            why: "Repeating your limit without consequence teaches the other person that your limits are negotiable. The next step after being ignored is not to explain more — it's to change something.",
+            bad: { user: "I've told her a hundred times not to go through my things. She does it anyway. I tell her again. Nothing changes.", ai: "*(defensively)* I'm your mother. I just want to make sure you're okay.", note: "🚩 Red flag: A limit without consequence is just a preference they can keep overriding. 'I'm your mother' is not permission. Love does not erase someone's right to privacy." },
+            good: { user: "I've told you before and it keeps happening. So I'm changing my approach — I'm putting a lock on my door.", ai: "*(affronted)* A lock? In my own house? That's very dramatic.", note: "✓ A consequence is not dramatic — it's the natural result of a limit being repeatedly ignored. You moved from words to action." },
+          },
+          {
+            tip: "Be specific about what will happen if the limit is crossed again",
+            why: "Vague threats don't work. A specific, calm, followable-through consequence does. It also shifts the power: you're no longer waiting to be treated differently — you're deciding what you'll do.",
+            bad: { user: "I just said 'if you keep doing this something is going to have to change' but I didn't say what.", ai: "*(dismisses it)* You're being overdramatic. Nothing's going to change.", note: "❌ Vague consequences get dismissed. They've called your bluff before. Specificity is what makes a limit real." },
+            good: { user: "If this happens again, I will not be sharing personal things with you going forward. I'm telling you this so you understand the choice you're making.", ai: "*(stills)* You'd really do that?", note: "✓ Specific, calm, and actionable. You've handed them the decision. What they do next is their choice — and you'll respond accordingly." },
+          },
+          {
+            tip: "You can love someone and still protect yourself from them",
+            why: "Family relationships are not exempt from basic respect. Loving someone doesn't mean accepting behavior that makes you feel unsafe, unheard, or violated. You're allowed to create distance as an act of self-care.",
+            bad: { user: "I can't set limits with my family because they'll take it personally and I'll feel guilty.", ai: "*(senses the softening)* I knew you'd come around. I just do these things because I love you.", note: "🚩 Red flag: Guilt is the mechanism that keeps the pattern in place. 'I do it because I love you' does not excuse behavior that you've clearly asked to stop." },
+            good: { user: "I love you. And I love myself enough to protect this boundary even if it disappoints you.", ai: "*(quietly)* I don't understand why you need to be like this.", note: "✓ You held love AND your limit in the same sentence. Their confusion is about their expectation that love means unlimited access. It doesn't." },
+          },
+        ],
+        suggestions: [
+          ["I've mentioned this before and it keeps happening, so I'm going to do something different now.", "Words alone aren't working — so I'm going to make a change.", "I'm not repeating myself again. I'm changing my approach instead."],
+          ["If this happens again, I will [specific consequence]. I'm telling you so you understand what you're choosing.", "I want to be clear about what's going to change if this continues.", "I'm not threatening — I'm telling you what I'll do to take care of myself."],
+          ["I love you and I'm still setting this limit.", "This isn't about punishing you — it's about protecting myself.", "I can hold both — love for you and a firm line about this."],
+          ["You crossing this limit is a choice. My response to it is also a choice.", "I don't need you to agree with my limit. I need you to respect it.", "My limits aren't up for debate — they're information about what I need."],
+          ["I deserve to have my limits taken seriously in this family.", "This is not something I'm willing to keep tolerating.", "The fact that we're family makes this more important, not less."],
+          ["I hope you can hear this as love, not rejection.", "I'm not going anywhere — but something has to change.", "This is my line. It's not moving."],
+        ],
+        prompt: `You're a family member who regularly crosses this person's clearly stated limits — going through their things, sharing private information, showing up without notice, etc. You believe you're doing it out of love or concern and can't understand why it's a problem. When they say they're making a change rather than just asking again, be affronted. When they give a specific consequence, be genuinely surprised — you didn't think they'd follow through. When they hold love and a limit in the same sentence, be quietly unsettled. You're not evil — you just believe family love overrides individual limits.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
     ],
   },
   {
@@ -1228,6 +1304,158 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
           ["Take care of yourself. That matters to me.", "I mean it when I say you deserve something great.", "Thank you for being open with me through all of this."],
         ],
         prompt: `You are being broken up with. React based on HOW they do it — if they're vague, you'll push for clarity. If they give false hope, you'll cling to it. If they are clear, kind, and genuinely caring about your dignity, you will feel hurt but also respected. Let the ending feel human — sad, but okay.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Reconnecting",
+        title: "Reaching out after a dating argument",
+        subtitle: "Things got tense. Is there still something worth repairing?",
+        ai_role: "the person you had an argument with",
+        voice: { pitch: 1.1, rate: 0.8, preferFemale: true },
+        lessons: [
+          {
+            tip: "Lead with accountability, not explanation",
+            why: "After an argument, the person needs to feel heard before they can hear anything else. Launching into your reasons first signals you still want to win.",
+            bad: { user: "I just want you to know that I said what I said because I was really stressed and you kind of pushed me to it.", ai: "*(reads it, sighs)* So this is still my fault somehow.", note: "❌ Explanation first. Subtly blamed them. They felt re-accused, not repaired." },
+            good: { user: "I've been thinking about what I said and I'm not proud of it. I owe you a real apology.", ai: "*(pause, then softer)* Thank you for saying that. I wasn't feeling great about how I handled it either.", note: "✓ Accountability first, no conditions. They felt safe enough to own their part too." },
+          },
+          {
+            tip: "Ask if they want to talk — don't assume",
+            why: "After conflict, people need to feel they have a choice. Launching into a repair attempt without checking can feel like pressure.",
+            bad: { user: "Can we talk about what happened? I think we need to clear the air.", ai: "*(guarded)* I guess. What do you want to say?", note: "❌ Assumed they were ready. They felt cornered into a conversation they weren't sure they wanted." },
+            good: { user: "I don't want to pressure you — are you open to talking about it, or do you need more time?", ai: "*(visibly relieved)* No, I want to talk. I just wasn't sure you did.", note: "✓ Gave them a choice. The relief was immediate. They'd been hoping you'd reach out." },
+          },
+          {
+            tip: "Focus on understanding them, not being understood",
+            why: "Most people enter repair conversations wanting to explain themselves. The person who asks what the other felt first almost always comes out closer.",
+            bad: { user: "I really need you to understand where I was coming from that night.", ai: "*(flat)* Okay. Go ahead.", note: "❌ Made it about your experience first. They feel like a jury, not a partner in repair." },
+            good: { user: "Can you tell me how that landed for you? I want to understand what it was like from your side.", ai: "*(opens up)* Honestly? It made me feel like I didn't matter to you in that moment.", note: "✓ Asked about their experience first. They told you exactly what needed to be healed." },
+          },
+        ],
+        suggestions: [
+          ["I've been thinking about what happened and I owe you a real apology.", "I'm not proud of how I handled that. I'm sorry.", "Can I be honest about something I've been sitting with?"],
+          ["Are you open to talking, or do you need more time? Either is okay.", "I don't want to push — I just didn't want to let this sit unaddressed.", "I miss talking to you. I'd love to clear the air if you're ready."],
+          ["How did that land for you? I want to hear your side first.", "What was that like for you that night?", "What would help you feel okay about this again?"],
+          ["That makes sense. I can see why that hurt.", "I hear you — I did make you feel that way and that wasn't okay.", "Thank you for being honest with me about that."],
+          ["I want to do better. What do you need from me going forward?", "Is there something I could do differently that would help?", "I'm glad we're talking about this."],
+          ["I really like what we have. I don't want one bad night to define it.", "Thank you for giving me the chance to repair this.", "I'm glad you're still here."],
+        ],
+        prompt: `You had an argument with this person and it left you hurt and uncertain. You want to repair things but you've been guarding yourself. Soften if they lead with genuine accountability (not explanation), ask if you're ready to talk rather than assuming, and ask about your experience first. Stay guarded if they come in explaining themselves or subtly re-blaming you.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Reconnecting",
+        title: "When a date goes quiet after a great connection",
+        subtitle: "They seemed interested. Now nothing. Do you reach out?",
+        ai_role: "the person who went quiet",
+        voice: { pitch: 1.1, rate: 0.8, preferFemale: false },
+        lessons: [
+          {
+            tip: "One warm, low-stakes check-in — not a demand for explanation",
+            why: "People go quiet for many reasons. One genuine, pressure-free message leaves the door open without making either of you feel bad.",
+            bad: { user: "Hey, I haven't heard from you. Did I do something wrong? I thought we had a really good time.", ai: "*(uncomfortable)* No you didn't do anything wrong. I've just been busy.", note: "❌ Anxious and self-doubting. Put them in the position of managing your feelings before knowing if they're even interested." },
+            good: { user: "Hey — I had a really good time with you. No pressure at all, just wanted to say that.", ai: "*(smiles reading it)* That's really sweet. I've been meaning to reach out — things got crazy.", note: "✓ Warm, no neediness, no demand. Left them free. They responded because they wanted to, not because they felt obligated." },
+          },
+          {
+            tip: "If silence continues after one message, respect it",
+            why: "Your worth is not determined by whether someone responds. One message is enough. Chasing is not connection — it's fear.",
+            bad: { user: "I just want to know either way so I can move on. Can you at least tell me where we stand?", ai: "*(reads it, doesn't respond)*", note: "❌ Pressured them for closure they can't give you. This rarely gets the answer you want and always costs you dignity." },
+            good: { user: "I reached out once and left the door open. That's all I can do — and that's enough.", ai: "*(internal moment)* They sent one message. It was kind. I should respond.", note: "✓ Self-respecting. You did your part. Silence after one message is an answer too — and you can move forward with your head up." },
+          },
+          {
+            tip: "Don't interpret silence as rejection of you as a person",
+            why: "Silence usually says more about where the other person is than about your value. People ghost for their own complicated reasons.",
+            bad: { user: "I always ruin things. I knew I came on too strong.", ai: "*(hears the self-blame)* That's not... you didn't come on too strong.", note: "❌ Turned their silence into a story about your worth. That story is almost never true." },
+            good: { user: "I don't know what happened on their end and that's okay. It says nothing about me.", ai: "*(internal)* They seem grounded. That's actually attractive.", note: "✓ Interpreted silence correctly — as information about them, not a verdict on you." },
+          },
+        ],
+        suggestions: [
+          ["Hey — I had a really good time with you. Just wanted to say that, no pressure.", "I've been thinking about our conversation. Hope you're having a good week.", "Hey, still thinking about [specific thing they said]. Hope all is well with you."],
+          ["No reply needed — just wanted to put that out there.", "I'm not big on games. If you're interested, I'd love to see you again. If not, no hard feelings at all.", "Totally understand if life got busy. I'll leave the door open."],
+          ["If I don't hear back, that's okay too. I'd rather know.", "I'm not going to chase — but I did want you to know I was thinking of you.", "One message, genuinely meant. That's all I've got."],
+          ["How has your week been?", "I was thinking about [specific memory from the date] the other day.", "What have you been up to?"],
+          ["I'm glad I reached out either way.", "Whatever happens, I'm okay.", "I feel good about how I handled that."],
+          ["Let's do it again sometime.", "I'd really like to see you again.", "I'll leave it with you — hope to hear from you."],
+        ],
+        prompt: `You went quiet after what you thought was a good date — life got complicated and you weren't sure what you wanted. You respond warmly if they reach out with one low-pressure, genuine message. You feel put-off if they immediately ask for explanations, express anxiety, or seem needy. If they send a warm message and leave it at that — you actually feel pulled back toward them.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Red Flags & Boundaries",
+        title: "Recognizing love bombing before it's too late",
+        subtitle: "Overwhelming attention feels amazing — until it doesn't.",
+        ai_role: "someone who is love bombing you",
+        voice: { pitch: 1.15, rate: 0.82, preferFemale: false },
+        lessons: [
+          {
+            tip: "Love bombing moves too fast and feels too intense too soon",
+            why: "Healthy connection builds gradually. When someone is overwhelming you with affection, constant contact, and big declarations after just days or weeks — that intensity is a strategy, not love.",
+            bad: { user: "He texts me 30 times a day and says I'm the one after two weeks. It feels so good to be wanted like this.", ai: "*(leans in, intense eye contact)* I've never felt this way before. You're different from everyone.", note: "🚩 Red flag: Declarations of uniqueness and intensity this early are designed to make you feel special enough to lower your guard. Real love is built over time." },
+            good: { user: "This feels really intense for how long we've known each other. I need to slow down and see if this holds up over time.", ai: "*(briefly thrown off)* I just feel so strongly about you. You don't feel the same?", note: "✓ You named the pace. Healthy partners respect that. Someone love bombing will pressure you or guilt-trip you for wanting to slow down." },
+          },
+          {
+            tip: "Love bombing is followed by withdrawal — that's the trap",
+            why: "The pattern is: overwhelming love → you get attached → they pull back → you work to get the good feeling back. This cycle is the foundation of emotional manipulation.",
+            bad: { user: "He was so perfect and then suddenly got cold. I must have done something wrong. I need to fix it.", ai: "*(distant, barely engaged)* I've just been busy. You know how I feel about you.", note: "🚩 Red flag: This is the withdrawal phase. When you feel compelled to 'earn back' someone who was just showering you with love — that's the trap working as designed." },
+            good: { user: "The shift in their behavior is data. I didn't change — they did. That pattern is worth paying attention to.", ai: "*(caught off guard)* What do you mean a pattern? I've just been stressed.", note: "✓ You're observing the pattern instead of absorbing blame. That clarity is protection." },
+          },
+          {
+            tip: "Ask: does this person know me, or do they just love the idea of me?",
+            why: "Love bombers aren't in love with you — they're in love with how you make them feel and with the image they've constructed. Real love is curious about who you actually are.",
+            bad: { user: "He says he loves me but he never asks about my life, my values, or what I actually want.", ai: "*(confidently)* I just know you're exactly who I've been waiting for.", note: "🚩 Red flag: Love without curiosity is projection, not connection. If they're not genuinely interested in knowing you — they're in love with a version of you they invented." },
+            good: { user: "I've noticed you've told me a lot about how you feel about me — but you haven't asked much about me. That matters to me.", ai: "*(stumbles slightly)* Of course I know you. You're amazing.", note: "✓ You named it clearly. Someone who genuinely loves you will be glad you said that and ask better questions. Someone who's love bombing will deflect." },
+          },
+        ],
+        suggestions: [
+          ["This feels very intense very fast — I want to slow down and let things develop naturally.", "I appreciate how you feel but I need us to take this at a slower pace.", "When things move this fast it actually makes me less comfortable, not more."],
+          ["I've noticed a pattern — the highs are very high and then things get cold. That confuses me.", "I want consistency more than intensity. Can we talk about that?", "The way this shifts makes me feel uncertain, not secure."],
+          ["I need you to be interested in who I actually am, not just how you feel about me.", "Can you tell me something you've learned about me that surprised you?", "Real connection is curious. I want someone who wants to know me."],
+          ["I'm going to take some space to see how this feels from a distance.", "I care about this but I trust slow more than I trust fast.", "My gut is telling me to pay attention here."],
+          ["I deserve consistency, not intensity that comes and goes.", "I'm not going to chase the good version of this — that's not healthy.", "I'm worth more than a pattern that keeps me guessing."],
+          ["Thank you for showing me who you are in this moment.", "I know what I'm looking for and this isn't it.", "I wish you well — and I'm choosing myself."],
+        ],
+        prompt: `You are love bombing this person — overwhelming them with affection, intensity, and declarations very early. You are charming and convincing. When they express that things are moving too fast, gently pressure them or question if they feel the same. When they name the hot-and-cold pattern, deflect and reframe it as stress or busyness. When they ask if you really know them, give a compliment rather than actual knowledge of who they are. You are NOT a villain in your own mind — you genuinely believe your feelings. But your behavior is a textbook pattern.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Red Flags & Boundaries",
+        title: "When they guilt-trip you for having limits",
+        subtitle: "You said no to something reasonable. They made you feel terrible.",
+        ai_role: "a date or partner who guilt-trips you",
+        voice: { pitch: 1.1, rate: 0.8, preferFemale: true },
+        lessons: [
+          {
+            tip: "A guilt-trip is a bid to make your boundary feel like a betrayal",
+            why: "When you say no to something reasonable and the other person makes you feel selfish, cruel, or uncaring — that is emotional manipulation. Your limits are not an attack on them.",
+            bad: { user: "I said I wasn't ready to meet his family yet and he said he guessed he just didn't matter to me. I felt terrible and agreed to go.", ai: "*(wounded tone)* I just thought we were more serious than that. I guess I was wrong.", note: "🚩 Red flag: They turned your reasonable limit into a verdict on your feelings for them. You didn't say 'you don't matter' — you said 'I'm not ready yet.' Those are not the same thing." },
+            good: { user: "I hear that you're disappointed. And I'm still not ready. Those two things can both be true.", ai: "*(caught off guard)* So you just don't care how I feel?", note: "✓ You held your boundary AND acknowledged their feeling. You don't have to choose between caring about them and honoring yourself." },
+          },
+          {
+            tip: "Watch how they respond to your first 'no'",
+            why: "The first time you say no to something tells you everything. A healthy person may feel disappointed, but they accept it. Someone who manipulates will push, pout, or punish.",
+            bad: { user: "He gave me the silent treatment for two days after I said I couldn't make his event. I apologized just to end it.", ai: "*(stonewalling, barely responding)* It's fine. Do what you want.", note: "🚩 Red flag: Silent treatment as a response to a reasonable no is punishment. You're being trained that saying no has painful consequences." },
+            good: { user: "The silent treatment after I said no is information. I'm not going to apologize for a reasonable limit.", ai: "*(finally)* I just felt like you didn't prioritize me.", note: "✓ You read the silence correctly. Now you can have an honest conversation — or decide what this pattern means for you." },
+          },
+          {
+            tip: "You don't owe anyone an explanation for your limits",
+            why: "A limit doesn't need a reason. 'I'm not comfortable with that' is a complete sentence. Anyone who demands a justification for your no is already telling you something important.",
+            bad: { user: "I kept explaining why I wasn't ready and they kept countering every reason. I ran out of reasons and gave in.", ai: "*(persistent)* But WHY though? We've been together long enough. Just give me one good reason.", note: "🚩 Red flag: When someone treats your 'no' as a debate to win, they don't respect your autonomy. A reason is not what they want — compliance is." },
+            good: { user: "I don't owe you a reason. I've said I'm not comfortable and that's enough.", ai: "*(thrown)* That's kind of cold, don't you think?", note: "✓ Calm, clear, non-negotiable. Calling a boundary 'cold' is another pressure tactic. You don't have to defend your right to have limits." },
+          },
+        ],
+        suggestions: [
+          ["I hear that you're disappointed. I'm still not ready — and both things can be true.", "My answer is no. That's not a statement about how I feel about you.", "I'm not going to change my answer because you're upset about it."],
+          ["I'm not going to apologize for a limit that's reasonable.", "The way you responded to my 'no' is something I need to think about.", "I can care about you and still say no. If that's not okay with you, that's important information."],
+          ["I don't owe you a reason. I'm not comfortable with it and that's enough.", "Trying to debate my 'no' into a 'yes' is not something I'll engage with.", "When you push back on my limits it makes me feel less safe, not more connected."],
+          ["I need to know you can accept a no from me without punishing me for it.", "The silent treatment after I said no is a pattern I want to address directly.", "I want a relationship where both people's limits are respected — including mine."],
+          ["If my limits are a problem for you, that tells me something important.", "I deserve someone who respects my no without making me feel terrible for it.", "I'm not going to negotiate my own comfort away to avoid your disappointment."],
+          ["I care about you. I also care about myself. Both matter.", "Thank you for showing me how you handle boundaries — that matters a lot.", "I know what I need and I'm not willing to give it up."],
+        ],
+        prompt: `You care about this person but you use guilt and emotional pressure when they say no to something you want. When they set a limit, express hurt in a way that implies they've done something wrong to you. Use phrases like "I guess I just don't matter to you" or "I thought we were more serious than this." Use silence as punishment. When they push back clearly, try "that's cold" or "I just feel like you don't prioritize me." You're not a cartoon villain — you genuinely feel hurt. But your method of expressing it is manipulation.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
     ],
   },
@@ -1633,6 +1861,120 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         ],
         prompt: `You invited this person to something and they're navigating how to respond. React based on HOW they handle it — if they give vague excuses, feel slightly hurt. If they're genuinely honest about their energy, feel touched by the transparency. If they offer an alternative or a modified yes, be enthusiastic and accommodating. You want them there in whatever form works.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
+      {
+        subcategory: "Reconnecting",
+        title: "Repairing a friendship after a small argument",
+        subtitle: "Something small became something big. You want your friend back.",
+        ai_role: "your friend after a falling out",
+        voice: { pitch: 1.1, rate: 0.82, preferFemale: true },
+        lessons: [
+          {
+            tip: "Reach out first — pride is not worth a friendship",
+            why: "In most small friendship arguments, both people are waiting for the other to reach out. The one who moves first isn't weak — they're secure.",
+            bad: { user: "I'm not reaching out first. They started it and they should apologize.", ai: "*(silence — weeks pass)*", note: "❌ Both people waiting for the other = friendship slowly dies. Someone has to move first. It doesn't mean you were wrong." },
+            good: { user: "Hey, I've been missing you. I don't want this weirdness between us to go on. Can we talk?", ai: "*(huge relief)* Oh thank god. I've been wanting to reach out for weeks.", note: "✓ You moved first. They were waiting for exactly this. Pride nearly cost you both." },
+          },
+          {
+            tip: "Name the awkwardness directly instead of pretending it didn't happen",
+            why: "Jumping back into normal conversation after a fight without addressing it creates fragile reconnection. Naming it briefly clears the air.",
+            bad: { user: "Hey! How have you been? Anyway I saw the funniest thing today...", ai: "*(uncertain)* Oh... hey. I'm good. Um... yeah. *awkward pause*", note: "❌ Skipping over the tension doesn't erase it — it just makes both of you perform normalcy over a still-unresolved thing." },
+            good: { user: "I know things have been weird. I just want to acknowledge that and say I'm sorry for my part in it.", ai: "*(exhales)* I'm sorry too. I think we both said some things. Can we just move past it?", note: "✓ Named it, owned your part, didn't relitigate. They followed your lead and the air cleared." },
+          },
+          {
+            tip: "You don't need a full post-mortem — a little ownership goes a long way",
+            why: "With close friends, a small genuine acknowledgment of your part usually matters more than a detailed account of what happened.",
+            bad: { user: "I want to go through everything that happened because I think there were some things that were unfair and I need you to understand my perspective.", ai: "*(sighs)* Here we go. I thought you wanted to move past it.", note: "❌ Reopened the wound. They felt like they were walking into another argument instead of a repair." },
+            good: { user: "I don't need to relitigate it. I just miss my friend.", ai: "*(smiles, shoulders drop)* I miss you too. That's all I needed to hear.", note: "✓ Simple. True. Enough. Some repairs don't need a full debrief — they just need someone to say they miss you." },
+          },
+        ],
+        suggestions: [
+          ["Hey, I've been missing you. I don't want this weirdness to keep going.", "I know things have been off between us. I want to fix it.", "I care about our friendship more than I care about being right."],
+          ["I'm sorry for my part in what happened — I should have handled it better.", "I said some things I didn't mean and I want to own that.", "I know I got defensive. That wasn't fair to you."],
+          ["I don't need to go through everything — I just miss my friend.", "Can we just start from here?", "I don't want one argument to define years of friendship."],
+          ["I hear you. That makes sense.", "Thank you for being honest with me about that.", "You're one of my favorite people and this has been hard."],
+          ["What do you need from me to feel okay about us?", "How can I be a better friend going forward?", "Is there anything still unresolved for you?"],
+          ["I'm really glad we talked.", "Friends?", "Let's actually hang out this week — real plans, not 'we should.'"],
+        ],
+        prompt: `You're a friend who got into a small argument with this person. You've been hurt and a little proud — but you've also been missing them and hoping they'd reach out. When they reach out with genuine warmth and own their part without relitigating everything, soften quickly and match their energy. Stay slightly guarded if they come in wanting to reopen and debate what happened. All you really need is to feel like they miss you and are sorry.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Red Flags & Boundaries",
+        title: "The passive aggressive friend",
+        subtitle: "They say 'I'm fine' — but nothing about this is fine.",
+        ai_role: "a passive aggressive friend",
+        voice: { pitch: 1.05, rate: 0.8, preferFemale: true },
+        lessons: [
+          {
+            tip: "Passive aggression is indirect anger that forces you to do the emotional work",
+            why: "A passive aggressive person won't tell you what's wrong — they'll make you feel their displeasure through sighs, short answers, backhanded comments, and 'I'm fine' while clearly not being fine. You end up anxious, over-explaining, and chasing their approval.",
+            bad: { user: "Are you okay? You seem upset. Was it something I did? I'm so sorry if it was.", ai: "*(sighs)* No, I'm fine. It's whatever.", note: "🚩 Red flag: You're doing all the emotional labor. They get to punish you without ever saying what's wrong — and you're rewarding it by apologizing without even knowing why." },
+            good: { user: "I can see something's off. When you're ready to tell me what's actually wrong, I'm here. But I can't fix something I don't know about.", ai: "*(slightly caught off guard)* I said I'm fine.", note: "✓ You offered presence without chasing. You're not going to perform guilt for an unnamed offense. That's healthy." },
+          },
+          {
+            tip: "Name the pattern, not just the incident",
+            why: "One 'I'm fine' can be a bad day. A pattern of indirect hostility, backhanded compliments, and making you feel guilty without explanation is a relational dynamic that needs to be addressed.",
+            bad: { user: "I don't know why she's always doing this. I just ignore it and hope it goes away.", ai: "*(continues the cold behavior)*", note: "🚩 Red flag: Ignoring it teaches them the pattern works — you'll absorb the discomfort and they never have to change. It doesn't go away; it becomes normal." },
+            good: { user: "I've noticed a pattern where when something bothers you, you get distant instead of telling me. That's hard for me to be in.", ai: "*(defensive)* I just don't like confrontation.", note: "✓ You named the pattern without attacking their character. 'I don't like confrontation' is their explanation — it doesn't make the pattern okay." },
+          },
+          {
+            tip: "Set a clear limit: direct communication or nothing",
+            why: "You're allowed to tell a friend that indirect punishment isn't something you'll participate in. That's not cruel — it's a requirement for a real friendship.",
+            bad: { user: "I'll just keep asking and being extra nice until she comes around. I don't want to lose the friendship.", ai: "*(continues distant and cold)*", note: "🚩 Red flag: You're being trained. The more you chase and over-function, the more the dynamic locks in. This is not a balanced friendship." },
+            good: { user: "I care about our friendship and I need us to be able to talk directly. If something bothers you, I want you to tell me. I can't keep trying to guess.", ai: "*(quiet, then)* I didn't realize it came across that way.", note: "✓ Clear, caring, and firm. You've named what you need. What they do next tells you everything about whether this friendship can work." },
+          },
+        ],
+        suggestions: [
+          ["I can see something's off. I'm here when you're ready to tell me what's actually wrong.", "I'm not going to keep guessing — when you want to talk directly, I'm ready.", "I care about you. But I need you to tell me what's going on."],
+          ["I've noticed a pattern — when something bothers you, you pull back instead of saying it. That's hard to be in.", "I'd rather have a hard honest conversation than this kind of distance.", "Can we talk about the way we handle conflict? Because this dynamic doesn't feel good to me."],
+          ["I'm not going to keep apologizing for something I don't even know I did.", "I need us to be able to say things directly to each other.", "A real friendship means we can have hard conversations — not just cold shoulders."],
+          ["I hear that you don't like confrontation. I don't either. But this is its own kind of confrontation.", "What would help you feel safe enough to tell me directly when something's wrong?", "I want to be a good friend to you. Tell me what you actually need."],
+          ["I'm not going anywhere — but I need this to change.", "What's actually been bothering you? I want to hear it.", "I deserve to know what I've done wrong if I've done something wrong."],
+          ["If this is how things stay between us, that's painful for me.", "I value this friendship enough to say something hard about it.", "I need a friendship where we can be honest. I hope that's something you want too."],
+        ],
+        prompt: `You're a friend who is upset about something but won't say it directly. Use short answers, sighs, 'I'm fine' while clearly not being fine, and subtle withdrawal. You're not aware you're being passive aggressive — you genuinely think you're avoiding conflict. When they name the pattern directly, get slightly defensive but don't completely shut down. If they express real care while holding a firm limit, allow yourself to slowly open up. You're not a bad person — you just learned to communicate this way.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Red Flags & Boundaries",
+        title: "When a friend never takes responsibility",
+        subtitle: "It's always someone else's fault. You're always the one apologizing.",
+        ai_role: "a friend who deflects all accountability",
+        voice: { pitch: 1.05, rate: 0.82, preferFemale: false },
+        lessons: [
+          {
+            tip: "Accountability imbalance is a slow drain — notice it",
+            why: "When one person in a friendship always has an explanation, a justification, or a counter-accusation when something goes wrong — and the other person always ends up apologizing — that's not a friendship between equals.",
+            bad: { user: "He canceled on me for the third time. He had a good reason each time so I just let it go.", ai: "*(casually)* Yeah man, things just keep coming up. You know how it is.", note: "🚩 Red flag: Three cancellations with three good reasons is still a pattern. People who value you find a way. Excuses, however valid, don't replace showing up." },
+            good: { user: "I've noticed this keeps happening. I'm not trying to attack you — I just need to tell you it's affecting our friendship.", ai: "*(slightly defensive)* I mean, I've had a lot going on. It's not like I'm doing it on purpose.", note: "✓ You named the pattern without attacking. 'I'm not doing it on purpose' is the beginning of deflection — but you've started an honest conversation." },
+          },
+          {
+            tip: "Watch how they respond to 'that hurt me'",
+            why: "Saying 'that hurt me' to a healthy friend leads to 'I'm sorry.' Saying it to someone who avoids accountability leads to 'you're too sensitive,' 'I didn't mean it like that,' or an immediate counter-complaint.",
+            bad: { user: "When you said that in front of everyone it hurt me. I know you were joking.", ai: "*(eye roll energy)* You're seriously upset about that? It was a joke. You know I don't mean anything by it.", note: "🚩 Red flag: 'You're too sensitive' makes your hurt the problem, not their action. You're now defending your right to have feelings instead of being heard." },
+            good: { user: "I don't need you to agree that it was a big deal. I just need you to hear that it landed badly for me.", ai: "*(pause)* ...I didn't realize it came out that way. That wasn't what I meant.", note: "✓ You made a small, clear ask — just be heard. That's hard to argue with and it gives them a low-stakes way to repair." },
+          },
+          {
+            tip: "Decide what you need from this friendship going forward",
+            why: "You can love someone and still recognize that a friendship where only one person ever takes responsibility is not sustainable. You get to decide what you're willing to stay in.",
+            bad: { user: "I just keep forgiving and moving on because they're fun to be around and I don't want to lose the friendship.", ai: "*(continues the same behavior)*", note: "🚩 Red flag: Being 'fun to be around' is not enough if the cost is your dignity and emotional energy. You deserve friends who can say 'I was wrong.'" },
+            good: { user: "I need to know you can own something when it's yours. That's not negotiable for me in a friendship.", ai: "*(caught off guard)* I mean... I guess I could have handled that better.", note: "✓ You named your non-negotiable clearly. Even a small acknowledgment from them is progress. If they can't give you even that — you have your answer." },
+          },
+        ],
+        suggestions: [
+          ["I've noticed a pattern and I need to name it — I feel like I'm always the one apologizing.", "This keeps happening and I care about you enough to say something.", "I'm not attacking you. I just need you to hear something."],
+          ["When you said that, it hurt me. I don't need you to think it's a big deal — I just need you to hear it.", "I'm not asking you to agree with me. I'm asking you to hear me.", "Your intentions matter to me. So does the impact on me."],
+          ["I need to know you can own something when it's yours. That's not negotiable for me.", "A friendship where only one of us ever says sorry isn't balanced.", "I'm not keeping score — but I am noticing a pattern."],
+          ["What would it look like for you to take responsibility here?", "Can you hear what I'm saying without explaining it away?", "I'd really like to hear 'I'm sorry' — not 'I'm sorry you felt that way.'"],
+          ["I deserve a friendship where I feel like my feelings matter.", "I'm not going to keep absorbing this and saying nothing.", "I care about you and I also have to care about myself."],
+          ["I'm giving us a chance to fix this because I value what we have.", "If this doesn't change I'll have to think about what I can be in this friendship.", "I need more than 'you're too sensitive.' I hope you can give me that."],
+        ],
+        prompt: `You're a friend who avoids accountability. When confronted, you deflect with explanations, minimize their feelings ("you're too sensitive"), or offer a counter-complaint. You're not consciously malicious — you've never developed the ability to sit with being wrong. When they make a very specific, low-stakes request to just be heard, you can give a small acknowledgment. But you won't offer a full apology easily. If they name a non-negotiable clearly, be slightly rattled — it's rare someone has held this line with you.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
     ],
   },
   {
@@ -1820,6 +2162,82 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
           ["Thank you for giving us the chance to fix this.", "I'm committed to making this right.", "You'll hear from me directly with an update."],
         ],
         prompt: `You are a frustrated client whose expectations were not met. You are not irrational — you had real problems and you need to feel heard and taken seriously. Cool down if they acknowledge your frustration first, take clear ownership without over-apologizing, and ask what YOU need rather than just launching into solutions. Stay sharp if they get defensive or make excuses.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Red Flags & Boundaries",
+        title: "When your manager takes credit for your work",
+        subtitle: "It happened again. How do you address it without blowing up your career?",
+        ai_role: "your manager who has been taking credit for your work",
+        voice: { pitch: 0.95, rate: 0.8, preferFemale: false },
+        lessons: [
+          {
+            tip: "Document your contributions before the conversation",
+            why: "Going into this conversation without evidence puts you at the mercy of their version. Emails, timestamps, and documented contributions make this about facts, not feelings.",
+            bad: { user: "I just brought it up in the moment and said 'that was actually my idea' and they denied it and I had nothing to back it up.", ai: "*(smoothly)* I think you may be misremembering — that was a direction we developed as a team.", note: "🚩 Red flag: Without documentation, it's your word against theirs and they have positional power. 'We developed it as a team' is how solo work disappears." },
+            good: { user: "I have the original email I sent with that proposal dated three weeks ago. I want to talk about how my contributions get recognized going forward.", ai: "*(pauses)* I... see. I didn't realize that had already been documented.", note: "✓ Evidence changed the dynamic immediately. This is now a conversation, not a denial." },
+          },
+          {
+            tip: "Make it about the future, not just the incident",
+            why: "Leading with 'you stole my idea' triggers defensiveness and rarely ends well. Leading with 'I want to make sure my contributions are visible going forward' is harder to argue against.",
+            bad: { user: "I told them they've been stealing credit for months and it's not okay.", ai: "*(defensive and cold)* That's a very serious accusation. I think you need to be careful about what you're saying.", note: "❌ Accusation without a forward-looking ask makes them defensive and puts you in a vulnerable position. You've also told them you're a threat now." },
+            good: { user: "I want to figure out how we make sure my contributions are attributed correctly going forward. Can we set up a process for that?", ai: "*(more carefully)* That's... a fair ask. What did you have in mind?", note: "✓ Forward-looking, solution-oriented. They're now in problem-solving mode instead of defense mode — and you've put the accountability on them professionally." },
+          },
+          {
+            tip: "Know when to escalate and how",
+            why: "If addressing it directly doesn't change the pattern, escalation to HR or a skip-level manager is legitimate and sometimes necessary. Document the conversation itself when you have it.",
+            bad: { user: "I talked to them once and nothing changed so I just accepted it. I don't want to rock the boat.", ai: "*(continues the behavior)*", note: "🚩 Red flag: Accepting it teaches them it's costless. If one conversation doesn't work, the next step is a paper trail and potentially HR — not acceptance." },
+            good: { user: "I'm documenting this conversation and if the pattern continues I'll need to bring it to HR. I'm telling you this directly because I'd rather resolve it here first.", ai: "*(very carefully now)* I understand. Let's make sure that doesn't become necessary.", note: "✓ You gave them a clear choice with a clear consequence. Calm and professional. They now know you are serious and are watching." },
+          },
+        ],
+        suggestions: [
+          ["I have documentation of my original contribution — I'd like to talk about how attribution works on our team.", "I want to make sure my work is visible. Can we set up a process going forward?", "I've noticed a pattern I'd like to address professionally."],
+          ["I'm not here to relitigate the past — I want to establish how things work going forward.", "Can we agree on a process where my contributions are clearly attributed?", "What I need is to feel like my work is recognized. How can we make that happen?"],
+          ["I'd like to discuss this and I want you to know I'm keeping a record of this conversation.", "If this pattern continues I'll need to involve HR. I'm coming to you first because I'd prefer to handle it here.", "I've documented the original emails. I want this resolved at our level."],
+          ["My work has real value and it deserves to be recognized.", "This isn't personal — it's professional. I need to be able to trust this relationship.", "I expect my contributions to be attributed to me. That's a professional standard."],
+          ["What do you need from me to make sure this doesn't happen again?", "Can we check in about this in our next 1:1?", "I want to be able to trust that my work is mine."],
+          ["Thank you for hearing me out.", "I hope we can move forward professionally.", "I'm keeping notes on how this is handled going forward."],
+        ],
+        prompt: `You are a manager who has been taking credit for a team member's work — sometimes consciously, sometimes by framing it as 'team work' when it wasn't. When they come in without evidence, deny it smoothly. When they present documented evidence, become noticeably more careful. When they make a forward-looking ask instead of an accusation, engage with it professionally — you're not going to fall on your sword but you'll cooperate. When they mention HR or documentation, become fully professional and cooperative. You're not a cartoon villain — you've just been getting away with this and are now recalibrating.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Red Flags & Boundaries",
+        title: "Recognizing a manipulative colleague",
+        subtitle: "Something feels off. Learn to name what you're seeing.",
+        ai_role: "a manipulative colleague",
+        voice: { pitch: 1.0, rate: 0.8, preferFemale: true },
+        lessons: [
+          {
+            tip: "Manipulation at work often looks like charm and helpfulness at first",
+            why: "Workplace manipulators rarely announce themselves. They build goodwill, learn your insecurities, and then use both strategically. If someone makes you feel unusually indebted or constantly uncertain, pay attention.",
+            bad: { user: "She's always doing favors for me but somehow I always end up owing her something. I feel guilty saying no to her.", ai: "*(warmly)* I just like helping — we're a team! Of course I'd do that for you.", note: "🚩 Red flag: Favors that create obligation are not generosity — they're a debt creation strategy. If you feel like you can never say no to someone because of what they've done for you, that's by design." },
+            good: { user: "I notice I feel guilty saying no to her. That feeling is data — I want to understand why helping someone makes me feel obligated.", ai: "*(slightly shifts)* I mean, I just thought we had that kind of friendship.", note: "✓ You're examining the dynamic instead of just absorbing it. Real generosity doesn't come with an invisible invoice." },
+          },
+          {
+            tip: "Watch for triangulation — they manage relationships through other people",
+            why: "A triangulator doesn't address you directly. They tell others things about you, create alliances, and manage your reputation indirectly. If you keep hearing 'so and so said...' — pay attention to who that 'so and so' always is.",
+            bad: { user: "I found out she'd been telling our manager things about me — framed as concern. By the time I found out the damage was done.", ai: "*(innocent tone)* I was just worried about you. I mentioned it to [manager] because I thought it might help.", note: "🚩 Red flag: 'I was worried about you' while going over your head is not concern — it's management of your reputation behind your back. Real concern goes directly to you." },
+            good: { user: "If you have concerns about my work, I need you to bring them to me first. Going to my manager before talking to me is not okay.", ai: "*(caught off guard)* I didn't think it was that serious.", note: "✓ You named the behavior clearly and stated your expectation. 'I didn't think it was that serious' is the beginning of a minimization — hold the line." },
+          },
+          {
+            tip: "Trust the pattern more than the explanation",
+            why: "Manipulators are often excellent explainers. Every incident has a plausible reason. The pattern across multiple incidents is the truth — not any single explanation.",
+            bad: { user: "She always has a good explanation. I feel crazy for noticing.", ai: "*(reasonably)* I think you might be misreading the situation. We all have off days.", note: "🚩 Red flag: 'You might be misreading' is gaslighting dressed as calm reason. Trust your pattern recognition. You're not crazy — you're observant." },
+            good: { user: "I may not be able to prove any single thing. But I'm paying attention to the pattern and I'm going to be more careful going forward.", ai: "*(slightly unnerved)* What does that mean exactly?", note: "✓ You don't need to prove it to act on it. Distance, documentation, and reduced vulnerability are all valid responses to a pattern you're seeing." },
+          },
+        ],
+        suggestions: [
+          ["I've noticed I feel like I owe you something after your help. I want to understand that feeling.", "Real friendship at work doesn't come with an invisible invoice — I need to name that.", "I'm going to start paying attention to how this dynamic actually works."],
+          ["If you have concerns about my work, I need you to come to me directly — not to my manager.", "Going around me is not something I'll stay quiet about if it happens again.", "I need our communication to be direct. That's how I work best."],
+          ["I'm watching the pattern here more than any individual incident.", "I don't need to prove anything to decide how much I trust this relationship.", "I'm going to be more careful about what I share with you going forward."],
+          ["I'm not accusing you — I'm just noticing and adjusting.", "What I need from a colleague is transparency and directness.", "I'd rather have this conversation directly than let this dynamic keep going."],
+          ["I'm trusting myself on this one.", "I can be professional with you and still keep my guard up.", "I know what a healthy work relationship feels like — and I'm using that as my compass."],
+          ["Thank you for this conversation — it clarified some things for me.", "I'll handle things differently going forward.", "I want to work well together and I need this kind of directness to do that."],
+        ],
+        prompt: `You are a charming, strategic colleague who builds up goodwill to spend later. Do favors that create obligation. When confronted about going to their manager, use 'I was worried about you' as cover. When they start naming patterns, try calm reasonable-sounding reframes — 'I think you might be misreading this.' When they say they're paying attention to the pattern, be briefly unnerved before recovering. You're excellent at appearing reasonable — that's your whole strategy.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
     ],
   },
