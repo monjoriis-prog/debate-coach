@@ -2855,6 +2855,7 @@ export default function Forte() {
   const [selfLoading, setSelfLoading] = useState(false);
   const [selfMessages, setSelfMessages] = useState<any[]>([]);
   const [selfStep, setSelfStep] = useState(0); // for problem solver clarifying steps
+  const [planStep, setPlanStep] = useState(0);
   const [selfSpeaking, setSelfSpeaking] = useState(false);
   const [redFlagPath, setRedFlagPath] = useState<string>("");
   const [showRedFlagPopup, setShowRedFlagPopup] = useState(false);
@@ -3011,7 +3012,7 @@ export default function Forte() {
     setMessages([]); setFeedback(null); setUserTurns(0);
     setTranscript(""); setTypedMessage(""); setLessonIndex(0);
     setCustomWho(""); setCustomSituation(""); setCustomGoal("");
-    setSubcategoryFilter("All"); setShowFeedbackModal(false); setFeedbackReading(false); setDynamicSuggestions([]); setSelfTool(""); setSelfInput(""); setSelfResult(null); setSelfMessages([]); setSelfStep(0); setSelfSpeaking(false); setRedFlagPath(""); setShowRedFlagPopup(false); setRedFlagPopupShown(false); setRedFlagExited(false); setRedFlagStep(0); setLeavingStep(0);
+    setSubcategoryFilter("All"); setShowFeedbackModal(false); setFeedbackReading(false); setDynamicSuggestions([]); setSelfTool(""); setSelfInput(""); setSelfResult(null); setSelfMessages([]); setSelfStep(0); setPlanStep(0); setSelfSpeaking(false); setRedFlagPath(""); setShowRedFlagPopup(false); setRedFlagPopupShown(false); setRedFlagExited(false); setRedFlagStep(0); setLeavingStep(0);
     window.speechSynthesis.cancel();
   }
 
@@ -3043,7 +3044,7 @@ export default function Forte() {
           <p style={{ color: "#84a98c", fontSize: "14px", marginBottom: "36px", fontFamily: "-apple-system, sans-serif" }}>Tools for your inner world. Choose one to begin.</p>
           <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
             {tools.map(t => (
-              <button key={t.key} onClick={() => { setSelfTool(t.key); setSelfInput(""); setSelfResult(null); setSelfMessages([]); setSelfStep(0); setPhase("self_tool"); }}
+              <button key={t.key} onClick={() => { setSelfTool(t.key); setSelfInput(""); setSelfResult(null); setSelfMessages([]); setSelfStep(0); setPlanStep(0); setPhase("self_tool"); }}
                 style={{ background: "#fff", border: `1.5px solid ${t.accent}22`, borderRadius: "16px", padding: "24px", textAlign: "left", cursor: "pointer", transition: "all 0.2s", display: "flex", alignItems: "center", gap: "20px" }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor = t.accent; e.currentTarget.style.transform = "translateX(4px)"; e.currentTarget.style.background = t.color; }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = `${t.accent}22`; e.currentTarget.style.transform = "none"; e.currentTarget.style.background = "#fff"; }}>
@@ -3379,37 +3380,86 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
                   </div>
                 )}
 
-                {/* Plan - step by step cards */}
-                {hasPlan && !selfLoading && (
-                  <div style={{ animation: "fadeSlideIn 0.35s ease" }}>
-                    <div style={{ fontSize: "10px", fontWeight: "700", color: tool.accent, textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>Your Action Plan</div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                      {planSteps.map((step: string, si: number) => (
-                        <div key={si} style={{ background: "#fff", border: `1.5px solid ${tool.accent}22`, borderRadius: "14px", padding: "18px 20px", display: "flex", gap: "14px", alignItems: "flex-start" }}>
-                          <div style={{ width: "30px", height: "30px", borderRadius: "50%", background: tool.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", fontWeight: "700", color: tool.accent, flexShrink: 0, fontFamily: "-apple-system, sans-serif" }}>{si + 1}</div>
-                          <p style={{ fontSize: "14px", color: "#1a2e1a", lineHeight: 1.8, margin: 0 }}>{step}</p>
-                        </div>
-                      ))}
-                    </div>
+                {/* Plan - one step at a time */}
+                {hasPlan && !selfLoading && (() => {
+                  const totalPlanSteps = planSteps.length;
+                  const showingEncouragement = planStep >= totalPlanSteps;
+                  const currentStep = planSteps[planStep];
 
-                    {encouragement && (
-                      <div style={{ marginTop: "16px", background: tool.color, border: `1.5px solid ${tool.accent}33`, borderRadius: "14px", padding: "18px 20px" }}>
-                        <div style={{ fontSize: "10px", fontWeight: "700", color: tool.accent, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>💛 From Your Coach</div>
-                        <p style={{ fontSize: "15px", color: "#1a2e1a", lineHeight: 1.85, margin: 0, fontStyle: "italic" }}>{encouragement}</p>
+                  return (
+                    <div style={{ animation: "fadeSlideIn 0.35s ease" }} key={planStep}>
+                      <div style={{ fontSize: "10px", fontWeight: "700", color: tool.accent, textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>Your Action Plan</div>
+
+                      {/* Step progress */}
+                      <div style={{ display: "flex", gap: "6px", marginBottom: "20px", alignItems: "center" }}>
+                        {planSteps.map((_: string, i: number) => (
+                          <div key={i} style={{
+                            width: i === planStep ? "24px" : "8px",
+                            height: "8px",
+                            borderRadius: "99px",
+                            background: i <= planStep ? tool.accent : "#e8e0d8",
+                            transition: "all 0.3s ease",
+                          }} />
+                        ))}
+                        {encouragement && (
+                          <div style={{
+                            width: showingEncouragement ? "24px" : "8px",
+                            height: "8px",
+                            borderRadius: "99px",
+                            background: showingEncouragement ? tool.accent : "#e8e0d8",
+                            transition: "all 0.3s ease",
+                          }} />
+                        )}
+                        <span style={{ fontSize: "11px", color: tool.accent, fontFamily: "-apple-system, sans-serif", marginLeft: "8px" }}>
+                          {showingEncouragement ? "Coach's note" : `Step ${planStep + 1} of ${totalPlanSteps}`}
+                        </span>
                       </div>
-                    )}
 
-                    {/* Listen + Start over */}
-                    <div style={{ display: "flex", gap: "10px", marginTop: "16px" }}>
-                      <button onClick={() => readAloud(planSteps.join(". ") + ". " + encouragement)}
-                        style={{ padding: "6px 14px", background: "transparent", color: tool.accent, border: `1px solid ${tool.accent}33`, borderRadius: "99px", fontSize: "11px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
-                        {selfSpeaking ? "🔊 Playing..." : "🔊 Read plan"}
+                      {/* Current step card */}
+                      {!showingEncouragement && currentStep && (
+                        <div style={{ background: "#fff", border: `1.5px solid ${tool.accent}22`, borderRadius: "18px", padding: "24px 22px", display: "flex", gap: "16px", alignItems: "flex-start" }}>
+                          <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: tool.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "16px", fontWeight: "700", color: tool.accent, flexShrink: 0, fontFamily: "-apple-system, sans-serif" }}>{planStep + 1}</div>
+                          <p style={{ fontSize: "15px", color: "#1a2e1a", lineHeight: 1.85, margin: 0 }}>{currentStep}</p>
+                        </div>
+                      )}
+
+                      {/* Encouragement card */}
+                      {showingEncouragement && encouragement && (
+                        <div style={{ background: tool.color, border: `1.5px solid ${tool.accent}33`, borderRadius: "18px", padding: "24px 22px" }}>
+                          <div style={{ fontSize: "10px", fontWeight: "700", color: tool.accent, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px", fontFamily: "-apple-system, sans-serif" }}>💛 From Your Coach</div>
+                          <p style={{ fontSize: "15px", color: "#1a2e1a", lineHeight: 1.85, margin: 0, fontStyle: "italic" }}>{encouragement}</p>
+                        </div>
+                      )}
+
+                      {/* Listen button */}
+                      <button onClick={() => readAloud(showingEncouragement ? encouragement : currentStep)}
+                        style={{ marginTop: "14px", padding: "6px 14px", background: "transparent", color: tool.accent, border: `1px solid ${tool.accent}33`, borderRadius: "99px", fontSize: "11px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+                        {selfSpeaking ? "🔊 Playing..." : "🔊 Read this"}
                       </button>
-                      <button onClick={() => { window.speechSynthesis.cancel(); setSelfMessages([]); setSelfInput(""); setSelfResult(null); setSelfStep(0); }}
-                        style={{ padding: "6px 14px", background: "transparent", color: "#84a98c", border: "1px solid #e8f0ec", borderRadius: "99px", fontSize: "11px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>Start over</button>
+
+                      {/* Navigation */}
+                      <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
+                        {planStep > 0 && (
+                          <button onClick={() => { forteSound.stepBack(); setPlanStep(planStep - 1); }}
+                            style={{ flex: 1, padding: "14px", background: "#fff", color: tool.accent, border: `1.5px solid ${tool.accent}33`, borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+                            ← Back
+                          </button>
+                        )}
+                        {!showingEncouragement ? (
+                          <button onClick={() => { forteSound.stepForward(); setPlanStep(planStep + 1); }}
+                            style={{ flex: 1, padding: "14px", background: tool.accent, color: "#fff", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+                            {planStep < totalPlanSteps - 1 ? "Next step →" : "Coach's note →"}
+                          </button>
+                        ) : (
+                          <button onClick={() => { forteSound.affirm(); window.speechSynthesis.cancel(); setSelfMessages([]); setSelfInput(""); setSelfResult(null); setSelfStep(0); setPlanStep(0); }}
+                            style={{ flex: 1, padding: "14px", background: tool.accent, color: "#fff", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+                            Done — back to Self
+                          </button>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  );
+                })()}
               </div>
             );
           })()}
