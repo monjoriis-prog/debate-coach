@@ -2450,7 +2450,6 @@ Format the plan with gentle headers. Be warm, not clinical.`,
               onMouseLeave={e => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
               <div style={{ color: s.accent, marginBottom: "14px" }}><Icon html={ICONS[s.iconKey as keyof typeof ICONS]} size={28} color={s.accent} /></div>
               <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>{s.category}</div>
-              <div style={{ fontSize: "12px", color: "#84a98c" }}>{s.situations.length} scenarios</div>
             </button>
           ))}
           <button onClick={() => { setSelectedCategory({ accent: "#7c5cbf", color: "#f5f0fa" }); setSelfTool(""); setPhase("self_hub"); }}
@@ -2523,6 +2522,39 @@ Format the plan with gentle headers. Be warm, not clinical.`,
       }
       groups[seen[sub]].situations.push(s);
     });
+
+    // If a subcategory is selected, show its scenarios
+    if (subcategoryFilter !== "All") {
+      const group = groups.find(g => g.name === subcategoryFilter);
+      return (
+        <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
+          <div style={{ maxWidth: "640px", margin: "0 auto", padding: "40px 24px 64px" }}>
+            <button onClick={() => setSubcategoryFilter("All")} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", marginBottom: "36px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
+            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "6px" }}>
+              <Icon html={ICONS[selectedCategory.iconKey as keyof typeof ICONS]} size={24} color={selectedCategory.accent} />
+              <h2 style={{ fontSize: "28px", fontWeight: "400", margin: 0, color: "#1a2e1a" }}>{subcategoryFilter}</h2>
+            </div>
+            <p style={{ color: "#84a98c", fontSize: "14px", marginBottom: "36px", fontFamily: "-apple-system, sans-serif" }}>Choose a scenario — you'll learn first, then practice.</p>
+            <div style={{ border: `1.5px solid ${selectedCategory.accent}22`, borderRadius: "14px", overflow: "hidden" }}>
+              {group?.situations.map((s: any, i: number) => (
+                <button key={i} onClick={() => { setSelectedSituation(s); setLessonIndex(0); setPhase("learn"); }}
+                  style={{ width: "100%", background: "#fff", border: "none", borderTop: i > 0 ? "1px solid #e8f0ec" : "none", padding: "20px 24px", textAlign: "left", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "background 0.15s" }}
+                  onMouseEnter={e => { e.currentTarget.style.background = selectedCategory.color; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = "#fff"; }}>
+                  <div>
+                    <div style={{ fontSize: "15px", fontWeight: "600", color: "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>{s.title}</div>
+                    <div style={{ fontSize: "13px", color: "#84a98c", fontStyle: "italic" }}>{s.subtitle}</div>
+                  </div>
+                  <div style={{ fontSize: "20px", color: selectedCategory.accent, marginLeft: "12px", flexShrink: 0 }}>›</div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Default: show subcategory cards
     return (
     <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
       <div style={{ maxWidth: "640px", margin: "0 auto", padding: "40px 24px 64px" }}>
@@ -2531,32 +2563,17 @@ Format the plan with gentle headers. Be warm, not clinical.`,
           <Icon html={ICONS[selectedCategory.iconKey as keyof typeof ICONS]} size={24} color={selectedCategory.accent} />
           <h2 style={{ fontSize: "28px", fontWeight: "400", margin: 0, color: "#1a2e1a" }}>{selectedCategory.category}</h2>
         </div>
-        <p style={{ color: "#84a98c", fontSize: "14px", marginBottom: "36px", fontFamily: "-apple-system, sans-serif" }}>Learn first, then practice. Choose any scenario below.</p>
-
-        <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+        <p style={{ color: "#84a98c", fontSize: "14px", marginBottom: "36px", fontFamily: "-apple-system, sans-serif" }}>Choose a topic to explore.</p>
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
           {groups.map((group) => (
-            <div key={group.name}>
-              {/* Subcategory card header */}
-              <div style={{ background: selectedCategory.color, border: `1.5px solid ${selectedCategory.accent}22`, borderRadius: "14px 14px 0 0", padding: "14px 20px", borderBottom: "none" }}>
-                <div style={{ fontSize: "13px", fontWeight: "700", color: selectedCategory.accent, textTransform: "uppercase", letterSpacing: "0.1em", fontFamily: "-apple-system, sans-serif" }}>{group.name}</div>
-                <div style={{ fontSize: "12px", color: "#84a98c", marginTop: "2px", fontFamily: "-apple-system, sans-serif" }}>{group.situations.length} scenario{group.situations.length !== 1 ? "s" : ""}</div>
-              </div>
-              {/* Scenarios under this subcategory */}
-              <div style={{ border: `1.5px solid ${selectedCategory.accent}22`, borderTop: "none", borderRadius: "0 0 14px 14px", overflow: "hidden" }}>
-                {group.situations.map((s: any, i: number) => (
-                  <button key={i} onClick={() => { setSelectedSituation(s); setLessonIndex(0); setPhase("learn"); }}
-                    style={{ width: "100%", background: "#fff", border: "none", borderTop: i > 0 ? "1px solid #e8f0ec" : "none", padding: "18px 20px", textAlign: "left", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "background 0.15s" }}
-                    onMouseEnter={e => { e.currentTarget.style.background = selectedCategory.color; }}
-                    onMouseLeave={e => { e.currentTarget.style.background = "#fff"; }}>
-                    <div>
-                      <div style={{ fontSize: "14px", fontWeight: "600", color: "#1a2e1a", marginBottom: "3px", fontFamily: "-apple-system, sans-serif" }}>{s.title}</div>
-                      <div style={{ fontSize: "12px", color: "#84a98c", fontStyle: "italic" }}>{s.subtitle}</div>
-                    </div>
-                    <div style={{ fontSize: "18px", color: selectedCategory.accent, marginLeft: "12px", flexShrink: 0 }}>›</div>
-                  </button>
-                ))}
-              </div>
-            </div>
+            <button key={group.name}
+              onClick={() => setSubcategoryFilter(group.name)}
+              style={{ background: "#fff", border: `1.5px solid ${selectedCategory.accent}22`, borderRadius: "14px", padding: "20px 24px", textAlign: "left", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "all 0.18s" }}
+              onMouseEnter={e => { e.currentTarget.style.background = selectedCategory.color; e.currentTarget.style.borderColor = selectedCategory.accent; e.currentTarget.style.transform = "translateX(4px)"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.borderColor = `${selectedCategory.accent}22`; e.currentTarget.style.transform = "none"; }}>
+              <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>{group.name}</div>
+              <div style={{ fontSize: "20px", color: selectedCategory.accent, flexShrink: 0 }}>›</div>
+            </button>
           ))}
         </div>
       </div>
