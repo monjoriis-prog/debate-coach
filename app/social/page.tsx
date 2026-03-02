@@ -2612,8 +2612,9 @@ ${situation}
 Core rules:
 1. Stay in character as ${aiRole}. Be realistic but warm — this is a safe space to learn and grow.
 2. Keep ALL in-character responses SHORT: 1-3 sentences max. This is spoken conversation practice.
-3. React authentically. Good communication opens the door. Poor communication gets gentle realistic pushback.
-4. Never break character or give coaching during the conversation.
+3. Use complete, grammatically correct sentences. Never drop words.
+4. React authentically. Good communication opens the door. Poor communication gets gentle realistic pushback.
+5. Never break character or give coaching during the conversation.
 
 CRITICAL FORMATTING — follow exactly:
 - Start EVERY response with a scene description wrapped in *asterisks* like this: *(pauses, looking out the window)*
@@ -3835,7 +3836,8 @@ Format the plan with gentle headers. Be warm, not clinical.`,
           }
           // AI message — extract scene cues
           const { cues, cleanText } = extractSceneCues(m.content);
-          const roleLabel = `Your ${selectedSituation?.ai_role || "partner"}`;
+          const roleLabel = (selectedSituation?.ai_role || "partner").replace(/^your /i, "").replace(/^a /i, "");
+          const roleLabelFull = `Your ${roleLabel}`;
           return (
             <div key={i} style={{ display: "flex", flexDirection: "column", gap: "6px", alignItems: "flex-start", maxWidth: "82%" }}>
               {/* Scene / action box */}
@@ -3846,7 +3848,7 @@ Format the plan with gentle headers. Be warm, not clinical.`,
               )}
               {/* Speaker label */}
               <div style={{ fontSize: "11px", fontWeight: "700", color: "#84a98c", fontFamily: "-apple-system, sans-serif", textTransform: "uppercase", letterSpacing: "0.08em", paddingLeft: "4px" }}>
-                {roleLabel} says:
+                {roleLabelFull} says:
               </div>
               {/* Speech bubble */}
               <div style={{ padding: "14px 18px", background: "#fff", borderRadius: "4px 18px 18px 18px", fontSize: "14px", lineHeight: "1.7", color: "#1a2e1a", boxShadow: "0 1px 6px rgba(0,0,0,0.05)", border: "1px solid #e8f0ec" }}>
@@ -3869,7 +3871,7 @@ Format the plan with gentle headers. Be warm, not clinical.`,
         {loading && (
           <div style={{ display: "flex", flexDirection: "column", gap: "6px", alignItems: "flex-start", maxWidth: "82%" }}>
             <div style={{ fontSize: "11px", fontWeight: "700", color: "#84a98c", fontFamily: "-apple-system, sans-serif", textTransform: "uppercase", letterSpacing: "0.08em", paddingLeft: "4px" }}>
-              Your {selectedSituation?.ai_role || "partner"} says:
+              Your {(selectedSituation?.ai_role || "partner").replace(/^your /i, "").replace(/^a /i, "")} says:
             </div>
             <div style={{ padding: "14px 18px", background: "#fff", borderRadius: "4px 18px 18px 18px", display: "flex", gap: "5px", alignItems: "center", boxShadow: "0 1px 6px rgba(0,0,0,0.05)", border: "1px solid #e8f0ec" }}>
               {[0,1,2].map((i) => <div key={i} style={{ width: "7px", height: "7px", borderRadius: "50%", background: accent, animation: "pulse 1.2s ease-in-out infinite", animationDelay: `${i * 0.2}s` }} />)}
