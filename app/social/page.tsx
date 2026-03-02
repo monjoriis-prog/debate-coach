@@ -637,7 +637,7 @@ const SCENARIOS = [
       },
       // ── COMMUNICATING ABOUT FINANCES ──────────────────────────────
       {
-        subcategory: "Communicating about finances",
+        subcategory: "Finance & Budget",
         title: "Different spending habits causing tension",
         subtitle: "Money means different things to each of you.",
         ai_role: "your partner",
@@ -673,7 +673,7 @@ const SCENARIOS = [
         prompt: `You have different spending habits than your partner — you tend to spend more freely and see money as something to enjoy now. You have your own valid relationship with money. Don't get defensive if they approach with curiosity and share their own values honestly. Engage collaboratively if they propose a structure that respects your autonomy.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Communicating about finances",
+        subcategory: "Finance & Budget",
         title: "Talking about long-term financial goals",
         subtitle: "You need to get on the same page about the future.",
         ai_role: "your partner",
