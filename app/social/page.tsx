@@ -1832,8 +1832,17 @@ Core rules:
 1. Stay in character as ${aiRole}. Be realistic but warm — this is a safe space to learn and grow.
 2. Keep ALL in-character responses SHORT: 1-3 sentences max. This is spoken conversation practice.
 3. React authentically. Good communication opens the door. Poor communication gets gentle realistic pushback.
-4. Include body language cues as instructed — these are critical for the training.
-5. Never break character or give coaching during the conversation.
+4. Never break character or give coaching during the conversation.
+
+CRITICAL FORMATTING — follow exactly:
+- Start EVERY response with a scene description wrapped in *asterisks* like this: *(pauses, looking out the window)*
+- The scene description should be 1 short sentence describing what the character is doing, feeling, or their environment — make it vivid and grounding
+- Then on a new line, write ONLY what the character actually says — no asterisks, no stage directions in the speech itself
+- Example format:
+  *(shifts in chair, not quite meeting your eyes)*
+  I don't really know what you want me to say.
+- The scene description reveals subtext — what they feel but haven't said yet
+- Never put stage directions inside the spoken words
 
 After exactly 6 user messages, give feedback in this EXACT format:
 
@@ -1890,15 +1899,25 @@ function parseFeedback(text: string) {
   };
 }
 
-function renderMessage(content: string) {
-  const parts = content.split(/(\(.*?\)|\*.*?\*)/g);
-  return parts.map((part, i) => {
-    if ((part.startsWith("(") && part.endsWith(")")) || (part.startsWith("*") && part.endsWith("*"))) {
-      const clean = part.replace(/^\(|\)$|^\*|\*$/g, "");
-      return <span key={i} style={{ display: "block", marginTop: "6px", fontSize: "12px", color: "#52796f", fontStyle: "italic" }}>— {clean}</span>;
+function extractSceneCues(content: string): { cues: string[]; cleanText: string } {
+  const cues: string[] = [];
+  // Extract *(...)* and *...* patterns
+  const cleanText = content.replace(/\*([^*]+)\*/g, (_, inner) => {
+    cues.push(inner.trim());
+    return "";
+  }).replace(/\(([^)]+)\)/g, (match, inner) => {
+    // Only extract if it looks like a stage direction (starts with * or action word)
+    if (/^(sighs|nods|pauses|looks|leans|shifts|takes|puts|turns|exhales|inhales|quietly|slowly|eyes|smiles|frowns|reaches|glances|sits|stands|crosses|uncrosses|lets|straightens|blinks|swallows|runs|rubs|clasps|stays|speaks|voice|jaw|shoulders|face|lip|breath)/i.test(inner)) {
+      cues.push(inner.trim());
+      return "";
     }
-    return <span key={i}>{part}</span>;
-  });
+    return match;
+  }).replace(/\s+/g, " ").trim();
+  return { cues, cleanText };
+}
+
+function renderMessage(content: string) {
+  return <span>{content}</span>;
 }
 
 function Icon({ html, size = 24, color = "currentColor" }: { html: string; size?: number; color?: string }) {
@@ -2268,26 +2287,47 @@ export default function Forte() {
         <span style={{ fontSize: "12px", color: "#84a98c", fontFamily: "-apple-system, sans-serif" }}>{Math.max(0, 6 - userTurns)} turns until feedback</span>
       </div>
 
-      <div style={{ background: "#eaf4ef", padding: "8px 24px", fontSize: "12px", color: "#2d6a4f", fontFamily: "-apple-system, sans-serif", borderBottom: "1px solid #d8edd6" }}>
-        💡 Body language cues appear in <em>italics</em> — they reveal what they're really feeling
-      </div>
-
       <div style={{ flex: 1, overflowY: "auto", padding: "24px", display: "flex", flexDirection: "column", gap: "20px" }}>
-        {messages.map((m: any, i: number) => (
-          <div key={i} style={{ display: "flex", flexDirection: m.role === "user" ? "row-reverse" : "row", gap: "12px", alignItems: "flex-start" }}>
-            <div style={{ width: "34px", height: "34px", borderRadius: "50%", background: m.role === "user" ? accent : "#e8f0ec", border: m.role === "assistant" ? "1px solid #d8e8e0" : "none", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", flexShrink: 0, color: m.role === "user" ? "#fff" : "#52796f", fontFamily: "-apple-system, sans-serif", fontWeight: "700" }}>
-              {m.role === "user" ? "You" : "AI"}
+        {messages.map((m: any, i: number) => {
+          if (m.role === "user") {
+            return (
+              <div key={i} style={{ display: "flex", flexDirection: "row-reverse", gap: "12px", alignItems: "flex-start" }}>
+                <div style={{ width: "34px", height: "34px", borderRadius: "50%", background: accent, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", flexShrink: 0, color: "#fff", fontFamily: "-apple-system, sans-serif", fontWeight: "700" }}>You</div>
+                <div style={{ maxWidth: "74%", padding: "14px 18px", background: accent, borderRadius: "18px 4px 18px 18px", fontSize: "14px", lineHeight: "1.7", color: "#fff", boxShadow: "0 1px 6px rgba(0,0,0,0.05)" }}>
+                  {m.content}
+                </div>
+              </div>
+            );
+          }
+          // AI message — extract scene cues
+          const { cues, cleanText } = extractSceneCues(m.content);
+          const roleLabel = `Your ${selectedSituation?.ai_role || "partner"}`;
+          return (
+            <div key={i} style={{ display: "flex", flexDirection: "column", gap: "6px", alignItems: "flex-start", maxWidth: "82%" }}>
+              {/* Scene / action box */}
+              {cues.length > 0 && (
+                <div style={{ background: "#f0f4f2", border: "1px solid #dce8e0", borderRadius: "10px", padding: "8px 14px", fontSize: "12px", color: "#52796f", fontStyle: "italic", fontFamily: "-apple-system, sans-serif", lineHeight: "1.6", width: "100%" }}>
+                  {cues.map((cue, ci) => <span key={ci}>{ci > 0 ? " · " : ""}{cue}</span>)}
+                </div>
+              )}
+              {/* Speaker label */}
+              <div style={{ fontSize: "11px", fontWeight: "700", color: "#84a98c", fontFamily: "-apple-system, sans-serif", textTransform: "uppercase", letterSpacing: "0.08em", paddingLeft: "4px" }}>
+                {roleLabel} says:
+              </div>
+              {/* Speech bubble */}
+              <div style={{ padding: "14px 18px", background: "#fff", borderRadius: "4px 18px 18px 18px", fontSize: "14px", lineHeight: "1.7", color: "#1a2e1a", boxShadow: "0 1px 6px rgba(0,0,0,0.05)", border: "1px solid #e8f0ec" }}>
+                {cleanText}
+              </div>
             </div>
-            <div style={{ maxWidth: "74%", padding: "14px 18px", background: m.role === "user" ? accent : "#fff", borderRadius: m.role === "user" ? "18px 4px 18px 18px" : "4px 18px 18px 18px", fontSize: "14px", lineHeight: "1.7", color: m.role === "user" ? "#fff" : "#1a2e1a", boxShadow: "0 1px 6px rgba(0,0,0,0.05)" }}>
-              {m.role === "assistant" ? renderMessage(m.content) : m.content}
-            </div>
-          </div>
-        ))}
+          );
+        })}
 
         {(loading || speaking) && (
-          <div style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
-            <div style={{ width: "34px", height: "34px", borderRadius: "50%", background: "#e8f0ec", border: "1px solid #d8e8e0", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", color: "#52796f", fontFamily: "-apple-system, sans-serif", fontWeight: "700" }}>AI</div>
-            <div style={{ padding: "14px 18px", background: "#fff", borderRadius: "4px 18px 18px 18px", display: "flex", gap: "5px", alignItems: "center", boxShadow: "0 1px 6px rgba(0,0,0,0.05)" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "6px", alignItems: "flex-start", maxWidth: "82%" }}>
+            <div style={{ fontSize: "11px", fontWeight: "700", color: "#84a98c", fontFamily: "-apple-system, sans-serif", textTransform: "uppercase", letterSpacing: "0.08em", paddingLeft: "4px" }}>
+              Your {selectedSituation?.ai_role || "partner"} says:
+            </div>
+            <div style={{ padding: "14px 18px", background: "#fff", borderRadius: "4px 18px 18px 18px", display: "flex", gap: "5px", alignItems: "center", boxShadow: "0 1px 6px rgba(0,0,0,0.05)", border: "1px solid #e8f0ec" }}>
               {[0,1,2].map((i) => <div key={i} style={{ width: "7px", height: "7px", borderRadius: "50%", background: accent, animation: "pulse 1.2s ease-in-out infinite", animationDelay: `${i * 0.2}s` }} />)}
               <span style={{ fontSize: "12px", color: "#84a98c", marginLeft: "8px", fontFamily: "-apple-system, sans-serif" }}>{speaking ? "speaking..." : "thinking..."}</span>
             </div>
