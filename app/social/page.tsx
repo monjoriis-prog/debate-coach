@@ -2639,6 +2639,107 @@ IMPROVE: [one specific gentle actionable suggestion for next time]
 VERDICT: [2-3 sentence warm encouraging coaching summary — celebrate their growth and effort]
 ---END---`;
 
+
+// ── FORTE SOUND ENGINE ──────────────────────────────────────────
+// Unique synthesized audio signatures using Web Audio API
+// No sound files needed — these are algorithmically generated
+let _audioCtx: AudioContext | null = null;
+function getAudioCtx() {
+  if (!_audioCtx) _audioCtx = new AudioContext();
+  if (_audioCtx.state === "suspended") _audioCtx.resume();
+  return _audioCtx;
+}
+
+function playTone(freq: number, duration: number, type: OscillatorType = "sine", vol: number = 0.12, delay: number = 0) {
+  try {
+    const ctx = getAudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, ctx.currentTime + delay);
+    gain.gain.setValueAtTime(0, ctx.currentTime + delay);
+    gain.gain.linearRampToValueAtTime(vol, ctx.currentTime + delay + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + duration);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(ctx.currentTime + delay);
+    osc.stop(ctx.currentTime + delay + duration);
+  } catch {}
+}
+
+const forteSound = {
+  // Soft rising two-note chime — page navigation
+  pageIn: () => {
+    playTone(523.25, 0.15, "sine", 0.08);       // C5
+    playTone(659.25, 0.2, "sine", 0.1, 0.08);    // E5
+  },
+
+  // Subtle crisp tap — button press
+  tap: () => {
+    playTone(880, 0.06, "sine", 0.06);            // A5 quick
+  },
+
+  // Gentle ascending step — stepper forward
+  stepForward: () => {
+    playTone(440, 0.1, "triangle", 0.07);          // A4
+    playTone(554.37, 0.15, "triangle", 0.09, 0.07); // C#5
+  },
+
+  // Soft descending — stepper back
+  stepBack: () => {
+    playTone(554.37, 0.1, "triangle", 0.06);       // C#5
+    playTone(440, 0.15, "triangle", 0.07, 0.07);    // A4
+  },
+
+  // Warm opening — practice conversation starts
+  practiceStart: () => {
+    playTone(261.63, 0.2, "sine", 0.07);           // C4
+    playTone(329.63, 0.2, "sine", 0.08, 0.1);      // E4
+    playTone(392, 0.25, "sine", 0.09, 0.2);         // G4
+  },
+
+  // Achievement chord — coach feedback reveal
+  coachReveal: () => {
+    playTone(392, 0.3, "sine", 0.09);               // G4
+    playTone(493.88, 0.3, "sine", 0.09, 0.08);      // B4
+    playTone(587.33, 0.35, "sine", 0.1, 0.16);      // D5
+    playTone(783.99, 0.4, "triangle", 0.07, 0.28);  // G5 sparkle
+  },
+
+  // Attention double-ping — red flag popup
+  redFlag: () => {
+    playTone(740, 0.12, "square", 0.05);            // F#5
+    playTone(740, 0.12, "square", 0.05, 0.15);      // F#5 again
+  },
+
+  // Warm resolution — affirmation / chose yourself
+  affirm: () => {
+    playTone(349.23, 0.25, "sine", 0.08);           // F4
+    playTone(440, 0.25, "sine", 0.09, 0.12);        // A4
+    playTone(523.25, 0.3, "sine", 0.1, 0.24);       // C5
+    playTone(698.46, 0.4, "sine", 0.06, 0.38);      // F5 high
+  },
+
+  // Scenario select — quick bright pop
+  select: () => {
+    playTone(659.25, 0.08, "sine", 0.07);           // E5
+    playTone(783.99, 0.12, "sine", 0.09, 0.06);     // G5
+  },
+
+  // Category select — deeper warm tone
+  category: () => {
+    playTone(329.63, 0.15, "sine", 0.08);           // E4
+    playTone(415.3, 0.18, "sine", 0.09, 0.08);      // G#4
+    playTone(523.25, 0.2, "sine", 0.08, 0.16);      // C5
+  },
+
+  // Next lesson tip — soft pluck
+  nextTip: () => {
+    playTone(587.33, 0.1, "triangle", 0.08);        // D5
+    playTone(698.46, 0.14, "triangle", 0.07, 0.06); // F5
+  },
+};
+
 function speak(text: string, voiceConfig: { pitch: number; rate: number; preferFemale: boolean }, onEnd?: () => void) {
   const clean = text.replace(/\(.*?\)/g, "").replace(/\*/g, "").trim();
   window.speechSynthesis.cancel();
@@ -2877,7 +2978,7 @@ export default function Forte() {
     if (parsed) {
       setFeedback(parsed);
       setMessages([...newMessages, { role: "assistant", content: parsed.raw || "That was a wonderful conversation." }]);
-      setPhase("done"); setTimeout(() => setShowFeedbackModal(true), 600);
+      setPhase("done"); setTimeout(() => { forteSound.coachReveal(); setShowFeedbackModal(true); }, 600);
     } else {
       const updatedMessages = [...newMessages, { role: "assistant", content: reply }];
       setMessages(updatedMessages);
@@ -2887,7 +2988,7 @@ export default function Forte() {
         const userMsg = text.toLowerCase();
         const triggered = selectedSituation.redFlagAlert.keywords.some((kw: string) => userMsg.includes(kw.toLowerCase()));
         if (triggered) {
-          setTimeout(() => { setShowRedFlagPopup(true); setRedFlagPopupShown(true); window.speechSynthesis.cancel(); setSpeaking(false); }, 1500);
+          setTimeout(() => { forteSound.redFlag(); setShowRedFlagPopup(true); setRedFlagPopupShown(true); window.speechSynthesis.cancel(); setSpeaking(false); }, 1500);
         }
       }
     }
@@ -2923,7 +3024,7 @@ export default function Forte() {
     return (
       <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
         <div style={{ maxWidth: "600px", margin: "0 auto", padding: "48px 24px 64px" }}>
-          <button onClick={() => setPhase("home")} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", marginBottom: "36px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
+          <button onClick={() => { forteSound.stepBack(); setPhase("home"); }} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", marginBottom: "36px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
           <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
             <Icon html={ICONS.self} size={26} color="#7c5cbf" />
             <h2 style={{ fontSize: "28px", fontWeight: "400", margin: 0, color: "#1a2e1a" }}>Self</h2>
@@ -3232,7 +3333,7 @@ Format the plan with gentle headers. Be warm, not clinical.`,
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
           {SCENARIOS.map((s) => (
-            <button key={s.category} onClick={() => { setSelectedCategory(s); setPhase("scenario"); }}
+            <button key={s.category} onClick={() => { forteSound.category(); setSelectedCategory(s); setPhase("scenario"); }}
               style={{ background: "#fff", border: "1px solid #d8e8e0", borderRadius: "16px", padding: "28px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.25s" }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = s.accent; e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = `0 12px 32px ${s.accent}18`; }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
@@ -3240,7 +3341,7 @@ Format the plan with gentle headers. Be warm, not clinical.`,
               <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>{s.category}</div>
             </button>
           ))}
-          <button onClick={() => { setSelectedCategory({ accent: "#7c5cbf", color: "#f5f0fa" }); setSelfTool(""); setPhase("self_hub"); }}
+          <button onClick={() => { forteSound.category(); setSelectedCategory({ accent: "#7c5cbf", color: "#f5f0fa" }); setSelfTool(""); setPhase("self_hub"); }}
             style={{ background: "#fff", border: "1px solid #e0d5f5", borderRadius: "16px", padding: "28px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.25s" }}
             onMouseEnter={e => { e.currentTarget.style.borderColor = "#7c5cbf"; e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 12px 32px #7c5cbf18"; }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = "#e0d5f5"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
@@ -3317,7 +3418,7 @@ Format the plan with gentle headers. Be warm, not clinical.`,
       return (
         <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
           <div style={{ maxWidth: "640px", margin: "0 auto", padding: "40px 24px 64px" }}>
-            <button onClick={() => setSubcategoryFilter("All")} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", marginBottom: "36px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
+            <button onClick={() => { forteSound.stepBack(); setSubcategoryFilter("All"); }} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", marginBottom: "36px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
             <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "6px" }}>
               <Icon html={ICONS[selectedCategory.iconKey as keyof typeof ICONS]} size={24} color={selectedCategory.accent} />
               <h2 style={{ fontSize: "28px", fontWeight: "400", margin: 0, color: "#1a2e1a" }}>{subcategoryFilter}</h2>
@@ -3325,7 +3426,7 @@ Format the plan with gentle headers. Be warm, not clinical.`,
             <p style={{ color: "#84a98c", fontSize: "14px", marginBottom: "36px", fontFamily: "-apple-system, sans-serif" }}>Choose a scenario — you'll learn first, then practice.</p>
             <div style={{ border: `1.5px solid ${selectedCategory.accent}22`, borderRadius: "14px", overflow: "hidden" }}>
               {group?.situations.map((s: any, i: number) => (
-                <button key={i} onClick={() => { setSelectedSituation(s); setLessonIndex(0); setRedFlagStep(0); setPhase("learn"); }}
+                <button key={i} onClick={() => { forteSound.select(); setSelectedSituation(s); setLessonIndex(0); setRedFlagStep(0); setPhase("learn"); }}
                   style={{ width: "100%", background: "#fff", border: "none", borderTop: i > 0 ? "1px solid #e8f0ec" : "none", padding: "20px 24px", textAlign: "left", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "background 0.15s" }}
                   onMouseEnter={e => { e.currentTarget.style.background = selectedCategory.color; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "#fff"; }}>
@@ -3346,7 +3447,7 @@ Format the plan with gentle headers. Be warm, not clinical.`,
     return (
     <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
       <div style={{ maxWidth: "640px", margin: "0 auto", padding: "40px 24px 64px" }}>
-        <button onClick={() => setPhase("home")} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", marginBottom: "36px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
+        <button onClick={() => { forteSound.stepBack(); setPhase("home"); }} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", marginBottom: "36px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
         <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "6px" }}>
           <Icon html={ICONS[selectedCategory.iconKey as keyof typeof ICONS]} size={24} color={selectedCategory.accent} />
           <h2 style={{ fontSize: "28px", fontWeight: "400", margin: 0, color: "#1a2e1a" }}>{selectedCategory.category}</h2>
@@ -3355,7 +3456,7 @@ Format the plan with gentle headers. Be warm, not clinical.`,
         <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
           {groups.map((group) => (
             <button key={group.name}
-              onClick={() => setSubcategoryFilter(group.name)}
+              onClick={() => { forteSound.select(); setSubcategoryFilter(group.name); }}
               style={{ background: "#fff", border: `1.5px solid ${selectedCategory.accent}22`, borderRadius: "14px", padding: "20px 24px", textAlign: "left", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "all 0.18s" }}
               onMouseEnter={e => { e.currentTarget.style.background = selectedCategory.color; e.currentTarget.style.borderColor = selectedCategory.accent; e.currentTarget.style.transform = "translateX(4px)"; }}
               onMouseLeave={e => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.borderColor = `${selectedCategory.accent}22`; e.currentTarget.style.transform = "none"; }}>
@@ -3380,7 +3481,7 @@ Format the plan with gentle headers. Be warm, not clinical.`,
     return (
       <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif", display: "flex", flexDirection: "column" }}>
         <div style={{ flex: 1, maxWidth: "600px", margin: "0 auto", padding: "36px 24px 160px", width: "100%" }}>
-          <button onClick={() => { if (redFlagStep > 0) { setRedFlagStep(redFlagStep - 1); } else { setSubcategoryFilter("All"); setPhase("scenario"); setRedFlagStep(0); } }} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", marginBottom: "28px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
+          <button onClick={() => { if (redFlagStep > 0) { forteSound.stepBack(); setRedFlagStep(redFlagStep - 1); } else { forteSound.stepBack(); setSubcategoryFilter("All"); setPhase("scenario"); setRedFlagStep(0); } }} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", marginBottom: "28px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
 
           {/* Title — always visible */}
           <div style={{ marginBottom: "28px" }}>
@@ -3470,7 +3571,7 @@ Format the plan with gentle headers. Be warm, not clinical.`,
 
               {/* Path choices */}
               <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                <button onClick={() => setRedFlagPath("navigate")}
+                <button onClick={() => { forteSound.tap(); setRedFlagPath("navigate"); }}
                   style={{ background: "#fff", border: `1.5px solid ${accent2}33`, borderRadius: "14px", padding: "20px 22px", textAlign: "left", cursor: "pointer", transition: "all 0.2s", display: "flex", alignItems: "center", gap: "16px" }}>
                   <div style={{ fontSize: "26px", flexShrink: 0 }}>💬</div>
                   <div>
@@ -3479,7 +3580,7 @@ Format the plan with gentle headers. Be warm, not clinical.`,
                   </div>
                 </button>
 
-                <button onClick={() => setRedFlagPath("leave")}
+                <button onClick={() => { forteSound.tap(); setRedFlagPath("leave"); }}
                   style={{ background: "#fff", border: "1.5px solid #e8d5f5", borderRadius: "14px", padding: "20px 22px", textAlign: "left", cursor: "pointer", transition: "all 0.2s", display: "flex", alignItems: "center", gap: "16px" }}>
                   <div style={{ fontSize: "26px", flexShrink: 0 }}>🚪</div>
                   <div>
@@ -3496,11 +3597,11 @@ Format the plan with gentle headers. Be warm, not clinical.`,
         <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, background: "#fff", borderTop: "1px solid #e8f0ec", padding: "16px 24px", display: "flex", gap: "10px", justifyContent: "center", zIndex: 100 }}>
           {redFlagStep < 3 && (
             <>
-              <button onClick={() => setRedFlagStep(redFlagStep + 1)}
+              <button onClick={() => { forteSound.stepForward(); setRedFlagStep(redFlagStep + 1); }}
                 style={{ flex: 1, maxWidth: "280px", padding: "14px", background: accent2, color: "#fff", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
                 {redFlagStep === 0 ? "Why is this dangerous? →" : redFlagStep === 1 ? "Show me the signs →" : "I'm ready →"}
               </button>
-              <button onClick={() => { setRedFlagStep(0); setRedFlagPath("navigate"); }}
+              <button onClick={() => { forteSound.tap(); setRedFlagStep(0); setRedFlagPath("navigate"); }}
                 style={{ padding: "14px 18px", background: "transparent", color: accent2, border: `1.5px solid ${accent2}33`, borderRadius: "12px", fontSize: "13px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", whiteSpace: "nowrap" }}>
                 Take me to practice →
               </button>
@@ -3548,7 +3649,7 @@ Format the plan with gentle headers. Be warm, not clinical.`,
     return (
       <div style={{ minHeight: "100vh", background: "#f8f3ff", fontFamily: "Georgia, serif", display: "flex", flexDirection: "column" }}>
         <div style={{ flex: 1, maxWidth: "600px", margin: "0 auto", padding: "36px 24px 160px", width: "100%" }}>
-          <button onClick={() => { if (leavingStep > 0) { setLeavingStep(leavingStep - 1); } else { setRedFlagPath(""); setLeavingStep(0); } }} style={{ background: "transparent", border: "none", color: "#9b8abf", cursor: "pointer", fontSize: "14px", marginBottom: "28px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
+          <button onClick={() => { forteSound.stepBack(); if (leavingStep > 0) { setLeavingStep(leavingStep - 1); } else { setRedFlagPath(""); setLeavingStep(0); } }} style={{ background: "transparent", border: "none", color: "#9b8abf", cursor: "pointer", fontSize: "14px", marginBottom: "28px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
 
           {/* Title */}
           <div style={{ marginBottom: "24px" }}>
@@ -3614,7 +3715,7 @@ Format the plan with gentle headers. Be warm, not clinical.`,
         {/* FIXED BOTTOM BAR */}
         {!isLastTip && (
           <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, background: "#fff", borderTop: "1px solid #e8d5f5", padding: "16px 24px", display: "flex", gap: "10px", justifyContent: "center", zIndex: 100 }}>
-            <button onClick={() => setLeavingStep(leavingStep + 1)}
+            <button onClick={() => { forteSound.stepForward(); setLeavingStep(leavingStep + 1); }}
               style={{ flex: 1, maxWidth: "280px", padding: "14px", background: accent2, color: "#fff", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
               Next →
             </button>
@@ -3680,7 +3781,7 @@ Format the plan with gentle headers. Be warm, not clinical.`,
             {lessonIndex > 0 && (
               <button onClick={() => setLessonIndex(i => i - 1)} style={{ flex: 1, padding: "15px", background: "#f0f7f4", color: "#2d6a4f", border: "1px solid #d8e8e0", fontSize: "14px", borderRadius: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>← Previous</button>
             )}
-            <button onClick={() => isLast ? startChat(selectedSituation) : setLessonIndex(i => i + 1)}
+            <button onClick={() => { isLast ? (forteSound.practiceStart(), startChat(selectedSituation)) : (forteSound.nextTip(), setLessonIndex(i => i + 1)); }}
               style={{ flex: 1, padding: "15px", background: accent, color: "#fff", border: "none", fontSize: "14px", borderRadius: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>
               {isLast ? "Start Practice →" : "Next Tip →"}
             </button>
@@ -3799,12 +3900,13 @@ Format the plan with gentle headers. Be warm, not clinical.`,
               {/* Action buttons */}
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 <button
-                  onClick={() => { setShowRedFlagPopup(false); }}
+                  onClick={() => { forteSound.tap(); setShowRedFlagPopup(false); }}
                   style={{ width: "100%", padding: "15px", background: "#fff", color: "#52796f", border: "1.5px solid #d8e8e0", fontSize: "14px", borderRadius: "14px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", fontWeight: "600", transition: "all 0.15s" }}>
                   I want to keep practicing this conversation →
                 </button>
                 <button
                   onClick={() => {
+                    forteSound.affirm();
                     setShowRedFlagPopup(false);
                     setRedFlagExited(true);
                     setPhase("done");
