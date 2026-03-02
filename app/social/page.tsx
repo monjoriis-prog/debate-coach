@@ -4162,6 +4162,186 @@ Format the plan with gentle headers. Be warm, not clinical.`,
                 <button onClick={() => { setShowFeedbackModal(false); startChat(selectedSituation); }} style={{ flex: 1, padding: "13px", background: accent, color: "#fff", border: "none", fontSize: "13px", borderRadius: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>Try Again</button>
                 <button onClick={() => { setShowFeedbackModal(false); reset(); }} style={{ flex: 1, padding: "13px", background: "#fff", color: "#84a98c", border: "1px solid #e8f0ec", fontSize: "13px", borderRadius: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>New</button>
               </div>
+
+              {/* Share Score Card */}
+              <button
+                onClick={async () => {
+                  forteSound.affirm();
+                  const W = 720, H = 1280;
+                  const c = document.createElement("canvas");
+                  c.width = W; c.height = H;
+                  const g = c.getContext("2d")!;
+
+                  // Background gradient
+                  const grad = g.createLinearGradient(0, 0, 0, H);
+                  grad.addColorStop(0, "#1a2e1a");
+                  grad.addColorStop(0.4, "#2d3e2d");
+                  grad.addColorStop(1, "#1a2e1a");
+                  g.fillStyle = grad;
+                  g.fillRect(0, 0, W, H);
+
+                  // Subtle decorative circles
+                  g.globalAlpha = 0.04;
+                  g.beginPath(); g.arc(580, 200, 300, 0, Math.PI * 2); g.fillStyle = "#95d5b2"; g.fill();
+                  g.beginPath(); g.arc(140, 900, 250, 0, Math.PI * 2); g.fillStyle = "#52796f"; g.fill();
+                  g.globalAlpha = 1;
+
+                  // FORTE branding
+                  g.fillStyle = "#52796f";
+                  g.font = "700 13px -apple-system, sans-serif";
+                  g.letterSpacing = "6px";
+                  g.textAlign = "center";
+                  g.fillText("F O R T E", W / 2, 80);
+
+                  g.fillStyle = "#84a98c";
+                  g.font = "400 13px -apple-system, sans-serif";
+                  g.letterSpacing = "2px";
+                  g.fillText("SOCIAL  SKILLS  TRAINING", W / 2, 105);
+
+                  // Divider line
+                  g.strokeStyle = "#52796f44";
+                  g.lineWidth = 1;
+                  g.beginPath(); g.moveTo(260, 130); g.lineTo(460, 130); g.stroke();
+
+                  // Session complete
+                  g.fillStyle = "#95d5b2";
+                  g.font = "700 12px -apple-system, sans-serif";
+                  g.letterSpacing = "4px";
+                  g.fillText("SESSION COMPLETE ✦", W / 2, 180);
+
+                  // Big score
+                  g.fillStyle = "#fff";
+                  g.font = "200 140px Georgia, serif";
+                  g.letterSpacing = "0px";
+                  g.fillText(String(totalScore), W / 2, 340);
+
+                  g.fillStyle = "#84a98c";
+                  g.font = "400 18px -apple-system, sans-serif";
+                  g.fillText("out of 10", W / 2, 375);
+
+                  // Scenario title
+                  g.fillStyle = "#b7e4c7";
+                  g.font = "italic 400 18px Georgia, serif";
+                  const scenarioText = selectedSituation?.title || "";
+                  // Word wrap scenario title
+                  const words = scenarioText.split(" ");
+                  let titleLines: string[] = [];
+                  let currentLine = "";
+                  words.forEach((word: string) => {
+                    const test = currentLine ? currentLine + " " + word : word;
+                    if (g.measureText(test).width > 480) {
+                      titleLines.push(currentLine);
+                      currentLine = word;
+                    } else {
+                      currentLine = test;
+                    }
+                  });
+                  if (currentLine) titleLines.push(currentLine);
+                  titleLines.forEach((line, li) => {
+                    g.fillText(line, W / 2, 430 + li * 28);
+                  });
+
+                  // Score bars
+                  const scores = [
+                    { label: "Warmth", val: feedback.warmth },
+                    { label: "Clarity", val: feedback.clarity },
+                    { label: "Listening", val: feedback.listening },
+                    { label: "Confidence", val: feedback.confidence },
+                    { label: "Body Language", val: feedback.bodyLanguage },
+                  ];
+                  const barY = 500 + titleLines.length * 28;
+                  const barX = 100;
+                  const barW = 420;
+
+                  scores.forEach((s, i) => {
+                    const y = barY + i * 56;
+                    // Label
+                    g.textAlign = "left";
+                    g.fillStyle = "#b7e4c7";
+                    g.font = "600 14px -apple-system, sans-serif";
+                    g.fillText(s.label, barX, y);
+                    // Score number
+                    g.textAlign = "right";
+                    g.fillStyle = "#fff";
+                    g.font = "600 14px -apple-system, sans-serif";
+                    g.fillText(String(s.val) + "/10", barX + barW + 80, y);
+                    // Bar background
+                    g.fillStyle = "#ffffff15";
+                    g.beginPath();
+                    g.roundRect(barX, y + 8, barW, 10, 5);
+                    g.fill();
+                    // Bar fill
+                    const fillW = (s.val / 10) * barW;
+                    const barGrad = g.createLinearGradient(barX, 0, barX + fillW, 0);
+                    barGrad.addColorStop(0, "#40916c");
+                    barGrad.addColorStop(1, "#95d5b2");
+                    g.fillStyle = barGrad;
+                    g.beginPath();
+                    g.roundRect(barX, y + 8, fillW, 10, 5);
+                    g.fill();
+                  });
+
+                  // Best moment
+                  if (feedback.bestMoment) {
+                    const bmY = barY + scores.length * 56 + 40;
+                    g.textAlign = "center";
+                    g.fillStyle = "#52796f";
+                    g.font = "700 11px -apple-system, sans-serif";
+                    g.letterSpacing = "3px";
+                    g.fillText("✦  BEST MOMENT", W / 2, bmY);
+                    g.letterSpacing = "0px";
+
+                    // Word wrap best moment
+                    g.fillStyle = "#d4e8dc";
+                    g.font = "italic 400 16px Georgia, serif";
+                    const bmWords = feedback.bestMoment.split(" ");
+                    let bmLines: string[] = [];
+                    let bmLine = "";
+                    bmWords.forEach((word: string) => {
+                      const test = bmLine ? bmLine + " " + word : word;
+                      if (g.measureText(test).width > 500) {
+                        bmLines.push(bmLine);
+                        bmLine = word;
+                      } else {
+                        bmLine = test;
+                      }
+                    });
+                    if (bmLine) bmLines.push(bmLine);
+                    bmLines.slice(0, 4).forEach((line, li) => {
+                      g.fillText(line, W / 2, bmY + 30 + li * 26);
+                    });
+                  }
+
+                  // Footer
+                  g.textAlign = "center";
+                  g.fillStyle = "#52796f88";
+                  g.font = "400 13px -apple-system, sans-serif";
+                  g.fillText("Practice your people skills", W / 2, H - 60);
+                  g.fillStyle = "#52796f55";
+                  g.font = "400 11px -apple-system, sans-serif";
+                  g.fillText("forteapp.co", W / 2, H - 38);
+
+                  // Convert to image and share/download
+                  c.toBlob(async (blob) => {
+                    if (!blob) return;
+                    const file = new File([blob], "forte-score.png", { type: "image/png" });
+                    if (navigator.share && navigator.canShare?.({ files: [file] })) {
+                      try {
+                        await navigator.share({ files: [file], title: "My FORTE Score" });
+                      } catch {}
+                    } else {
+                      const url = URL.createObjectURL(blob);
+                      const a = document.createElement("a");
+                      a.href = url; a.download = "forte-score.png";
+                      a.click();
+                      URL.revokeObjectURL(url);
+                    }
+                  }, "image/png");
+                }}
+                style={{ width: "100%", marginTop: "12px", padding: "14px", background: "linear-gradient(135deg, #1a2e1a, #2d3e2d)", color: "#95d5b2", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}
+              >
+                📤 Share My Score Card
+              </button>
             </div>
           </div>
         </div>
