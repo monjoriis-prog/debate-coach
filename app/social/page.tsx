@@ -1953,6 +1953,8 @@ export default function Forte() {
   const [feedback, setFeedback] = useState<any>(null);
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   const [feedbackReading, setFeedbackReading] = useState(false);
+  const [dynamicSuggestions, setDynamicSuggestions] = useState<string[]>([]);
+  const [loadingSuggestions, setLoadingSuggestions] = useState(false);
   const [userTurns, setUserTurns] = useState(0);
   const [customWho, setCustomWho] = useState("");
   const [customSituation, setCustomSituation] = useState("");
@@ -2008,10 +2010,12 @@ export default function Forte() {
     });
     const data = await res.json();
     const reply = data.content || "Hey there.";
-    setMessages([{ role: "assistant", content: reply }]);
+    const firstMessages = [{ role: "assistant", content: reply }];
+    setMessages(firstMessages);
     setLoading(false);
     setSpeaking(true);
     speak(reply, situation.voice, () => setSpeaking(false));
+    generateSuggestions(firstMessages, situation);
   }
 
   function startCustomChat() {
@@ -2031,12 +2035,39 @@ export default function Forte() {
     startChat(situation);
   }
 
+  async function generateSuggestions(conversationMessages: any[], situation: any) {
+    setLoadingSuggestions(true);
+    try {
+      const lastAiMsg = [...conversationMessages].reverse().find((m: any) => m.role === "assistant");
+      const lastAiText = lastAiMsg ? lastAiMsg.content.replace(/\*[^*]*\*/g, "").trim() : "";
+      const recentHistory = conversationMessages.slice(-6).map((m: any) =>
+        `${m.role === "user" ? "User" : "Them"}: ${m.content.replace(/\*[^*]*\*/g, "").trim()}`
+      ).join("\n");
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          systemPrompt: `You are a social coach generating response suggestions. Return ONLY a JSON array of exactly 3 short natural responses the user could say next. No explanation, no markdown, just the raw JSON array like: ["response one", "response two", "response three"]. Each response should be 1-2 sentences, feel natural and conversational, and directly continue from what was just said. Vary the tone: one warm/emotional, one practical/direct, one playful or light.`,
+          messages: [{ role: "user", content: `Scenario: ${situation.title}\n\nRecent conversation:\n${recentHistory}\n\nThey just said: "${lastAiText}"\n\nGive 3 natural follow-up responses the user could say.` }],
+        }),
+      });
+      const data = await res.json();
+      const text = (data.content || "").trim().replace(/^```json|^```|```$/gm, "").trim();
+      const parsed = JSON.parse(text);
+      if (Array.isArray(parsed)) setDynamicSuggestions(parsed.slice(0, 3));
+    } catch {
+      setDynamicSuggestions([]);
+    }
+    setLoadingSuggestions(false);
+  }
+
   async function sendMessage(text: string) {
     if (!text || loading) return;
     const newMessages = [...messages, { role: "user", content: text }];
     setMessages(newMessages);
     setTranscript("");
     setTypedMessage("");
+    setDynamicSuggestions([]);
     setUserTurns((t: number) => t + 1);
     setLoading(true);
     const res = await fetch("/api/chat", {
@@ -2057,9 +2088,11 @@ export default function Forte() {
       setSpeaking(true);
       speak(parsed.verdict || "Well done.", { pitch: 1.0, rate: 0.78, preferFemale: true }, () => setSpeaking(false));
     } else {
-      setMessages([...newMessages, { role: "assistant", content: reply }]);
+      const updatedMessages = [...newMessages, { role: "assistant", content: reply }];
+      setMessages(updatedMessages);
       setSpeaking(true);
       speak(reply, selectedSituation.voice, () => setSpeaking(false));
+      generateSuggestions(updatedMessages, selectedSituation);
     }
     setLoading(false);
   }
@@ -2069,7 +2102,7 @@ export default function Forte() {
     setMessages([]); setFeedback(null); setUserTurns(0);
     setTranscript(""); setTypedMessage(""); setLessonIndex(0);
     setCustomWho(""); setCustomSituation(""); setCustomGoal("");
-    setSubcategoryFilter("All"); setShowFeedbackModal(false); setFeedbackReading(false);
+    setSubcategoryFilter("All"); setShowFeedbackModal(false); setFeedbackReading(false); setDynamicSuggestions([]);
     window.speechSynthesis.cancel();
   }
 
@@ -2077,7 +2110,8 @@ export default function Forte() {
     ? Math.round((feedback.warmth + feedback.clarity + feedback.listening + feedback.confidence + feedback.bodyLanguage) / 5)
     : null;
 
-  const currentSuggestions = selectedSituation?.suggestions?.[Math.min(userTurns, (selectedSituation?.suggestions?.length || 1) - 1)] || [];
+  const staticSuggestions = selectedSituation?.suggestions?.[Math.min(userTurns, (selectedSituation?.suggestions?.length || 1) - 1)] || [];
+  const currentSuggestions = dynamicSuggestions.length > 0 ? dynamicSuggestions : staticSuggestions;
 
   // HOME
   if (phase === "home") return (
@@ -2444,18 +2478,26 @@ export default function Forte() {
 
       {phase === "chat" && (
         <div style={{ background: "#fff", borderTop: "1px solid #e8f0ec", padding: "14px 24px", flexShrink: 0 }}>
-          {!loading && !speaking && currentSuggestions.length > 0 && (
+          {!loading && !speaking && (loadingSuggestions || currentSuggestions.length > 0) && (
             <div style={{ marginBottom: "12px" }}>
-              <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginBottom: "7px", fontWeight: "600", letterSpacing: "0.05em", textTransform: "uppercase" }}>Try saying:</div>
+              <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginBottom: "7px", fontWeight: "600", letterSpacing: "0.05em", textTransform: "uppercase", display: "flex", alignItems: "center", gap: "6px" }}>
+                Try saying:
+                {loadingSuggestions && <span style={{ fontSize: "10px", color: "#b0c4b8", fontWeight: "400", fontStyle: "italic" }}>generating...</span>}
+              </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-                {currentSuggestions.map((s: string, i: number) => (
-                  <button key={i} onClick={() => sendMessage(s)}
-                    style={{ background: "#f0f7f4", border: "1px solid #d8e8e0", borderRadius: "10px", padding: "9px 14px", textAlign: "left", cursor: "pointer", fontSize: "13px", color: "#2d6a4f", fontFamily: "Georgia, serif", lineHeight: 1.4, transition: "all 0.15s" }}
-                    onMouseEnter={e => { e.currentTarget.style.background = "#e0f0e8"; e.currentTarget.style.borderColor = accent; }}
-                    onMouseLeave={e => { e.currentTarget.style.background = "#f0f7f4"; e.currentTarget.style.borderColor = "#d8e8e0"; }}>
-                    "{s}"
-                  </button>
-                ))}
+                {loadingSuggestions
+                  ? [0,1,2].map(i => (
+                      <div key={i} style={{ background: "#f5f8f6", border: "1px solid #e8f0ec", borderRadius: "10px", padding: "9px 14px", height: "38px", animation: "pulse 1.4s ease-in-out infinite", animationDelay: `${i * 0.15}s` }} />
+                    ))
+                  : currentSuggestions.map((s: string, i: number) => (
+                      <button key={i} onClick={() => sendMessage(s)}
+                        style={{ background: "#f0f7f4", border: "1px solid #d8e8e0", borderRadius: "10px", padding: "9px 14px", textAlign: "left", cursor: "pointer", fontSize: "13px", color: "#2d6a4f", fontFamily: "Georgia, serif", lineHeight: 1.4, transition: "all 0.15s" }}
+                        onMouseEnter={e => { e.currentTarget.style.background = "#e0f0e8"; e.currentTarget.style.borderColor = accent; }}
+                        onMouseLeave={e => { e.currentTarget.style.background = "#f0f7f4"; e.currentTarget.style.borderColor = "#d8e8e0"; }}>
+                        "{s}"
+                      </button>
+                    ))
+                }
               </div>
             </div>
           )}
