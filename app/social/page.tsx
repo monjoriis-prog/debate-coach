@@ -1015,6 +1015,12 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         },
         title: "When a family member gaslights you",
         subtitle: "They make you question your own memory and reality. It's not okay.",
+        redFlagDescription: {
+          what: "Gaslighting is when someone makes you question your own memory, perception, or reality — not by accident, but as a way to maintain control. It sounds like: 'That never happened,' 'You're being dramatic,' or 'I think you're confused.'",
+          why: "Over time, gaslighting erodes your trust in yourself. You start second-guessing your own experiences, apologizing for things that aren't your fault, and relying on the other person to tell you what's 'really' happening. That dependency is the point.",
+          signs: ["They deny things you clearly remember", "They tell you you're 'too sensitive' when you raise concerns", "They reframe events so they're always the victim", "You feel confused or crazy after conversations with them"],
+          training: "In this practice, you'll learn to hold your ground on what you know happened — even when someone you love tries to rewrite the story. You'll practice staying grounded in your own reality.",
+        },
         ai_role: "a family member who gaslights",
         voice: { pitch: 0.95, rate: 0.78, preferFemale: false },
         lessons: [
@@ -1059,6 +1065,12 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         },
         title: "When a family member repeatedly crosses your limits",
         subtitle: "You've said it before. They do it again. What now?",
+        redFlagDescription: {
+          what: "Boundary violation is when someone consistently ignores your clearly stated limits — not because they forgot, but because they've decided your boundaries don't apply to them. It often hides behind 'I'm just trying to help' or 'That's just how I am.'",
+          why: "When someone repeatedly crosses your limits without consequence, they learn that your 'no' is really a 'maybe.' Over time, you stop setting boundaries altogether because it feels pointless — and that's exactly the dynamic they're counting on.",
+          signs: ["They agree to your boundary in the moment but break it again later", "They act hurt or offended when you enforce a limit", "They frame your boundaries as you being difficult or controlling", "You feel exhausted just thinking about bringing it up again"],
+          training: "In this practice, you'll learn to enforce boundaries with consequences — calmly, clearly, and without backing down when they push back. You'll build the muscle of following through.",
+        },
         ai_role: "a family member who doesn't respect your limits",
         voice: { pitch: 0.9, rate: 0.76, preferFemale: true },
         lessons: [
@@ -1403,6 +1415,12 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         },
         title: "Recognizing love bombing before it's too late",
         subtitle: "Overwhelming attention feels amazing — until it doesn't.",
+        redFlagDescription: {
+          what: "Love bombing is a pattern where someone floods you with excessive affection, attention, gifts, and declarations of love very early in a relationship. It feels intoxicating — like you've finally found someone who truly sees you. But the intensity isn't about you. It's a strategy to accelerate attachment before you've had time to evaluate the relationship clearly.",
+          why: "Love bombing works because it hijacks your brain chemistry. The constant texts, grand gestures, and 'I've never felt this way' create a dopamine rush that mimics deep connection. Then comes the withdrawal — they pull back, and you're left chasing the high. The cycle of intensity and coldness creates a trauma bond that feels like love but functions like addiction.",
+          signs: ["They say 'I love you' or talk about a future together within days or weeks", "They want to be in constant contact and get upset if you don't respond immediately", "The relationship feels like it went from 0 to 100 with no gradual buildup", "When you try to slow down, they guilt-trip you or question your feelings", "Their affection feels performative — more about the gesture than about knowing you"],
+          training: "In this practice, you'll learn to recognize the difference between genuine connection and manufactured intensity. You'll practice slowing things down, naming the pattern, and trusting your own pace over someone else's pressure.",
+        },
         ai_role: "someone who is love bombing you",
         voice: { pitch: 1.15, rate: 0.82, preferFemale: false },
         lessons: [
@@ -1447,6 +1465,12 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         },
         title: "When they guilt-trip you for having limits",
         subtitle: "You said no to something reasonable. They made you feel terrible.",
+        redFlagDescription: {
+          what: "Guilt-tripping is when someone uses your empathy against you — making you feel selfish, ungrateful, or cruel for setting a perfectly reasonable boundary. It sounds like: 'After everything I've done for you,' 'I guess I just don't matter,' or 'Fine, do whatever you want' said in a tone designed to punish.",
+          why: "Guilt-tripping works because kind people don't want to hurt others. When someone frames your boundary as an act of cruelty, your instinct is to prove you care — by dropping the boundary. Over time, you learn that saying 'no' comes with emotional punishment, so you stop saying it. That's the goal.",
+          signs: ["They act wounded or victimized when you say no", "They use the silent treatment after you set a limit", "They keep a mental scoreboard of everything they've done for you", "You feel guilty even when your boundary is completely reasonable", "They make you choose between their happiness and your own needs"],
+          training: "In this practice, you'll learn to hold a boundary while someone actively tries to make you feel bad about it. You'll practice staying calm, not apologizing for reasonable limits, and recognizing guilt as a manipulation tool — not a sign that you're wrong.",
+        },
         ai_role: "a date or partner who guilt-trips you",
         voice: { pitch: 1.1, rate: 0.8, preferFemale: true },
         lessons: [
@@ -1486,6 +1510,12 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         isRedFlag: true,
         title: "Meeting someone from an app for the first time",
         subtitle: "They seem great online. Now keep yourself safe in person.",
+        redFlagDescription: {
+          what: "First meetings from dating apps carry real safety risks that are easy to minimize when you're excited about someone. The person you've been chatting with is still functionally a stranger — no matter how good the conversation has been. Boundary-testing on a first date often looks subtle: suggesting a private location, offering to pick you up, pressuring you to stay longer than you're comfortable.",
+          why: "People who don't respect your safety boundaries on a first meeting are showing you something important. It's not romantic to override someone's caution — it's a control signal. The excitement of meeting someone new can cloud your judgment about what's actually happening.",
+          signs: ["They push to meet somewhere private instead of a public place", "They insist on picking you up or driving you home", "They pressure you to stay when you want to leave", "They get offended when you take basic safety precautions", "They make you feel paranoid for wanting to tell a friend where you'll be"],
+          training: "In this practice, you'll learn to hold safety boundaries firmly — choosing public places, keeping your own transportation, and leaving when you want to — even when someone pushes back with charm or guilt.",
+        },
         ai_role: "someone you matched with on a dating app",
         voice: { pitch: 1.1, rate: 0.8, preferFemale: true },
         redFlagAlert: {
@@ -1528,6 +1558,12 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         isRedFlag: true,
         title: "Recognizing catfishing and fake profiles",
         subtitle: "Something doesn't add up. Trust what you see, not what you hope.",
+        redFlagDescription: {
+          what: "Catfishing is when someone creates a fake online identity to deceive you — using stolen photos, fabricated life stories, and emotional manipulation to build a relationship based entirely on lies. Catfish are often skilled at making you feel uniquely special, which makes it harder to question what doesn't add up.",
+          why: "Catfishing exploits your desire for connection. The longer you invest emotionally, the harder it becomes to walk away — even when red flags are obvious. Catfish know this, which is why they accelerate emotional intimacy while avoiding anything that would verify their identity, like video calls or meeting in person.",
+          signs: ["Their photos look professional or model-quality but they claim to be 'ordinary'", "They always have an excuse for not video calling — bad camera, shy, too busy", "Their life story is impressive but nothing can be independently verified", "They guilt-trip you for wanting basic proof — 'Don't you trust me?'", "They push for emotional depth while dodging simple factual questions"],
+          training: "In this practice, you'll learn to ask for verification without feeling guilty, spot the difference between genuine connection and manufactured intimacy, and trust your instincts when something doesn't add up.",
+        },
         ai_role: "someone whose online profile doesn't quite add up",
         voice: { pitch: 1.12, rate: 0.82, preferFemale: false },
         redFlagAlert: {
@@ -1570,6 +1606,12 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         isRedFlag: true,
         title: "When to share personal information — and when not to",
         subtitle: "They're asking questions. Some are fine. Some are too much too soon.",
+        redFlagDescription: {
+          what: "Information harvesting disguised as getting-to-know-you happens when someone's questions shift from curious to collecting — asking for your address, workplace, daily routine, living situation, or financial details before any real trust has been built. It can feel flattering ('they're so interested in me!') which is exactly why it works.",
+          why: "Sharing logistical details with someone you haven't met creates real safety risks. A manipulative person can use your routine, location, and living situation to stalk, control, or exploit you. The tricky part is that some of these questions feel normal in a dating context — the red flag is the specificity and the timing.",
+          signs: ["They ask where exactly you live or work very early on", "They want to know if you live alone", "They ask about your daily schedule or commute patterns", "They get pushy or offended when you keep details vague", "Their questions feel more like building a file than building a connection"],
+          training: "In this practice, you'll learn to distinguish emotional openness from dangerous information sharing. You'll practice being warm and authentic while keeping logistical details private until trust is earned through actions, not words.",
+        },
         ai_role: "someone you've been chatting with online",
         voice: { pitch: 1.08, rate: 0.8, preferFemale: false },
         redFlagAlert: {
@@ -2166,7 +2208,13 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
           affirmation: "You chose direct honesty over playing the same game. That takes courage — especially when the other person is making you question whether the problem is even real. It is real. And you handled it with clarity.",
         },
         title: "The passive aggressive friend",
-        subtitle: "They say 'I'm fine' — but nothing about this is fine.",
+        subtitle: "They say 'I\'m fine' — but nothing about this is fine.",
+        redFlagDescription: {
+          what: "Passive aggression is indirect hostility — backhanded compliments, weaponized 'jokes,' convenient forgetting, the sigh-and-eye-roll combo, or 'I\'m fine' when they're clearly not. It's anger that refuses to be honest about itself, which makes it incredibly hard to address because the aggressor always has plausible deniability.",
+          why: "Passive aggression is exhausting because you're always decoding. You feel the hostility, but when you name it, they make you feel crazy — 'I was just kidding,' 'You're reading too much into it.' Over time, you start walking on eggshells, monitoring their mood, and editing yourself to avoid triggering the indirect attacks.",
+          signs: ["Backhanded compliments: 'Wow, you're so brave for wearing that'", "Weaponized humor that always targets you, then 'Can\'t you take a joke?'", "They say everything is fine but their behavior says the opposite", "They 'forget' things that matter to you but remember everything else"],
+          training: "In this practice, you'll learn to name passive-aggressive behavior directly and calmly, without getting pulled into the denial game. You'll practice responding to the behavior, not the words.",
+        },
         ai_role: "a passive aggressive friend",
         voice: { pitch: 1.05, rate: 0.8, preferFemale: true },
         lessons: [
@@ -2211,6 +2259,12 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         },
         title: "When a friend never takes responsibility",
         subtitle: "It's always someone else's fault. You're always the one apologizing.",
+        redFlagDescription: {
+          what: "Chronic deflection is when someone consistently avoids owning their impact — redirecting blame, minimizing your feelings, playing victim, or turning every accountability conversation back on you. It sounds like: 'Well, you did the same thing to me once,' 'I\'m sorry you feel that way,' or 'You always make me the bad guy.'",
+          why: "Friendships require mutual accountability. When one person never takes responsibility, the other person ends up carrying all the emotional labor — apologizing first, smoothing things over, absorbing the hurt to keep the peace. Over time, you start to feel like your feelings don't matter in the friendship, because functionally, they don't.",
+          signs: ["Every apology comes with a 'but' or a counter-accusation", "They turn your concern about their behavior into a conversation about yours", "They cast themselves as the victim when they caused the harm", "You've stopped bringing up problems because it never goes anywhere"],
+          training: "In this practice, you'll learn to hold someone accountable without backing down when they deflect. You'll practice staying on topic, naming the redirect, and deciding what this pattern means for the friendship.",
+        },
         ai_role: "a friend who deflects all accountability",
         voice: { pitch: 1.05, rate: 0.82, preferFemale: false },
         lessons: [
@@ -2444,6 +2498,12 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         },
         title: "When your manager takes credit for your work",
         subtitle: "It happened again. How do you address it without blowing up your career?",
+        redFlagDescription: {
+          what: "Credit theft happens when a manager or senior colleague presents your work, ideas, or contributions as their own — in meetings, presentations, or to higher-ups. It ranges from subtle (never mentioning your name) to blatant (claiming they did the work). It often comes with gaslighting: 'It was a team effort' or 'I was just building on your foundation.'",
+          why: "Having your work stolen doesn't just feel bad — it has real career consequences. Promotions, raises, and opportunities go to people who get credit, not people who do the work. If your manager consistently takes credit, you become invisible to the organization while they advance on your effort.",
+          signs: ["They present your work to leadership without mentioning your name", "They use 'I' instead of 'we' when discussing projects you led", "They discourage you from presenting directly to senior leadership", "Your peers get credited for their contributions but yours get absorbed"],
+          training: "In this practice, you'll learn to advocate for your contributions diplomatically but firmly. You'll practice creating visibility for your work and addressing credit theft directly.",
+        },
         ai_role: "your manager who has been taking credit for your work",
         voice: { pitch: 0.95, rate: 0.8, preferFemale: false },
         lessons: [
@@ -2495,6 +2555,12 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         },
         title: "Recognizing a manipulative colleague",
         subtitle: "Something feels off. Learn to name what you're seeing.",
+        redFlagDescription: {
+          what: "Workplace manipulation is when a colleague uses social dynamics, information control, or emotional tactics to advance their interests at your expense. It can look like volunteering you for extra work, spreading selective information, or building alliances designed to isolate you — all while maintaining a friendly, professional surface.",
+          why: "Workplace manipulators are hard to spot because they're often well-liked. They're skilled at making self-serving behavior look like teamwork or initiative. By the time you realize what's happening, they've already shaped how others see you.",
+          signs: ["They volunteer you for tasks without asking", "They share selective information that makes you look bad", "They're publicly supportive but privately undermine your work", "Others see them as a team player but you feel consistently disadvantaged"],
+          training: "In this practice, you'll learn to recognize manipulation patterns in professional settings, set boundaries without appearing uncooperative, and protect yourself through documentation and strategic communication.",
+        },
         ai_role: "a manipulative colleague",
         voice: { pitch: 1.0, rate: 0.8, preferFemale: true },
         lessons: [
@@ -3317,20 +3383,49 @@ Format the plan with gentle headers. Be warm, not clinical.`,
             <p style={{ fontSize: "15px", color: "#52796f", lineHeight: 1.8, margin: 0, fontStyle: "italic" }}>{selectedSituation.subtitle}</p>
           </div>
 
+          {/* Red Flag Education */}
+          {selectedSituation.redFlagDescription && (
+            <div style={{ marginBottom: "28px" }}>
+              {/* What it is */}
+              <div style={{ background: "#fff", border: `1.5px solid ${accent2}22`, borderRadius: "18px", padding: "24px 28px", marginBottom: "12px" }}>
+                <div style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.15em", color: accent2, textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", marginBottom: "10px" }}>What This Looks Like</div>
+                <p style={{ fontSize: "15px", color: "#2d3e35", lineHeight: 1.85, margin: 0 }}>{selectedSituation.redFlagDescription.what}</p>
+              </div>
+
+              {/* Why it's dangerous */}
+              <div style={{ background: "#fff", border: `1.5px solid ${accent2}22`, borderRadius: "18px", padding: "24px 28px", marginBottom: "12px" }}>
+                <div style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.15em", color: "#c0392b", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", marginBottom: "10px" }}>Why It's Dangerous</div>
+                <p style={{ fontSize: "15px", color: "#2d3e35", lineHeight: 1.85, margin: 0 }}>{selectedSituation.redFlagDescription.why}</p>
+              </div>
+
+              {/* Signs to watch for */}
+              <div style={{ background: "#fff", border: `1.5px solid ${accent2}22`, borderRadius: "18px", padding: "24px 28px", marginBottom: "12px" }}>
+                <div style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.15em", color: "#d4a017", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", marginBottom: "12px" }}>Signs to Watch For</div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                  {selectedSituation.redFlagDescription.signs.map((sign: string, si: number) => (
+                    <div key={si} style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
+                      <div style={{ fontSize: "14px", flexShrink: 0, marginTop: "2px" }}>🚩</div>
+                      <p style={{ fontSize: "14px", color: "#2d3e35", lineHeight: 1.7, margin: 0 }}>{sign}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* What you'll practice */}
+              <div style={{ background: selectedCategory?.color || "#f0f7f4", border: `1.5px solid ${accent2}33`, borderRadius: "18px", padding: "24px 28px" }}>
+                <div style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.15em", color: accent2, textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", marginBottom: "10px" }}>What You'll Practice</div>
+                <p style={{ fontSize: "15px", color: "#1a2e1a", lineHeight: 1.85, margin: 0, fontWeight: "500" }}>{selectedSituation.redFlagDescription.training}</p>
+              </div>
+            </div>
+          )}
+
           {/* Validation message */}
-          <div style={{ background: "#fff", border: `1.5px solid ${accent2}22`, borderRadius: "18px", padding: "28px 32px", marginBottom: "28px" }}>
-            <div style={{ fontSize: "22px", marginBottom: "14px" }}>🌿</div>
-            <p style={{ fontSize: "16px", color: "#1a2e1a", lineHeight: 1.9, margin: "0 0 16px", fontWeight: "500" }}>
-              First, something important:
+          <div style={{ background: "#fff", border: "1.5px solid #e8d5f522", borderRadius: "18px", padding: "24px 28px", marginBottom: "28px" }}>
+            <p style={{ fontSize: "14px", color: "#52796f", lineHeight: 1.85, margin: "0 0 10px" }}>
+              <strong>Remember:</strong> You don't owe anyone a conversation, repeated chances, or access to you when it costs you your peace. Leaving is always a valid choice.
             </p>
-            <p style={{ fontSize: "15px", color: "#2d3e35", lineHeight: 1.9, margin: "0 0 16px" }}>
-              You don't owe anyone a conversation. You don't owe anyone repeated chances. You don't owe anyone access to you when that access consistently costs you your peace.
-            </p>
-            <p style={{ fontSize: "15px", color: "#2d3e35", lineHeight: 1.9, margin: "0 0 16px" }}>
-              <strong>Leaving a relationship — or creating distance from it — is a complete, valid, and sometimes the healthiest choice available to you.</strong> You do not have to explain it. You do not have to justify it. You do not have to try harder first.
-            </p>
-            <p style={{ fontSize: "15px", color: "#2d3e35", lineHeight: 1.9, margin: 0 }}>
-              FORTE can help you practice navigating difficult conversations — but it will never tell you that you should stay in something that isn't safe or healthy for you.
+            <p style={{ fontSize: "13px", color: "#84a98c", lineHeight: 1.7, margin: 0, fontStyle: "italic" }}>
+              FORTE helps you practice — but will never tell you to stay in something that isn't safe.
             </p>
           </div>
 
@@ -3344,8 +3439,8 @@ Format the plan with gentle headers. Be warm, not clinical.`,
               onMouseLeave={e => { e.currentTarget.style.borderColor = `${accent2}33`; e.currentTarget.style.background = "#fff"; }}>
               <div style={{ fontSize: "28px", flexShrink: 0 }}>💬</div>
               <div>
-                <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>I want to learn how to navigate this</div>
-                <div style={{ fontSize: "13px", color: "#84a98c", lineHeight: 1.5 }}>See what healthy responses look like and practice the conversation</div>
+                <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>Train me to recognize and handle this</div>
+                <div style={{ fontSize: "13px", color: "#84a98c", lineHeight: 1.5 }}>Learn the red flags, see healthy responses, and practice in a safe conversation</div>
               </div>
             </button>
 
@@ -3355,8 +3450,8 @@ Format the plan with gentle headers. Be warm, not clinical.`,
               onMouseLeave={e => { e.currentTarget.style.borderColor = "#e8d5f5"; e.currentTarget.style.background = "#fff"; }}>
               <div style={{ fontSize: "28px", flexShrink: 0 }}>🚪</div>
               <div>
-                <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>I want to create distance or leave this relationship</div>
-                <div style={{ fontSize: "13px", color: "#84a98c", lineHeight: 1.5 }}>Learn how to step back with clarity, self-respect, and without guilt</div>
+                <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>I already know this is a red flag — help me leave</div>
+                <div style={{ fontSize: "13px", color: "#84a98c", lineHeight: 1.5 }}>Get guidance on creating distance or ending things with clarity and self-respect</div>
               </div>
             </button>
 
