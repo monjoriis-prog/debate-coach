@@ -706,8 +706,6 @@ const SCENARIOS = [
           ["I believe in you. I want this to work.", "What would make you feel fully supported by me?", "Let's figure out the practical stuff together so it doesn't feel like it's all on you."],
           ["I'm excited for you — and for us.", "Thank you for sharing this with me.", "Whatever comes, we'll figure it out together."],
         ],
-        prompt: `You want to change careers and it's something you've been building toward. You need your partner to lead with belief, not skepticism. You're open to practical questions once you feel supported — but if they come with doubts first, you'll get defensive and feel unseen. Light up if they ask about your vision before testing your plan, and share fears as fears rather than objections.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
-      },
     ],
   },
   {
