@@ -2747,7 +2747,8 @@ export default function Forte() {
   const [redFlagPath, setRedFlagPath] = useState<string>("");
   const [showRedFlagPopup, setShowRedFlagPopup] = useState(false);
   const [redFlagPopupShown, setRedFlagPopupShown] = useState(false);
-  const [redFlagExited, setRedFlagExited] = useState(false); // "navigate" | "leave" | "document"
+  const [redFlagExited, setRedFlagExited] = useState(false);
+  const [redFlagStep, setRedFlagStep] = useState(0); // "navigate" | "leave" | "document"
   const [userTurns, setUserTurns] = useState(0);
   const [customWho, setCustomWho] = useState("");
   const [customSituation, setCustomSituation] = useState("");
@@ -2897,7 +2898,7 @@ export default function Forte() {
     setMessages([]); setFeedback(null); setUserTurns(0);
     setTranscript(""); setTypedMessage(""); setLessonIndex(0);
     setCustomWho(""); setCustomSituation(""); setCustomGoal("");
-    setSubcategoryFilter("All"); setShowFeedbackModal(false); setFeedbackReading(false); setDynamicSuggestions([]); setSelfTool(""); setSelfInput(""); setSelfResult(null); setSelfMessages([]); setSelfStep(0); setSelfSpeaking(false); setRedFlagPath(""); setShowRedFlagPopup(false); setRedFlagPopupShown(false); setRedFlagExited(false);
+    setSubcategoryFilter("All"); setShowFeedbackModal(false); setFeedbackReading(false); setDynamicSuggestions([]); setSelfTool(""); setSelfInput(""); setSelfResult(null); setSelfMessages([]); setSelfStep(0); setSelfSpeaking(false); setRedFlagPath(""); setShowRedFlagPopup(false); setRedFlagPopupShown(false); setRedFlagExited(false); setRedFlagStep(0);
     window.speechSynthesis.cancel();
   }
 
@@ -3323,7 +3324,7 @@ Format the plan with gentle headers. Be warm, not clinical.`,
             <p style={{ color: "#84a98c", fontSize: "14px", marginBottom: "36px", fontFamily: "-apple-system, sans-serif" }}>Choose a scenario — you'll learn first, then practice.</p>
             <div style={{ border: `1.5px solid ${selectedCategory.accent}22`, borderRadius: "14px", overflow: "hidden" }}>
               {group?.situations.map((s: any, i: number) => (
-                <button key={i} onClick={() => { setSelectedSituation(s); setLessonIndex(0); setPhase("learn"); }}
+                <button key={i} onClick={() => { setSelectedSituation(s); setLessonIndex(0); setRedFlagStep(0); setPhase("learn"); }}
                   style={{ width: "100%", background: "#fff", border: "none", borderTop: i > 0 ? "1px solid #e8f0ec" : "none", padding: "20px 24px", textAlign: "left", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "background 0.15s" }}
                   onMouseEnter={e => { e.currentTarget.style.background = selectedCategory.color; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "#fff"; }}>
@@ -3368,94 +3369,142 @@ Format the plan with gentle headers. Be warm, not clinical.`,
   }
 
   // LEARN PHASE
-  // ── RED FLAG VALIDATION SCREEN ──────────────────────────────────
+  // ── RED FLAG EDUCATION — STEP-BY-STEP MOBILE FLOW ──────────────
   if (phase === "learn" && selectedSituation?.isRedFlag && !selectedSituation?.isWorkRedFlag && !redFlagPath) {
     const accent2 = selectedCategory?.accent || "#2d6a4f";
-    return (
-      <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
-        <div style={{ maxWidth: "600px", margin: "0 auto", padding: "48px 24px 64px" }}>
-          <button onClick={() => { setSubcategoryFilter("All"); setPhase("scenario"); }} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", marginBottom: "40px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
+    const desc = selectedSituation.redFlagDescription;
+    const stepTitles = ["What This Looks Like", "Why It's Dangerous", "Signs to Watch For", "Ready to Practice"];
+    const totalSteps = desc ? 4 : 0;
 
-          {/* Header */}
-          <div style={{ marginBottom: "36px" }}>
-            <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.2em", color: accent2, textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", marginBottom: "14px" }}>Before we begin</div>
-            <h2 style={{ fontSize: "32px", fontWeight: "400", color: "#1a2e1a", margin: "0 0 16px", lineHeight: 1.2 }}>{selectedSituation.title}</h2>
-            <p style={{ fontSize: "15px", color: "#52796f", lineHeight: 1.8, margin: 0, fontStyle: "italic" }}>{selectedSituation.subtitle}</p>
+    return (
+      <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif", display: "flex", flexDirection: "column" }}>
+        <div style={{ flex: 1, maxWidth: "600px", margin: "0 auto", padding: "36px 24px 160px", width: "100%" }}>
+          <button onClick={() => { if (redFlagStep > 0) { setRedFlagStep(redFlagStep - 1); } else { setSubcategoryFilter("All"); setPhase("scenario"); setRedFlagStep(0); } }} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", marginBottom: "28px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
+
+          {/* Title — always visible */}
+          <div style={{ marginBottom: "28px" }}>
+            <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.2em", color: accent2, textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", marginBottom: "10px" }}>🚩 Red Flag Training</div>
+            <h2 style={{ fontSize: "26px", fontWeight: "400", color: "#1a2e1a", margin: "0 0 10px", lineHeight: 1.25 }}>{selectedSituation.title}</h2>
+            <p style={{ fontSize: "14px", color: "#52796f", lineHeight: 1.7, margin: 0, fontStyle: "italic" }}>{selectedSituation.subtitle}</p>
           </div>
 
-          {/* Red Flag Education */}
-          {selectedSituation.redFlagDescription && (
-            <div style={{ marginBottom: "28px" }}>
-              {/* What it is */}
-              <div style={{ background: "#fff", border: `1.5px solid ${accent2}22`, borderRadius: "18px", padding: "24px 28px", marginBottom: "12px" }}>
-                <div style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.15em", color: accent2, textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", marginBottom: "10px" }}>What This Looks Like</div>
-                <p style={{ fontSize: "15px", color: "#2d3e35", lineHeight: 1.85, margin: 0 }}>{selectedSituation.redFlagDescription.what}</p>
-              </div>
-
-              {/* Why it's dangerous */}
-              <div style={{ background: "#fff", border: `1.5px solid ${accent2}22`, borderRadius: "18px", padding: "24px 28px", marginBottom: "12px" }}>
-                <div style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.15em", color: "#c0392b", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", marginBottom: "10px" }}>Why It's Dangerous</div>
-                <p style={{ fontSize: "15px", color: "#2d3e35", lineHeight: 1.85, margin: 0 }}>{selectedSituation.redFlagDescription.why}</p>
-              </div>
-
-              {/* Signs to watch for */}
-              <div style={{ background: "#fff", border: `1.5px solid ${accent2}22`, borderRadius: "18px", padding: "24px 28px", marginBottom: "12px" }}>
-                <div style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.15em", color: "#d4a017", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", marginBottom: "12px" }}>Signs to Watch For</div>
-                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                  {selectedSituation.redFlagDescription.signs.map((sign: string, si: number) => (
-                    <div key={si} style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
-                      <div style={{ fontSize: "14px", flexShrink: 0, marginTop: "2px" }}>🚩</div>
-                      <p style={{ fontSize: "14px", color: "#2d3e35", lineHeight: 1.7, margin: 0 }}>{sign}</p>
-                    </div>
-                  ))}
+          {/* Progress dots */}
+          {desc && (
+            <div style={{ display: "flex", gap: "8px", marginBottom: "28px", alignItems: "center" }}>
+              {stepTitles.map((label, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <div style={{
+                    width: i <= redFlagStep ? "auto" : "8px",
+                    height: "8px",
+                    borderRadius: i <= redFlagStep ? "99px" : "50%",
+                    background: i <= redFlagStep ? accent2 : "#d8e8e0",
+                    padding: i <= redFlagStep ? "4px 12px" : "0",
+                    fontSize: "10px",
+                    fontWeight: "700",
+                    color: "#fff",
+                    fontFamily: "-apple-system, sans-serif",
+                    letterSpacing: "0.05em",
+                    transition: "all 0.3s ease",
+                    whiteSpace: "nowrap",
+                  }}>
+                    {i <= redFlagStep ? (i < redFlagStep ? "✓" : `${i + 1}/${totalSteps}`) : ""}
+                  </div>
                 </div>
-              </div>
+              ))}
+            </div>
+          )}
 
-              {/* What you'll practice */}
-              <div style={{ background: selectedCategory?.color || "#f0f7f4", border: `1.5px solid ${accent2}33`, borderRadius: "18px", padding: "24px 28px" }}>
-                <div style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.15em", color: accent2, textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", marginBottom: "10px" }}>What You'll Practice</div>
-                <p style={{ fontSize: "15px", color: "#1a2e1a", lineHeight: 1.85, margin: 0, fontWeight: "500" }}>{selectedSituation.redFlagDescription.training}</p>
+          {/* STEP 0: What This Looks Like */}
+          {desc && redFlagStep === 0 && (
+            <div style={{ animation: "fadeSlideIn 0.35s ease" }}>
+              <div style={{ background: "#fff", border: `1.5px solid ${accent2}22`, borderRadius: "18px", padding: "28px 24px" }}>
+                <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.15em", color: accent2, textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", marginBottom: "14px" }}>What This Looks Like</div>
+                <p style={{ fontSize: "15px", color: "#2d3e35", lineHeight: 1.9, margin: 0 }}>{desc.what}</p>
               </div>
             </div>
           )}
 
-          {/* Validation message */}
-          <div style={{ background: "#fff", border: "1.5px solid #e8d5f522", borderRadius: "18px", padding: "24px 28px", marginBottom: "28px" }}>
-            <p style={{ fontSize: "14px", color: "#52796f", lineHeight: 1.85, margin: "0 0 10px" }}>
-              <strong>Remember:</strong> You don't owe anyone a conversation, repeated chances, or access to you when it costs you your peace. Leaving is always a valid choice.
-            </p>
-            <p style={{ fontSize: "13px", color: "#84a98c", lineHeight: 1.7, margin: 0, fontStyle: "italic" }}>
-              FORTE helps you practice — but will never tell you to stay in something that isn't safe.
-            </p>
-          </div>
-
-          {/* Path choice */}
-          <p style={{ fontSize: "13px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginBottom: "16px", textAlign: "center" }}>What would you like to do?</p>
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-
-            <button onClick={() => setRedFlagPath("navigate")}
-              style={{ background: "#fff", border: `1.5px solid ${accent2}33`, borderRadius: "14px", padding: "22px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.2s", display: "flex", alignItems: "center", gap: "18px" }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = accent2; e.currentTarget.style.background = selectedCategory?.color || "#f0f7f4"; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = `${accent2}33`; e.currentTarget.style.background = "#fff"; }}>
-              <div style={{ fontSize: "28px", flexShrink: 0 }}>💬</div>
-              <div>
-                <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>Train me to recognize and handle this</div>
-                <div style={{ fontSize: "13px", color: "#84a98c", lineHeight: 1.5 }}>Learn the red flags, see healthy responses, and practice in a safe conversation</div>
+          {/* STEP 1: Why It's Dangerous */}
+          {desc && redFlagStep === 1 && (
+            <div style={{ animation: "fadeSlideIn 0.35s ease" }}>
+              <div style={{ background: "#fff", border: "1.5px solid #dc354522", borderRadius: "18px", padding: "28px 24px" }}>
+                <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.15em", color: "#c0392b", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", marginBottom: "14px" }}>Why It's Dangerous</div>
+                <p style={{ fontSize: "15px", color: "#2d3e35", lineHeight: 1.9, margin: 0 }}>{desc.why}</p>
               </div>
-            </button>
+            </div>
+          )}
 
-            <button onClick={() => setRedFlagPath("leave")}
-              style={{ background: "#fff", border: "1.5px solid #e8d5f5", borderRadius: "14px", padding: "22px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.2s", display: "flex", alignItems: "center", gap: "18px" }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = "#7c5cbf"; e.currentTarget.style.background = "#f8f3ff"; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = "#e8d5f5"; e.currentTarget.style.background = "#fff"; }}>
-              <div style={{ fontSize: "28px", flexShrink: 0 }}>🚪</div>
-              <div>
-                <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>I already know this is a red flag — help me leave</div>
-                <div style={{ fontSize: "13px", color: "#84a98c", lineHeight: 1.5 }}>Get guidance on creating distance or ending things with clarity and self-respect</div>
+          {/* STEP 2: Signs to Watch For */}
+          {desc && redFlagStep === 2 && (
+            <div style={{ animation: "fadeSlideIn 0.35s ease" }}>
+              <div style={{ background: "#fff", border: "1.5px solid #d4a01722", borderRadius: "18px", padding: "28px 24px" }}>
+                <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.15em", color: "#d4a017", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", marginBottom: "16px" }}>Signs to Watch For</div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                  {desc.signs.map((sign: string, si: number) => (
+                    <div key={si} style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+                      <div style={{ fontSize: "16px", flexShrink: 0, marginTop: "1px" }}>🚩</div>
+                      <p style={{ fontSize: "14px", color: "#2d3e35", lineHeight: 1.75, margin: 0 }}>{sign}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </button>
+            </div>
+          )}
 
-          </div>
+          {/* STEP 3: Ready to Practice — Path Choice */}
+          {desc && redFlagStep === 3 && (
+            <div style={{ animation: "fadeSlideIn 0.35s ease" }}>
+              {/* What you'll practice */}
+              <div style={{ background: selectedCategory?.color || "#f0f7f4", border: `1.5px solid ${accent2}33`, borderRadius: "18px", padding: "24px 24px", marginBottom: "20px" }}>
+                <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.15em", color: accent2, textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", marginBottom: "12px" }}>What You'll Practice</div>
+                <p style={{ fontSize: "15px", color: "#1a2e1a", lineHeight: 1.85, margin: 0, fontWeight: "500" }}>{desc.training}</p>
+              </div>
+
+              {/* Reminder */}
+              <div style={{ background: "#fff", border: "1.5px solid #e8d5f533", borderRadius: "14px", padding: "18px 20px", marginBottom: "24px" }}>
+                <p style={{ fontSize: "13px", color: "#52796f", lineHeight: 1.75, margin: 0 }}>
+                  <strong>Remember:</strong> You don't owe anyone repeated chances. Leaving is always a valid choice.
+                </p>
+              </div>
+
+              {/* Path choices */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                <button onClick={() => setRedFlagPath("navigate")}
+                  style={{ background: "#fff", border: `1.5px solid ${accent2}33`, borderRadius: "14px", padding: "20px 22px", textAlign: "left", cursor: "pointer", transition: "all 0.2s", display: "flex", alignItems: "center", gap: "16px" }}>
+                  <div style={{ fontSize: "26px", flexShrink: 0 }}>💬</div>
+                  <div>
+                    <div style={{ fontSize: "14px", fontWeight: "700", color: "#1a2e1a", marginBottom: "3px", fontFamily: "-apple-system, sans-serif" }}>Train me to handle this</div>
+                    <div style={{ fontSize: "12px", color: "#84a98c", lineHeight: 1.5 }}>See examples, then practice the conversation</div>
+                  </div>
+                </button>
+
+                <button onClick={() => setRedFlagPath("leave")}
+                  style={{ background: "#fff", border: "1.5px solid #e8d5f5", borderRadius: "14px", padding: "20px 22px", textAlign: "left", cursor: "pointer", transition: "all 0.2s", display: "flex", alignItems: "center", gap: "16px" }}>
+                  <div style={{ fontSize: "26px", flexShrink: 0 }}>🚪</div>
+                  <div>
+                    <div style={{ fontSize: "14px", fontWeight: "700", color: "#1a2e1a", marginBottom: "3px", fontFamily: "-apple-system, sans-serif" }}>I know this is a red flag — help me leave</div>
+                    <div style={{ fontSize: "12px", color: "#84a98c", lineHeight: 1.5 }}>Guidance on creating distance with self-respect</div>
+                  </div>
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* FIXED BOTTOM BAR — always visible */}
+        <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, background: "#fff", borderTop: "1px solid #e8f0ec", padding: "16px 24px", display: "flex", gap: "10px", justifyContent: "center", zIndex: 100 }}>
+          {redFlagStep < 3 && (
+            <>
+              <button onClick={() => setRedFlagStep(redFlagStep + 1)}
+                style={{ flex: 1, maxWidth: "280px", padding: "14px", background: accent2, color: "#fff", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+                {redFlagStep === 0 ? "Why is this dangerous? →" : redFlagStep === 1 ? "Show me the signs →" : "I'm ready →"}
+              </button>
+              <button onClick={() => { setRedFlagStep(0); setRedFlagPath("navigate"); }}
+                style={{ padding: "14px 18px", background: "transparent", color: accent2, border: `1.5px solid ${accent2}33`, borderRadius: "12px", fontSize: "13px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", whiteSpace: "nowrap" }}>
+                Take me to practice →
+              </button>
+            </>
+          )}
         </div>
       </div>
     );
@@ -3935,6 +3984,7 @@ Format the plan with gentle headers. Be warm, not clinical.`,
 
       <style>{`
         @keyframes pulse { 0%, 100% { opacity: 0.2; transform: scale(0.7); } 50% { opacity: 1; transform: scale(1.1); } }
+          @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
         * { box-sizing: border-box; }
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #f8faf8; }
