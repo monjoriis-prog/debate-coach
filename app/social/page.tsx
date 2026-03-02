@@ -8,6 +8,7 @@ const ICONS = {
   family: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
   custom: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>`,
   couple: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/><line x1="12" y1="8" x2="12" y2="13"/></svg>`,
+  self: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/><path d="M6.8 19a6 6 0 0 1 10.4 0"/></svg>`,
 };
 
 const SCENARIOS = [
@@ -1955,6 +1956,14 @@ export default function Forte() {
   const [feedbackReading, setFeedbackReading] = useState(false);
   const [dynamicSuggestions, setDynamicSuggestions] = useState<string[]>([]);
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
+  // Self category state
+  const [selfTool, setSelfTool] = useState<string>("");
+  const [selfInput, setSelfInput] = useState("");
+  const [selfResult, setSelfResult] = useState<any>(null);
+  const [selfLoading, setSelfLoading] = useState(false);
+  const [selfMessages, setSelfMessages] = useState<any[]>([]);
+  const [selfStep, setSelfStep] = useState(0); // for problem solver clarifying steps
+  const [selfSpeaking, setSelfSpeaking] = useState(false);
   const [userTurns, setUserTurns] = useState(0);
   const [customWho, setCustomWho] = useState("");
   const [customSituation, setCustomSituation] = useState("");
@@ -2102,7 +2111,7 @@ export default function Forte() {
     setMessages([]); setFeedback(null); setUserTurns(0);
     setTranscript(""); setTypedMessage(""); setLessonIndex(0);
     setCustomWho(""); setCustomSituation(""); setCustomGoal("");
-    setSubcategoryFilter("All"); setShowFeedbackModal(false); setFeedbackReading(false); setDynamicSuggestions([]);
+    setSubcategoryFilter("All"); setShowFeedbackModal(false); setFeedbackReading(false); setDynamicSuggestions([]); setSelfTool(""); setSelfInput(""); setSelfResult(null); setSelfMessages([]); setSelfStep(0); setSelfSpeaking(false);
     window.speechSynthesis.cancel();
   }
 
@@ -2114,6 +2123,313 @@ export default function Forte() {
   const currentSuggestions = dynamicSuggestions.length > 0 ? dynamicSuggestions : staticSuggestions;
 
   // HOME
+
+  // ── SELF HUB ──────────────────────────────────────────────────────
+  if (phase === "self_hub") {
+    const tools = [
+      { key: "affirmations", icon: "✦", label: "Affirmations", desc: "Tell me what you're struggling with — I'll create affirmations just for you", color: "#f5f0fa", accent: "#7c5cbf" },
+      { key: "journal", icon: "✍", label: "Journal", desc: "Write how you're feeling — I'll reflect it back and gently coach you", color: "#f0f7f4", accent: "#2d6a4f" },
+      { key: "meditation", icon: "◎", label: "Guided Meditation", desc: "Tell me what you need — I'll guide you through a short session", color: "#f0f4f8", accent: "#3a6186" },
+      { key: "problem", icon: "◈", label: "Problem Solver", desc: "Describe a challenge — I'll ask a few questions then give you a clear plan", color: "#faf8f0", accent: "#c07000" },
+    ];
+    return (
+      <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
+        <div style={{ maxWidth: "600px", margin: "0 auto", padding: "48px 24px 64px" }}>
+          <button onClick={() => setPhase("home")} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", marginBottom: "36px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
+            <Icon html={ICONS.self} size={26} color="#7c5cbf" />
+            <h2 style={{ fontSize: "28px", fontWeight: "400", margin: 0, color: "#1a2e1a" }}>Self</h2>
+          </div>
+          <p style={{ color: "#84a98c", fontSize: "14px", marginBottom: "36px", fontFamily: "-apple-system, sans-serif" }}>Tools for your inner world. Choose one to begin.</p>
+          <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+            {tools.map(t => (
+              <button key={t.key} onClick={() => { setSelfTool(t.key); setSelfInput(""); setSelfResult(null); setSelfMessages([]); setSelfStep(0); setPhase("self_tool"); }}
+                style={{ background: "#fff", border: `1.5px solid ${t.accent}22`, borderRadius: "16px", padding: "24px", textAlign: "left", cursor: "pointer", transition: "all 0.2s", display: "flex", alignItems: "center", gap: "20px" }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = t.accent; e.currentTarget.style.transform = "translateX(4px)"; e.currentTarget.style.background = t.color; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = `${t.accent}22`; e.currentTarget.style.transform = "none"; e.currentTarget.style.background = "#fff"; }}>
+                <div style={{ width: "48px", height: "48px", borderRadius: "14px", background: t.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "22px", color: t.accent, flexShrink: 0, border: `1px solid ${t.accent}22` }}>{t.icon}</div>
+                <div>
+                  <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>{t.label}</div>
+                  <div style={{ fontSize: "13px", color: "#84a98c", lineHeight: 1.5, fontStyle: "italic" }}>{t.desc}</div>
+                </div>
+                <div style={{ marginLeft: "auto", fontSize: "20px", color: t.accent, flexShrink: 0 }}>›</div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── SELF TOOL ─────────────────────────────────────────────────────
+  if (phase === "self_tool") {
+    const toolConfigs: Record<string, any> = {
+      affirmations: {
+        accent: "#7c5cbf", color: "#f5f0fa",
+        label: "Affirmations",
+        icon: "✦",
+        placeholder: "What's been weighing on you lately? What area of your life feels hard right now?",
+        inputLabel: "What are you struggling with?",
+        cta: "Create my affirmations",
+        systemPrompt: `You are a warm, compassionate affirmation coach. The user has shared something they are struggling with. Your job is to create 5 deeply personal, powerful affirmations tailored exactly to what they described. 
+Rules: 
+- Each affirmation starts with "I am", "I have", "I choose", "I trust", or "I deserve"
+- They must feel specific to this person's situation — not generic
+- They should be emotionally resonant, present tense, and believable
+- After the 5 affirmations, add a short warm 2-sentence note explaining why these will help them
+- Format: number each affirmation 1-5, then add the note after a line break labeled "A note for you:"`,
+      },
+      journal: {
+        accent: "#2d6a4f", color: "#f0f7f4",
+        label: "Journal",
+        icon: "✍",
+        placeholder: "Write freely — whatever is on your mind or heart today. There's no right or wrong way to start.",
+        inputLabel: "How are you feeling today?",
+        cta: "Share with my coach",
+        systemPrompt: `You are a warm, emotionally attuned journal coach. The user has shared a journal entry with you. Your role is to:
+1. Reflect back what you heard — show them they were truly heard (2-3 sentences)
+2. Name the emotion(s) you sense underneath their words with gentle precision
+3. Offer one insight — something they might not have seen about their own situation
+4. Ask one open, caring question that invites them to go deeper
+
+After your response, invite them to continue writing. This is a conversation — they can respond and you keep coaching. Keep your tone warm, never clinical. Never use bullet points — write in flowing paragraphs.`,
+        isConversational: true,
+      },
+      meditation: {
+        accent: "#3a6186", color: "#f0f4f8",
+        label: "Guided Meditation",
+        icon: "◎",
+        placeholder: "What do you need right now? (e.g. 'calm my anxiety', 'let go of a stressful day', 'feel more present', 'find clarity on a decision')",
+        inputLabel: "What do you need from this session?",
+        cta: "Begin my meditation",
+        systemPrompt: `You are a calm, grounding meditation guide. The user has told you what they need. Create a 3-5 minute guided meditation script tailored to their specific need.
+
+Structure:
+- Opening (30 sec): settle the body, close the eyes, a few breaths
+- Body scan or grounding (1 min): specific to their need
+- Core practice (2 min): visualization or breath work that directly addresses what they asked for  
+- Closing (30 sec): gentle return, affirmation to carry with them
+
+Write it as spoken guidance — second person, present tense, calming pace. Use "..." to indicate natural pauses. Make it feel personal to exactly what they shared, not generic. End with one sentence they can carry with them.`,
+      },
+      problem: {
+        accent: "#c07000", color: "#faf8f0",
+        label: "Problem Solver",
+        icon: "◈",
+        placeholder: "Describe the challenge or situation you're facing. Don't worry about being perfect — just write what's going on.",
+        inputLabel: "What's the challenge you're facing?",
+        cta: "Start working on this",
+        systemPrompt: `You are a warm, practical life coach helping someone work through a real challenge. 
+
+PHASE 1 — Clarifying (first response only):
+Ask exactly 2 warm, thoughtful clarifying questions to understand:
+- The emotional stakes (how this is affecting them)
+- What they've already tried or what feels stuck
+Keep it conversational and caring. Do NOT give advice yet.
+
+PHASE 2 — Plan (after they answer your questions):
+Give them a clear, structured plan with:
+- A brief acknowledgment of what you heard (1-2 sentences)  
+- 3-4 specific, actionable steps they can actually take
+- One "inner work" step — something emotional or mindset-related
+- A closing encouragement that feels personal to their situation
+
+Format the plan with gentle headers. Be warm, not clinical.`,
+        isConversational: true,
+        isClarifying: true,
+      },
+    };
+
+    const tool = toolConfigs[selfTool];
+    if (!tool) return null;
+
+    async function runSelfTool() {
+      setSelfLoading(true);
+      setSelfResult(null);
+      try {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            systemPrompt: tool.systemPrompt,
+            messages: [{ role: "user", content: selfInput }],
+          }),
+        });
+        const data = await res.json();
+        const reply = data.content || "";
+        if (tool.isConversational) {
+          setSelfMessages([{ role: "user", content: selfInput }, { role: "assistant", content: reply }]);
+          setSelfStep(1);
+        } else {
+          setSelfResult(reply);
+        }
+      } catch { setSelfResult("Something went wrong. Please try again."); }
+      setSelfLoading(false);
+    }
+
+    async function sendSelfMessage(text: string) {
+      if (!text.trim() || selfLoading) return;
+      const newMsgs = [...selfMessages, { role: "user", content: text }];
+      setSelfMessages(newMsgs);
+      setSelfInput("");
+      setSelfLoading(true);
+      try {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            systemPrompt: tool.systemPrompt,
+            messages: newMsgs,
+          }),
+        });
+        const data = await res.json();
+        setSelfMessages([...newMsgs, { role: "assistant", content: data.content || "" }]);
+        setSelfStep((s: number) => s + 1);
+      } catch {}
+      setSelfLoading(false);
+    }
+
+    function readAloud(text: string) {
+      const clean = text.replace(/[*#_]/g, "").replace(/\.\.\./g, " ").trim();
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(clean);
+      utter.rate = selfTool === "meditation" ? 0.72 : 0.85;
+      utter.pitch = selfTool === "meditation" ? 0.95 : 1.05;
+      utter.onend = () => setSelfSpeaking(false);
+      setSelfSpeaking(true);
+      window.speechSynthesis.speak(utter);
+    }
+
+    const showInput = !tool.isConversational ? !selfResult : selfMessages.length === 0;
+    const showConversation = tool.isConversational && selfMessages.length > 0;
+
+    return (
+      <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
+        <div style={{ maxWidth: "620px", margin: "0 auto", padding: "40px 24px 80px" }}>
+          <button onClick={() => { window.speechSynthesis.cancel(); setPhase("self_hub"); }} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", marginBottom: "32px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
+
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "6px" }}>
+            <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: tool.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "18px", color: tool.accent, border: `1px solid ${tool.accent}22` }}>{tool.icon}</div>
+            <h2 style={{ fontSize: "24px", fontWeight: "400", margin: 0, color: "#1a2e1a" }}>{tool.label}</h2>
+          </div>
+
+          {/* INPUT PHASE */}
+          {showInput && (
+            <div style={{ marginTop: "28px" }}>
+              <label style={{ display: "block", fontSize: "14px", fontWeight: "600", color: "#52796f", marginBottom: "12px", fontFamily: "-apple-system, sans-serif" }}>{tool.inputLabel}</label>
+              <textarea
+                value={selfInput}
+                onChange={e => setSelfInput(e.target.value)}
+                placeholder={tool.placeholder}
+                rows={5}
+                style={{ width: "100%", padding: "16px", border: `1.5px solid ${tool.accent}33`, borderRadius: "14px", fontSize: "15px", fontFamily: "Georgia, serif", color: "#1a2e1a", background: "#fff", outline: "none", resize: "vertical", lineHeight: 1.7, boxSizing: "border-box" }}
+              />
+              <button
+                onClick={runSelfTool}
+                disabled={!selfInput.trim() || selfLoading}
+                style={{ marginTop: "14px", width: "100%", padding: "15px", background: selfInput.trim() && !selfLoading ? tool.accent : "#e8f0ec", color: selfInput.trim() && !selfLoading ? "#fff" : "#84a98c", border: "none", borderRadius: "12px", fontSize: "15px", fontWeight: "600", cursor: selfInput.trim() && !selfLoading ? "pointer" : "not-allowed", fontFamily: "-apple-system, sans-serif", transition: "all 0.2s" }}>
+                {selfLoading ? "Working on it..." : tool.cta}
+              </button>
+            </div>
+          )}
+
+          {/* STATIC RESULT (affirmations, meditation) */}
+          {selfResult && !tool.isConversational && (
+            <div style={{ marginTop: "28px" }}>
+              <div style={{ background: "#fff", border: `1.5px solid ${tool.accent}22`, borderRadius: "18px", padding: "28px", lineHeight: 1.9, fontSize: "15px", color: "#1a2e1a", whiteSpace: "pre-wrap" }}>
+                {selfTool === "affirmations"
+                  ? selfResult.split("\n").map((line: string, i: number) => {
+                      const isAffirmation = /^[1-5]\./.test(line.trim());
+                      const isNote = line.toLowerCase().includes("a note for you");
+                      return (
+                        <div key={i} style={{ marginBottom: isAffirmation ? "14px" : "6px" }}>
+                          <span style={{ fontSize: isAffirmation ? "16px" : "14px", fontWeight: isAffirmation ? "600" : "400", color: isAffirmation ? tool.accent : "#52796f", fontStyle: isNote ? "italic" : "normal" }}>
+                            {line}
+                          </span>
+                        </div>
+                      );
+                    })
+                  : <span style={{ fontStyle: "italic", color: "#2d3e35", lineHeight: 2 }}>{selfResult}</span>
+                }
+              </div>
+              <div style={{ display: "flex", gap: "10px", marginTop: "16px" }}>
+                <button onClick={() => { readAloud(selfResult); }}
+                  style={{ flex: 1, padding: "12px", background: selfSpeaking ? tool.accent : tool.color, color: selfSpeaking ? "#fff" : tool.accent, border: `1.5px solid ${tool.accent}33`, borderRadius: "12px", fontSize: "13px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+                  {selfSpeaking ? "🔊 Playing..." : selfTool === "meditation" ? "🔊 Guide me through it" : "🔊 Read to me"}
+                </button>
+                {selfSpeaking && (
+                  <button onClick={() => { window.speechSynthesis.cancel(); setSelfSpeaking(false); }}
+                    style={{ padding: "12px 18px", background: "#fff", color: "#84a98c", border: "1px solid #e8f0ec", borderRadius: "12px", fontSize: "13px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>Stop</button>
+                )}
+                <button onClick={() => { setSelfResult(null); setSelfInput(""); }}
+                  style={{ flex: 1, padding: "12px", background: "#fff", color: "#84a98c", border: "1px solid #e8f0ec", borderRadius: "12px", fontSize: "13px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>Start over</button>
+              </div>
+            </div>
+          )}
+
+          {/* CONVERSATIONAL RESULT (journal, problem solver) */}
+          {showConversation && (
+            <div style={{ marginTop: "28px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                {selfMessages.map((m: any, i: number) => (
+                  <div key={i} style={{ display: "flex", flexDirection: m.role === "user" ? "row-reverse" : "column", gap: "8px", alignItems: m.role === "user" ? "flex-start" : "stretch" }}>
+                    {m.role === "user" ? (
+                      <div style={{ maxWidth: "80%", padding: "14px 18px", background: tool.accent, borderRadius: "18px 4px 18px 18px", fontSize: "14px", lineHeight: 1.7, color: "#fff" }}>{m.content}</div>
+                    ) : (
+                      <>
+                        <div style={{ fontSize: "11px", fontWeight: "700", color: tool.accent, textTransform: "uppercase", letterSpacing: "0.08em", fontFamily: "-apple-system, sans-serif" }}>
+                          {selfTool === "journal" ? "Your coach says:" : "Problem Solver:"}
+                        </div>
+                        <div style={{ background: "#fff", border: `1px solid ${tool.accent}22`, borderRadius: "4px 18px 18px 18px", padding: "18px 20px", fontSize: "14px", lineHeight: 1.9, color: "#1a2e1a", whiteSpace: "pre-wrap" }}>
+                          {m.content}
+                        </div>
+                        <button onClick={() => readAloud(m.content)}
+                          style={{ alignSelf: "flex-start", padding: "6px 14px", background: "transparent", color: tool.accent, border: `1px solid ${tool.accent}33`, borderRadius: "99px", fontSize: "11px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", marginTop: "4px" }}>
+                          {selfSpeaking ? "🔊 Playing..." : "🔊 Read this"}
+                        </button>
+                      </>
+                    )}
+                  </div>
+                ))}
+                {selfLoading && (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                    <div style={{ fontSize: "11px", fontWeight: "700", color: tool.accent, textTransform: "uppercase", letterSpacing: "0.08em", fontFamily: "-apple-system, sans-serif" }}>
+                      {selfTool === "journal" ? "Your coach is reflecting..." : "Thinking through your situation..."}
+                    </div>
+                    <div style={{ background: "#fff", border: `1px solid ${tool.accent}22`, borderRadius: "4px 18px 18px 18px", padding: "18px 20px", display: "flex", gap: "5px", alignItems: "center" }}>
+                      {[0,1,2].map(i => <div key={i} style={{ width: "7px", height: "7px", borderRadius: "50%", background: tool.accent, animation: "pulse 1.2s ease-in-out infinite", animationDelay: `${i * 0.2}s` }} />)}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {!selfLoading && (
+                <div style={{ marginTop: "20px" }}>
+                  <textarea
+                    value={selfInput}
+                    onChange={e => setSelfInput(e.target.value)}
+                    onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendSelfMessage(selfInput); } }}
+                    placeholder={selfTool === "journal" ? "Continue writing... (Enter to send)" : "Answer the questions above... (Enter to send)"}
+                    rows={3}
+                    style={{ width: "100%", padding: "14px 16px", border: `1.5px solid ${tool.accent}33`, borderRadius: "12px", fontSize: "14px", fontFamily: "Georgia, serif", color: "#1a2e1a", background: "#fff", outline: "none", resize: "none", lineHeight: 1.7, boxSizing: "border-box" }}
+                  />
+                  <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+                    <button onClick={() => sendSelfMessage(selfInput)} disabled={!selfInput.trim()}
+                      style={{ flex: 1, padding: "12px", background: selfInput.trim() ? tool.accent : "#e8f0ec", color: selfInput.trim() ? "#fff" : "#84a98c", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: selfInput.trim() ? "pointer" : "not-allowed", fontFamily: "-apple-system, sans-serif" }}>
+                      Send →
+                    </button>
+                    <button onClick={() => { window.speechSynthesis.cancel(); setSelfMessages([]); setSelfInput(""); setSelfResult(null); setSelfStep(0); }}
+                      style={{ padding: "12px 18px", background: "#fff", color: "#84a98c", border: "1px solid #e8f0ec", borderRadius: "12px", fontSize: "13px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>Start over</button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   if (phase === "home") return (
     <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
       <div style={{ maxWidth: "680px", margin: "0 auto", padding: "72px 24px 48px" }}>
@@ -2128,7 +2444,7 @@ export default function Forte() {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
           {SCENARIOS.map((s) => (
-            <button key={s.category} onClick={() => { setSelectedCategory(s); setPhase("scenario"); }}
+            <button key={s.category} onClick={() => { setSelectedCategory(s); setPhase(s.isSelfCategory ? "self_hub" : "scenario"); }}
               style={{ background: "#fff", border: "1px solid #d8e8e0", borderRadius: "16px", padding: "28px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.25s" }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = s.accent; e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = `0 12px 32px ${s.accent}18`; }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
@@ -2137,6 +2453,14 @@ export default function Forte() {
               <div style={{ fontSize: "12px", color: "#84a98c" }}>{s.situations.length} scenarios</div>
             </button>
           ))}
+          <button onClick={() => { setSelectedCategory({ accent: "#7c5cbf", color: "#f5f0fa" }); setSelfTool(""); setPhase("self_hub"); }}
+            style={{ background: "#fff", border: "1px solid #e0d5f5", borderRadius: "16px", padding: "28px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.25s" }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = "#7c5cbf"; e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 12px 32px #7c5cbf18"; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = "#e0d5f5"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+            <div style={{ color: "#7c5cbf", marginBottom: "14px" }}><Icon html={ICONS.self} size={28} color="#7c5cbf" /></div>
+            <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>Self</div>
+            <div style={{ fontSize: "12px", color: "#9b8abf" }}>Affirmations · Journal · Meditation · Problem solver</div>
+          </button>
           <button onClick={() => setPhase("custom")}
             style={{ background: "#fff", border: "1px dashed #b7d8c8", borderRadius: "16px", padding: "28px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.25s", gridColumn: "span 2" }}
             onMouseEnter={e => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.background = "#f0f7f4"; }}
