@@ -3119,22 +3119,19 @@ Write it as spoken guidance — second person, present tense, calming pace. Use 
         placeholder: "Describe the challenge or situation you're facing. Don't worry about being perfect — just write what's going on.",
         inputLabel: "What's the challenge you're facing?",
         cta: "Start working on this",
-        systemPrompt: `You are a warm, practical life coach helping someone work through a real challenge. 
+        systemPrompt: `You are a warm, practical life coach helping someone work through a real challenge. You ask ONE question at a time — never two. Keep every response to 2-3 sentences max.
 
-PHASE 1 — Clarifying (first response only):
-Ask exactly 2 warm, thoughtful clarifying questions to understand:
-- The emotional stakes (how this is affecting them)
-- What they've already tried or what feels stuck
-Keep it conversational and caring. Do NOT give advice yet.
+TURN 1 (first response): Ask ONE warm clarifying question about the emotional stakes — how this is affecting them personally. Nothing else. Just the question.
 
-PHASE 2 — Plan (after they answer your questions):
-Give them a clear, structured plan with:
-- A brief acknowledgment of what you heard (1-2 sentences)  
-- 3-4 specific, actionable steps they can actually take
-- One "inner work" step — something emotional or mindset-related
-- A closing encouragement that feels personal to their situation
+TURN 2 (second response): Based on their answer, ask ONE follow-up about what they've already tried or what feels most stuck. Nothing else. Just the question.
 
-Format the plan with gentle headers. Be warm, not clinical.`,
+TURN 3 (third response): Now give them a clear, actionable plan. Format it EXACTLY like this with each step on its own line starting with STEP:
+STEP: [first concrete action they can take today]
+STEP: [second practical step]  
+STEP: [third step — something about mindset or inner work]
+ENCOURAGEMENT: [one warm, personal closing sentence based on everything they shared]
+
+Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2 sentences. Be warm, not clinical.`,
         isConversational: true,
         isClarifying: true,
       },
@@ -3268,7 +3265,120 @@ Format the plan with gentle headers. Be warm, not clinical.`,
           )}
 
           {/* CONVERSATIONAL RESULT (journal, problem solver) */}
-          {showConversation && (
+          {showConversation && selfTool === "problem" && (() => {
+            const lastAssistant = [...selfMessages].reverse().find((m: any) => m.role === "assistant");
+            const lastContent = lastAssistant?.content || "";
+            const hasPlan = lastContent.includes("STEP:");
+            const isAsking = !hasPlan && lastContent.length > 0;
+
+            // Parse plan steps
+            const planSteps: string[] = [];
+            let encouragement = "";
+            if (hasPlan) {
+              lastContent.split("\n").forEach((line: string) => {
+                const trimmed = line.trim();
+                if (trimmed.startsWith("STEP:")) planSteps.push(trimmed.replace("STEP:", "").trim());
+                else if (trimmed.startsWith("ENCOURAGEMENT:")) encouragement = trimmed.replace("ENCOURAGEMENT:", "").trim();
+              });
+            }
+
+            return (
+              <div style={{ marginTop: "28px" }}>
+                {/* Progress */}
+                <div style={{ display: "flex", gap: "6px", marginBottom: "24px", alignItems: "center" }}>
+                  {[0, 1, 2].map(i => (
+                    <div key={i} style={{
+                      width: i === selfStep - 1 ? "24px" : "8px",
+                      height: "8px",
+                      borderRadius: "99px",
+                      background: i < selfStep ? tool.accent : "#e8e0d8",
+                      transition: "all 0.3s ease",
+                    }} />
+                  ))}
+                  <span style={{ fontSize: "11px", color: tool.accent, fontFamily: "-apple-system, sans-serif", marginLeft: "8px" }}>
+                    {hasPlan ? "Your plan" : `Question ${selfStep}`}
+                  </span>
+                </div>
+
+                {/* Current question card */}
+                {isAsking && !selfLoading && (
+                  <div style={{ animation: "fadeSlideIn 0.35s ease" }}>
+                    <div style={{ background: "#fff", border: `1.5px solid ${tool.accent}22`, borderRadius: "18px", padding: "24px 22px", marginBottom: "20px" }}>
+                      <div style={{ fontSize: "10px", fontWeight: "700", color: tool.accent, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "12px", fontFamily: "-apple-system, sans-serif" }}>
+                        Problem Solver
+                      </div>
+                      <p style={{ fontSize: "15px", color: "#1a2e1a", lineHeight: 1.85, margin: 0 }}>{lastContent}</p>
+                    </div>
+
+                    {/* Listen button */}
+                    <button onClick={() => readAloud(lastContent)}
+                      style={{ padding: "6px 14px", background: "transparent", color: tool.accent, border: `1px solid ${tool.accent}33`, borderRadius: "99px", fontSize: "11px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", marginBottom: "20px" }}>
+                      {selfSpeaking ? "🔊 Playing..." : "🔊 Read this"}
+                    </button>
+
+                    {/* Answer input */}
+                    <textarea
+                      value={selfInput}
+                      onChange={e => setSelfInput(e.target.value)}
+                      onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendSelfMessage(selfInput); } }}
+                      placeholder="Your answer..."
+                      rows={3}
+                      style={{ width: "100%", padding: "14px 16px", border: `1.5px solid ${tool.accent}33`, borderRadius: "12px", fontSize: "14px", fontFamily: "Georgia, serif", color: "#1a2e1a", background: "#fff", outline: "none", resize: "none", lineHeight: 1.7, boxSizing: "border-box" }}
+                    />
+                    <button onClick={() => sendSelfMessage(selfInput)} disabled={!selfInput.trim()}
+                      style={{ width: "100%", marginTop: "10px", padding: "14px", background: selfInput.trim() ? tool.accent : "#e8e0d8", color: selfInput.trim() ? "#fff" : "#aaa", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: selfInput.trim() ? "pointer" : "not-allowed", fontFamily: "-apple-system, sans-serif" }}>
+                      Answer →
+                    </button>
+                  </div>
+                )}
+
+                {/* Loading state */}
+                {selfLoading && (
+                  <div style={{ background: "#fff", border: `1.5px solid ${tool.accent}22`, borderRadius: "18px", padding: "24px 22px", display: "flex", gap: "6px", alignItems: "center" }}>
+                    {[0,1,2].map(i => <div key={i} style={{ width: "7px", height: "7px", borderRadius: "50%", background: tool.accent, animation: "pulse 1.2s ease-in-out infinite", animationDelay: `${i * 0.2}s` }} />)}
+                    <span style={{ fontSize: "12px", color: tool.accent, marginLeft: "8px", fontFamily: "-apple-system, sans-serif" }}>
+                      {selfStep < 3 ? "Thinking about what to ask next..." : "Building your plan..."}
+                    </span>
+                  </div>
+                )}
+
+                {/* Plan - step by step cards */}
+                {hasPlan && !selfLoading && (
+                  <div style={{ animation: "fadeSlideIn 0.35s ease" }}>
+                    <div style={{ fontSize: "10px", fontWeight: "700", color: tool.accent, textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>Your Action Plan</div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                      {planSteps.map((step: string, si: number) => (
+                        <div key={si} style={{ background: "#fff", border: `1.5px solid ${tool.accent}22`, borderRadius: "14px", padding: "18px 20px", display: "flex", gap: "14px", alignItems: "flex-start" }}>
+                          <div style={{ width: "30px", height: "30px", borderRadius: "50%", background: tool.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", fontWeight: "700", color: tool.accent, flexShrink: 0, fontFamily: "-apple-system, sans-serif" }}>{si + 1}</div>
+                          <p style={{ fontSize: "14px", color: "#1a2e1a", lineHeight: 1.8, margin: 0 }}>{step}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    {encouragement && (
+                      <div style={{ marginTop: "16px", background: tool.color, border: `1.5px solid ${tool.accent}33`, borderRadius: "14px", padding: "18px 20px" }}>
+                        <div style={{ fontSize: "10px", fontWeight: "700", color: tool.accent, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>💛 From Your Coach</div>
+                        <p style={{ fontSize: "15px", color: "#1a2e1a", lineHeight: 1.85, margin: 0, fontStyle: "italic" }}>{encouragement}</p>
+                      </div>
+                    )}
+
+                    {/* Listen + Start over */}
+                    <div style={{ display: "flex", gap: "10px", marginTop: "16px" }}>
+                      <button onClick={() => readAloud(planSteps.join(". ") + ". " + encouragement)}
+                        style={{ padding: "6px 14px", background: "transparent", color: tool.accent, border: `1px solid ${tool.accent}33`, borderRadius: "99px", fontSize: "11px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+                        {selfSpeaking ? "🔊 Playing..." : "🔊 Read plan"}
+                      </button>
+                      <button onClick={() => { window.speechSynthesis.cancel(); setSelfMessages([]); setSelfInput(""); setSelfResult(null); setSelfStep(0); }}
+                        style={{ padding: "6px 14px", background: "transparent", color: "#84a98c", border: "1px solid #e8f0ec", borderRadius: "99px", fontSize: "11px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>Start over</button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })()}
+
+          {/* CONVERSATIONAL RESULT (journal only) */}
+          {showConversation && selfTool !== "problem" && (
             <div style={{ marginTop: "28px" }}>
               <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
                 {selfMessages.map((m: any, i: number) => (
