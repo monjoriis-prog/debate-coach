@@ -2644,15 +2644,23 @@ VERDICT: [2-3 sentence warm encouraging coaching summary — celebrate their gro
 // Unique synthesized audio signatures using Web Audio API
 // No sound files needed — these are algorithmically generated
 let _audioCtx: AudioContext | null = null;
-function getAudioCtx() {
-  if (!_audioCtx) _audioCtx = new AudioContext();
-  if (_audioCtx.state === "suspended") _audioCtx.resume();
-  return _audioCtx;
+function getAudioCtx(): AudioContext | null {
+  if (typeof window === "undefined") return null;
+  try {
+    if (!_audioCtx) {
+      const AC = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AC) return null;
+      _audioCtx = new AC();
+    }
+    if (_audioCtx.state === "suspended") _audioCtx.resume();
+    return _audioCtx;
+  } catch { return null; }
 }
 
 function playTone(freq: number, duration: number, type: OscillatorType = "sine", vol: number = 0.12, delay: number = 0) {
   try {
     const ctx = getAudioCtx();
+    if (!ctx) return;
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.type = type;
