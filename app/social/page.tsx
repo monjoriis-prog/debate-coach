@@ -1537,22 +1537,22 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         },
         lessons: [
           {
-            tip: "Watch for stories that are always perfect but never verifiable",
-            why: "Catfish create a fantasy version of a person. If their life sounds too polished and they dodge every attempt to verify anything — the story IS the strategy.",
-            bad: { user: "He says he's a surgeon who travels the world and models on the side. That's amazing — I'm so lucky!", ai: "*(smoothly)* I just haven't had time for a video call. My schedule is insane, babe.", note: "❌ The resume is designed to dazzle you into not asking questions. Real people have flaws, gaps, and messy details. Perfection is a red flag." },
-            good: { user: "Your life sounds incredible. I'd love to do a quick video call sometime — even just five minutes.", ai: "*(evasive)* Haha, I'm so bad on camera. Can't we just keep texting?", note: "✓ Simple, reasonable request. Their avoidance is the answer. Someone real would say yes." },
+            tip: "Too-perfect stories that can't be verified = red flag",
+            why: "If their life sounds like a movie and they dodge every attempt to verify — the story IS the strategy.",
+            bad: { user: "He's a surgeon who travels and models. Amazing — I'm so lucky!", ai: "*(smoothly)* I just haven't had time for a video call. My schedule is insane, babe.", note: "❌ Dazzling resume, zero proof. Real people have flaws." },
+            good: { user: "Your life sounds incredible. Can we do a quick video call?", ai: "*(evasive)* Haha, I'm so bad on camera. Can't we just keep texting?", note: "✓ Simple ask. Their avoidance IS the answer." },
           },
           {
-            tip: "If they refuse video calls or always have an excuse — that's your answer",
-            why: "A person who is who they say they are has no reason to avoid being seen. Repeated excuses for avoiding video are one of the strongest catfish signals.",
-            bad: { user: "Okay, no video is fine. I trust you. Let's just keep getting to know each other.", ai: "*(relieved)* See, that's what I love about you. You just get me.", note: "❌ You gave up a basic verification because they made you feel guilty for wanting it. That trust is being exploited, not earned." },
-            good: { user: "I hear you, but I'm not comfortable getting more invested without at least seeing each other on camera. That's a boundary for me.", ai: "*(deflects)* Wow, so you don't trust me? After everything we've shared?", note: "✓ You held a completely reasonable line. The guilt-trip that follows is the most important data point. Real people don't punish you for wanting to see their face." },
+            tip: "Repeated video call excuses = your answer",
+            why: "Someone real has no reason to avoid being seen. Repeated excuses are a top catfish signal.",
+            bad: { user: "No video is fine. I trust you.", ai: "*(relieved)* See, that's what I love about you.", note: "❌ You dropped a basic check because they guilt-tripped you." },
+            good: { user: "I'm not getting more invested without a video call. That's a boundary.", ai: "*(deflects)* Wow, you don't trust me?", note: "✓ Held the line. The guilt-trip IS the red flag." },
           },
           {
-            tip: "Reverse image search and verify — it's not rude, it's responsible",
-            why: "Running a quick image search or looking for their social media isn't paranoid — it's due diligence. You're protecting your time, emotions, and safety.",
-            bad: { user: "I feel like looking them up would be invasive. I should just trust the connection.", ai: "*(sweetly)* Exactly. What we have is special. You don't need to investigate me.", note: "❌ They're framing basic verification as distrust. Someone with nothing to hide doesn't discourage you from looking." },
-            good: { user: "I ran a reverse image search and found your photos on a stock photo site. We need to talk about that.", ai: "*(long pause)* ...It's not what it looks like.", note: "✓ You trusted your instincts and did the work. Now you have real information instead of a fantasy." },
+            tip: "Reverse image search — it's not rude, it's smart",
+            why: "Looking them up isn't paranoid — it's protecting your time and emotions.",
+            bad: { user: "Looking them up feels invasive. I should just trust it.", ai: "*(sweetly)* Exactly. You don't need to investigate me.", note: "❌ They discourage basic checking. That itself is the flag." },
+            good: { user: "I reverse searched your photos. They're on a stock site.", ai: "*(long pause)* ...It's not what it looks like.", note: "✓ You did the work. Now you have facts, not fantasy." },
           },
         ],
         suggestions: [
@@ -2740,8 +2740,6 @@ export default function Forte() {
     const firstMessages = [{ role: "assistant", content: reply }];
     setMessages(firstMessages);
     setLoading(false);
-    setSpeaking(true);
-    speak(reply, situation.voice, () => setSpeaking(false));
     generateSuggestions(firstMessages, situation);
   }
 
@@ -2812,13 +2810,9 @@ export default function Forte() {
       setFeedback(parsed);
       setMessages([...newMessages, { role: "assistant", content: parsed.raw || "That was a wonderful conversation." }]);
       setPhase("done"); setTimeout(() => setShowFeedbackModal(true), 600);
-      setSpeaking(true);
-      speak(parsed.verdict || "Well done.", { pitch: 1.0, rate: 0.78, preferFemale: true }, () => setSpeaking(false));
     } else {
       const updatedMessages = [...newMessages, { role: "assistant", content: reply }];
       setMessages(updatedMessages);
-      setSpeaking(true);
-      speak(reply, selectedSituation.voice, () => setSpeaking(false));
       generateSuggestions(updatedMessages, selectedSituation);
       // Red flag intervention check
       if (selectedSituation?.isRedFlag && selectedSituation?.redFlagAlert && !redFlagPopupShown) {
@@ -3563,18 +3557,28 @@ Format the plan with gentle headers. Be warm, not clinical.`,
               <div style={{ padding: "14px 18px", background: "#fff", borderRadius: "4px 18px 18px 18px", fontSize: "14px", lineHeight: "1.7", color: "#1a2e1a", boxShadow: "0 1px 6px rgba(0,0,0,0.05)", border: "1px solid #e8f0ec" }}>
                 {cleanText}
               </div>
+              {/* Listen button */}
+              <button
+                onClick={() => {
+                  if (speaking) { window.speechSynthesis.cancel(); setSpeaking(false); return; }
+                  setSpeaking(true);
+                  speak(cleanText, selectedSituation?.voice || { pitch: 1.0, rate: 0.8, preferFemale: true }, () => setSpeaking(false));
+                }}
+                style={{ alignSelf: "flex-start", padding: "5px 12px", background: "transparent", color: "#84a98c", border: "1px solid #e8f0ec", borderRadius: "99px", fontSize: "11px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", marginTop: "2px", transition: "all 0.15s" }}>
+                {speaking ? "🔊 Stop" : "🔊 Listen"}
+              </button>
             </div>
           );
         })}
 
-        {(loading || speaking) && (
+        {loading && (
           <div style={{ display: "flex", flexDirection: "column", gap: "6px", alignItems: "flex-start", maxWidth: "82%" }}>
             <div style={{ fontSize: "11px", fontWeight: "700", color: "#84a98c", fontFamily: "-apple-system, sans-serif", textTransform: "uppercase", letterSpacing: "0.08em", paddingLeft: "4px" }}>
               Your {selectedSituation?.ai_role || "partner"} says:
             </div>
             <div style={{ padding: "14px 18px", background: "#fff", borderRadius: "4px 18px 18px 18px", display: "flex", gap: "5px", alignItems: "center", boxShadow: "0 1px 6px rgba(0,0,0,0.05)", border: "1px solid #e8f0ec" }}>
               {[0,1,2].map((i) => <div key={i} style={{ width: "7px", height: "7px", borderRadius: "50%", background: accent, animation: "pulse 1.2s ease-in-out infinite", animationDelay: `${i * 0.2}s` }} />)}
-              <span style={{ fontSize: "12px", color: "#84a98c", marginLeft: "8px", fontFamily: "-apple-system, sans-serif" }}>{speaking ? "speaking..." : "thinking..."}</span>
+              <span style={{ fontSize: "12px", color: "#84a98c", marginLeft: "8px", fontFamily: "-apple-system, sans-serif" }}>thinking...</span>
             </div>
           </div>
         )}
@@ -3777,7 +3781,7 @@ Format the plan with gentle headers. Be warm, not clinical.`,
 
       {phase === "chat" && (
         <div style={{ background: "#fff", borderTop: "1px solid #e8f0ec", padding: "14px 24px", flexShrink: 0 }}>
-          {!loading && !speaking && (loadingSuggestions || currentSuggestions.length > 0) && (
+          {!loading && (loadingSuggestions || currentSuggestions.length > 0) && (
             <div style={{ marginBottom: "12px" }}>
               <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginBottom: "7px", fontWeight: "600", letterSpacing: "0.05em", textTransform: "uppercase", display: "flex", alignItems: "center", gap: "6px" }}>
                 Try saying:
@@ -3811,10 +3815,10 @@ Format the plan with gentle headers. Be warm, not clinical.`,
               <textarea value={typedMessage} onChange={e => setTypedMessage(e.target.value)}
                 onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(typedMessage.trim()); } }}
                 placeholder="Type your own response... (Enter to send)"
-                disabled={loading || speaking} rows={2}
+                disabled={loading} rows={2}
                 style={{ flex: 1, padding: "12px 16px", border: "1.5px solid #d8e8e0", borderRadius: "12px", fontSize: "14px", fontFamily: "Georgia, serif", color: "#1a2e1a", background: "#fff", outline: "none", resize: "none" }} />
-              <button onClick={() => sendMessage(typedMessage.trim())} disabled={!typedMessage.trim() || loading || speaking}
-                style={{ padding: "12px 18px", background: typedMessage.trim() && !loading && !speaking ? accent : "#e8f0ec", color: typedMessage.trim() && !loading && !speaking ? "#fff" : "#84a98c", border: "none", borderRadius: "12px", fontSize: "14px", cursor: typedMessage.trim() && !loading && !speaking ? "pointer" : "not-allowed", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>
+              <button onClick={() => sendMessage(typedMessage.trim())} disabled={!typedMessage.trim() || loading}
+                style={{ padding: "12px 18px", background: typedMessage.trim() && !loading ? accent : "#e8f0ec", color: typedMessage.trim() && !loading ? "#fff" : "#84a98c", border: "none", borderRadius: "12px", fontSize: "14px", cursor: typedMessage.trim() && !loading ? "pointer" : "not-allowed", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>
                 Send →
               </button>
             </div>
@@ -3822,12 +3826,12 @@ Format the plan with gentle headers. Be warm, not clinical.`,
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
               {transcript && <div style={{ fontSize: "13px", color: "#84a98c", fontStyle: "italic", textAlign: "center" }}>"{transcript}"</div>}
               <button onMouseDown={startListening} onMouseUp={stopListeningAndSend} onTouchStart={startListening} onTouchEnd={stopListeningAndSend}
-                disabled={loading || speaking}
-                style={{ width: "68px", height: "68px", borderRadius: "50%", background: listening ? "#c0392b" : loading || speaking ? "#e8f0ec" : accent, border: listening ? "4px solid #e8a89e" : "4px solid transparent", cursor: loading || speaking ? "not-allowed" : "pointer", fontSize: "24px", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: listening ? "0 0 0 12px rgba(192,57,43,0.1)" : `0 6px 20px ${accent}30`, transition: "all 0.15s" }}>
-                {listening ? "🎙️" : loading || speaking ? "⏳" : "🎤"}
+                disabled={loading}
+                style={{ width: "68px", height: "68px", borderRadius: "50%", background: listening ? "#c0392b" : loading ? "#e8f0ec" : accent, border: listening ? "4px solid #e8a89e" : "4px solid transparent", cursor: loading ? "not-allowed" : "pointer", fontSize: "24px", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: listening ? "0 0 0 12px rgba(192,57,43,0.1)" : `0 6px 20px ${accent}30`, transition: "all 0.15s" }}>
+                {listening ? "🎙️" : loading ? "⏳" : "🎤"}
               </button>
               <div style={{ fontSize: "11px", color: "#84a98c", letterSpacing: "0.08em", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>
-                {listening ? "Release to send" : loading ? "Thinking..." : speaking ? "Listen carefully..." : "Hold to speak"}
+                {listening ? "Release to send" : loading ? "Thinking..." : "Hold to speak"}
               </div>
             </div>
           )}
