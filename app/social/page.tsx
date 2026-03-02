@@ -2748,7 +2748,8 @@ export default function Forte() {
   const [showRedFlagPopup, setShowRedFlagPopup] = useState(false);
   const [redFlagPopupShown, setRedFlagPopupShown] = useState(false);
   const [redFlagExited, setRedFlagExited] = useState(false);
-  const [redFlagStep, setRedFlagStep] = useState(0); // "navigate" | "leave" | "document"
+  const [redFlagStep, setRedFlagStep] = useState(0);
+  const [leavingStep, setLeavingStep] = useState(0); // "navigate" | "leave" | "document"
   const [userTurns, setUserTurns] = useState(0);
   const [customWho, setCustomWho] = useState("");
   const [customSituation, setCustomSituation] = useState("");
@@ -2898,7 +2899,7 @@ export default function Forte() {
     setMessages([]); setFeedback(null); setUserTurns(0);
     setTranscript(""); setTypedMessage(""); setLessonIndex(0);
     setCustomWho(""); setCustomSituation(""); setCustomGoal("");
-    setSubcategoryFilter("All"); setShowFeedbackModal(false); setFeedbackReading(false); setDynamicSuggestions([]); setSelfTool(""); setSelfInput(""); setSelfResult(null); setSelfMessages([]); setSelfStep(0); setSelfSpeaking(false); setRedFlagPath(""); setShowRedFlagPopup(false); setRedFlagPopupShown(false); setRedFlagExited(false); setRedFlagStep(0);
+    setSubcategoryFilter("All"); setShowFeedbackModal(false); setFeedbackReading(false); setDynamicSuggestions([]); setSelfTool(""); setSelfInput(""); setSelfResult(null); setSelfMessages([]); setSelfStep(0); setSelfSpeaking(false); setRedFlagPath(""); setShowRedFlagPopup(false); setRedFlagPopupShown(false); setRedFlagExited(false); setRedFlagStep(0); setLeavingStep(0);
     window.speechSynthesis.cancel();
   }
 
@@ -3510,80 +3511,119 @@ Format the plan with gentle headers. Be warm, not clinical.`,
     );
   }
 
-  // ── LEAVING / DISTANCE PATH ───────────────────────────────────────
+  // ── LEAVING / DISTANCE PATH — STEP-BY-STEP ─────────────────────
   if (phase === "learn" && selectedSituation?.isRedFlag && !selectedSituation?.isWorkRedFlag && redFlagPath === "leave") {
-    const accent2 = selectedCategory?.accent || "#2d6a4f";
+    const accent2 = "#7c5cbf";
     const leavingTips = [
       {
         heading: "You don't need a reason they accept",
-        body: "When you decide to end or distance from a relationship, the other person's disagreement with your decision does not make it wrong. Their hurt, their argument, their counter-narrative — none of that is a veto. You are the only one who gets to decide who you let into your life and how much access they have.",
+        body: "When you decide to end or distance from a relationship, the other person's disagreement does not make your decision wrong. Their hurt, their argument, their counter-narrative — none of that is a veto. You are the only one who decides who gets access to your life.",
         action: "If they ask why: 'This isn't working for me' is a complete sentence. You don't owe them a debate.",
       },
       {
-        heading: "Guilt is not a sign you're doing the wrong thing",
-        body: "Feeling guilty when you end or limit a relationship — especially a long one — is normal. It does not mean you're being cruel. It often means you're a caring person doing something hard. Guilt and correctness can exist at the same time. Don't let guilt be the thing that keeps you in something unhealthy.",
+        heading: "Guilt is not a sign you're wrong",
+        body: "Feeling guilty when you end a relationship is normal. It doesn't mean you're being cruel — it often means you're a caring person doing something hard. Guilt and correctness can exist at the same time. Don't let guilt keep you in something unhealthy.",
         action: "When guilt shows up, say to yourself: 'I can feel bad about this and still know it's right.'",
       },
       {
-        heading: "Fading out vs. direct conversation — both are valid",
-        body: "You don't always have to have a 'breakup conversation.' Slowly reducing contact, not initiating, keeping interactions brief — these are legitimate ways to create distance. You don't owe every relationship a formal ending. Sometimes the most self-protective thing is a quiet, gradual exit.",
+        heading: "Fading out vs. direct conversation",
+        body: "You don't always need a 'breakup conversation.' Slowly reducing contact, not initiating, keeping interactions brief — these are legitimate ways to create distance. Sometimes the most self-protective thing is a quiet, gradual exit.",
         action: "Only have a direct conversation if YOU need it for closure — not because you feel obligated to give them one.",
       },
       {
-        heading: "If you do choose to say something, keep it short and final",
-        body: "If you decide to say something directly, the most effective approach is brief, kind, and final. A long explanation is an invitation to argue. 'I've realized this relationship isn't healthy for me and I need to step back' closes the door gently. 'Here's everything that was wrong' opens a negotiation.",
+        heading: "If you say something, keep it short and final",
+        body: "The most effective approach is brief, kind, and final. A long explanation is an invitation to argue. 'This relationship isn't healthy for me and I need to step back' closes the door gently. A list of grievances opens a negotiation.",
         action: "Script it once, say it once. You don't have to respond to their response.",
       },
       {
         heading: "Protecting yourself from retaliation",
-        body: "Some people do not accept endings gracefully. They may escalate, guilt-trip loudly, involve mutual friends, or try to damage your reputation. Know in advance: this is their response to losing control, not evidence that you were wrong. Tell one trusted person what you're doing and why. Document anything that becomes harassment.",
+        body: "Some people don't accept endings gracefully. They may escalate, guilt-trip publicly, or try to damage your reputation. This is their response to losing control — not evidence you were wrong.",
         action: "If the ending feels unsafe, tell someone you trust before you do it. You don't have to do this alone.",
       },
     ];
+    const tip = leavingTips[leavingStep];
+    const totalLeavingSteps = leavingTips.length;
+    const isLastTip = leavingStep >= totalLeavingSteps - 1;
+
     return (
-      <div style={{ minHeight: "100vh", background: "#f8f3ff", fontFamily: "Georgia, serif" }}>
-        <div style={{ maxWidth: "640px", margin: "0 auto", padding: "48px 24px 64px" }}>
-          <button onClick={() => setRedFlagPath("")} style={{ background: "transparent", border: "none", color: "#9b8abf", cursor: "pointer", fontSize: "14px", marginBottom: "40px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
+      <div style={{ minHeight: "100vh", background: "#f8f3ff", fontFamily: "Georgia, serif", display: "flex", flexDirection: "column" }}>
+        <div style={{ flex: 1, maxWidth: "600px", margin: "0 auto", padding: "36px 24px 160px", width: "100%" }}>
+          <button onClick={() => { if (leavingStep > 0) { setLeavingStep(leavingStep - 1); } else { setRedFlagPath(""); setLeavingStep(0); } }} style={{ background: "transparent", border: "none", color: "#9b8abf", cursor: "pointer", fontSize: "14px", marginBottom: "28px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
 
-          <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.2em", color: "#7c5cbf", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", marginBottom: "14px" }}>Creating space · {selectedSituation.title}</div>
-          <h2 style={{ fontSize: "30px", fontWeight: "400", color: "#1a2e1a", margin: "0 0 8px" }}>You are allowed to leave.</h2>
-          <p style={{ fontSize: "15px", color: "#6b5a8a", lineHeight: 1.8, margin: "0 0 36px", fontStyle: "italic" }}>Here's how to do it with clarity and self-respect.</p>
+          {/* Title */}
+          <div style={{ marginBottom: "24px" }}>
+            <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.2em", color: accent2, textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", marginBottom: "10px" }}>🚪 Creating Space</div>
+            <h2 style={{ fontSize: "24px", fontWeight: "400", color: "#1a2e1a", margin: "0 0 6px", lineHeight: 1.25 }}>You are allowed to leave.</h2>
+            <p style={{ fontSize: "14px", color: "#6b5a8a", lineHeight: 1.7, margin: 0, fontStyle: "italic" }}>Here's how — one step at a time.</p>
+          </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "16px", marginBottom: "36px" }}>
-            {leavingTips.map((tip, i) => (
-              <div key={i} style={{ background: "#fff", border: "1px solid #e8d5f5", borderRadius: "16px", padding: "24px 28px" }}>
-                <div style={{ display: "flex", alignItems: "flex-start", gap: "14px" }}>
-                  <div style={{ width: "28px", height: "28px", borderRadius: "50%", background: "#f0e8ff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: "700", color: "#7c5cbf", flexShrink: 0, fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>{i + 1}</div>
-                  <div>
-                    <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", marginBottom: "10px", fontFamily: "-apple-system, sans-serif" }}>{tip.heading}</div>
-                    <p style={{ fontSize: "14px", color: "#2d3e35", lineHeight: 1.8, margin: "0 0 14px" }}>{tip.body}</p>
-                    <div style={{ background: "#f5f0ff", borderRadius: "10px", padding: "12px 16px", borderLeft: "3px solid #7c5cbf" }}>
-                      <div style={{ fontSize: "10px", fontWeight: "700", color: "#7c5cbf", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "6px", fontFamily: "-apple-system, sans-serif" }}>Try this</div>
-                      <div style={{ fontSize: "13px", color: "#3d2e5a", lineHeight: 1.7 }}>{tip.action}</div>
-                    </div>
-                  </div>
+          {/* Progress dots */}
+          <div style={{ display: "flex", gap: "6px", marginBottom: "28px", alignItems: "center" }}>
+            {leavingTips.map((_, i) => (
+              <div key={i} style={{
+                width: i === leavingStep ? "24px" : "8px",
+                height: "8px",
+                borderRadius: "99px",
+                background: i <= leavingStep ? accent2 : "#e8d5f5",
+                transition: "all 0.3s ease",
+              }} />
+            ))}
+            <span style={{ fontSize: "11px", color: "#9b8abf", fontFamily: "-apple-system, sans-serif", marginLeft: "8px" }}>{leavingStep + 1} of {totalLeavingSteps}</span>
+          </div>
+
+          {/* Current tip card */}
+          <div style={{ animation: "fadeSlideIn 0.35s ease" }} key={leavingStep}>
+            <div style={{ background: "#fff", border: "1.5px solid #e8d5f5", borderRadius: "18px", padding: "28px 24px", marginBottom: "16px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
+                <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: "#f0e8ff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "700", color: accent2, flexShrink: 0, fontFamily: "-apple-system, sans-serif" }}>{leavingStep + 1}</div>
+                <div style={{ fontSize: "17px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif", lineHeight: 1.3 }}>{tip.heading}</div>
+              </div>
+              <p style={{ fontSize: "15px", color: "#2d3e35", lineHeight: 1.9, margin: 0 }}>{tip.body}</p>
+            </div>
+
+            {/* Try this action card */}
+            <div style={{ background: "#f5f0ff", borderRadius: "14px", padding: "20px 22px", borderLeft: "3px solid " + accent2 }}>
+              <div style={{ fontSize: "10px", fontWeight: "700", color: accent2, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>Try This</div>
+              <div style={{ fontSize: "14px", color: "#3d2e5a", lineHeight: 1.75 }}>{tip.action}</div>
+            </div>
+
+            {/* Final step: quote + action buttons */}
+            {isLastTip && (
+              <div style={{ marginTop: "24px" }}>
+                <div style={{ background: "#f0e8ff", borderRadius: "14px", padding: "20px 22px", marginBottom: "20px" }}>
+                  <p style={{ fontSize: "14px", color: "#3d2e5a", lineHeight: 1.85, margin: 0, fontStyle: "italic" }}>
+                    "The most loving thing you can do for yourself is to stop participating in something that isn't working. That is not giving up. That is growing up."
+                  </p>
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                  <button onClick={() => { setRedFlagPath("navigate"); setLeavingStep(0); }}
+                    style={{ width: "100%", padding: "14px", background: "#fff", color: accent2, border: "1.5px solid #e8d5f5", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+                    💬 I still want to practice the conversation
+                  </button>
+                  <button onClick={() => { setSubcategoryFilter("All"); setPhase("scenario"); setRedFlagPath(""); setLeavingStep(0); }}
+                    style={{ width: "100%", padding: "14px", background: accent2, color: "#fff", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+                    I'm good — back to topics
+                  </button>
                 </div>
               </div>
-            ))}
-          </div>
-
-          <div style={{ background: "#f0e8ff", borderRadius: "16px", padding: "24px 28px", marginBottom: "24px" }}>
-            <p style={{ fontSize: "15px", color: "#3d2e5a", lineHeight: 1.9, margin: 0, fontStyle: "italic" }}>
-              "The most loving thing you can do for yourself — and sometimes for others — is to stop participating in something that isn't working. That is not giving up. That is growing up."
-            </p>
-          </div>
-
-          <div style={{ display: "flex", gap: "10px" }}>
-            <button onClick={() => setRedFlagPath("navigate")}
-              style={{ flex: 1, padding: "14px", background: "#fff", color: "#7c5cbf", border: "1.5px solid #e8d5f5", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
-              I still want to practice the conversation
-            </button>
-            <button onClick={() => { setSubcategoryFilter("All"); setPhase("scenario"); setRedFlagPath(""); }}
-              style={{ flex: 1, padding: "14px", background: "#7c5cbf", color: "#fff", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
-              I'm good — back to topics
-            </button>
+            )}
           </div>
         </div>
+
+        {/* FIXED BOTTOM BAR */}
+        {!isLastTip && (
+          <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, background: "#fff", borderTop: "1px solid #e8d5f5", padding: "16px 24px", display: "flex", gap: "10px", justifyContent: "center", zIndex: 100 }}>
+            <button onClick={() => setLeavingStep(leavingStep + 1)}
+              style={{ flex: 1, maxWidth: "280px", padding: "14px", background: accent2, color: "#fff", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+              Next →
+            </button>
+            <button onClick={() => { setRedFlagPath("navigate"); setLeavingStep(0); }}
+              style={{ padding: "14px 18px", background: "transparent", color: accent2, border: "1.5px solid #e8d5f533", borderRadius: "12px", fontSize: "13px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", whiteSpace: "nowrap" }}>
+              Take me to practice →
+            </button>
+          </div>
+        )}
       </div>
     );
   }
