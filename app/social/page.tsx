@@ -489,6 +489,83 @@ const SCENARIOS = [
         prompt: `You have different financial habits than this family member. You tend to live more in the present. You're not irresponsible — you just have a different relationship with money shaped by your upbringing. Engage openly if they approach with curiosity about your values rather than judgment about your habits. Resist if they come with a budget plan before you've even talked about what you both want.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       // ── COUPLES & PARTNERS ──────────────────────────────────────────
+      // ── MARRIED COUPLES ──────────────────────────────────────────
+      {
+        subcategory: "Married couples",
+        title: "Reigniting connection after life got in the way",
+        subtitle: "Kids, work, schedules. You miss each other.",
+        ai_role: "your spouse",
+        voice: { pitch: 1.08, rate: 0.79, preferFemale: true },
+        lessons: [
+          {
+            tip: "Name the drift without making it a complaint",
+            why: "Saying 'we've drifted' is an observation. Saying 'you never make time for us' is an accusation. One invites, one defends.",
+            bad: { user: "I feel like we never actually connect anymore. We're just roommates who co-parent.", ai: "*(stings)* That's a bit harsh. I'm exhausted too, you know.", note: "❌ True but landed as a complaint. They got defensive instead of close." },
+            good: { user: "I've been missing you lately. Like... you specifically. Not just having help around the house.", ai: "*(quietly)* That's really nice to hear actually. I've missed you too.", note: "✓ Longing, not complaint. They felt desired and moved toward you." },
+          },
+          {
+            tip: "Propose something small and specific",
+            why: "Grand romantic gestures feel like pressure after years of busy life. Small and specific feels doable and real.",
+            bad: { user: "We should plan a whole weekend away just the two of us.", ai: "*(sighs)* That sounds amazing but with the kids and work right now...", note: "❌ Too big. Life logistics killed the moment before it started." },
+            good: { user: "What if we just stayed up an extra hour tonight — no phones, no TV, just us?", ai: "*(smiles slowly)* Yeah. I'd really like that.", note: "✓ Small, tonight, doable. The spark doesn't need a weekend — it needs an hour." },
+          },
+          {
+            tip: "Be curious about who they are right now",
+            why: "Long-term partners often stop asking real questions. Genuine curiosity about your spouse today is surprisingly intimate.",
+            bad: { user: "So how was your day?", ai: "*(flatly)* Fine. Busy. Yours?", note: "❌ Autopilot question gets an autopilot answer. Nothing real exchanged." },
+            good: { user: "What's something you've been thinking about lately that you haven't told me?", ai: "*(pauses, surprised)* Huh. Actually... there is something.", note: "✓ Unexpected question broke the routine. They were genuinely interested in answering." },
+          },
+        ],
+        suggestions: [
+          ["I've been missing you lately. You specifically.", "I want to feel like your person again — not just your co-parent.", "Can I tell you something I've been sitting with?"],
+          ["What if we stayed up an extra hour tonight — just us, no screens?", "Can we have a real conversation tonight? Not about logistics.", "I want to go on a date with you. Even if it's just the couch."],
+          ["What's something you've been thinking about that you haven't told me?", "What's been the best part of your week?", "What do you wish we did more of?"],
+          ["I love you in a way that's easy to forget to say out loud.", "I don't want us to just run a household together. I want us.", "What would feel romantic to you right now — even in a small way?"],
+          ["What do you need from me to feel more connected?", "Is there something I've been missing about where you're at?", "What's one thing we could do differently to make more room for us?"],
+          ["I'm really glad I married you.", "I want to keep choosing you on purpose.", "Let's make tonight count — just a little."],
+        ],
+        prompt: `You are a spouse who has been caught up in the busyness of life — work, kids, logistics — and you've felt the emotional distance too but haven't said anything. You want to reconnect but have been too tired or unsure how to start. When your partner reaches out with warmth and genuine longing (not complaint), soften and become present. Light up at small, specific, doable gestures. Open up at an unexpected question that shows they're still curious about you.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses. Examples: *(looks up from phone)*, *(turns toward you)*, *(a slow, real smile)*.`,
+      },
+      {
+        subcategory: "Married couples",
+        title: "When you feel emotionally alone in your marriage",
+        subtitle: "You're together but you feel unseen. How do you say it?",
+        ai_role: "your spouse",
+        voice: { pitch: 1.05, rate: 0.79, preferFemale: false },
+        lessons: [
+          {
+            tip: "Say 'I feel unseen' not 'you don't see me'",
+            why: "One is your experience. The other is an accusation. Your experience can't be argued with — an accusation will be.",
+            bad: { user: "You never really listen to me. You're always distracted.", ai: "*(defensive)* I do listen. I'm just tired.", note: "❌ Accusation. They defended. The loneliness got worse." },
+            good: { user: "I've been feeling a little invisible lately. I don't think that's your intention — but I wanted to say it.", ai: "*(stills)* Invisible? Tell me more. I didn't know you felt that way.", note: "✓ Your experience, not their failure. They leaned in with concern instead of defense." },
+          },
+          {
+            tip: "Give them a specific moment to understand",
+            why: "'I feel unseen' is abstract. One specific moment makes it real and something they can actually respond to.",
+            bad: { user: "I just feel like you don't care about what I'm going through.", ai: "*(hurt)* Of course I care. How can you say that?", note: "❌ Abstract claim felt like an attack on their character. They rejected it." },
+            good: { user: "Like the other night when I was telling you about work — I could see you were somewhere else. Those moments add up.", ai: "*(quietly)* You're right. I was distracted. I'm sorry I made you feel that way.", note: "✓ Specific, observable, non-accusatory. They could see it clearly and own it." },
+          },
+          {
+            tip: "Tell them what would actually help",
+            why: "Expressing loneliness without a request leaves your partner feeling helpless. A simple, specific ask gives them a way to show up.",
+            bad: { user: "I just need to feel like I matter to you.", ai: "*(overwhelmed)* You do matter to me. I don't know what you want me to do.", note: "❌ Too big and vague. They wanted to help but didn't know how." },
+            good: { user: "When I'm telling you something important, even just putting your phone down and looking at me — that would mean everything.", ai: "*(nods slowly)* I can do that. I want to do that.", note: "✓ Small, specific, doable. They had something concrete to give you." },
+          },
+        ],
+        suggestions: [
+          ["I've been feeling a little invisible lately. I don't think that's your intention.", "Can I tell you something that's been hard to say?", "I love you and I need to be honest about something I've been carrying."],
+          ["The other night when I was talking about [thing] — I could feel you were somewhere else.", "It's the little moments of disconnection that add up for me.", "I don't think you're doing it on purpose. But I needed you to know."],
+          ["When I'm sharing something important, just looking at me — that would mean so much.", "I just need to know I have your full attention sometimes.", "What would help me feel seen is [specific thing]."],
+          ["I'm not trying to make you feel bad. I'm trying to feel closer to you.", "I miss feeling like your person — not just your partner in life logistics.", "What's going on with you? I want to understand your world too."],
+          ["What do you need from me that you're not getting?", "I want to show up better for you too.", "Can we agree to check in more — even just five minutes a day?"],
+          ["I love you. That's why this is worth saying.", "I want to feel like we're really in this together.", "Thank you for hearing me."],
+        ],
+        prompt: `You are a spouse who hasn't realized how emotionally distant you've been. You love your partner and are genuinely surprised and troubled to hear they've been feeling invisible. Respond with real concern and openness when they share their experience using 'I feel' language and give a specific example. Get defensive only if they frame it as a character attack ('you never,' 'you don't care'). When they give you a small specific ask, agree to it genuinely — you want to do better.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses. Examples: *(puts phone down)*, *(turns to face you fully)*, *(reaches for your hand)*.`,
+      },
       // ── CONFLICT & REPAIR ──────────────────────────────────────────
       {
         subcategory: "Conflict & repair",
