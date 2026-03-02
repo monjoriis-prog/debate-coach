@@ -2772,7 +2772,7 @@ export default function Forte() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          systemPrompt: `You are a social coach generating response suggestions. Return ONLY a JSON array of exactly 3 short natural responses the user could say next. No explanation, no markdown, just the raw JSON array like: ["response one", "response two", "response three"]. Each response should be 1-2 sentences, feel natural and conversational, and directly continue from what was just said. Vary the tone: one warm/emotional, one practical/direct, one playful or light.`,
+          systemPrompt: `You are a social coach generating response suggestions. Return ONLY a JSON array of exactly 3 short natural responses the user could say next. No explanation, no markdown, just the raw JSON array like: ["response one", "response two", "response three"]. RULES: Keep each response to ONE short sentence max (under 15 words). Never suggest passive, doormat, or people-pleasing language like "I'll be here whenever you're ready" or "I'll wait for you" or "Good luck with everything." The user should sound confident, self-respecting, and grounded — not like they're auditioning for someone's approval. In dating scenarios, never imply the user will wait around indefinitely. Vary the tone: one warm/direct, one boundary-setting or self-assured, one light or playful.`,
           messages: [{ role: "user", content: `Scenario: ${situation.title}\n\nRecent conversation:\n${recentHistory}\n\nThey just said: "${lastAiText}"\n\nGive 3 natural follow-up responses the user could say.` }],
         }),
       });
