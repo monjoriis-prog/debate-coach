@@ -2444,7 +2444,7 @@ Format the plan with gentle headers. Be warm, not clinical.`,
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
           {SCENARIOS.map((s) => (
-            <button key={s.category} onClick={() => { setSelectedCategory(s); setPhase(s.isSelfCategory ? "self_hub" : "scenario"); }}
+            <button key={s.category} onClick={() => { setSelectedCategory(s); setPhase("scenario"); }}
               style={{ background: "#fff", border: "1px solid #d8e8e0", borderRadius: "16px", padding: "28px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.25s" }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = s.accent; e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = `0 12px 32px ${s.accent}18`; }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
