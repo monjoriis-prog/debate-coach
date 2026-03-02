@@ -2820,6 +2820,81 @@ function ScoreBar({ label, score, accent }: { label: string; score: number; acce
   );
 }
 
+
+// ── RECOMMENDATION ENGINE ─────────────────────────────────────
+function getRecommendations(currentSituation: any, allScenarios: any[], maxRecs: number = 3): any[] {
+  if (!currentSituation) return [];
+  const recs: any[] = [];
+  const currentTitle = currentSituation.title;
+  const currentSub = currentSituation.subcategory;
+
+  // Flatten all situations with their parent category info
+  const allSituations: any[] = [];
+  allScenarios.forEach(cat => {
+    (cat.situations || []).forEach((s: any) => {
+      if (s.title !== currentTitle) {
+        allSituations.push({ ...s, _catName: cat.category, _catAccent: cat.accent });
+      }
+    });
+  });
+
+  // Thematic connections — maps subcategories/titles to related ones
+  const thematicLinks: Record<string, string[]> = {
+    "Red Flags & Boundaries": ["Online Dating Safety", "Early Compatibility", "Conflict & repair"],
+    "Online Dating Safety": ["Red Flags & Boundaries", "Getting serious", "Early Compatibility"],
+    "Early Compatibility": ["Getting serious", "Online Dating Safety", "Newly met"],
+    "Parenting": ["Raising children together", "Family dynamics"],
+    "Family dynamics": ["Parenting", "Extended family", "Emotional support & connection"],
+    "Conflict & repair": ["Red Flags & Boundaries", "Reconnecting", "Peer relationships"],
+    "Getting serious": ["Early Compatibility", "Long-term", "Newly met"],
+    "Newly met": ["Out & about", "Getting serious", "College students"],
+    "Long-term": ["Married couples", "Getting serious", "Conflict & repair"],
+    "Married couples": ["Long-term", "Emotional support & connection", "Conflict & repair"],
+    "Managing up": ["Red Flags & Boundaries", "Peer relationships", "Client relationships"],
+    "Peer relationships": ["Managing up", "Working professionals", "Out & about"],
+    "Reconnecting": ["Conflict & repair", "Long-term", "Seniors & retirees"],
+    "Out & about": ["College students", "Working professionals", "Introverts specifically"],
+    "Working professionals": ["Out & about", "Peer relationships", "Managing up"],
+    "Introverts specifically": ["Out & about", "College students", "Newly met"],
+    "Emotional support & connection": ["Family dynamics", "Married couples", "Long-term"],
+    "Finance & Budget": ["Family dynamics", "Married couples", "Guidance & life decisions"],
+    "Navigating in-laws": ["Extended family", "Married couples", "Conflict & repair"],
+    "Raising children together": ["Parenting", "Married couples", "Conflict & repair"],
+    "Guidance & life decisions": ["Married couples", "Family dynamics", "Managing up"],
+    "College students": ["Out & about", "Introverts specifically", "Newly met"],
+    "Seniors & retirees": ["Reconnecting", "Extended family", "Introverts specifically"],
+    "Extended family": ["Family dynamics", "Navigating in-laws", "Seniors & retirees"],
+    "Client relationships": ["Managing up", "Peer relationships", "Working professionals"],
+    "Starting out": ["College students", "Working professionals", "Introverts specifically"],
+  };
+
+  // 1. Same subcategory, different scenario
+  const sameSub = allSituations.filter(s => s.subcategory === currentSub);
+  if (sameSub.length > 0) {
+    recs.push(sameSub[Math.floor(Math.random() * sameSub.length)]);
+  }
+
+  // 2. Thematically linked subcategory
+  const linkedSubs = thematicLinks[currentSub] || [];
+  const linked = allSituations.filter(s =>
+    linkedSubs.includes(s.subcategory) && !recs.some(r => r.title === s.title)
+  );
+  if (linked.length > 0) {
+    recs.push(linked[Math.floor(Math.random() * linked.length)]);
+  }
+
+  // 3. Different category entirely (broaden horizons)
+  const currentCat = allScenarios.find(c => c.situations?.some((s: any) => s.title === currentTitle))?.category;
+  const diffCat = allSituations.filter(s =>
+    s._catName !== currentCat && !recs.some(r => r.title === s.title)
+  );
+  if (diffCat.length > 0 && recs.length < maxRecs) {
+    recs.push(diffCat[Math.floor(Math.random() * diffCat.length)]);
+  }
+
+  return recs.slice(0, maxRecs);
+}
+
 export default function Forte() {
   const [phase, setPhase] = useState("home");
   const [selectedCategory, setSelectedCategory] = useState<any>(null);
@@ -3948,6 +4023,41 @@ Format the plan with gentle headers. Be warm, not clinical.`,
                 </div>
               </div>
 
+              {/* Also Try... */}
+              {(() => {
+                const recs = getRecommendations(selectedSituation, SCENARIOS, 2);
+                if (recs.length === 0) return null;
+                return (
+                  <div style={{ padding: "16px", background: "#f8faf8", borderRadius: "14px", border: "1px solid #e8f0ec", marginBottom: "16px" }}>
+                    <div style={{ fontSize: "10px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "10px", fontFamily: "-apple-system, sans-serif" }}>Keep building your skills</div>
+                    {recs.map((rec: any, ri: number) => (
+                      <button key={ri}
+                        onClick={() => {
+                          forteSound.select();
+                          setRedFlagExited(false);
+                          setFeedback(null);
+                          setMessages([]);
+                          setUserTurns(0);
+                          setRedFlagPath("");
+                          setRedFlagStep(0);
+                          setLeavingStep(0);
+                          setSelectedSituation(rec);
+                          setLessonIndex(0);
+                          const parentCat = SCENARIOS.find(c => c.situations?.some((s: any) => s.title === rec.title));
+                          if (parentCat) setSelectedCategory(parentCat);
+                          setPhase("learn");
+                        }}
+                        style={{ width: "100%", background: "#fff", border: "1px solid #e8f0ec", borderRadius: "10px", padding: "11px 14px", textAlign: "left", cursor: "pointer", display: "flex", alignItems: "center", gap: "10px", marginTop: ri > 0 ? "6px" : "0", transition: "all 0.15s" }}
+                      >
+                        <div style={{ fontSize: "16px", flexShrink: 0 }}>{rec.isRedFlag ? "🚩" : "💬"}</div>
+                        <div style={{ fontSize: "13px", fontWeight: "600", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif", lineHeight: 1.3 }}>{rec.title}</div>
+                        <div style={{ marginLeft: "auto", fontSize: "16px", color: "#84a98c", flexShrink: 0 }}>›</div>
+                      </button>
+                    ))}
+                  </div>
+                );
+              })()}
+
               {/* Action buttons */}
               <div style={{ display: "flex", gap: "10px" }}>
                 <button onClick={() => { setRedFlagExited(false); setLessonIndex(0); setPhase("learn"); }}
@@ -4053,6 +4163,63 @@ Format the plan with gentle headers. Be warm, not clinical.`,
                   <div style={{ fontSize: "15px", color: "#1a2e1a", lineHeight: 1.8, fontStyle: "italic" }}>{feedback.verdict}</div>
                 </div>
               )}
+
+              {/* Also Try... Recommendations */}
+              {(() => {
+                const recs = getRecommendations(selectedSituation, SCENARIOS);
+                if (recs.length === 0) return null;
+                return (
+                  <div style={{ marginTop: "20px", padding: "18px", background: "#f8faf8", borderRadius: "14px", border: "1px solid #e8f0ec" }}>
+                    <div style={{ fontSize: "10px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "12px", fontFamily: "-apple-system, sans-serif" }}>People who practiced this also tried</div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                      {recs.map((rec: any, ri: number) => (
+                        <button key={ri}
+                          onClick={() => {
+                            forteSound.select();
+                            setShowFeedbackModal(false);
+                            setFeedback(null);
+                            setMessages([]);
+                            setUserTurns(0);
+                            setRedFlagPath("");
+                            setRedFlagStep(0);
+                            setLeavingStep(0);
+                            setSelectedSituation(rec);
+                            setLessonIndex(0);
+                            // Find and set the correct parent category
+                            const parentCat = SCENARIOS.find(c => c.situations?.some((s: any) => s.title === rec.title));
+                            if (parentCat) setSelectedCategory(parentCat);
+                            setPhase("learn");
+                          }}
+                          style={{
+                            width: "100%",
+                            background: "#fff",
+                            border: "1px solid #e8f0ec",
+                            borderRadius: "10px",
+                            padding: "12px 14px",
+                            textAlign: "left",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "12px",
+                            transition: "all 0.15s",
+                          }}
+                          onMouseEnter={e => { e.currentTarget.style.background = "#f0f7f4"; e.currentTarget.style.borderColor = accent; }}
+                          onMouseLeave={e => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.borderColor = "#e8f0ec"; }}
+                        >
+                          <div style={{ fontSize: "18px", flexShrink: 0 }}>
+                            {rec.isRedFlag ? "🚩" : rec._catName === "Family Conversations" ? "🏠" : rec._catName === "Dating & Romance" ? "💕" : rec._catName === "Building Friendships" ? "🤝" : "💼"}
+                          </div>
+                          <div>
+                            <div style={{ fontSize: "13px", fontWeight: "600", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif", lineHeight: 1.3 }}>{rec.title}</div>
+                            <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>{rec.subcategory}</div>
+                          </div>
+                          <div style={{ marginLeft: "auto", fontSize: "16px", color: "#84a98c", flexShrink: 0 }}>›</div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
 
               {/* Action buttons */}
               <div style={{ display: "flex", gap: "10px", marginTop: "24px" }}>
