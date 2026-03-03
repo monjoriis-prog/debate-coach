@@ -28,7 +28,7 @@ const STYLES = {
   },
   solver: {
     name: "The Problem-Solver", emoji: "\ud83e\udde9", color: "#1b4332",
-    tagline: "Every conflict is a puzzle with a solution.",
+    tagline: "Every disagreement is a puzzle with a solution.",
     description: "You approach disagreements like an engineer \u2014 calm, logical, looking for the fix. You're the one who says 'okay, so what are we actually trying to solve here?' People love this about you in work settings. In personal relationships? Sometimes people don't want a solution \u2014 they want to feel understood first. That's your edge to sharpen.",
     strength: "You turn chaos into clarity.",
     growth: "Before solving, try saying 'that sounds really hard' and stopping there. Sometimes that IS the solution.",
@@ -120,7 +120,7 @@ export default function QuizPage() {
     }, 600);
   };
 
-  const shareText = result ? `I'm "${STYLES[result].name}" \u2014 ${STYLES[result].tagline}\n\nTake the free conflict style quiz:\nhttps://debate-coach-seven.vercel.app/quiz` : "";
+  const shareText = result ? `I'm "${STYLES[result].name}" \u2014 ${STYLES[result].tagline}\n\nTake the free communication style quiz:\nhttps://debate-coach-seven.vercel.app/quiz` : "";
   const handleShare = async () => {
     if (navigator.share) { try { await navigator.share({ title: `I'm ${STYLES[result!].name}`, text: shareText, url: "https://debate-coach-seven.vercel.app/quiz" }); } catch {} }
     else { navigator.clipboard.writeText(shareText); setCopied(true); setTimeout(() => setCopied(false), 2000); }
@@ -134,7 +134,7 @@ export default function QuizPage() {
         <div style={{ animation: "fadeUp 0.8s ease-out" }}>
           
           <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.25em", color: "#52796f", textTransform: "uppercase", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>FORTE presents</div>
-          <h1 style={{ fontSize: "clamp(32px, 7vw, 48px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 16px", lineHeight: 1.2, letterSpacing: "-0.5px" }}>What's Your<br />Conflict Style?</h1>
+          <h1 style={{ fontSize: "clamp(32px, 7vw, 48px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 16px", lineHeight: 1.2, letterSpacing: "-0.5px" }}>What's Your<br />Communication Style?</h1>
           <p style={{ color: "#52796f", fontSize: "16px", lineHeight: 1.8, margin: "0 0 40px" }}>7 real scenarios. No right answers.<br />Discover how you handle tension {"\u2014"} and what it costs you.</p>
           <button onClick={() => setStarted(true)} style={{ padding: "18px 48px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", transition: "all 0.3s" }}
             onMouseEnter={e => { e.currentTarget.style.background = "#40916c"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 40px rgba(45,106,79,0.4)"; }}
@@ -158,7 +158,7 @@ export default function QuizPage() {
           <div style={{ background: "linear-gradient(145deg, #0f2418, #1a3a28)", borderRadius: "24px", padding: "40px 28px", marginBottom: "32px", border: `1.5px solid ${st.color}33`, animation: "resultPop 0.6s cubic-bezier(0.34,1.56,0.64,1)", position: "relative", overflow: "hidden" }}>
             <div style={{ position: "absolute", top: "-60px", right: "-60px", width: "200px", height: "200px", borderRadius: "50%", background: `${st.color}08` }} />
             <div style={{ position: "relative", zIndex: 1 }}>
-              <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.25em", color: "#52796f", textTransform: "uppercase", marginBottom: "20px", fontFamily: "-apple-system, sans-serif" }}>Your conflict style is</div>
+              <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.25em", color: "#52796f", textTransform: "uppercase", marginBottom: "20px", fontFamily: "-apple-system, sans-serif" }}>Your communication style is</div>
               <div style={{ fontSize: "48px", marginBottom: "8px" }}>{st.emoji}</div>
               <h2 style={{ fontSize: "32px", fontWeight: "400", color: "#e8f0ec", margin: "0 0 8px", letterSpacing: "-0.5px" }}>{st.name}</h2>
               <p style={{ fontSize: "16px", color: st.color, fontStyle: "italic", margin: "0 0 24px", lineHeight: 1.6 }}>"{st.tagline}"</p>

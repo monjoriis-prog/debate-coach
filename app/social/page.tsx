@@ -3424,7 +3424,7 @@ export default function Forte() {
     peacekeeper: { name: "The Peacekeeper", emoji: "\ud83d\udd4a\ufe0f", color: "#2d6a4f", tagline: "You\u2019d rather find common ground than fight for yours.", description: "You\u2019re the person everyone trusts to stay calm. Your blind spot? You compromise on things that matter to you.", strength: "You make people feel safe enough to be honest.", growth: "Say \u2018I hear you, AND here\u2019s what I need.\u2019" },
     avoider: { name: "The Avoider", emoji: "\ud83e\udee5", color: "#6c757d", tagline: "If I don\u2019t bring it up, maybe it\u2019ll go away.", description: "You feel everything deeply. You know what\u2019s wrong \u2014 you just don\u2019t say it. What you don\u2019t address builds.", strength: "You read rooms better than anyone.", growth: "The conversation you\u2019re avoiding would change everything." },
     challenger: { name: "The Challenger", emoji: "\u26a1", color: "#c9184a", tagline: "You say what everyone else is thinking.", description: "You\u2019re direct and don\u2019t back down. Your delivery sometimes lands harder than you intend.", strength: "Courage to say what needs to be said.", growth: "Pause before responding. Your tone could soften." },
-    solver: { name: "The Problem-Solver", emoji: "\ud83e\udde9", color: "#1b4332", tagline: "Every conflict is a puzzle with a solution.", description: "Calm and logical. Sometimes people want to feel understood first.", strength: "You turn chaos into clarity.", growth: "Try \u2018that sounds hard\u2019 and stop there." },
+    solver: { name: "The Problem-Solver", emoji: "\ud83e\udde9", color: "#1b4332", tagline: "Every disagreement is a puzzle with a solution.", description: "Calm and logical. Sometimes people want to feel understood first.", strength: "You turn chaos into clarity.", growth: "Try \u2018that sounds hard\u2019 and stop there." },
     pleaser: { name: "The People-Pleaser", emoji: "\ud83e\udea9", color: "#7c5cbf", tagline: "You\u2019d set yourself on fire to keep someone else warm.", description: "Generous and attuned to others. You lose track of your own needs. Resentment builds quietly.", strength: "Everyone around you feels valued.", growth: "Voice your needs before they become resentment." },
   };
   const QUIZ_QS = [
@@ -4471,7 +4471,7 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
             <div style={{ width: "3px", height: "32px", background: "#2d6a4f", borderRadius: "2px" }} />
             <div style={{ fontSize: "32px", fontWeight: "400", color: "#1a2e1a", letterSpacing: "-1px" }}>FORTE</div>
           </div>
-          <h1 style={{ fontSize: "clamp(28px, 6vw, 40px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 16px", lineHeight: 1.3, letterSpacing: "-0.5px" }}>{"What\u2019s Your"}<br />Conflict Style?</h1>
+          <h1 style={{ fontSize: "clamp(28px, 6vw, 40px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 16px", lineHeight: 1.3, letterSpacing: "-0.5px" }}>{"What\u2019s Your"}<br />Communication Style?</h1>
           <p style={{ color: "#52796f", fontSize: "15px", lineHeight: 1.8, margin: "0 0 40px" }}>7 real scenarios. No right answers.<br />Discover how you handle tension {"\u2014"} and what it costs you.</p>
           <button onClick={() => setQuizStarted(true)} style={{ padding: "16px 44px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", transition: "all 0.3s" }}
             onMouseEnter={e => { e.currentTarget.style.background = "#40916c"; e.currentTarget.style.transform = "translateY(-2px)"; }}
@@ -4518,7 +4518,7 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
     const qst = QUIZ_STYLES[quizResult];
     const finishQuiz = () => { setQuizDone(true); try { localStorage.setItem("forte_quiz_done", "true"); } catch {} };
     const handleQShare = async () => {
-      const txt = `I'm "${qst.name}" \u2014 ${qst.tagline}\n\nWhat's your conflict style?\nhttps://debate-coach-seven.vercel.app/quiz`;
+      const txt = `I'm "${qst.name}" \u2014 ${qst.tagline}\n\nWhat's your communication style?\nhttps://debate-coach-seven.vercel.app/quiz`;
       if (navigator.share) { try { await navigator.share({ title: `I'm ${qst.name}`, text: txt }); } catch {} }
       else { navigator.clipboard.writeText(txt); setQuizCopied(true); setTimeout(() => setQuizCopied(false), 2000); }
     };
@@ -4528,7 +4528,7 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
           <div style={{ background: "linear-gradient(145deg, #1a3a28, #2d4a3a)", borderRadius: "24px", padding: "36px 28px", marginBottom: "24px", border: `1.5px solid ${qst.color}33`, animation: "rPop 0.6s cubic-bezier(0.34,1.56,0.64,1)", position: "relative", overflow: "hidden" }}>
             <div style={{ position: "absolute", top: "-60px", right: "-60px", width: "200px", height: "200px", borderRadius: "50%", background: `${qst.color}08` }} />
             <div style={{ position: "relative", zIndex: 1 }}>
-              <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.25em", color: "#52796f", textTransform: "uppercase", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>Your conflict style is</div>
+              <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.25em", color: "#52796f", textTransform: "uppercase", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>Your communication style is</div>
               <div style={{ fontSize: "44px", marginBottom: "8px" }}>{qst.emoji}</div>
               <h2 style={{ fontSize: "28px", fontWeight: "400", color: "#e8f0ec", margin: "0 0 8px", letterSpacing: "-0.5px" }}>{qst.name}</h2>
               <p style={{ fontSize: "15px", color: qst.color, fontStyle: "italic", margin: "0 0 20px", lineHeight: 1.6 }}>"{qst.tagline}"</p>
