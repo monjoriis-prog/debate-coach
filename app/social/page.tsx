@@ -4447,6 +4447,9 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
   );
 
   // QUIZ LANDING
+  if (phase === "home" && quizDone === null) return (
+    <div style={{ minHeight: "100vh", background: "#f8faf8" }} />
+  );
   if (phase === "home" && quizDone === false && !quizResult) {
     const quizPick = (idx: number, style: string) => {
       if (quizAnimating) return;
@@ -4474,7 +4477,7 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
             onMouseEnter={e => { e.currentTarget.style.background = "#40916c"; e.currentTarget.style.transform = "translateY(-2px)"; }}
             onMouseLeave={e => { e.currentTarget.style.background = "#2d6a4f"; e.currentTarget.style.transform = "none"; }}>{"Take the Quiz \u2192"}</button>
           <div style={{ marginTop: "24px" }}>
-            <button onClick={skipQuiz} style={{ background: "none", border: "none", color: "#84a98c", fontSize: "13px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", padding: "8px 16px" }}>Skip for now</button>
+            <button onClick={skipQuiz} style={{ background: "none", border: "none", color: "#52796f", fontSize: "14px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", padding: "10px 20px", textDecoration: "underline", textUnderlineOffset: "3px" }}>Skip for now</button>
           </div>
         </div>
       </div>
@@ -4488,7 +4491,7 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
               <div style={{ height: "100%", width: `${((quizQ + 1) / QUIZ_QS.length) * 100}%`, background: "#2d6a4f", borderRadius: "2px", transition: "width 0.5s ease-out" }} />
             </div>
             <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif" }}>{quizQ + 1} / {QUIZ_QS.length}</div>
-            <button onClick={skipQuiz} style={{ background: "none", border: "none", color: "#84a98c", fontSize: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", padding: "4px 8px" }}>Skip</button>
+            <button onClick={skipQuiz} style={{ background: "none", border: "none", background: "none", border: "1px solid #d8e8e0", color: "#52796f", fontSize: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", padding: "4px 12px", borderRadius: "8px" }}>Skip</button>
           </div>
           <div key={quizQ} style={{ animation: "qSlide 0.4s ease-out" }}>
             <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.2em", color: "#52796f", textTransform: "uppercase", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>Scenario</div>
