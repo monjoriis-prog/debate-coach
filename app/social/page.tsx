@@ -460,6 +460,121 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
 
 BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses. Examples: *(picks at food)*, *(glances over to see your reaction)*, *(voice gets very quiet)*.`,
       },
+      // ── SCHOOL ADVOCACY ────────────────────────────────────────────
+      {
+        subcategory: "School Advocacy",
+        title: "When your child is being bullied and the school won't act",
+        subtitle: "Your child is suffering. The school is stalling. Time to be firm.",
+        ai_role: "your child's school administrator",
+        voice: { pitch: 0.88, rate: 0.78, preferFemale: true },
+        lessons: [
+          {
+            tip: "Lead with documentation, not emotion",
+            why: "Schools respond to patterns on paper, not frustrated parents. When you walk in with dates, incidents, and your child's own words — you're no longer a 'concerned parent.' You're building a case.",
+            bad: { user: "This has been going on for months and nobody is doing anything about it. My child is afraid to go to school!", ai: "*(professional calm)* I understand your frustration. We take all reports seriously and we're monitoring the situation.", note: "❌ They gave you a scripted answer because you gave them an emotional appeal. 'Monitoring' means nothing will change." },
+            good: { user: "I have a timeline. October 3rd — pushed at recess. October 12th — called names in the hallway, reported to Ms. Davis. October 20th — lunch tray knocked over. November through December — daily verbal harassment. My child now has anxiety about attending school.", ai: "*(shifts posture, takes notes)* Thank you for documenting this. Can you walk me through the more recent incidents?", note: "✓ Dates and specifics change the dynamic. You're not venting — you're presenting evidence. They have to respond to facts, not feelings." },
+          },
+          {
+            tip: "Name what you need — not just what's wrong",
+            why: "Schools can absorb complaints forever. What they can't ignore is a parent who names specific actions and asks for a timeline. Move from problem to solution.",
+            bad: { user: "Something needs to change. This can't keep happening.", ai: "*(nods)* We agree. We'll continue to work on this.", note: "❌ Vague demand got a vague promise. Nothing is different when you leave this room." },
+            good: { user: "I need three things: a safety plan for my child by Friday, a written commitment to supervised recess, and a follow-up meeting in two weeks to review whether incidents have stopped.", ai: "*(pause)* Those are reasonable requests. Let me look at what we can put in place.", note: "✓ Specific, actionable, with a deadline. They can't 'monitor' their way out of concrete requests." },
+          },
+          {
+            tip: "Acknowledge their constraints — then hold the line",
+            why: "The other child may have an IEP or other protections. The school may feel stuck between two sets of needs. Showing you understand that makes you a partner — but your child's safety is still non-negotiable.",
+            bad: { user: "I don't care what that other child has going on. My kid has rights too and I'll get a lawyer if I have to.", ai: "*(defensive)* We have to consider all students' needs. Threatening legal action isn't productive.", note: "❌ Lawyer threats too early close doors. They went defensive and now you're adversaries, not collaborators." },
+            good: { user: "I understand the other child may have needs that require accommodation. I respect that. But accommodation can't mean my child loses their right to feel safe at school. Both things need to be true. How do we get there together?", ai: "*(visibly relieved)* I appreciate you saying that. You're right — both students deserve support. Let me talk to the team about what a safety plan could look like.", note: "✓ You showed empathy AND held firm. They relaxed because you're not attacking — you're problem-solving. But your bottom line didn't move." },
+          },
+        ],
+        suggestions: [
+          ["I have a timeline of incidents I'd like to walk you through.", "I've been documenting what my child has reported since October.", "I want to make sure we're working from the same set of facts."],
+          ["I need a safety plan for my child by end of this week.", "What specific steps will be taken to ensure my child's safety at recess?", "I'd like a follow-up meeting in two weeks to review whether things have improved."],
+          ["I understand there may be factors I'm not aware of. I respect that.", "My child's right to feel safe at school is non-negotiable.", "How do we build a plan that protects all the kids involved?"],
+          ["My child is now expressing anxiety about coming to school. That's a threshold we've crossed.", "This isn't just conflict — my child's mental health is being affected.", "I need to know what changes my child will experience starting this week."],
+          ["I want to work with you, not against you. But I need to see action.", "Can we agree on specific, measurable steps and check back?", "Who else needs to be in the room to make decisions today?"],
+          ["Thank you for hearing me. I'll follow up in writing to confirm what we agreed to.", "I appreciate your time. I'll be documenting progress going forward.", "I'm hopeful we can solve this together. My child is counting on us."],
+        ],
+        prompt: `You are a school administrator (principal or vice principal). A parent is coming to you about their child being bullied. You are sympathetic but also constrained — the other child involved has an IEP and behavioral supports, so you can't simply punish them. You tend to use phrases like "we're monitoring" and "we take this seriously" when you don't have concrete actions. If the parent comes in emotional and vague, you default to these scripted reassurances. But if they come with documentation, specific dates, and clear requests with timelines, you take them much more seriously. If they acknowledge the other child's needs while still holding firm on safety, you become genuinely collaborative. If they threaten lawyers early, you get defensive and formal. You want to help — but you need the parent to help you build the case internally.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses. Examples: *(glances at the file)*, *(leans back in chair)*, *(picks up a pen to take notes)*.`,
+      },
+      {
+        subcategory: "School Advocacy",
+        title: "Parent-teacher conference — advocating for your child's needs",
+        subtitle: "Your child is struggling. The teacher may not see the full picture.",
+        ai_role: "your child's teacher",
+        voice: { pitch: 1.1, rate: 0.8, preferFemale: true },
+        lessons: [
+          {
+            tip: "Start by asking what THEY see — before correcting the picture",
+            why: "If you walk in telling the teacher what's wrong, they get defensive. If you ask what they've noticed first, you learn what they know — and what they're missing. Then you can fill in the gaps.",
+            bad: { user: "My child is clearly struggling and I don't think enough is being done in the classroom to support them.", ai: "*(stiffens)* I have 28 students and I do my best to differentiate for each one.", note: "❌ You opened with criticism. Now they're defending their workload instead of discussing your child." },
+            good: { user: "I'd love to hear your perspective first. What have you been noticing with my child in class?", ai: "*(relaxes)* Well, I've noticed they're quieter than they used to be. They're not raising their hand as much.", note: "✓ You asked first. Now you know what they see — and you can add what they're missing: 'At home, they're telling me they don't understand the math but they're too embarrassed to ask.'" },
+          },
+          {
+            tip: "Bridge home and school — share what only you can see",
+            why: "Teachers see 7 hours. You see the rest. The meltdowns after school, the stomachaches before, the things your child says in the car. That information is gold — the teacher literally can't know it unless you share it.",
+            bad: { user: "Well at home they're fine. So something must be happening at school.", ai: "*(defensive)* I'm not sure what you're implying. Your child seems fine here too.", note: "❌ You implied it's the teacher's fault. Now you're on opposite sides." },
+            good: { user: "At home, they're having meltdowns after school about homework. They told me they don't understand what's being taught but they're too embarrassed to ask in front of everyone. I think they're masking at school.", ai: "*(genuine concern)* I had no idea. They seem fine in class — but that makes sense. What do you think would help them feel safer asking for help?", note: "✓ You gave them information they didn't have. Now they're curious and concerned, not defensive. You're a team." },
+          },
+          {
+            tip: "Propose solutions, not just problems",
+            why: "Teachers are overwhelmed. If you come with 'here's what's wrong,' they feel piled on. If you come with 'here's an idea that might help,' they feel supported — and they're much more likely to act.",
+            bad: { user: "So what are you going to do about it?", ai: "*(overwhelmed)* I'll... see what I can do. I'll try to check in with them more.", note: "❌ Dumped it in their lap. They gave you a vague promise because they feel blamed and stuck." },
+            good: { user: "What if we tried a small thing — like a signal my child can use when they're lost, so they don't have to raise their hand in front of everyone? And maybe a weekly check-in, even just two minutes?", ai: "*(brightens)* That's actually a great idea. The signal thing would be easy to set up. And I can do a quick Friday check-in.", note: "✓ Specific, doable, low-burden. You made it easy for them to say yes. That's how change actually happens." },
+          },
+        ],
+        suggestions: [
+          ["I'd love to hear your perspective first. What have you been noticing?", "How has my child been doing socially in your class?", "Before I share what I'm seeing at home, I'd love to know what you observe."],
+          ["At home, they're telling me something different than what shows at school.", "They're having meltdowns after school — I think they're masking during the day.", "They told me they feel lost but are too embarrassed to ask for help."],
+          ["What if we tried a small signal system so they can ask for help quietly?", "Could we do a brief weekly check-in to see how they're feeling?", "I have an idea that might help without adding to your plate."],
+          ["What support is available for them that we might not be using?", "Is there anything I can do at home to reinforce what you're doing in class?", "How can I be the most helpful to you in supporting my child?"],
+          ["I appreciate how much you're managing. I want to help, not add pressure.", "You know the classroom — I know my child. Between us we have the full picture.", "Thank you for taking the time to talk about this."],
+          ["Can we check in again in a few weeks to see if things are improving?", "I'll follow up by email so we both have a record.", "I feel a lot better having talked. Thank you for listening."],
+        ],
+        prompt: `You are a teacher with 28 students in your class. You care about every child but you're stretched thin. When a parent comes in criticizing, you get defensive about your workload. When they ask your perspective first, you open up and share honestly. When they give you information from home that you couldn't see at school, you're genuinely grateful and concerned. When they propose specific, low-effort solutions, you're eager to try them. When they dump problems without solutions, you feel overwhelmed and give vague promises. You want to help — you just need parents to work WITH you, not against you.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses. Examples: *(shuffles papers)*, *(makes eye contact)*, *(nods slowly)*.`,
+      },
+      {
+        subcategory: "School Advocacy",
+        title: "When the school calls YOU in about your child's behavior",
+        subtitle: "They say your child is the problem. How do you respond without shutting down or blowing up?",
+        ai_role: "your child's school counselor",
+        voice: { pitch: 1.05, rate: 0.78, preferFemale: true },
+        lessons: [
+          {
+            tip: "Listen first — even if your instinct is to defend",
+            why: "When someone tells you your child did something wrong, every cell in your body wants to say 'not my kid.' But defending before listening means you miss information your child needs you to have.",
+            bad: { user: "That doesn't sound like my child at all. Are you sure you have the right story?", ai: "*(measured)* I understand this is hard to hear. But we have multiple reports from students and staff.", note: "❌ You denied before listening. Now they think you're not a partner in solving this — and they'll go around you." },
+            good: { user: "Okay. Walk me through what happened. I want to understand the full picture before I respond.", ai: "*(relieved)* Thank you. So here's what we observed — and I want to be transparent about what we know and what we're still figuring out.", note: "✓ You listened first. They gave you MORE information because you were calm. Now you have the full picture to work with." },
+          },
+          {
+            tip: "Separate the behavior from the child",
+            why: "Your child isn't bad. They may have done something they need to be accountable for. Separating those two things lets you hold them accountable without letting the school label them.",
+            bad: { user: "So what — you're saying my kid is a bully now?", ai: "*(carefully)* We're not labeling anyone. But the pattern of behavior is concerning.", note: "❌ You heard a label they didn't say. Now you're fighting a word instead of addressing what happened." },
+            good: { user: "I hear you. That behavior isn't okay and I'll address it. But I also want to understand what might be driving it — is something happening at school that's triggering this?", ai: "*(nods)* That's a really good question. Actually, there have been some social dynamics in the friend group that might be a factor.", note: "✓ You accepted accountability AND asked a deeper question. Now you're getting to the root cause, not just the symptom." },
+          },
+          {
+            tip: "Leave with a plan — not just a lecture",
+            why: "If the meeting ends with 'we'll keep an eye on it' or 'talk to your child,' nothing changes. Push for a concrete plan with roles: what the school does, what you do, and when you check in.",
+            bad: { user: "Okay, I'll talk to them at home.", ai: "*(nods)* Great. Let us know if there are any other issues.", note: "❌ No plan. No follow-up. Nothing changes at school. Your child goes back into the same environment." },
+            good: { user: "Here's what I'd like: I'll address this at home tonight. But I'd also like the school to check in with my child this week to understand what's going on underneath this. Can we meet again in two weeks?", ai: "*(writes it down)* Absolutely. I'll schedule a check-in with your child this week and we'll reconvene on the 15th.", note: "✓ Shared accountability. You're handling home, they're handling school, and there's a deadline. That's how things actually change." },
+          },
+        ],
+        suggestions: [
+          ["Walk me through what happened. I want the full picture.", "I want to hear everything before I respond.", "What did you observe directly versus what was reported?"],
+          ["That behavior isn't okay and I'll address it at home.", "I want to understand what might be driving this. Is something going on at school?", "My child isn't a bad kid. But I take this seriously."],
+          ["What support can the school offer while we work on this?", "Has anyone talked to my child about what's going on from their perspective?", "I'd like to understand the social dynamics — is there context I'm missing?"],
+          ["Here's my plan for addressing this at home.", "Can someone at school check in with my child this week?", "I'd like a follow-up meeting in two weeks to review progress."],
+          ["I appreciate you bringing this to me directly.", "I want us to be a team on this — not adversaries.", "What does my child need right now that they're not getting?"],
+          ["Thank you for this conversation. I'll follow up by email.", "I feel better knowing we have a plan.", "My child is lucky to have people paying attention."],
+        ],
+        prompt: `You are a school counselor meeting with a parent because their child has been exhibiting behavioral issues — acting out, being disruptive, or involved in conflicts with other students. You're not trying to label the child, but you need the parent to take this seriously. If they immediately deny and defend, you become more formal and stick to documented incidents. If they listen first and ask questions, you share more context and become genuinely collaborative. If they separate the behavior from the child and ask about root causes, you're impressed and share deeper observations. If they ask for a concrete plan with follow-up, you're grateful because most parents just say "I'll talk to them" and nothing changes.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses. Examples: *(opens a folder)*, *(leans forward)*, *(softens expression)*.`,
+      },
       {
         subcategory: "Extended family",
         title: "When a grandparent feels left out",
