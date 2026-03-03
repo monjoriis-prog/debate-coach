@@ -3287,6 +3287,9 @@ export default function Forte() {
   // Load freemium state from localStorage
   useEffect(() => {
     try {
+      // Dev bypass: add ?dev=true to URL to unlock everything
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("dev") === "true") { setIsPro(true); return; }
       const saved = localStorage.getItem("forte_free");
       if (saved) {
         const data = JSON.parse(saved);
