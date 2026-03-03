@@ -3278,6 +3278,30 @@ export default function Forte() {
   const [selfStep, setSelfStep] = useState(0); // for problem solver clarifying steps
   const [planStep, setPlanStep] = useState(0);
   const [selfSpeaking, setSelfSpeaking] = useState(false);
+  // Freemium state
+  const [freeCategory, setFreeCategory] = useState<string>("");
+  const [sessionsUsed, setSessionsUsed] = useState(0);
+  const [isPro, setIsPro] = useState(false);
+  const [showPaywall, setShowPaywall] = useState(false);
+
+  // Load freemium state from localStorage
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("forte_free");
+      if (saved) {
+        const data = JSON.parse(saved);
+        if (data.freeCategory) setFreeCategory(data.freeCategory);
+        if (data.sessionsUsed) setSessionsUsed(data.sessionsUsed);
+        if (data.isPro) setIsPro(data.isPro);
+      }
+    } catch {}
+  }, []);
+  // Save freemium state
+  useEffect(() => {
+    try {
+      localStorage.setItem("forte_free", JSON.stringify({ freeCategory, sessionsUsed, isPro }));
+    } catch {}
+  }, [freeCategory, sessionsUsed, isPro]);
   const [redFlagPath, setRedFlagPath] = useState<string>("");
   const [showRedFlagPopup, setShowRedFlagPopup] = useState(false);
   const [redFlagPopupShown, setRedFlagPopupShown] = useState(false);
@@ -3326,6 +3350,7 @@ export default function Forte() {
   }
 
   async function startChat(situation: any) {
+    if (!canPractice) { setShowPaywall(true); return; }
     setSelectedSituation(situation);
     setPhase("chat");
     setLoading(true);
@@ -3410,6 +3435,7 @@ export default function Forte() {
     const parsed = parseFeedback(reply);
     if (parsed) {
       setFeedback(parsed);
+      if (!isPro) setSessionsUsed(s => s + 1);
       setMessages([...newMessages, { role: "assistant", content: parsed.raw || "That was a wonderful conversation." }]);
       setPhase("done"); setTimeout(() => { forteSound.coachReveal(); setShowFeedbackModal(true); }, 600);
     } else {
@@ -4099,6 +4125,73 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
     );
   }
 
+  // ── PAYWALL OVERLAY ────────────────────────────────────────────
+  const paywallOverlay = showPaywall ? (
+    <div style={{ position: "fixed", inset: 0, zIndex: 2000, display: "flex", alignItems: "center", justifyContent: "center", padding: "16px" }}
+      onClick={(e) => { if (e.target === e.currentTarget) setShowPaywall(false); }}>
+      <div style={{ position: "absolute", inset: 0, background: "rgba(15,30,20,0.6)", backdropFilter: "blur(6px)" }} />
+      <div style={{ position: "relative", background: "#fff", borderRadius: "24px", width: "100%", maxWidth: "440px", padding: "40px 32px", textAlign: "center", boxShadow: "0 24px 80px rgba(0,0,0,0.25)", animation: "modalPop 0.4s cubic-bezier(0.34,1.56,0.64,1)" }}>
+        <div style={{ fontSize: "40px", marginBottom: "16px" }}>✦</div>
+        <h2 style={{ fontSize: "24px", fontWeight: "400", color: "#1a2e1a", margin: "0 0 12px", fontFamily: "Georgia, serif" }}>Unlock Full FORTE</h2>
+        <p style={{ fontSize: "14px", color: "#52796f", lineHeight: 1.8, margin: "0 0 24px", fontFamily: "-apple-system, sans-serif" }}>
+          You've used your {sessionsUsed} free practice sessions. Upgrade to unlock every category, unlimited practice, and the full Self toolkit.
+        </p>
+        <div style={{ background: "#f0f7f4", borderRadius: "14px", padding: "18px", marginBottom: "24px", textAlign: "left" }}>
+          <div style={{ fontSize: "11px", fontWeight: "700", color: "#2d6a4f", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "12px", fontFamily: "-apple-system, sans-serif" }}>FORTE Pro includes:</div>
+          {["All 5 categories + every scenario", "Unlimited practice sessions", "Full Self toolkit — Journal, Meditation, Problem Solver, Activities Finder", "Create Your Own scenarios", "New scenarios added regularly"].map((item, i) => (
+            <div key={i} style={{ fontSize: "13px", color: "#1a2e1a", lineHeight: 1.8, fontFamily: "-apple-system, sans-serif", paddingLeft: "20px", position: "relative" }}>
+              <span style={{ position: "absolute", left: 0, color: "#2d6a4f" }}>✓</span> {item}
+            </div>
+          ))}
+        </div>
+        <button
+          onClick={() => { /* Stripe link goes here */ alert("Payment coming soon! For now, enjoy your free sessions."); setShowPaywall(false); }}
+          style={{ width: "100%", padding: "16px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "12px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", marginBottom: "10px" }}>
+          Upgrade — $4.99/month
+        </button>
+        <button onClick={() => setShowPaywall(false)}
+          style={{ width: "100%", padding: "12px", background: "transparent", color: "#84a98c", border: "none", fontSize: "13px", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+          Maybe later
+        </button>
+      </div>
+    </div>
+  ) : null;
+
+  // Check if category is locked
+  const isCategoryLocked = (categoryName: string) => !isPro && freeCategory && categoryName !== freeCategory;
+  const canPractice = isPro || sessionsUsed < 3;
+
+  // ── CATEGORY PICKER (first time only) ───────────────────────────
+  if (!isPro && !freeCategory) return (
+    <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
+      <div style={{ maxWidth: "560px", margin: "0 auto", padding: "72px 24px 48px" }}>
+        <div style={{ textAlign: "center", marginBottom: "48px" }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "14px", marginBottom: "16px" }}>
+            <div style={{ width: "3px", height: "40px", background: "#2d6a4f", borderRadius: "2px" }} />
+            <h1 style={{ fontSize: "48px", fontWeight: "400", margin: 0, color: "#1a2e1a", letterSpacing: "-1px" }}>FORTE</h1>
+          </div>
+          <p style={{ color: "#52796f", fontSize: "16px", margin: "0", lineHeight: 1.7, fontStyle: "italic" }}>Welcome! Pick one category to explore for free.</p>
+          <p style={{ color: "#84a98c", fontSize: "13px", margin: "8px 0 0", fontFamily: "-apple-system, sans-serif" }}>You'll get 3 free practice sessions. Upgrade anytime for full access.</p>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          {SCENARIOS.map((s) => (
+            <button key={s.category} onClick={() => { forteSound.category(); setFreeCategory(s.category); }}
+              style={{ background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "20px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.25s", display: "flex", alignItems: "center", gap: "16px" }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = s.accent; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = `0 8px 24px ${s.accent}18`; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+              <div style={{ color: s.accent }}><Icon html={ICONS[s.iconKey as keyof typeof ICONS]} size={28} color={s.accent} /></div>
+              <div>
+                <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>{s.category}</div>
+                <div style={{ fontSize: "13px", color: "#84a98c", marginTop: "2px", fontFamily: "-apple-system, sans-serif" }}>{s.situations?.length || 0} scenarios</div>
+              </div>
+              <div style={{ marginLeft: "auto", color: s.accent, fontSize: "18px" }}>→</div>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
   if (phase === "home") return (
     <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
       <div style={{ maxWidth: "680px", margin: "0 auto", padding: "72px 24px 48px" }}>
@@ -4112,40 +4205,53 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
           </p>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-          {SCENARIOS.map((s) => (
-            <button key={s.category} onClick={() => { forteSound.category(); setSelectedCategory(s); setPhase("scenario"); }}
-              style={{ background: "#fff", border: "1px solid #d8e8e0", borderRadius: "16px", padding: "28px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.25s" }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = s.accent; e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = `0 12px 32px ${s.accent}18`; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
-              <div style={{ color: s.accent, marginBottom: "14px" }}><Icon html={ICONS[s.iconKey as keyof typeof ICONS]} size={28} color={s.accent} /></div>
-              <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>{s.category}</div>
+          {SCENARIOS.map((s) => {
+            const locked = isCategoryLocked(s.category);
+            return (
+            <button key={s.category} onClick={() => { if (locked) { setShowPaywall(true); return; } forteSound.category(); setSelectedCategory(s); setPhase("scenario"); }}
+              style={{ background: locked ? "#f5f5f5" : "#fff", border: `1px solid ${locked ? "#e0e0e0" : "#d8e8e0"}`, borderRadius: "16px", padding: "28px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.25s", position: "relative", overflow: "hidden" }}
+              onMouseEnter={e => { if (!locked) { e.currentTarget.style.borderColor = s.accent; e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = `0 12px 32px ${s.accent}18`; } }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = locked ? "#e0e0e0" : "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+              <div style={{ color: locked ? "#c0c0c0" : s.accent, marginBottom: "14px", filter: locked ? "grayscale(1)" : "none" }}><Icon html={ICONS[s.iconKey as keyof typeof ICONS]} size={28} color={locked ? "#c0c0c0" : s.accent} /></div>
+              <div style={{ fontSize: "16px", fontWeight: "700", color: locked ? "#aaa" : "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>{s.category}</div>
+              {locked && <div style={{ position: "absolute", top: "12px", right: "12px", fontSize: "16px" }}>🔒</div>}
+              {!locked && !isPro && <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginTop: "4px" }}>{3 - sessionsUsed} session{3 - sessionsUsed !== 1 ? "s" : ""} left</div>}
             </button>
-          ))}
-          <button onClick={() => { forteSound.category(); setSelectedCategory({ accent: "#7c5cbf", color: "#f5f0fa" }); setSelfTool(""); setPhase("self_hub"); }}
-            style={{ background: "#fff", border: "1px solid #e0d5f5", borderRadius: "16px", padding: "28px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.25s" }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = "#7c5cbf"; e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 12px 32px #7c5cbf18"; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = "#e0d5f5"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
-            <div style={{ color: "#7c5cbf", marginBottom: "14px" }}><Icon html={ICONS.self} size={28} color="#7c5cbf" /></div>
-            <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>Self</div>
-            <div style={{ fontSize: "12px", color: "#9b8abf" }}>Affirmations · Journal · Meditation · Problem solver</div>
+            );
+          })}
+          <button onClick={() => { if (!isPro) { setShowPaywall(true); return; } forteSound.category(); setSelectedCategory({ accent: "#7c5cbf", color: "#f5f0fa" }); setSelfTool(""); setPhase("self_hub"); }}
+            style={{ background: isPro ? "#fff" : "#f5f5f5", border: `1px solid ${isPro ? "#e0d5f5" : "#e0e0e0"}`, borderRadius: "16px", padding: "28px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.25s", position: "relative" }}
+            onMouseEnter={e => { if (isPro) { e.currentTarget.style.borderColor = "#7c5cbf"; e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 12px 32px #7c5cbf18"; } }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = isPro ? "#e0d5f5" : "#e0e0e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+            <div style={{ color: isPro ? "#7c5cbf" : "#c0c0c0", marginBottom: "14px", filter: isPro ? "none" : "grayscale(1)" }}><Icon html={ICONS.self} size={28} color={isPro ? "#7c5cbf" : "#c0c0c0"} /></div>
+            <div style={{ fontSize: "16px", fontWeight: "700", color: isPro ? "#1a2e1a" : "#aaa", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>Self</div>
+            <div style={{ fontSize: "12px", color: isPro ? "#9b8abf" : "#c0c0c0" }}>Affirmations · Journal · Meditation · Problem solver</div>
+            {!isPro && <div style={{ position: "absolute", top: "12px", right: "12px", fontSize: "16px" }}>🔒</div>}
           </button>
-          <button onClick={() => setPhase("custom")}
-            style={{ background: "#fff", border: "1px dashed #b7d8c8", borderRadius: "16px", padding: "28px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.25s", gridColumn: "span 2" }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.background = "#f0f7f4"; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = "#b7d8c8"; e.currentTarget.style.background = "#fff"; }}>
+          <button onClick={() => { if (!isPro) { setShowPaywall(true); return; } setPhase("custom"); }}
+            style={{ background: isPro ? "#fff" : "#f5f5f5", border: `1px ${isPro ? "dashed #b7d8c8" : "solid #e0e0e0"}`, borderRadius: "16px", padding: "28px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.25s", gridColumn: "span 2", position: "relative" }}
+            onMouseEnter={e => { if (isPro) { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.background = "#f0f7f4"; } }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = isPro ? "#b7d8c8" : "#e0e0e0"; e.currentTarget.style.background = isPro ? "#fff" : "#f5f5f5"; }}>
             <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-              <Icon html={ICONS.custom} size={28} color="#2d6a4f" />
+              <Icon html={ICONS.custom} size={28} color={isPro ? "#2d6a4f" : "#c0c0c0"} />
               <div>
-                <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Create Your Own Scenario</div>
-                <div style={{ fontSize: "13px", color: "#84a98c", marginTop: "2px" }}>Describe any situation you want to practice</div>
+                <div style={{ fontSize: "16px", fontWeight: "700", color: isPro ? "#1a2e1a" : "#aaa", fontFamily: "-apple-system, sans-serif" }}>Create Your Own Scenario</div>
+                <div style={{ fontSize: "13px", color: isPro ? "#84a98c" : "#c0c0c0", marginTop: "2px" }}>Describe any situation you want to practice</div>
               </div>
+              {!isPro && <div style={{ marginLeft: "auto", fontSize: "16px" }}>🔒</div>}
             </div>
           </button>
         </div>
         <p style={{ textAlign: "center", color: "#b7c9be", fontSize: "12px", marginTop: "48px", fontFamily: "-apple-system, sans-serif" }}>
           Learn with examples · Practice with AI · Get personal coaching feedback
         </p>
+        {!isPro && (
+          <button onClick={() => setShowPaywall(true)} style={{ display: "block", margin: "16px auto 0", padding: "10px 24px", background: "transparent", border: "1.5px solid #2d6a4f", borderRadius: "99px", color: "#2d6a4f", fontSize: "13px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+            ✦ Unlock all categories — $4.99/mo
+          </button>
+        )}
       </div>
+      {paywallOverlay}
     </div>
   );
 
@@ -4205,20 +4311,27 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
             </div>
             <p style={{ color: "#84a98c", fontSize: "14px", marginBottom: "36px", fontFamily: "-apple-system, sans-serif" }}>Choose a scenario — you'll learn first, then practice.</p>
             <div style={{ border: `1.5px solid ${selectedCategory.accent}22`, borderRadius: "14px", overflow: "hidden" }}>
-              {group?.situations.map((s: any, i: number) => (
-                <button key={i} onClick={() => { forteSound.select(); setSelectedSituation(s); setLessonIndex(0); setRedFlagStep(0); setPhase("learn"); }}
-                  style={{ width: "100%", background: "#fff", border: "none", borderTop: i > 0 ? "1px solid #e8f0ec" : "none", padding: "20px 24px", textAlign: "left", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "background 0.15s" }}
-                  onMouseEnter={e => { e.currentTarget.style.background = selectedCategory.color; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = "#fff"; }}>
-                  <div>
-                    <div style={{ fontSize: "15px", fontWeight: "600", color: "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>{s.title}</div>
-                    <div style={{ fontSize: "13px", color: "#84a98c", fontStyle: "italic" }}>{s.subtitle}</div>
+              {group?.situations.map((s: any, i: number) => {
+                const scenarioLocked = !isPro && i >= 2;
+                return (
+                <button key={i} onClick={() => { if (scenarioLocked) { setShowPaywall(true); return; } if (!canPractice) { setShowPaywall(true); return; } forteSound.select(); setSelectedSituation(s); setLessonIndex(0); setRedFlagStep(0); setPhase("learn"); }}
+                  style={{ width: "100%", background: scenarioLocked ? "#fafafa" : "#fff", border: "none", borderTop: i > 0 ? "1px solid #e8f0ec" : "none", padding: "20px 24px", textAlign: "left", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "background 0.15s" }}
+                  onMouseEnter={e => { if (!scenarioLocked) e.currentTarget.style.background = selectedCategory.color; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = scenarioLocked ? "#fafafa" : "#fff"; }}>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: "15px", fontWeight: "600", color: scenarioLocked ? "#aaa" : "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>{s.title}</div>
+                    <div style={{ fontSize: "13px", color: "#84a98c", fontStyle: "italic", filter: scenarioLocked ? "blur(5px)" : "none", userSelect: scenarioLocked ? "none" : "auto" }}>{s.subtitle}</div>
                   </div>
-                  <div style={{ fontSize: "20px", color: selectedCategory.accent, marginLeft: "12px", flexShrink: 0 }}>›</div>
+                  {scenarioLocked
+                    ? <div style={{ fontSize: "16px", marginLeft: "12px", flexShrink: 0 }}>🔒</div>
+                    : <div style={{ fontSize: "20px", color: selectedCategory.accent, marginLeft: "12px", flexShrink: 0 }}>›</div>
+                  }
                 </button>
-              ))}
+                );
+              })}
             </div>
           </div>
+          {paywallOverlay}
         </div>
       );
     }
@@ -4567,6 +4680,7 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
             </button>
           </div>
         </div>
+        {paywallOverlay}
       </div>
     );
   }
@@ -5177,8 +5291,10 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
         </div>
       )}
 
+      {paywallOverlay}
       <style>{`
         @keyframes pulse { 0%, 100% { opacity: 0.2; transform: scale(0.7); } 50% { opacity: 1; transform: scale(1.1); } }
+          @keyframes modalPop { from { opacity: 0; transform: scale(0.85) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
           @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
         * { box-sizing: border-box; }
         ::-webkit-scrollbar { width: 4px; }
