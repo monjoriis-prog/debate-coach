@@ -4475,7 +4475,7 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
             <div style={{ fontSize: "32px", fontWeight: "400", color: "#1a2e1a", letterSpacing: "-1px" }}>FORTE</div>
           </div>
           <h1 style={{ fontSize: "clamp(28px, 6vw, 40px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 16px", lineHeight: 1.3, letterSpacing: "-0.5px" }}>{"What\u2019s Your"}<br />Communication Style?</h1>
-          <p style={{ color: "#52796f", fontSize: "15px", lineHeight: 1.8, margin: "0 0 40px" }}>7 real scenarios. No right answers.<br />Discover how you handle tension {"\u2014"} and what it costs you.</p>
+          <p style={{ color: "#52796f", fontSize: "15px", lineHeight: 1.8, margin: "0 0 40px" }}>7 real scenarios. No wrong answers.<br />Discover how you handle tension {"\u2014"} and what it costs you.</p>
           <button onClick={() => setQuizStarted(true)} style={{ padding: "16px 44px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", transition: "all 0.3s" }}
             onMouseEnter={e => { e.currentTarget.style.background = "#40916c"; e.currentTarget.style.transform = "translateY(-2px)"; }}
             onMouseLeave={e => { e.currentTarget.style.background = "#2d6a4f"; e.currentTarget.style.transform = "none"; }}>{"Take the Quiz \u2192"}</button>

@@ -210,7 +210,7 @@ function QuizInner() {
           ) : (
             <>
               <h1 style={{ fontSize: "clamp(32px, 7vw, 48px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 16px", lineHeight: 1.2, letterSpacing: "-0.5px" }}>What Kind of<br />Partner Are You?</h1>
-              <p style={{ color: "#52796f", fontSize: "16px", lineHeight: 1.8, margin: "0 0 40px" }}>7 real relationship moments. No right answers.<br />Discover how you love {"\u2014"} and what your partner needs to know.</p>
+              <p style={{ color: "#52796f", fontSize: "16px", lineHeight: 1.8, margin: "0 0 40px" }}>7 real relationship moments. No wrong answers.<br />Discover how you love {"\u2014"} and what your partner needs to know.</p>
             </>
           )}
           <button onClick={() => setStarted(true)} style={{ padding: "18px 48px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", transition: "all 0.3s" }}
