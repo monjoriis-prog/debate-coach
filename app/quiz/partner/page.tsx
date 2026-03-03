@@ -217,10 +217,12 @@ function QuizInner() {
             onMouseEnter={e => { e.currentTarget.style.background = "#40916c"; e.currentTarget.style.transform = "translateY(-2px)"; }}
             onMouseLeave={e => { e.currentTarget.style.background = "#2d6a4f"; e.currentTarget.style.transform = "none"; }}>{compareMode ? "Take the Quiz" : "Take the Quiz \u2192"}</button>
           {!compareMode && (
+            <>
             <p style={{ color: "#84a98c", fontSize: "12px", marginTop: "24px", fontFamily: "-apple-system, sans-serif" }}>Takes 2 minutes {"\u00b7"} Free {"\u00b7"} Send to your partner</p>
               <div style={{ marginTop: "32px", padding: "16px 20px", background: "#fff", borderRadius: "12px", border: "1.5px solid #d8e8e0", display: "inline-block" }}>
                 <a href="/quiz" style={{ color: "#1a2e1a", fontSize: "14px", fontFamily: "-apple-system, sans-serif", textDecoration: "none", fontWeight: "600" }}>{"\ud83d\udde3\ufe0f"} Take the Communication Style Quiz instead</a>
               </div>
+            </>
           )}
         </div>
       </div>
