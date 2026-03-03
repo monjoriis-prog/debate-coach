@@ -3411,6 +3411,32 @@ export default function Forte() {
   }>({ practiceDays: [], totalSessions: 0, scenariosDone: [], bestStreak: 0 });
   const [showProgress, setShowProgress] = useState(false);
 
+  // Quiz state
+  const [quizDone, setQuizDone] = useState<boolean | null>(null);
+  const [quizStarted, setQuizStarted] = useState(false);
+  const [quizQ, setQuizQ] = useState(0);
+  const [quizScores, setQuizScores] = useState<Record<string, number>>({ peacekeeper: 0, avoider: 0, challenger: 0, solver: 0, pleaser: 0 });
+  const [quizResult, setQuizResult] = useState<string | null>(null);
+  const [quizSelected, setQuizSelected] = useState<number | null>(null);
+  const [quizAnimating, setQuizAnimating] = useState(false);
+  const [quizCopied, setQuizCopied] = useState(false);
+  const QUIZ_STYLES: Record<string, any> = {
+    peacekeeper: { name: "The Peacekeeper", emoji: "\ud83d\udd4a\ufe0f", color: "#2d6a4f", tagline: "You\u2019d rather find common ground than fight for yours.", description: "You\u2019re the person everyone trusts to stay calm. Your blind spot? You compromise on things that matter to you.", strength: "You make people feel safe enough to be honest.", growth: "Say \u2018I hear you, AND here\u2019s what I need.\u2019" },
+    avoider: { name: "The Avoider", emoji: "\ud83e\udee5", color: "#6c757d", tagline: "If I don\u2019t bring it up, maybe it\u2019ll go away.", description: "You feel everything deeply. You know what\u2019s wrong \u2014 you just don\u2019t say it. What you don\u2019t address builds.", strength: "You read rooms better than anyone.", growth: "The conversation you\u2019re avoiding would change everything." },
+    challenger: { name: "The Challenger", emoji: "\u26a1", color: "#c9184a", tagline: "You say what everyone else is thinking.", description: "You\u2019re direct and don\u2019t back down. Your delivery sometimes lands harder than you intend.", strength: "Courage to say what needs to be said.", growth: "Pause before responding. Your tone could soften." },
+    solver: { name: "The Problem-Solver", emoji: "\ud83e\udde9", color: "#1b4332", tagline: "Every conflict is a puzzle with a solution.", description: "Calm and logical. Sometimes people want to feel understood first.", strength: "You turn chaos into clarity.", growth: "Try \u2018that sounds hard\u2019 and stop there." },
+    pleaser: { name: "The People-Pleaser", emoji: "\ud83e\udea9", color: "#7c5cbf", tagline: "You\u2019d set yourself on fire to keep someone else warm.", description: "Generous and attuned to others. You lose track of your own needs. Resentment builds quietly.", strength: "Everyone around you feels valued.", growth: "Voice your needs before they become resentment." },
+  };
+  const QUIZ_QS = [
+    { scenario: "Your partner makes a plan without asking you. You\u2019re annoyed.", answers: [{ text: "Bring it up calmly and suggest checking in next time", style: "peacekeeper" }, { text: "Don\u2019t say anything. Not worth the fight", style: "avoider" }, { text: "Tell them straight up \u2014 that wasn\u2019t okay", style: "challenger" }, { text: "Figure out a system so it doesn\u2019t happen again", style: "solver" }, { text: "Go along with it so they don\u2019t feel bad", style: "pleaser" }] },
+    { scenario: "A friend keeps cancelling last minute. Third time.", answers: [{ text: "\u2018I value our time \u2014 can we find a day that works?\u2019", style: "peacekeeper" }, { text: "Stop making plans and quietly pull away", style: "avoider" }, { text: "Tell them directly \u2014 this isn\u2019t cool", style: "challenger" }, { text: "Suggest shorter, flexible hangouts", style: "solver" }, { text: "Say \u2018no worries!\u2019 even though it bothers me", style: "pleaser" }] },
+    { scenario: "Your boss takes credit for your idea in a meeting.", answers: [{ text: "Talk to them privately and calmly", style: "peacekeeper" }, { text: "Let it go. Don\u2019t want it awkward", style: "avoider" }, { text: "Speak up: \u2018That came from my research\u2019", style: "challenger" }, { text: "Document contributions more carefully", style: "solver" }, { text: "Tell myself it\u2019s fine", style: "pleaser" }] },
+    { scenario: "You and your sibling disagree about a family situation.", answers: [{ text: "Listen and find common ground", style: "peacekeeper" }, { text: "Change the subject", style: "avoider" }, { text: "Tell them what I think and why", style: "challenger" }, { text: "Break down options and weigh pros/cons", style: "solver" }, { text: "Go with their preference to keep peace", style: "pleaser" }] },
+    { scenario: "Someone keeps crossing a boundary you\u2019ve only hinted at.", answers: [{ text: "Say it gently: \u2018I need to be clear\u2019", style: "peacekeeper" }, { text: "Hint harder and hope they get it", style: "avoider" }, { text: "Draw the line: \u2018This needs to stop\u2019", style: "challenger" }, { text: "Write down what to say and rehearse", style: "solver" }, { text: "Let it slide \u2014 afraid of being difficult", style: "pleaser" }] },
+    { scenario: "One person in your group project isn\u2019t contributing.", answers: [{ text: "Check in privately \u2014 maybe something\u2019s going on", style: "peacekeeper" }, { text: "Do their part myself", style: "avoider" }, { text: "Call it out. Everyone should contribute", style: "challenger" }, { text: "Redistribute tasks to match strengths", style: "solver" }, { text: "Pick up slack and don\u2019t mention it", style: "pleaser" }] },
+    { scenario: "You realize you were wrong in an argument with someone you love.", answers: [{ text: "Apologize and ask to move forward", style: "peacekeeper" }, { text: "Feel terrible but can\u2019t reopen it", style: "avoider" }, { text: "\u2018I was wrong. Here\u2019s what I should have said.\u2019", style: "challenger" }, { text: "Analyze what went wrong, come back better", style: "solver" }, { text: "Over-apologize and worry for days", style: "pleaser" }] },
+  ];
+
   const calcStreak = (days: string[]) => {
     if (!days.length) return 0;
     const sorted = [...new Set(days)].sort().reverse();
@@ -3455,6 +3481,7 @@ export default function Forte() {
         if (data.isPro) setIsPro(data.isPro);
       }
       const savedProgress = localStorage.getItem("forte_progress");
+      const qf = localStorage.getItem("forte_quiz_done"); setQuizDone(qf === "true");
       if (savedProgress) setProgress(JSON.parse(savedProgress));
     } catch {}
   }, []);
@@ -4419,6 +4446,131 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
     </div>
   );
 
+  // QUIZ LANDING
+  if (phase === "home" && quizDone === false && !quizResult) {
+    const quizPick = (idx: number, style: string) => {
+      if (quizAnimating) return;
+      setQuizSelected(idx);
+      setQuizAnimating(true);
+      const ns = { ...quizScores, [style]: quizScores[style] + 1 };
+      setQuizScores(ns);
+      setTimeout(() => {
+        if (quizQ < QUIZ_QS.length - 1) { setQuizQ(quizQ + 1); setQuizSelected(null); }
+        else { setQuizResult(Object.entries(ns).sort((a, b) => b[1] - a[1])[0][0]); }
+        setQuizAnimating(false);
+      }, 600);
+    };
+    const skipQuiz = () => { setQuizDone(true); try { localStorage.setItem("forte_quiz_done", "true"); } catch {} };
+    if (!quizStarted) return (
+      <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ maxWidth: "520px", margin: "0 auto", padding: "48px 24px", textAlign: "center" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "14px", justifyContent: "center", marginBottom: "48px" }}>
+            <div style={{ width: "3px", height: "32px", background: "#2d6a4f", borderRadius: "2px" }} />
+            <div style={{ fontSize: "32px", fontWeight: "400", color: "#1a2e1a", letterSpacing: "-1px" }}>FORTE</div>
+          </div>
+          <h1 style={{ fontSize: "clamp(28px, 6vw, 40px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 16px", lineHeight: 1.3, letterSpacing: "-0.5px" }}>{"What\u2019s Your"}<br />Conflict Style?</h1>
+          <p style={{ color: "#52796f", fontSize: "15px", lineHeight: 1.8, margin: "0 0 40px" }}>7 real scenarios. No right answers.<br />Discover how you handle tension {"\u2014"} and what it costs you.</p>
+          <button onClick={() => setQuizStarted(true)} style={{ padding: "16px 44px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", transition: "all 0.3s" }}
+            onMouseEnter={e => { e.currentTarget.style.background = "#40916c"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = "#2d6a4f"; e.currentTarget.style.transform = "none"; }}>{"Take the Quiz \u2192"}</button>
+          <div style={{ marginTop: "24px" }}>
+            <button onClick={skipQuiz} style={{ background: "none", border: "none", color: "#84a98c", fontSize: "13px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", padding: "8px 16px" }}>Skip for now</button>
+          </div>
+        </div>
+      </div>
+    );
+    const qq = QUIZ_QS[quizQ];
+    return (
+      <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
+        <div style={{ maxWidth: "560px", margin: "0 auto", padding: "48px 24px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "48px" }}>
+            <div style={{ flex: 1, height: "3px", background: "#e0ebe4", borderRadius: "2px", overflow: "hidden" }}>
+              <div style={{ height: "100%", width: `${((quizQ + 1) / QUIZ_QS.length) * 100}%`, background: "#2d6a4f", borderRadius: "2px", transition: "width 0.5s ease-out" }} />
+            </div>
+            <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif" }}>{quizQ + 1} / {QUIZ_QS.length}</div>
+            <button onClick={skipQuiz} style={{ background: "none", border: "none", color: "#84a98c", fontSize: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", padding: "4px 8px" }}>Skip</button>
+          </div>
+          <div key={quizQ} style={{ animation: "qSlide 0.4s ease-out" }}>
+            <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.2em", color: "#52796f", textTransform: "uppercase", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>Scenario</div>
+            <h2 style={{ fontSize: "clamp(20px, 5vw, 24px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 32px", lineHeight: 1.5 }}>{qq.scenario}</h2>
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              {qq.answers.map((a: any, i: number) => (
+                <button key={i} onClick={() => quizPick(i, a.style)} disabled={quizAnimating}
+                  style={{ width: "100%", padding: "16px 20px", background: quizSelected === i ? "#2d6a4f" : "#fff", border: `1.5px solid ${quizSelected === i ? "#2d6a4f" : "#d8e8e0"}`, borderRadius: "14px", color: quizSelected === i ? "#fff" : "#1a2e1a", fontSize: "14px", textAlign: "left", cursor: quizAnimating ? "default" : "pointer", fontFamily: "-apple-system, sans-serif", lineHeight: 1.6, transition: "all 0.25s", transform: quizSelected === i ? "scale(1.02)" : "none" }}
+                  onMouseEnter={e => { if (!quizAnimating && quizSelected !== i) { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.background = "#f0f5f0"; } }}
+                  onMouseLeave={e => { if (!quizAnimating && quizSelected !== i) { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.background = "#fff"; } }}>
+                  {a.text}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+        <style>{`@keyframes qSlide{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:translateX(0)}}`}</style>
+      </div>
+    );
+  }
+
+  // QUIZ RESULT
+  if (phase === "home" && quizResult && quizDone === false) {
+    const qst = QUIZ_STYLES[quizResult];
+    const finishQuiz = () => { setQuizDone(true); try { localStorage.setItem("forte_quiz_done", "true"); } catch {} };
+    const handleQShare = async () => {
+      const txt = `I'm "${qst.name}" \u2014 ${qst.tagline}\n\nWhat's your conflict style?\nhttps://debate-coach-seven.vercel.app/quiz`;
+      if (navigator.share) { try { await navigator.share({ title: `I'm ${qst.name}`, text: txt }); } catch {} }
+      else { navigator.clipboard.writeText(txt); setQuizCopied(true); setTimeout(() => setQuizCopied(false), 2000); }
+    };
+    return (
+      <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
+        <div style={{ maxWidth: "520px", margin: "0 auto", padding: "48px 24px" }}>
+          <div style={{ background: "linear-gradient(145deg, #1a3a28, #2d4a3a)", borderRadius: "24px", padding: "36px 28px", marginBottom: "24px", border: `1.5px solid ${qst.color}33`, animation: "rPop 0.6s cubic-bezier(0.34,1.56,0.64,1)", position: "relative", overflow: "hidden" }}>
+            <div style={{ position: "absolute", top: "-60px", right: "-60px", width: "200px", height: "200px", borderRadius: "50%", background: `${qst.color}08` }} />
+            <div style={{ position: "relative", zIndex: 1 }}>
+              <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.25em", color: "#52796f", textTransform: "uppercase", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>Your conflict style is</div>
+              <div style={{ fontSize: "44px", marginBottom: "8px" }}>{qst.emoji}</div>
+              <h2 style={{ fontSize: "28px", fontWeight: "400", color: "#e8f0ec", margin: "0 0 8px", letterSpacing: "-0.5px" }}>{qst.name}</h2>
+              <p style={{ fontSize: "15px", color: qst.color, fontStyle: "italic", margin: "0 0 20px", lineHeight: 1.6 }}>"{qst.tagline}"</p>
+              <p style={{ fontSize: "13px", color: "#b7c9be", lineHeight: 1.8, margin: "0 0 20px" }}>{qst.description}</p>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+                <div style={{ background: "#0a1a1218", borderRadius: "12px", padding: "12px", border: "1px solid #2d6a4f22" }}>
+                  <div style={{ fontSize: "10px", fontWeight: "700", color: "#2d6a4f", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>Strength</div>
+                  <div style={{ fontSize: "12px", color: "#b7c9be", lineHeight: 1.5, fontFamily: "-apple-system, sans-serif" }}>{qst.strength}</div>
+                </div>
+                <div style={{ background: "#0a1a1218", borderRadius: "12px", padding: "12px", border: "1px solid #2d6a4f22" }}>
+                  <div style={{ fontSize: "10px", fontWeight: "700", color: "#c9184a", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>Growth Edge</div>
+                  <div style={{ fontSize: "12px", color: "#b7c9be", lineHeight: 1.5, fontFamily: "-apple-system, sans-serif" }}>{qst.growth}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
+            <button onClick={handleQShare} style={{ flex: 1, padding: "14px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>{quizCopied ? "Copied!" : "Share My Result"}</button>
+          </div>
+          <div style={{ background: "#fff", borderRadius: "16px", padding: "24px", border: "1.5px solid #d8e8e0", textAlign: "center" }}>
+            <h3 style={{ fontSize: "17px", fontWeight: "600", color: "#1a2e1a", margin: "0 0 8px", fontFamily: "-apple-system, sans-serif" }}>Ready to practice?</h3>
+            <p style={{ fontSize: "13px", color: "#52796f", lineHeight: 1.6, margin: "0 0 16px", fontFamily: "-apple-system, sans-serif" }}>Practice real conversations with AI coaching matched to your style.</p>
+            <button onClick={finishQuiz} style={{ width: "100%", padding: "16px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "12px", fontSize: "15px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>{"Start Practicing \u2192"}</button>
+          </div>
+          <div style={{ marginTop: "20px", padding: "16px 0" }}>
+            <div style={{ fontSize: "11px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "12px", fontFamily: "-apple-system, sans-serif" }}>Full Breakdown</div>
+            {Object.entries(quizScores).sort((a, b) => b[1] - a[1]).map(([key, val]) => {
+              const s = QUIZ_STYLES[key]; const pct = Math.round((val / QUIZ_QS.length) * 100);
+              return (<div key={key} style={{ marginBottom: "10px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "3px" }}>
+                  <div style={{ fontSize: "12px", color: key === quizResult ? "#1a2e1a" : "#84a98c", fontFamily: "-apple-system, sans-serif", fontWeight: key === quizResult ? "700" : "400" }}>{s.emoji} {s.name}</div>
+                  <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif" }}>{pct}%</div>
+                </div>
+                <div style={{ height: "5px", background: "#e0ebe4", borderRadius: "3px", overflow: "hidden" }}>
+                  <div style={{ height: "100%", width: `${pct}%`, background: key === quizResult ? s.color : "#2d6a4f44", borderRadius: "3px", transition: "width 1s ease-out" }} />
+                </div>
+              </div>);
+            })}
+          </div>
+        </div>
+        <style>{`@keyframes rPop{from{opacity:0;transform:scale(0.9) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}`}</style>
+      </div>
+    );
+  }
+
   if (phase === "home") return (
     <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
       <div style={{ maxWidth: "680px", margin: "0 auto", padding: "72px 24px 48px" }}>
@@ -4431,17 +4583,7 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
             Learn first. Then practice.<br />Build the confidence to connect with anyone.
           </p>
         </div>
-        <a href="/quiz" style={{ display: "block", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "20px 24px", marginBottom: "24px", textDecoration: "none", cursor: "pointer", transition: "all 0.25s" }}
-          onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px #2d6a4f12"; }}
-          onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>What’s Your Conflict Style?</div>
-              <div style={{ fontSize: "12px", color: "#84a98c", marginTop: "3px", fontFamily: "-apple-system, sans-serif" }}>Take the quiz · 2 min · Share your result</div>
-            </div>
-            <div style={{ fontSize: "13px", color: "#2d6a4f", fontFamily: "-apple-system, sans-serif" }}>→</div>
-          </div>
-        </a>
+        
         {progress.totalSessions > 0 && (
           <button onClick={() => setShowProgress(true)}
             style={{ width: "100%", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "18px 24px", marginBottom: "24px", cursor: "pointer", display: "flex", alignItems: "center", gap: "16px", transition: "all 0.2s" }}
