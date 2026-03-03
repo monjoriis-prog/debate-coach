@@ -385,6 +385,9 @@ function QuizInner() {
           </div>
         </div>
         <style>{`@keyframes resultPop{from{opacity:0;transform:scale(0.9) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}`}</style>
+        <div style={{ textAlign: "center", paddingBottom: "24px" }}>
+          <a href="/quiz/partner" style={{ color: "#84a98c", fontSize: "13px", fontFamily: "-apple-system, sans-serif", textDecoration: "underline", textUnderlineOffset: "3px" }}>Take the Partner Style Quiz too</a>
+        </div>
       </div>
     );
   }
