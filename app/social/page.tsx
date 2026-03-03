@@ -4607,6 +4607,25 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
             <div style={{ fontSize: "13px", color: "#2d6a4f", fontFamily: "-apple-system, sans-serif" }}>View →</div>
           </button>
         )}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "28px" }}>
+          <a href="/quiz" style={{ textDecoration: "none", background: "linear-gradient(145deg, #f0f7f4, #fff)", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "24px 20px", cursor: "pointer", transition: "all 0.3s", display: "block" }}
+            onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 12px 32px rgba(45,106,79,0.12)"; }}
+            onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+            <div style={{ fontSize: "32px", marginBottom: "12px" }}>{"\ud83d\udde3\ufe0f"}</div>
+            <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif", marginBottom: "6px" }}>Communication Style</div>
+            <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif", lineHeight: 1.5 }}>How do you handle tension? Compare with anyone.</div>
+            <div style={{ fontSize: "11px", color: "#2d6a4f", fontWeight: "600", fontFamily: "-apple-system, sans-serif", marginTop: "12px" }}>Take Quiz {"\u2192"}</div>
+          </a>
+          <a href="/quiz/partner" style={{ textDecoration: "none", background: "linear-gradient(145deg, #fdf2f4, #fff)", border: "1.5px solid #f0d8dc", borderRadius: "16px", padding: "24px 20px", cursor: "pointer", transition: "all 0.3s", display: "block" }}
+            onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#c9184a"; e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 12px 32px rgba(201,24,74,0.1)"; }}
+            onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#f0d8dc"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+            <div style={{ fontSize: "32px", marginBottom: "12px" }}>{"\u2764\ufe0f"}</div>
+            <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif", marginBottom: "6px" }}>Partner Style</div>
+            <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif", lineHeight: 1.5 }}>What kind of partner are you? Send to yours.</div>
+            <div style={{ fontSize: "11px", color: "#c9184a", fontWeight: "600", fontFamily: "-apple-system, sans-serif", marginTop: "12px" }}>Take Quiz {"\u2192"}</div>
+          </a>
+        </div>
+
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
           {SCENARIOS.map((s) => {
             const locked = isCategoryLocked(s.category);
@@ -4649,30 +4668,6 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
         <p style={{ textAlign: "center", color: "#b7c9be", fontSize: "12px", marginTop: "48px", fontFamily: "-apple-system, sans-serif" }}>
           Learn with examples · Practice with AI · Get personal coaching feedback
         </p>
-
-        <div style={{ marginTop: "32px", display: "flex", flexDirection: "column", gap: "10px" }}>
-          <div style={{ fontSize: "11px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>Quizzes</div>
-          <a href="/quiz" style={{ display: "flex", alignItems: "center", gap: "14px", padding: "16px 20px", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "14px", textDecoration: "none", transition: "all 0.25s" }}
-            onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-            onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; }}>
-            <div style={{ fontSize: "24px" }}>{"\ud83d\udde3\ufe0f"}</div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: "14px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Communication Style Quiz</div>
-              <div style={{ fontSize: "12px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>How do you handle tension? Compare with anyone.</div>
-            </div>
-            <div style={{ fontSize: "14px", color: "#2d6a4f" }}>{"\u2192"}</div>
-          </a>
-          <a href="/quiz/partner" style={{ display: "flex", alignItems: "center", gap: "14px", padding: "16px 20px", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "14px", textDecoration: "none", transition: "all 0.25s" }}
-            onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-            onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; }}>
-            <div style={{ fontSize: "24px" }}>{"\u2764\ufe0f"}</div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: "14px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Partner Style Quiz</div>
-              <div style={{ fontSize: "12px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>What kind of partner are you? Send it to yours.</div>
-            </div>
-            <div style={{ fontSize: "14px", color: "#2d6a4f" }}>{"\u2192"}</div>
-          </a>
-        </div>
         {!isPro && (
           <button onClick={() => setShowPaywall(true)} style={{ display: "block", margin: "16px auto 0", padding: "10px 24px", background: "transparent", border: "1.5px solid #2d6a4f", borderRadius: "99px", color: "#2d6a4f", fontSize: "13px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
             ✦ Unlock all categories — $4.99/mo
