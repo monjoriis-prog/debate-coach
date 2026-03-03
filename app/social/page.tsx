@@ -1673,6 +1673,44 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
 BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
+        subcategory: "Reconnecting",
+        title: "Reconnecting with an ex while managing your expectations",
+        subtitle: "There's history. There's hope. But hope needs guardrails.",
+        ai_role: "your ex",
+        voice: { pitch: 1.08, rate: 0.8, preferFemale: true },
+        lessons: [
+          {
+            tip: "Name why you're reaching out — honestly, to yourself first",
+            why: "Before you text an ex, ask: am I reaching out because I genuinely think we could build something new, or because I'm lonely, nostalgic, or afraid of moving on? The answer determines whether this is growth or a loop.",
+            bad: { user: "Hey. I miss you. I've been thinking about us a lot lately.", ai: "*(cautious)* I... miss you too. But I'm not sure what that means.", note: "❌ Emotional but directionless. Neither of you knows what this conversation is for." },
+            good: { user: "I've been doing a lot of reflecting. I'm not reaching out because I'm lonely — I'm reaching out because I think I understand some things I didn't before. Would you be open to a conversation?", ai: "*(pauses, then softens)* That's actually really different from what I expected. Yeah. I'd be open to that.", note: "✓ Self-awareness and clear intention. They could say yes because they knew what they were saying yes to." },
+          },
+          {
+            tip: "Acknowledge what went wrong without relitigating the breakup",
+            why: "If you rehash every old argument, you'll re-feel the old pain. Briefly name the pattern that didn't work and what you've learned. Keep it forward-facing.",
+            bad: { user: "I know things got bad. You were always shutting down and I was always pushing and it became this toxic cycle.", ai: "*(walls go up)* Hearing you describe it like that doesn't make me want to try again.", note: "❌ Relitigating. You reopened the wound instead of showing you've healed." },
+            good: { user: "I've realized I had a pattern of pushing when you needed space. That wasn't fair to you. I've been working on that — not for this conversation, but for me.", ai: "*(quietly)* Thank you for saying that. I've been thinking about my part in it too.", note: "✓ Specific ownership. Showed growth. They offered their own confession without you demanding it." },
+          },
+          {
+            tip: "Set the expectation: new beginning, not a continuation",
+            why: "The biggest trap is picking up where you left off — that's picking up the same broken dynamic. If you try again, it has to be new: new boundaries, new patterns, new pace.",
+            bad: { user: "I just want things to go back to how they were in the beginning.", ai: "*(hesitant)* The beginning was good because we didn't know each other yet. The hard part was what came after.", note: "❌ You want the fantasy version. They know the reality. Going back isn't an option — only forward." },
+            good: { user: "I don't want to pick up where we left off. If we try this, I want it to be something new — with what we've both learned. Like meeting each other for the first time.", ai: "*(genuine smile)* I really like that. Starting over, not rewinding.", note: "✓ Reframed the whole thing. Not nostalgia — a new chapter with wiser people." },
+          },
+        ],
+        suggestions: [
+          ["I've been reflecting and I want to be honest about why I'm reaching out.", "This isn't loneliness talking — I've done some real thinking.", "Would you be open to a conversation? No pressure."],
+          ["I've realized I had patterns that weren't fair to you.", "I've been working on myself — not for this, but because I needed to.", "I'm not here to relitigate. I'm here because I've learned something."],
+          ["I don't want to go back to how things were.", "If we try this, I want it to be new — with everything we've learned.", "I want us to meet each other again, not just resume."],
+          ["What would you need to feel safe trying this?", "I'm not assuming anything. I just wanted to be honest.", "What's been on your mind about us, if anything?"],
+          ["I can handle it if you're not interested. I'd rather know.", "Whatever you're feeling — I respect it.", "I came here with honesty, not expectations."],
+          ["Thank you for hearing me out.", "I'm glad we could talk like this, whatever happens next.", "You deserve someone who's done the work. I hope I'm becoming that person."],
+        ],
+        prompt: `You are someone's ex. The relationship ended because of real issues — not because you stopped caring. You've had time apart and grown too, but you're guarded. When they reach out with vague emotion or nostalgia, you're cautious — you don't want to repeat the cycle. When they show genuine self-awareness and take specific ownership, you soften. When they suggest starting fresh instead of going back, you feel hopeful. If they want to just resume the old dynamic, you pull back. You want to see they've actually changed — not just that they miss you.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
         subcategory: "Red Flags & Boundaries",
         isRedFlag: true,
         redFlagAlert: {
