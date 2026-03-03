@@ -3281,7 +3281,7 @@ export default function Forte() {
   // Freemium state
   const [freeCategory, setFreeCategory] = useState<string>("");
   const [sessionsUsed, setSessionsUsed] = useState(0);
-  const [isPro, setIsPro] = useState(false);
+  const [isPro, setIsPro] = useState(true); // TODO: set to false when ready to launch paywall
   const [showPaywall, setShowPaywall] = useState(false);
 
   // Load freemium state from localStorage
