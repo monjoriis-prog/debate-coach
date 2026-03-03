@@ -132,7 +132,24 @@ export default function QuizPage() {
     <div style={{ minHeight: "100vh", background: "#0a1a12", fontFamily: "Georgia, serif", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <div style={{ maxWidth: "520px", margin: "0 auto", padding: "48px 24px", textAlign: "center" }}>
         <div style={{ animation: "fadeUp 0.8s ease-out" }}>
-          <div style={{ fontSize: "56px", marginBottom: "24px", animation: "pulse2 3s ease-in-out infinite" }}>{"\ud83e\udea9"}</div>
+          <div style={{ marginBottom: "24px", animation: "pulse2 3s ease-in-out infinite", display: "inline-block" }}>
+              <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "64px", height: "64px" }}>
+                <defs>
+                  <clipPath id="fireHalfQ"><rect x="0" y="0" width="40" height="80"/></clipPath>
+                  <clipPath id="iceHalfQ"><rect x="40" y="0" width="40" height="80"/></clipPath>
+                </defs>
+                <path d="M40 8 C40 8 56 24 56 38 C56 48 48 56 40 56 C32 56 24 48 24 38 C24 24 40 8 40 8Z" clipPath="url(#fireHalfQ)" fill="#5c7a99"/>
+                <path d="M40 20 C40 20 48 30 48 38 C48 44 44 48 40 48 C36 48 32 44 32 38 C32 30 40 20 40 20Z" clipPath="url(#fireHalfQ)" fill="#8daabe" opacity="0.7"/>
+                <path d="M40 8 C40 8 56 24 56 38 C56 48 48 56 40 56 C32 56 24 48 24 38 C24 24 40 8 40 8Z" clipPath="url(#iceHalfQ)" fill="#2d6a4f"/>
+                <path d="M40 20 C40 20 48 30 48 38 C48 44 44 48 40 48 C36 48 32 44 32 38 C32 30 40 20 40 20Z" clipPath="url(#iceHalfQ)" fill="#52796f" opacity="0.7"/>
+                <line x1="40" y1="10" x2="40" y2="54" stroke="#e8f0ec" strokeWidth="1.2" opacity="0.4"/>
+                <circle cx="40" cy="34" r="3" fill="#e8f0ec" opacity="0.8"/>
+                <circle cx="30" cy="26" r="1" fill="#8daabe" opacity="0.5"/>
+                <circle cx="28" cy="34" r="0.8" fill="#8daabe" opacity="0.35"/>
+                <line x1="48" y1="28" x2="52" y2="24" stroke="#84a98c" strokeWidth="1" opacity="0.5"/>
+                <line x1="50" y1="34" x2="54" y2="32" stroke="#84a98c" strokeWidth="1" opacity="0.4"/>
+              </svg>
+            </div>
           <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.25em", color: "#52796f", textTransform: "uppercase", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>FORTE presents</div>
           <h1 style={{ fontSize: "clamp(32px, 7vw, 48px)", fontWeight: "400", color: "#e8f0ec", margin: "0 0 16px", lineHeight: 1.2, letterSpacing: "-0.5px" }}>What's Your<br />Conflict Style?</h1>
           <p style={{ color: "#84a98c", fontSize: "16px", lineHeight: 1.8, margin: "0 0 40px" }}>7 real scenarios. No right answers.<br />Discover how you handle tension {"\u2014"} and what it costs you.</p>
