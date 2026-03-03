@@ -462,7 +462,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       },
       // ── SCHOOL ADVOCACY ────────────────────────────────────────────
       {
-        subcategory: "School Advocacy",
+        subcategory: "Parenting",
+        subgroup: "School Advocacy",
         title: "When your child is being bullied and the school won't act",
         subtitle: "Your child is suffering. The school is stalling. Time to be firm.",
         ai_role: "your child's school administrator",
@@ -500,7 +501,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
 BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses. Examples: *(glances at the file)*, *(leans back in chair)*, *(picks up a pen to take notes)*.`,
       },
       {
-        subcategory: "School Advocacy",
+        subcategory: "Parenting",
+        subgroup: "School Advocacy",
         title: "Parent-teacher conference — advocating for your child's needs",
         subtitle: "Your child is struggling. The teacher may not see the full picture.",
         ai_role: "your child's teacher",
@@ -538,7 +540,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
 BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses. Examples: *(shuffles papers)*, *(makes eye contact)*, *(nods slowly)*.`,
       },
       {
-        subcategory: "School Advocacy",
+        subcategory: "Parenting",
+        subgroup: "School Advocacy",
         title: "When the school calls YOU in about your child's behavior",
         subtitle: "They say your child is the problem. How do you respond without shutting down or blowing up?",
         ai_role: "your child's school counselor",
@@ -4431,9 +4434,16 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
             <div style={{ border: `1.5px solid ${selectedCategory.accent}22`, borderRadius: "14px", overflow: "hidden" }}>
               {group?.situations.map((s: any, i: number) => {
                 const scenarioLocked = !isPro && i >= 2;
+                const showSubgroupHeader = s.subgroup && (i === 0 || group.situations[i - 1]?.subgroup !== s.subgroup);
                 return (
-                <button key={i} onClick={() => { if (scenarioLocked) { setShowPaywall(true); return; } if (!canPractice) { setShowPaywall(true); return; } forteSound.select(); setSelectedSituation(s); setLessonIndex(0); setRedFlagStep(0); setPhase("learn"); }}
-                  style={{ width: "100%", background: scenarioLocked ? "#fafafa" : "#fff", border: "none", borderTop: i > 0 ? "1px solid #e8f0ec" : "none", padding: "20px 24px", textAlign: "left", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "background 0.15s" }}
+                <div key={i}>
+                {showSubgroupHeader && (
+                  <div style={{ padding: "14px 24px 10px", background: `${selectedCategory.accent}08`, borderTop: i > 0 ? `1.5px solid ${selectedCategory.accent}22` : "none" }}>
+                    <div style={{ fontSize: "11px", fontWeight: "700", color: selectedCategory.accent, textTransform: "uppercase", letterSpacing: "0.12em", fontFamily: "-apple-system, sans-serif" }}>{s.subgroup}</div>
+                  </div>
+                )}
+                <button onClick={() => { if (scenarioLocked) { setShowPaywall(true); return; } if (!canPractice) { setShowPaywall(true); return; } forteSound.select(); setSelectedSituation(s); setLessonIndex(0); setRedFlagStep(0); setPhase("learn"); }}
+                  style={{ width: "100%", background: scenarioLocked ? "#fafafa" : "#fff", border: "none", borderTop: !showSubgroupHeader && i > 0 ? "1px solid #e8f0ec" : "none", padding: "20px 24px", textAlign: "left", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "background 0.15s" }}
                   onMouseEnter={e => { if (!scenarioLocked) e.currentTarget.style.background = selectedCategory.color; }}
                   onMouseLeave={e => { e.currentTarget.style.background = scenarioLocked ? "#fafafa" : "#fff"; }}>
                   <div style={{ flex: 1 }}>
@@ -4445,6 +4455,7 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
                     : <div style={{ fontSize: "20px", color: selectedCategory.accent, marginLeft: "12px", flexShrink: 0 }}>›</div>
                   }
                 </button>
+                </div>
                 );
               })}
             </div>
