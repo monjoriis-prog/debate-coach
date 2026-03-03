@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
@@ -118,6 +118,17 @@ const QUESTIONS = [
   ]},
 ];
 
+function shuffle<T>(arr: T[], seed: number): T[] {
+  const a = [...arr];
+  let s = seed;
+  for (let i = a.length - 1; i > 0; i--) {
+    s = (s * 16807 + 0) % 2147483647;
+    const j = s % (i + 1);
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 function getCompat(a: string, b: string) {
   const key1 = `${a}+${b}`;
   const key2 = `${b}+${a}`;
@@ -127,6 +138,10 @@ function getCompat(a: string, b: string) {
 function QuizInner() {
   const searchParams = useSearchParams();
   const [started, setStarted] = useState(false);
+  const shuffledQs = useMemo(() => {
+    const seed = Date.now();
+    return QUESTIONS.map((q, i) => ({ ...q, answers: shuffle(q.answers, seed + i * 7) }));
+  }, []);
   const [currentQ, setCurrentQ] = useState(0);
   const [scores, setScores] = useState<Record<StyleKey, number>>({ peacekeeper: 0, avoider: 0, challenger: 0, solver: 0, pleaser: 0 });
   const [result, setResult] = useState<StyleKey | null>(null);
@@ -159,7 +174,7 @@ function QuizInner() {
     const ns = { ...scores, [style]: scores[style] + 1 };
     setScores(ns);
     setTimeout(() => {
-      if (currentQ < QUESTIONS.length - 1) { setCurrentQ(currentQ + 1); setSelectedAnswer(null); }
+      if (currentQ < shuffledQs.length - 1) { setCurrentQ(currentQ + 1); setSelectedAnswer(null); }
       else { setResult(Object.entries(ns).sort((a, b) => b[1] - a[1])[0][0] as StyleKey); }
       setAnimating(false);
     }, 600);
@@ -356,7 +371,7 @@ function QuizInner() {
           <div style={{ padding: "20px 0" }}>
             <div style={{ fontSize: "11px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>Your Full Breakdown</div>
             {Object.entries(scores).sort((a, b) => b[1] - a[1]).map(([key, val]) => {
-              const s = STYLES[key as StyleKey]; const pct = Math.round((val / QUESTIONS.length) * 100);
+              const s = STYLES[key as StyleKey]; const pct = Math.round((val / shuffledQs.length) * 100);
               return (<div key={key} style={{ marginBottom: "12px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "4px" }}>
                   <div style={{ fontSize: "13px", color: key === result ? "#1a2e1a" : "#84a98c", fontFamily: "-apple-system, sans-serif", fontWeight: key === result ? "700" : "400" }}>{s.emoji} {s.name}</div>
@@ -375,15 +390,15 @@ function QuizInner() {
   }
 
   // ====== QUESTIONS ======
-  const q = QUESTIONS[currentQ];
+  const q = shuffledQs[currentQ];
   return (
     <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
       <div style={{ maxWidth: "560px", margin: "0 auto", padding: "48px 24px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "48px" }}>
           <div style={{ flex: 1, height: "3px", background: "#e0ebe4", borderRadius: "2px", overflow: "hidden" }}>
-            <div style={{ height: "100%", width: `${((currentQ + 1) / QUESTIONS.length) * 100}%`, background: "#2d6a4f", borderRadius: "2px", transition: "width 0.5s ease-out" }} />
+            <div style={{ height: "100%", width: `${((currentQ + 1) / shuffledQs.length) * 100}%`, background: "#2d6a4f", borderRadius: "2px", transition: "width 0.5s ease-out" }} />
           </div>
-          <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif" }}>{currentQ + 1} / {QUESTIONS.length}</div>
+          <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif" }}>{currentQ + 1} / {shuffledQs.length}</div>
         </div>
         <div key={currentQ} style={{ animation: "slideIn 0.4s ease-out" }}>
           <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.2em", color: "#52796f", textTransform: "uppercase", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>Scenario</div>

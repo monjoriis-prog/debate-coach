@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 
 const ICONS = {
   romance: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
@@ -3427,6 +3427,8 @@ export default function Forte() {
     solver: { name: "The Problem-Solver", emoji: "\ud83e\udde9", color: "#1b4332", tagline: "Every disagreement is a puzzle with a solution.", description: "Calm and logical. Sometimes people want to feel understood first.", strength: "You turn chaos into clarity.", growth: "Try \u2018that sounds hard\u2019 and stop there." },
     pleaser: { name: "The People-Pleaser", emoji: "\ud83e\udea9", color: "#7c5cbf", tagline: "You\u2019d set yourself on fire to keep someone else warm.", description: "Generous and attuned to others. You lose track of your own needs. Resentment builds quietly.", strength: "Everyone around you feels valued.", growth: "Voice your needs before they become resentment." },
   };
+
+  const quizShuf = (arr: any[], seed: number): any[] => { const a = [...arr]; let s = seed; for (let i = a.length - 1; i > 0; i--) { s = (s * 16807) % 2147483647; const j = s % (i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; };
   const QUIZ_QS = [
     { scenario: "Your partner makes a plan without asking you. You\u2019re annoyed.", answers: [{ text: "Bring it up calmly and suggest checking in next time", style: "peacekeeper" }, { text: "Don\u2019t say anything. Not worth the fight", style: "avoider" }, { text: "Tell them straight up \u2014 that wasn\u2019t okay", style: "challenger" }, { text: "Figure out a system so it doesn\u2019t happen again", style: "solver" }, { text: "Go along with it so they don\u2019t feel bad", style: "pleaser" }] },
     { scenario: "A friend keeps cancelling last minute. Third time.", answers: [{ text: "\u2018I value our time \u2014 can we find a day that works?\u2019", style: "peacekeeper" }, { text: "Stop making plans and quietly pull away", style: "avoider" }, { text: "Tell them directly \u2014 this isn\u2019t cool", style: "challenger" }, { text: "Suggest shorter, flexible hangouts", style: "solver" }, { text: "Say \u2018no worries!\u2019 even though it bothers me", style: "pleaser" }] },
@@ -3436,6 +3438,7 @@ export default function Forte() {
     { scenario: "One person in your group project isn\u2019t contributing.", answers: [{ text: "Check in privately \u2014 maybe something\u2019s going on", style: "peacekeeper" }, { text: "Do their part myself", style: "avoider" }, { text: "Call it out. Everyone should contribute", style: "challenger" }, { text: "Redistribute tasks to match strengths", style: "solver" }, { text: "Pick up slack and don\u2019t mention it", style: "pleaser" }] },
     { scenario: "You realize you were wrong in an argument with someone you love.", answers: [{ text: "Apologize and ask to move forward", style: "peacekeeper" }, { text: "Feel terrible but can\u2019t reopen it", style: "avoider" }, { text: "\u2018I was wrong. Here\u2019s what I should have said.\u2019", style: "challenger" }, { text: "Analyze what went wrong, come back better", style: "solver" }, { text: "Over-apologize and worry for days", style: "pleaser" }] },
   ];
+  const shuffledQQs = useMemo(() => { const sd = Date.now(); return QUIZ_QS.map((q: any, i: number) => ({ ...q, answers: quizShuf(q.answers, sd + i * 7) })); }, []);
 
   const calcStreak = (days: string[]) => {
     if (!days.length) return 0;
@@ -4458,7 +4461,7 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
       const ns = { ...quizScores, [style]: quizScores[style] + 1 };
       setQuizScores(ns);
       setTimeout(() => {
-        if (quizQ < QUIZ_QS.length - 1) { setQuizQ(quizQ + 1); setQuizSelected(null); }
+        if (quizQ < shuffledQQs.length - 1) { setQuizQ(quizQ + 1); setQuizSelected(null); }
         else { setQuizResult(Object.entries(ns).sort((a, b) => b[1] - a[1])[0][0]); }
         setQuizAnimating(false);
       }, 600);
@@ -4482,15 +4485,15 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
         </div>
       </div>
     );
-    const qq = QUIZ_QS[quizQ];
+    const qq = shuffledQQs[quizQ];
     return (
       <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
         <div style={{ maxWidth: "560px", margin: "0 auto", padding: "48px 24px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "48px" }}>
             <div style={{ flex: 1, height: "3px", background: "#e0ebe4", borderRadius: "2px", overflow: "hidden" }}>
-              <div style={{ height: "100%", width: `${((quizQ + 1) / QUIZ_QS.length) * 100}%`, background: "#2d6a4f", borderRadius: "2px", transition: "width 0.5s ease-out" }} />
+              <div style={{ height: "100%", width: `${((quizQ + 1) / shuffledQQs.length) * 100}%`, background: "#2d6a4f", borderRadius: "2px", transition: "width 0.5s ease-out" }} />
             </div>
-            <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif" }}>{quizQ + 1} / {QUIZ_QS.length}</div>
+            <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif" }}>{quizQ + 1} / {shuffledQQs.length}</div>
             <button onClick={skipQuiz} style={{ background: "none", border: "1px solid #d8e8e0", color: "#52796f", fontSize: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", padding: "4px 12px", borderRadius: "8px" }}>Skip</button>
           </div>
           <div key={quizQ} style={{ animation: "qSlide 0.4s ease-out" }}>
@@ -4556,7 +4559,7 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
           <div style={{ marginTop: "20px", padding: "16px 0" }}>
             <div style={{ fontSize: "11px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "12px", fontFamily: "-apple-system, sans-serif" }}>Full Breakdown</div>
             {Object.entries(quizScores).sort((a, b) => b[1] - a[1]).map(([key, val]) => {
-              const s = QUIZ_STYLES[key]; const pct = Math.round((val / QUIZ_QS.length) * 100);
+              const s = QUIZ_STYLES[key]; const pct = Math.round((val / shuffledQQs.length) * 100);
               return (<div key={key} style={{ marginBottom: "10px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "3px" }}>
                   <div style={{ fontSize: "12px", color: key === quizResult ? "#1a2e1a" : "#84a98c", fontFamily: "-apple-system, sans-serif", fontWeight: key === quizResult ? "700" : "400" }}>{s.emoji} {s.name}</div>
