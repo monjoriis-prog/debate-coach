@@ -3402,6 +3402,45 @@ export default function Forte() {
   const [isPro, setIsPro] = useState(true); // TODO: set to false when ready to launch paywall
   const [showPaywall, setShowPaywall] = useState(false);
 
+  // Progress tracking state
+  const [progress, setProgress] = useState<{
+    practiceDays: string[];
+    totalSessions: number;
+    scenariosDone: string[];
+    bestStreak: number;
+  }>({ practiceDays: [], totalSessions: 0, scenariosDone: [], bestStreak: 0 });
+  const [showProgress, setShowProgress] = useState(false);
+
+  const calcStreak = (days: string[]) => {
+    if (!days.length) return 0;
+    const sorted = [...new Set(days)].sort().reverse();
+    const today = new Date().toISOString().split("T")[0];
+    const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
+    if (sorted[0] !== today && sorted[0] !== yesterday) return 0;
+    let streak = 1;
+    for (let i = 0; i < sorted.length - 1; i++) {
+      const curr = new Date(sorted[i]);
+      const prev = new Date(sorted[i + 1]);
+      const diff = (curr.getTime() - prev.getTime()) / 86400000;
+      if (diff === 1) streak++;
+      else break;
+    }
+    return streak;
+  };
+  const currentStreak = calcStreak(progress.practiceDays);
+
+  const recordSession = (scenarioTitle: string) => {
+    const today = new Date().toISOString().split("T")[0];
+    setProgress(prev => {
+      const newDays = [...prev.practiceDays, today];
+      const newScenarios = prev.scenariosDone.includes(scenarioTitle) ? prev.scenariosDone : [...prev.scenariosDone, scenarioTitle];
+      const newTotal = prev.totalSessions + 1;
+      const newStreak = calcStreak(newDays);
+      const newBest = Math.max(prev.bestStreak, newStreak);
+      return { practiceDays: newDays, totalSessions: newTotal, scenariosDone: newScenarios, bestStreak: newBest };
+    });
+  };
+
   // Load freemium state from localStorage
   useEffect(() => {
     try {
@@ -3415,6 +3454,8 @@ export default function Forte() {
         if (data.sessionsUsed) setSessionsUsed(data.sessionsUsed);
         if (data.isPro) setIsPro(data.isPro);
       }
+      const savedProgress = localStorage.getItem("forte_progress");
+      if (savedProgress) setProgress(JSON.parse(savedProgress));
     } catch {}
   }, []);
   // Save freemium state
@@ -3423,6 +3464,9 @@ export default function Forte() {
       localStorage.setItem("forte_free", JSON.stringify({ freeCategory, sessionsUsed, isPro }));
     } catch {}
   }, [freeCategory, sessionsUsed, isPro]);
+  useEffect(() => {
+    try { localStorage.setItem("forte_progress", JSON.stringify(progress)); } catch {}
+  }, [progress]);
   const [redFlagPath, setRedFlagPath] = useState<string>("");
   const [showRedFlagPopup, setShowRedFlagPopup] = useState(false);
   const [redFlagPopupShown, setRedFlagPopupShown] = useState(false);
@@ -3557,6 +3601,7 @@ export default function Forte() {
     if (parsed) {
       setFeedback(parsed);
       if (!isPro) setSessionsUsed(s => s + 1);
+      recordSession(selectedSituation?.title || "Custom");
       setMessages([...newMessages, { role: "assistant", content: parsed.raw || "That was a wonderful conversation." }]);
       setPhase("done"); setTimeout(() => { forteSound.coachReveal(); setShowFeedbackModal(true); }, 600);
     } else {
@@ -4278,7 +4323,68 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
     </div>
   ) : null;
 
-  // Check if category is locked
+  // PROGRESS DASHBOARD
+  const progressOverlay = showProgress ? (
+    <div style={{ position: "fixed", inset: 0, zIndex: 2000, display: "flex", alignItems: "center", justifyContent: "center", padding: "16px" }}
+      onClick={(e) => { if (e.target === e.currentTarget) setShowProgress(false); }}>
+      <div style={{ position: "absolute", inset: 0, background: "rgba(15,30,20,0.6)", backdropFilter: "blur(6px)" }} />
+      <div style={{ position: "relative", background: "#fff", borderRadius: "24px", width: "100%", maxWidth: "440px", maxHeight: "85vh", overflowY: "auto", padding: "36px 28px", boxShadow: "0 24px 80px rgba(0,0,0,0.25)", animation: "modalPop 0.4s cubic-bezier(0.34,1.56,0.64,1)" }}>
+        <button onClick={() => setShowProgress(false)} style={{ position: "absolute", top: "16px", right: "16px", background: "none", border: "none", fontSize: "20px", cursor: "pointer", color: "#84a98c" }}>x</button>
+        <h2 style={{ fontSize: "22px", fontWeight: "400", color: "#1a2e1a", margin: "0 0 24px", fontFamily: "Georgia, serif" }}>Your Growth</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "24px" }}>
+          {[
+            { label: "Current Streak", value: currentStreak, icon: currentStreak > 0 ? "🔥" : "--", sub: currentStreak > 0 ? `Best: ${progress.bestStreak} day${progress.bestStreak !== 1 ? "s" : ""}` : "Start practicing!" },
+            { label: "Total Sessions", value: progress.totalSessions, icon: "🎯", sub: `${progress.scenariosDone.length} unique scenario${progress.scenariosDone.length !== 1 ? "s" : ""}` },
+          ].map((stat, i) => (
+            <div key={i} style={{ background: "#f0f7f4", borderRadius: "14px", padding: "18px 16px", textAlign: "center" }}>
+              <div style={{ fontSize: "24px", marginBottom: "6px" }}> {stat.icon}</div>
+              <div style={{ fontSize: "28px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}> {stat.value}</div>
+              <div style={{ fontSize: "11px", fontWeight: "700", color: "#2d6a4f", textTransform: "uppercase", letterSpacing: "0.08em", marginTop: "4px", fontFamily: "-apple-system, sans-serif" }}> {stat.label}</div>
+              <div style={{ fontSize: "11px", color: "#84a98c", marginTop: "4px", fontFamily: "-apple-system, sans-serif" }}> {stat.sub}</div>
+            </div>
+          ))}
+        </div>
+        {(() => {
+          const days = [...new Set(progress.practiceDays)].sort().reverse();
+          const today = new Date();
+          const cal: { date: string; active: boolean }[] = [];
+          for (let d = 27; d >= 0; d--) {
+            const dt = new Date(today);
+            dt.setDate(dt.getDate() - d);
+            const ds = dt.toISOString().split("T")[0];
+            cal.push({ date: ds, active: days.includes(ds) });
+          }
+          const weekDays = ["M","T","W","T","F","S","S"];
+          return (
+            <div style={{ marginBottom: "24px" }}>
+              <div style={{ fontSize: "12px", fontWeight: "700", color: "#52796f", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "12px", fontFamily: "-apple-system, sans-serif" }}>Last 4 Weeks</div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "4px" }}>
+                {weekDays.map((d, i) => (
+                  <div key={`h${i}`} style={{ fontSize: "10px", color: "#b7c9be", textAlign: "center", fontFamily: "-apple-system, sans-serif", marginBottom: "2px" }}> {d}</div>
+                ))}
+                {cal.map((c, i) => (
+                  <div key={i} style={{ width: "100%", aspectRatio: "1", borderRadius: "6px", background: c.active ? "#2d6a4f" : "#f0f4f0", transition: "all 0.2s" }}
+                    title={c.date} />
+                ))}
+              </div>
+            </div>
+          );
+        })()}
+        {progress.scenariosDone.length > 0 && (
+          <div>
+            <div style={{ fontSize: "12px", fontWeight: "700", color: "#52796f", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "10px", fontFamily: "-apple-system, sans-serif" }}>Scenarios Practiced</div>
+            {progress.scenariosDone.map((s, i) => (
+              <div key={i} style={{ fontSize: "13px", color: "#1a2e1a", padding: "8px 0", borderBottom: i < progress.scenariosDone.length - 1 ? "1px solid #e8f0ec" : "none", fontFamily: "-apple-system, sans-serif", display: "flex", alignItems: "center", gap: "8px" }}>
+                <span style={{ color: "#2d6a4f" }}>  ✓</span> {s}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  ) : null;
+
+    // Check if category is locked
   const isCategoryLocked = (categoryName: string) => !isPro && freeCategory && categoryName !== freeCategory;
   const canPractice = isPro || sessionsUsed < 3;
 
@@ -4325,6 +4431,23 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
             Learn first. Then practice.<br />Build the confidence to connect with anyone.
           </p>
         </div>
+        {progress.totalSessions > 0 && (
+          <button onClick={() => setShowProgress(true)}
+            style={{ width: "100%", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "18px 24px", marginBottom: "24px", cursor: "pointer", display: "flex", alignItems: "center", gap: "16px", transition: "all 0.2s" }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px #2d6a4f12"; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+            <div style={{ fontSize: "28px" }}> {currentStreak > 0 ? "🔥" : "📊"}</div>
+            <div style={{ flex: 1, textAlign: "left" }}>
+              <div style={{ fontSize: "14px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>
+                {currentStreak > 0 ? `${currentStreak} day streak` : "Your progress"}
+              </div>
+              <div style={{ fontSize: "12px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>
+                {progress.totalSessions} session{progress.totalSessions !== 1 ? "s" : ""} · {progress.scenariosDone.length} scenario{progress.scenariosDone.length !== 1 ? "s" : ""} explored
+              </div>
+            </div>
+            <div style={{ fontSize: "13px", color: "#2d6a4f", fontFamily: "-apple-system, sans-serif" }}>View →</div>
+          </button>
+        )}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
           {SCENARIOS.map((s) => {
             const locked = isCategoryLocked(s.category);
@@ -4373,6 +4496,7 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
         )}
       </div>
       {paywallOverlay}
+      {progressOverlay}
     </div>
   );
 
