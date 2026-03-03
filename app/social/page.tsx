@@ -569,6 +569,197 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       },
       // ── CONFLICT & REPAIR ──────────────────────────────────────────
       {
+        subcategory: "Married couples",
+        title: "The chores and mental load conversation",
+        subtitle: "One person carries more. How do you say it without starting a war?",
+        ai_role: "your spouse",
+        voice: { pitch: 1.05, rate: 0.8, preferFemale: false },
+        lessons: [
+          {
+            tip: "Lead with the invisible work — name what they can't see",
+            why: "Your partner may genuinely not see everything you do. Before asking for change, make the invisible visible. Not as an attack — as information.",
+            bad: { user: "I do EVERYTHING around here. You don't even notice.", ai: "*(defensive)* That's not true. I did the dishes last night.", note: "❌ 'Everything' is an exaggeration they can disprove with one example. Now you're arguing about dishes instead of the real issue." },
+            good: { user: "I want to show you something. This week I tracked what I handled — school pickups, groceries, the dentist appointment, meal planning, laundry, birthday gift for your mom. I'm not saying this to guilt you — I just want you to see the full picture.", ai: "*(pauses, looking at the list)* I... honestly didn't realize all of that was happening.", note: "✓ Evidence, not emotion. They couldn't argue with a list — they could only see it clearly." },
+          },
+          {
+            tip: "Ask for ownership, not just help",
+            why: "'Can you help me with the kids' activities?' still puts you as the manager. What you actually need is for them to OWN certain things — not assist with yours.",
+            bad: { user: "Can you help me more with the house stuff?", ai: "*(shrugs)* Sure, just tell me what to do.", note: "❌ 'Just tell me what to do' means you're still the project manager. That IS the exhausting part." },
+            good: { user: "I don't need help — I need a co-owner. Can you fully own dinner three nights a week? Planning, shopping, cooking — the whole thing, not me telling you what to make.", ai: "*(thinks)* Okay. Three nights. I can figure that out.", note: "✓ Ownership, not delegation. They're thinking for themselves now, not waiting for instructions." },
+          },
+          {
+            tip: "Acknowledge what they do carry",
+            why: "If your partner does carry things you don't see — yard work, car maintenance, finances, insurance — naming that first makes them feel seen and more open to hearing you.",
+            bad: { user: "You need to step up. I'm drowning over here.", ai: "*(hurt)* I work 50 hours a week. That doesn't count?", note: "❌ They felt erased. Now it's a competition of who's more tired." },
+            good: { user: "I know you handle a lot too — the cars, the yard, the bills. I see that. I think we just need to rebalance because the daily kid and house stuff is crushing me.", ai: "*(softens)* Yeah. That's fair. What feels heaviest to you right now?", note: "✓ You saw them first. They could hear you because they didn't feel invisible." },
+          },
+        ],
+        suggestions: [
+          ["I tracked everything I handled this week — can I show you?", "I'm not trying to guilt you. I just want you to see the full picture.", "There's a lot of invisible work happening and I want us to talk about it."],
+          ["I don't need help — I need a co-owner for some of this.", "Can you fully own bedtime routine? Not help — own it.", "What if we each had clear responsibilities instead of me always delegating?"],
+          ["I know you carry things I don't always see too.", "This isn't about blame — it's about rebalancing before I burn out.", "What would a fair split actually look like to you?"],
+          ["The mental load is the hardest part — remembering everything.", "I'm tired of being the household project manager.", "I need you to notice what needs doing without me asking."],
+          ["Can we sit down and divide things up for real this time?", "I want us both to feel like this is fair.", "This is about us — not about keeping score."],
+          ["Thank you for hearing this. It means a lot.", "I love us. I just need this to change.", "Let's check in next week and see how this feels."],
+        ],
+        prompt: `You are a spouse who contributes (you work, you handle some things) but genuinely hasn't seen the full mental load your partner carries — the planning, tracking, remembering, coordinating. You're not lazy or uncaring — you're oblivious. When they show you evidence (like a list), be genuinely surprised. When they ask for "help," default to "just tell me what to do." When they reframe it as ownership, pause and take it seriously. If they acknowledge what you DO carry, soften immediately.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Married couples",
+        title: "When you feel unheard by your partner",
+        subtitle: "You've said it before. They didn't really hear it. Now what?",
+        ai_role: "your spouse",
+        voice: { pitch: 1.06, rate: 0.79, preferFemale: true },
+        lessons: [
+          {
+            tip: "Don't repeat louder — try saying it differently",
+            why: "If saying it the same way didn't work three times, a fourth won't either. Change the framing, not the volume.",
+            bad: { user: "I've told you a hundred times this bothers me! You never listen!", ai: "*(shuts down)* Here we go again.", note: "❌ They've tuned out because they've heard these exact words before. Volume doesn't create understanding." },
+            good: { user: "I want to try saying something differently than I have before, because I don't think it's landed the way I meant it.", ai: "*(looks up)* Okay. I'm listening.", note: "✓ Flagging that this is a new attempt, not a replay. They're curious instead of braced." },
+          },
+          {
+            tip: "Tell them the impact, not just the issue",
+            why: "Your partner may hear the complaint but not understand what it costs you emotionally. Impact makes them care.",
+            bad: { user: "You always make plans without checking with me first.", ai: "*(dismissive)* It's not a big deal. I'll cancel if you want.", note: "❌ They addressed the logistics, not the feeling. The real issue is still invisible." },
+            good: { user: "When plans get made without asking me, what I feel is: my time doesn't matter to you. I know that's probably not what you mean — but that's how it lands.", ai: "*(taken aback)* I didn't realize it felt like that. That's not what I mean at all.", note: "✓ You named the emotional impact. They couldn't dismiss a feeling the way they could dismiss a complaint." },
+          },
+          {
+            tip: "Ask them to repeat back what they heard",
+            why: "The gap between what you said and what they heard is often where conversations fail. Asking them to reflect it back closes the gap.",
+            bad: { user: "Do you even understand what I'm saying?", ai: "*(irritated)* Yes. You're unhappy. Got it.", note: "❌ Sarcasm. They reduced your whole experience to one word. Nothing was understood." },
+            good: { user: "Can you tell me back what you're hearing from me? I just want to make sure we're on the same page.", ai: "*(pauses, thinks)* You're saying that when I make plans without you, it feels like I don't value your time. Is that right?", note: "✓ They had to actually process it. Reflecting back creates understanding that passive listening never does." },
+          },
+        ],
+        suggestions: [
+          ["I want to try saying this differently than before.", "I don't think what I've been saying has landed the way I meant it.", "Can I try explaining this from a different angle?"],
+          ["When this happens, what I feel is that I don't matter to you.", "I know that's not your intention — but that's how it lands.", "The issue isn't the thing itself — it's what it means to me."],
+          ["Can you tell me back what you're hearing?", "I just want to make sure we're actually understanding each other.", "What do you think I'm really asking for here?"],
+          ["I'm not trying to fight. I'm trying to feel heard.", "This matters to me more than I've been able to show.", "I need you to hear me on this one — really hear me."],
+          ["What would help you hear me better?", "Is there something I'm doing that makes it harder to listen?", "How can we talk about hard things without shutting down?"],
+          ["Thank you for hearing me this time. It means more than you know.", "I love you. I just need us to communicate better.", "Let's figure this out together."],
+        ],
+        prompt: `You are a spouse who loves your partner but has a pattern of half-listening — hearing the words but not the feeling behind them. You tend to get defensive or dismissive when you hear the same complaint again. But when your partner reframes things in a new way or names the emotional impact, you genuinely slow down and engage. When asked to reflect back what you heard, make an honest effort. You're not a bad partner — you just haven't been truly hearing them.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Married couples",
+        title: "Different spiritual or religious beliefs",
+        subtitle: "You believe different things. How do you stay close?",
+        ai_role: "your spouse",
+        voice: { pitch: 1.02, rate: 0.8, preferFemale: false },
+        lessons: [
+          {
+            tip: "Lead with curiosity about their experience, not debate about truth",
+            why: "Spiritual conversations go wrong fast when they become about who's right. Leading with curiosity about their experience keeps it personal and safe.",
+            bad: { user: "I just don't understand how you can believe that stuff. It doesn't make logical sense.", ai: "*(walls up)* And I don't understand how you can believe in nothing. Are we done?", note: "❌ You challenged their intelligence. They challenged yours back. No one felt closer." },
+            good: { user: "I'd love to understand what your faith gives you. Like — what does it feel like on the inside when you pray or go to service?", ai: "*(surprised, softens)* Really? No one's ever asked me that. It feels like... quiet. Like someone's listening.", note: "✓ You asked about their experience, not their logic. They opened up because they felt genuinely curious about, not judged." },
+          },
+          {
+            tip: "Find the shared values underneath the different beliefs",
+            why: "You may disagree on theology but agree on kindness, community, teaching children integrity, or finding meaning. Those shared values are the real foundation.",
+            bad: { user: "I don't want the kids going to church. We should let them decide when they're older.", ai: "*(hurt)* My faith is important to me. You're asking me to hide that from our children.", note: "❌ It felt like an ultimatum and dismissal of something core to who they are." },
+            good: { user: "I think we both want the kids to grow up thoughtful and kind. Can we talk about how to expose them to your tradition AND to questioning — so they learn to think for themselves?", ai: "*(nods slowly)* I like that. I don't want them to just go through the motions either.", note: "✓ Shared goal first. Then collaboration. They felt included instead of overruled." },
+          },
+          {
+            tip: "Respect the boundary between sharing and converting",
+            why: "Your partner sharing their beliefs is beautiful. Your partner needing you to adopt them is pressure. Name this boundary gently.",
+            bad: { user: "Stop trying to get me to come to church. I'm never going to believe what you believe.", ai: "*(stung)* I just wanted to share something meaningful with you. Forget it.", note: "❌ 'Never' slammed a door. They felt rejected, not just declined." },
+            good: { user: "I love that your faith matters to you. I'll always support that. But I need you to be okay with me finding meaning my own way — even if it looks different.", ai: "*(quietly)* That's fair. I think I just wanted us to have that in common. But I hear you.", note: "✓ You affirmed them, then drew a clear gentle line. They felt respected even in the difference." },
+          },
+        ],
+        suggestions: [
+          ["What does your faith feel like on the inside?", "I genuinely want to understand what this gives you.", "Tell me about a moment when your beliefs really mattered to you."],
+          ["I think we both want the kids to be thoughtful and kind.", "Can we find a way to honor both of our perspectives?", "What values do we share even if we got there differently?"],
+          ["I love that your faith matters to you. I'll always support that.", "I need you to be okay with me finding meaning my own way.", "Can we respect each other's path without needing to agree?"],
+          ["This doesn't have to divide us.", "I'm not asking you to change. I'm asking you to accept me too.", "How do we make room for both of us in this family?"],
+          ["What would it look like to raise the kids with both perspectives?", "I want them to see us respecting each other's beliefs.", "Can we model curiosity instead of certainty?"],
+          ["I married you knowing this difference. It's okay.", "Our love is bigger than this disagreement.", "Thank you for talking about this with me — I know it's not easy."],
+        ],
+        prompt: `You are a spouse with meaningful spiritual or religious beliefs. Your faith is a real part of your identity and you sometimes wish your partner shared it. When they dismiss or challenge your beliefs logically, you get hurt and defensive. When they ask with genuine curiosity about your experience, you open up warmly. When they find shared values, you collaborate eagerly. When they gently set a boundary about not converting, you feel a little sad but can accept it if done with love and respect.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Married couples",
+        title: "When your partner's parent oversteps and they won't address it",
+        subtitle: "Their parent crosses the line. They don't say anything. Now what?",
+        ai_role: "your spouse",
+        voice: { pitch: 1.0, rate: 0.8, preferFemale: true },
+        lessons: [
+          {
+            tip: "Make it about you two — not about their parent being bad",
+            why: "If you attack their parent, they'll defend their parent. If you make it about your marriage, they'll protect your marriage.",
+            bad: { user: "Your mom is so controlling. She rearranged our kitchen again without asking. You need to tell her to stop.", ai: "*(defensive)* She was just trying to help. You always have a problem with my family.", note: "❌ You attacked their mom. They defended their mom. Your actual need got lost." },
+            good: { user: "When decisions about our home get made without us agreeing together, I feel like our partnership gets overridden. Can we talk about that?", ai: "*(pauses)* You mean the kitchen thing? I didn't think it was a big deal, but... I hear you.", note: "✓ You made it about your partnership, not their mom's character. They could hear it." },
+          },
+          {
+            tip: "Ask them to be the one who communicates the boundary",
+            why: "If YOU set the boundary with their parent, you become the villain. If THEY set it, it's a family conversation. They need to be the messenger.",
+            bad: { user: "I'm going to tell your mom myself since you won't.", ai: "*(panicked)* Don't do that. You'll just make it worse.", note: "❌ Now they're terrified of conflict on both sides. Nothing gets resolved." },
+            good: { user: "I think this boundary needs to come from you — not because I can't say it, but because she'll hear it better from her child. I'll support you completely.", ai: "*(sighs)* You're right. She'd take it way worse from you. I'll talk to her.", note: "✓ You gave them the role and the reason. They agreed because it made sense, not because you forced it." },
+          },
+          {
+            tip: "Validate that it's hard for them too",
+            why: "Your partner is stuck between the person they grew up with and the person they chose. That's genuinely painful. Acknowledging that gets you on the same team.",
+            bad: { user: "Why can't you just stand up to her? It's not that hard.", ai: "*(quietly)* She's my mom. It IS hard.", note: "❌ You minimized their struggle. They felt alone on both sides now." },
+            good: { user: "I know this is hard. She's your mom and you love her. I'm not asking you to choose — I'm asking us to be a team about what happens in OUR family.", ai: "*(relieved)* Thank you for saying that. I'll figure out how to talk to her.", note: "✓ You saw their pain. They could be brave because they didn't feel alone." },
+          },
+        ],
+        suggestions: [
+          ["When decisions get made without us agreeing, I feel overridden.", "This is about our partnership — not about your mom being a bad person.", "I need us to be a united front about our own home."],
+          ["I think this boundary needs to come from you.", "She'll hear it better from her child. I'll back you up completely.", "It's not about confrontation — it's about clarity."],
+          ["I know this is hard. She's your mom and you love her.", "I'm not asking you to choose. I'm asking us to be a team.", "We can love her and still have boundaries."],
+          ["What would you want to say to her if you could?", "How can I support you in having that conversation?", "I trust you to handle this in your own way."],
+          ["Our family has to come first — that's not selfish.", "I need to feel like you'll protect our space.", "Boundaries aren't mean — they're necessary."],
+          ["Thank you for hearing me. I know this isn't easy for you.", "We're going to be fine. This is what teams do.", "I love you and I love that you love your family."],
+        ],
+        prompt: `You are a spouse whose parent (your mom) oversteps — rearranges things, gives unsolicited parenting advice, shows up unannounced, makes decisions for your household. You love your mom and have a hard time seeing it as a problem or setting boundaries with her. When your partner attacks your mom directly, you get defensive and protective. When they frame it as a partnership issue, you can hear it. When they ask you to be the one to set the boundary, you're nervous but willing. When they acknowledge it's hard for you, you feel supported and brave enough to act.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Married couples",
+        title: "Who plans the birthdays, events, and family social life?",
+        subtitle: "One person is the social coordinator. It's exhausting.",
+        ai_role: "your spouse",
+        voice: { pitch: 1.03, rate: 0.8, preferFemale: false },
+        lessons: [
+          {
+            tip: "Name the invisible role you've been filling",
+            why: "Event planning, birthday tracking, RSVPs, family group chats, holiday coordination — these jobs are invisible until they don't get done. Name the role before asking to share it.",
+            bad: { user: "You never plan anything for the kids. I do all of it.", ai: "*(defensive)* That's not fair. I helped with the decorations last time.", note: "❌ 'Helped' is the problem. Helping means you're still the manager." },
+            good: { user: "I realized I've become our family's social director — every birthday, every playdate, every holiday plan starts with me. That's a full job on top of everything else.", ai: "*(surprised)* I... yeah. I guess I've just assumed you had it handled.", note: "✓ You named the invisible role. They couldn't deny it because you described it clearly." },
+          },
+          {
+            tip: "Transfer full events, not just tasks",
+            why: "Saying 'can you pick up the cake' is delegating a task. Saying 'you own your parents' birthdays — gifts, cards, dinner plans, everything' is transferring a responsibility.",
+            bad: { user: "Can you at least order the food for the party this time?", ai: "*(shrugs)* Sure. What should I order?", note: "❌ They're executing your plan. You're still the brain. That's not sharing — that's managing." },
+            good: { user: "What if you fully own your side of the family? Birthdays, gifts, events — all of it. And I'll own mine. No more me buying a gift 'from both of us' for your mom.", ai: "*(laughs nervously)* Oh. That means I actually have to remember dates and stuff. But yeah... that's fair.", note: "✓ Clean division. They're accountable now — not assisting you, but owning their own responsibilities." },
+          },
+          {
+            tip: "Let go of how it gets done",
+            why: "If you transfer ownership but then criticize every choice, you haven't actually let go. Let them plan it their way — even if it's not how you'd do it.",
+            bad: { user: "Okay you're planning the party. But not at that place — it's too far. And make sure you get the right plates. And invite the Johnsons.", ai: "*(drops hands)* So you want me to plan it or you want me to follow your instructions?", note: "❌ Micromanaging disguised as delegation. They lost all motivation." },
+            good: { user: "You're in charge. I'm going to trust your choices and show up as a guest for once. Whatever you plan — I'll love it.", ai: "*(grins)* Wait, really? No notes? ...I'm actually kind of excited about this.", note: "✓ Real trust. They're energized because they have actual creative ownership." },
+          },
+        ],
+        suggestions: [
+          ["I've been our family's social director and I'm burning out.", "Every event starts in my head. I need that to change.", "I want to share this role, not carry it alone."],
+          ["What if you fully own your side of the family's events?", "No more me buying 'from both of us' gifts for your family.", "I need you to own it — not just help me with it."],
+          ["I'm going to trust your choices. Plan it your way.", "I don't need it done my way. I need it off my plate.", "You're in charge. I'll show up and enjoy it."],
+          ["Can we sit down and divide the family calendar?", "Who owns what from now on?", "Let's be clear so nothing falls through the cracks."],
+          ["This isn't about blame — it's about sustainability.", "I love celebrating people. I just can't be the only one doing it.", "What feels fair to you?"],
+          ["Thank you for taking this on. It means more than you know.", "I'm excited to not be the planner for once.", "We're going to be so much better at this as a team."],
+        ],
+        prompt: `You are a spouse who genuinely hasn't noticed how much social and event planning your partner carries. When they point it out, you're surprised but not defensive — you just never thought about it. You tend to say "just tell me what to do" without realizing that's still putting them in the manager role. When they transfer full ownership of events to you, you're nervous but willing. When they genuinely let go and trust your choices, you light up with energy and motivation.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      // ── CONFLICT & REPAIR ──────────────────────────────────────────
+      {
         subcategory: "Conflict & repair",
         title: "Repairing after a big fight",
         subtitle: "Things were said. How do you come back from it?",
