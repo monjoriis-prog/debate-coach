@@ -4649,6 +4649,30 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
         <p style={{ textAlign: "center", color: "#b7c9be", fontSize: "12px", marginTop: "48px", fontFamily: "-apple-system, sans-serif" }}>
           Learn with examples · Practice with AI · Get personal coaching feedback
         </p>
+
+        <div style={{ marginTop: "32px", display: "flex", flexDirection: "column", gap: "10px" }}>
+          <div style={{ fontSize: "11px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>Quizzes</div>
+          <a href="/quiz" style={{ display: "flex", alignItems: "center", gap: "14px", padding: "16px 20px", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "14px", textDecoration: "none", transition: "all 0.25s" }}
+            onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+            onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; }}>
+            <div style={{ fontSize: "24px" }}>{"\ud83d\udde3\ufe0f"}</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: "14px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Communication Style Quiz</div>
+              <div style={{ fontSize: "12px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>How do you handle tension? Compare with anyone.</div>
+            </div>
+            <div style={{ fontSize: "14px", color: "#2d6a4f" }}>{"\u2192"}</div>
+          </a>
+          <a href="/quiz/partner" style={{ display: "flex", alignItems: "center", gap: "14px", padding: "16px 20px", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "14px", textDecoration: "none", transition: "all 0.25s" }}
+            onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+            onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; }}>
+            <div style={{ fontSize: "24px" }}>{"\u2764\ufe0f"}</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: "14px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Partner Style Quiz</div>
+              <div style={{ fontSize: "12px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>What kind of partner are you? Send it to yours.</div>
+            </div>
+            <div style={{ fontSize: "14px", color: "#2d6a4f" }}>{"\u2192"}</div>
+          </a>
+        </div>
         {!isPro && (
           <button onClick={() => setShowPaywall(true)} style={{ display: "block", margin: "16px auto 0", padding: "10px 24px", background: "transparent", border: "1.5px solid #2d6a4f", borderRadius: "99px", color: "#2d6a4f", fontSize: "13px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
             ✦ Unlock all categories — $4.99/mo

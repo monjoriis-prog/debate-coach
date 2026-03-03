@@ -225,6 +225,9 @@ function QuizInner() {
               <div style={{ marginTop: "16px" }}>
                 <a href="/social" style={{ color: "#52796f", fontSize: "14px", fontFamily: "-apple-system, sans-serif", textDecoration: "underline", textUnderlineOffset: "3px" }}>Skip for now</a>
               </div>
+              <div style={{ marginTop: "32px", padding: "16px 20px", background: "#fff", borderRadius: "12px", border: "1.5px solid #d8e8e0", display: "inline-block" }}>
+                <a href="/quiz/partner" style={{ color: "#1a2e1a", fontSize: "14px", fontFamily: "-apple-system, sans-serif", textDecoration: "none", fontWeight: "600" }}>{"\u2764\ufe0f"} Take the Partner Style Quiz instead</a>
+              </div>
             </>
           )}
         </div>
