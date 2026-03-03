@@ -129,30 +129,13 @@ export default function QuizPage() {
 
   // LANDING
   if (!started) return (
-    <div style={{ minHeight: "100vh", background: "#0a1a12", fontFamily: "Georgia, serif", display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <div style={{ maxWidth: "520px", margin: "0 auto", padding: "48px 24px", textAlign: "center" }}>
         <div style={{ animation: "fadeUp 0.8s ease-out" }}>
-          <div style={{ marginBottom: "24px", animation: "pulse2 3s ease-in-out infinite", display: "inline-block" }}>
-              <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "64px", height: "64px" }}>
-                <defs>
-                  <clipPath id="fireHalfQ"><rect x="0" y="0" width="40" height="80"/></clipPath>
-                  <clipPath id="iceHalfQ"><rect x="40" y="0" width="40" height="80"/></clipPath>
-                </defs>
-                <path d="M40 8 C40 8 56 24 56 38 C56 48 48 56 40 56 C32 56 24 48 24 38 C24 24 40 8 40 8Z" clipPath="url(#fireHalfQ)" fill="#5c7a99"/>
-                <path d="M40 20 C40 20 48 30 48 38 C48 44 44 48 40 48 C36 48 32 44 32 38 C32 30 40 20 40 20Z" clipPath="url(#fireHalfQ)" fill="#8daabe" opacity="0.7"/>
-                <path d="M40 8 C40 8 56 24 56 38 C56 48 48 56 40 56 C32 56 24 48 24 38 C24 24 40 8 40 8Z" clipPath="url(#iceHalfQ)" fill="#2d6a4f"/>
-                <path d="M40 20 C40 20 48 30 48 38 C48 44 44 48 40 48 C36 48 32 44 32 38 C32 30 40 20 40 20Z" clipPath="url(#iceHalfQ)" fill="#52796f" opacity="0.7"/>
-                <line x1="40" y1="10" x2="40" y2="54" stroke="#e8f0ec" strokeWidth="1.2" opacity="0.4"/>
-                <circle cx="40" cy="34" r="3" fill="#e8f0ec" opacity="0.8"/>
-                <circle cx="30" cy="26" r="1" fill="#8daabe" opacity="0.5"/>
-                <circle cx="28" cy="34" r="0.8" fill="#8daabe" opacity="0.35"/>
-                <line x1="48" y1="28" x2="52" y2="24" stroke="#84a98c" strokeWidth="1" opacity="0.5"/>
-                <line x1="50" y1="34" x2="54" y2="32" stroke="#84a98c" strokeWidth="1" opacity="0.4"/>
-              </svg>
-            </div>
+          
           <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.25em", color: "#52796f", textTransform: "uppercase", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>FORTE presents</div>
-          <h1 style={{ fontSize: "clamp(32px, 7vw, 48px)", fontWeight: "400", color: "#e8f0ec", margin: "0 0 16px", lineHeight: 1.2, letterSpacing: "-0.5px" }}>What's Your<br />Conflict Style?</h1>
-          <p style={{ color: "#84a98c", fontSize: "16px", lineHeight: 1.8, margin: "0 0 40px" }}>7 real scenarios. No right answers.<br />Discover how you handle tension {"\u2014"} and what it costs you.</p>
+          <h1 style={{ fontSize: "clamp(32px, 7vw, 48px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 16px", lineHeight: 1.2, letterSpacing: "-0.5px" }}>What's Your<br />Conflict Style?</h1>
+          <p style={{ color: "#52796f", fontSize: "16px", lineHeight: 1.8, margin: "0 0 40px" }}>7 real scenarios. No right answers.<br />Discover how you handle tension {"\u2014"} and what it costs you.</p>
           <button onClick={() => setStarted(true)} style={{ padding: "18px 48px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", transition: "all 0.3s" }}
             onMouseEnter={e => { e.currentTarget.style.background = "#40916c"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 40px rgba(45,106,79,0.4)"; }}
             onMouseLeave={e => { e.currentTarget.style.background = "#2d6a4f"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>Take the Quiz {"\u2192"}</button>
@@ -167,7 +150,7 @@ export default function QuizPage() {
   if (result) {
     const st = STYLES[result];
     return (
-      <div style={{ minHeight: "100vh", background: "#0a1a12", fontFamily: "Georgia, serif" }}>
+      <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
         <div style={{ maxWidth: "520px", margin: "0 auto", padding: "48px 24px" }}>
           <div style={{ background: "linear-gradient(145deg, #0f2418, #1a3a28)", borderRadius: "24px", padding: "40px 28px", marginBottom: "32px", border: `1.5px solid ${st.color}33`, animation: "resultPop 0.6s cubic-bezier(0.34,1.56,0.64,1)", position: "relative", overflow: "hidden" }}>
             <div style={{ position: "absolute", top: "-60px", right: "-60px", width: "200px", height: "200px", borderRadius: "50%", background: `${st.color}08` }} />
@@ -194,15 +177,15 @@ export default function QuizPage() {
           </div>
           <div style={{ display: "flex", gap: "10px", marginBottom: "24px" }}>
             <button onClick={handleShare} style={{ flex: 1, padding: "14px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>{copied ? "Copied!" : "Share My Result"}</button>
-            <button onClick={restart} style={{ padding: "14px 20px", background: "transparent", color: "#84a98c", border: "1.5px solid #2d6a4f33", borderRadius: "12px", fontSize: "14px", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>Retake</button>
+            <button onClick={restart} style={{ padding: "14px 20px", background: "transparent", color: "#52796f", border: "1.5px solid #d8e8e0", borderRadius: "12px", fontSize: "14px", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>Retake</button>
           </div>
-          <div style={{ background: "linear-gradient(145deg, #162e20, #1a3a28)", borderRadius: "20px", padding: "28px 24px", border: "1px solid #2d6a4f22", textAlign: "center" }}>
+          <div style={{ background: "#fff", borderRadius: "20px", padding: "28px 24px", border: "1.5px solid #d8e8e0", textAlign: "center" }}>
             <div style={{ fontSize: "20px", marginBottom: "12px" }}>{"\ud83d\udcaa"}</div>
-            <h3 style={{ fontSize: "18px", fontWeight: "400", color: "#e8f0ec", margin: "0 0 8px" }}>Practice Your Growth Edge</h3>
+            <h3 style={{ fontSize: "18px", fontWeight: "400", color: "#1a2e1a", margin: "0 0 8px" }}>Practice Your Growth Edge</h3>
             <p style={{ fontSize: "13px", color: "#84a98c", lineHeight: 1.7, margin: "0 0 20px", fontFamily: "-apple-system, sans-serif" }}>FORTE lets you practice real conversations with AI that reacts to HOW you say it. Build confidence before the moment arrives.</p>
             <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "16px" }}>
               {st.scenarios.map((s: string, i: number) => (
-                <div key={i} style={{ fontSize: "13px", color: "#b7c9be", fontFamily: "-apple-system, sans-serif", display: "flex", alignItems: "center", gap: "8px" }}>
+                <div key={i} style={{ fontSize: "13px", color: "#52796f", fontFamily: "-apple-system, sans-serif", display: "flex", alignItems: "center", gap: "8px" }}>
                   <span style={{ color: st.color }}>{"\u2192"}</span> {s}
                 </div>
               ))}
@@ -215,10 +198,10 @@ export default function QuizPage() {
               const s = STYLES[key as StyleKey]; const pct = Math.round((val / QUESTIONS.length) * 100);
               return (<div key={key} style={{ marginBottom: "12px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "4px" }}>
-                  <div style={{ fontSize: "13px", color: key === result ? "#e8f0ec" : "#84a98c", fontFamily: "-apple-system, sans-serif", fontWeight: key === result ? "700" : "400" }}>{s.emoji} {s.name}</div>
+                  <div style={{ fontSize: "13px", color: key === result ? "#1a2e1a" : "#84a98c", fontFamily: "-apple-system, sans-serif", fontWeight: key === result ? "700" : "400" }}>{s.emoji} {s.name}</div>
                   <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif" }}>{pct}%</div>
                 </div>
-                <div style={{ height: "6px", background: "#1a2e1a", borderRadius: "3px", overflow: "hidden" }}>
+                <div style={{ height: "6px", background: "#e0ebe4", borderRadius: "3px", overflow: "hidden" }}>
                   <div style={{ height: "100%", width: `${pct}%`, background: key === result ? s.color : "#2d6a4f44", borderRadius: "3px", transition: "width 1s ease-out" }} />
                 </div>
               </div>);
@@ -233,23 +216,23 @@ export default function QuizPage() {
   // QUESTIONS
   const q = QUESTIONS[currentQ];
   return (
-    <div style={{ minHeight: "100vh", background: "#0a1a12", fontFamily: "Georgia, serif" }}>
+    <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
       <div style={{ maxWidth: "560px", margin: "0 auto", padding: "48px 24px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "48px" }}>
-          <div style={{ flex: 1, height: "3px", background: "#1a2e1a", borderRadius: "2px", overflow: "hidden" }}>
+          <div style={{ flex: 1, height: "3px", background: "#e0ebe4", borderRadius: "2px", overflow: "hidden" }}>
             <div style={{ height: "100%", width: `${((currentQ + 1) / QUESTIONS.length) * 100}%`, background: "#2d6a4f", borderRadius: "2px", transition: "width 0.5s ease-out" }} />
           </div>
           <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif" }}>{currentQ + 1} / {QUESTIONS.length}</div>
         </div>
         <div key={currentQ} style={{ animation: "slideIn 0.4s ease-out" }}>
           <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.2em", color: "#52796f", textTransform: "uppercase", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>Scenario</div>
-          <h2 style={{ fontSize: "clamp(20px, 5vw, 26px)", fontWeight: "400", color: "#e8f0ec", margin: "0 0 36px", lineHeight: 1.5 }}>{q.scenario}</h2>
+          <h2 style={{ fontSize: "clamp(20px, 5vw, 26px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 36px", lineHeight: 1.5 }}>{q.scenario}</h2>
           <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
             {q.answers.map((a, i) => (
               <button key={i} onClick={() => pickAnswer(i, a.style)} disabled={animating}
-                style={{ width: "100%", padding: "18px 20px", background: selectedAnswer === i ? "#2d6a4f" : "#0f2418", border: `1.5px solid ${selectedAnswer === i ? "#2d6a4f" : "#1a3a28"}`, borderRadius: "14px", color: selectedAnswer === i ? "#fff" : "#b7c9be", fontSize: "14px", textAlign: "left", cursor: animating ? "default" : "pointer", fontFamily: "-apple-system, sans-serif", lineHeight: 1.6, transition: "all 0.25s", transform: selectedAnswer === i ? "scale(1.02)" : "none" }}
-                onMouseEnter={e => { if (!animating && selectedAnswer !== i) { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.background = "#162e20"; } }}
-                onMouseLeave={e => { if (!animating && selectedAnswer !== i) { e.currentTarget.style.borderColor = "#1a3a28"; e.currentTarget.style.background = "#0f2418"; } }}>
+                style={{ width: "100%", padding: "18px 20px", background: selectedAnswer === i ? "#2d6a4f" : "#fff", border: `1.5px solid ${selectedAnswer === i ? "#2d6a4f" : "#d8e8e0"}`, borderRadius: "14px", color: selectedAnswer === i ? "#fff" : "#1a2e1a", fontSize: "14px", textAlign: "left", cursor: animating ? "default" : "pointer", fontFamily: "-apple-system, sans-serif", lineHeight: 1.6, transition: "all 0.25s", transform: selectedAnswer === i ? "scale(1.02)" : "none" }}
+                onMouseEnter={e => { if (!animating && selectedAnswer !== i) { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.background = "#f0f5f0"; } }}
+                onMouseLeave={e => { if (!animating && selectedAnswer !== i) { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.background = "#fff"; } }}>
                 {a.text}
               </button>
             ))}

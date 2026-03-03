@@ -4431,6 +4431,17 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
             Learn first. Then practice.<br />Build the confidence to connect with anyone.
           </p>
         </div>
+        <a href="/quiz" style={{ display: "block", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "20px 24px", marginBottom: "24px", textDecoration: "none", cursor: "pointer", transition: "all 0.25s" }}
+          onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px #2d6a4f12"; }}
+          onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>What’s Your Conflict Style?</div>
+              <div style={{ fontSize: "12px", color: "#84a98c", marginTop: "3px", fontFamily: "-apple-system, sans-serif" }}>Take the quiz · 2 min · Share your result</div>
+            </div>
+            <div style={{ fontSize: "13px", color: "#2d6a4f", fontFamily: "-apple-system, sans-serif" }}>→</div>
+          </div>
+        </a>
         {progress.totalSessions > 0 && (
           <button onClick={() => setShowProgress(true)}
             style={{ width: "100%", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "18px 24px", marginBottom: "24px", cursor: "pointer", display: "flex", alignItems: "center", gap: "16px", transition: "all 0.2s" }}
@@ -4486,31 +4497,7 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
             </div>
           </button>
         </div>
-        <a href="/quiz" style={{ display: "block", marginTop: "16px", background: "#0a1a12", border: "1.5px solid #2d6a4f33", borderRadius: "16px", padding: "22px 24px", textDecoration: "none", cursor: "pointer", transition: "all 0.25s" }}
-          onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 32px rgba(10,26,18,0.4)"; }}
-          onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f33"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-            <div style={{ width: "36px", height: "36px", flexShrink: 0 }}>
-              <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%" }}>
-                <defs>
-                  <clipPath id="fireHalf"><rect x="0" y="0" width="40" height="80"/></clipPath>
-                  <clipPath id="iceHalf"><rect x="40" y="0" width="40" height="80"/></clipPath>
-                </defs>
-                <path d="M40 8 C40 8 56 24 56 38 C56 48 48 56 40 56 C32 56 24 48 24 38 C24 24 40 8 40 8Z" clipPath="url(#fireHalf)" fill="#5c7a99"/>
-                <path d="M40 20 C40 20 48 30 48 38 C48 44 44 48 40 48 C36 48 32 44 32 38 C32 30 40 20 40 20Z" clipPath="url(#fireHalf)" fill="#8daabe" opacity="0.7"/>
-                <path d="M40 8 C40 8 56 24 56 38 C56 48 48 56 40 56 C32 56 24 48 24 38 C24 24 40 8 40 8Z" clipPath="url(#iceHalf)" fill="#2d6a4f"/>
-                <path d="M40 20 C40 20 48 30 48 38 C48 44 44 48 40 48 C36 48 32 44 32 38 C32 30 40 20 40 20Z" clipPath="url(#iceHalf)" fill="#52796f" opacity="0.7"/>
-                <line x1="40" y1="10" x2="40" y2="54" stroke="#e8f0ec" strokeWidth="1.2" opacity="0.4"/>
-                <circle cx="40" cy="34" r="3" fill="#e8f0ec" opacity="0.8"/>
-              </svg>
-            </div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: "15px", fontWeight: "700", color: "#e8f0ec", fontFamily: "-apple-system, sans-serif" }}>What's Your Conflict Style?</div>
-              <div style={{ fontSize: "12px", color: "#84a98c", marginTop: "3px", fontFamily: "-apple-system, sans-serif" }}>Take the quiz · 2 min · Share your result</div>
-            </div>
-            <div style={{ fontSize: "16px", color: "#2d6a4f" }}>{"\u2192"}</div>
-          </div>
-        </a>
+        
         <p style={{ textAlign: "center", color: "#b7c9be", fontSize: "12px", marginTop: "48px", fontFamily: "-apple-system, sans-serif" }}>
           Learn with examples · Practice with AI · Get personal coaching feedback
         </p>
