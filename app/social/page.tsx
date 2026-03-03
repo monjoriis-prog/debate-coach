@@ -1449,6 +1449,82 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `You have been seeing this person casually for a few months and genuinely like them but haven't defined things. When they bring it up, react based on HOW they do it — if they're demanding or needy, get slightly evasive. If they come with vulnerability and openness, be honest and warm. You DO have feelings — you just needed it to feel safe to say so.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
+        subcategory: "Getting serious",
+        title: "Introducing your partner to your close friends",
+        subtitle: "You want your worlds to merge. How do you make it safe for everyone?",
+        ai_role: "your partner, before meeting your friends",
+        voice: { pitch: 1.1, rate: 0.8, preferFemale: true },
+        lessons: [
+          {
+            tip: "Prepare your partner — not just logistics, but the emotional landscape",
+            why: "Your partner isn't just meeting strangers. They're meeting the people whose opinions matter to you. That's intimidating. Helping them understand the group makes them feel safe, not blindsided.",
+            bad: { user: "We're meeting everyone at 7. It'll be fun. You'll love them.", ai: "*(nervously)* Okay... what are they like? Is there anything I should know?", note: "❌ No prep. Your partner is walking into a group dynamic they know nothing about. They'll be performing, not connecting." },
+            good: { user: "So my friends — Sarah's the loud one, she'll probably grill you with questions because that's how she shows she cares. Mike is quiet but once he warms up he's hilarious. Don't worry if it takes him a minute.", ai: "*(relaxes)* Okay, that actually helps a lot. So Sarah's the interrogator and Mike's the slow burn. Got it.", note: "✓ A cheat sheet. Your partner feels like an insider instead of an outsider." },
+          },
+          {
+            tip: "Stay close — don't throw them to the wolves",
+            why: "The first 20 minutes set the tone. If you wander off to catch up with friends and leave your partner standing alone, they'll feel abandoned in a room full of inside jokes.",
+            bad: { user: "Oh hey, make yourself comfortable — I'm going to go say hi to everyone. I'll be right back.", ai: "*(smile drops)* Oh... okay. I'll just... wait here.", note: "❌ They're alone in a group that has years of shared history. That's not fun — it's survival mode." },
+            good: { user: "Come with me — I want to introduce you personally. And I'm staying right next to you until you feel comfortable.", ai: "*(squeezes your hand)* Thank you. That means a lot.", note: "✓ Physical and social anchor. They can be themselves because they know you're right there." },
+          },
+          {
+            tip: "Brief your friends too — what they say first matters",
+            why: "Your friends might not realize their teasing or 'so what are your intentions' jokes feel like an ambush. A quick heads-up sets them up to be welcoming.",
+            bad: { user: "My friends are cool. They'll be chill.", ai: "*(after the dinner)* Your friend asked me how much money I make. That was not chill.", note: "❌ No prep for friends means no filter. Your partner survived an interrogation you could have prevented." },
+            good: { user: "I gave my friends a heads up. I told them you're someone really important to me and to be cool. No interrogations. Just fun.", ai: "*(genuinely touched)* You did that? That's... really thoughtful.", note: "✓ You protected them before they walked in. They feel valued and claimed." },
+          },
+        ],
+        suggestions: [
+          ["Let me tell you about my friends before we go.", "Sarah asks a lot of questions — that's just how she shows she cares.", "I want you to feel like you know them a little before you walk in."],
+          ["I'm staying right next to you. You won't be alone.", "We'll go at your pace — if you need air we can step out.", "I want to introduce you personally, not just announce you."],
+          ["I gave my friends a heads up to be welcoming.", "I told them you're important to me.", "No one's going to grill you — I made sure of that."],
+          ["How are you feeling about tonight?", "Is there anything that would make you more comfortable?", "I want this to be fun for you, not stressful."],
+          ["You don't have to impress anyone. Just be you.", "They're going to love you because I love spending time with you.", "If anyone's weird, that's on them — not on you."],
+          ["You did great tonight. I'm proud of you.", "Did anything feel off? I want to know.", "Thank you for doing that. I know it wasn't easy."],
+        ],
+        prompt: `You are someone's partner about to meet their close friend group for the first time. You're nervous — these people have known your partner for years and you're the newcomer. If your partner gives you no prep, you're anxious and stiff. If they brief you on personalities, you relax and joke about it. If they promise to stay by your side, you feel safe. If they leave you alone, you get quiet and withdrawn. If they tell you they prepped their friends too, you feel genuinely moved and claimed.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Getting serious",
+        title: "Introducing your partner to your family",
+        subtitle: "This is the big one. Family dynamics, expectations, and keeping them safe.",
+        ai_role: "your partner, before meeting your family",
+        voice: { pitch: 1.08, rate: 0.78, preferFemale: false },
+        lessons: [
+          {
+            tip: "Warn them about the hard parts honestly",
+            why: "If your uncle makes inappropriate jokes or your mom asks invasive questions, your partner needs to know BEFORE — not discover it in real time while trying to smile.",
+            bad: { user: "My family's great. Don't worry about a thing.", ai: "*(after dinner)* Your dad asked if I was 'the one' in front of everyone and your aunt commented on my weight. That was not nothing.", note: "❌ You set them up by painting a rosy picture. They felt lied to and exposed." },
+            good: { user: "I want to be honest. My dad's going to ask intense questions — that's just him. My aunt has no filter and might comment on appearances. I'll handle it if it happens. None of it is about you.", ai: "*(nods)* Okay. I can handle that if I know it's coming. Thank you for warning me.", note: "✓ Honest prep. They walked in ready instead of blindsided." },
+          },
+          {
+            tip: "Defend them in the room — not just afterward",
+            why: "If your family says something rude and you stay quiet, your partner learns they're on their own. Saying 'sorry about that' in the car doesn't undo the silence when it mattered.",
+            bad: { user: "*(later, in the car)* Sorry about my mom. She didn't mean anything by it.", ai: "*(hurt)* You didn't say anything when she said it though. You just laughed.", note: "❌ The apology means nothing if they had to sit through it alone. Silence reads as agreement." },
+            good: { user: "Hey Mom — that's not cool. [Partner] is my guest and I need you to be respectful.", ai: "*(later, privately)* Thank you for saying something. I've never had anyone do that for me before.", note: "✓ Public defense. Your partner learned you'll choose them when it counts." },
+          },
+          {
+            tip: "Check in during and after — not just before",
+            why: "A quiet 'you okay?' in the kitchen or a hand on their back tells them they're not alone in a room full of your people.",
+            bad: { user: "*(catches up with siblings all night, barely checks in)*", ai: "*(on the drive home)* I felt like a prop in there. You were so happy to see everyone you kind of forgot about me.", note: "❌ Without check-ins they felt invisible — a plus-one, not a partner." },
+            good: { user: "*(quietly in the kitchen)* Hey — how are you doing in there? Everyone being okay? We can leave whenever you want.", ai: "*(exhales)* I'm good. It's a lot, but I'm good. Thank you for checking.", note: "✓ The quiet check-in matters more than the introduction. It says: I'm still thinking about you even in the chaos." },
+          },
+        ],
+        suggestions: [
+          ["Let me give you the real picture of my family before we go.", "My dad's intense, my aunt has no filter, my mom will probably cry. None of it is about you.", "I want you to walk in knowing what to expect."],
+          ["If anyone says something out of line, I will say something. That's a promise.", "You come first — even if they're my family.", "I won't let anyone make you uncomfortable without addressing it."],
+          ["I'm going to check in with you throughout. If you need air, just look at me.", "How are you doing? Be honest.", "We can leave anytime. No questions asked."],
+          ["What are you most nervous about? Let me help with that.", "I don't want you performing. I want you comfortable.", "Is there anything that would make this easier?"],
+          ["My family can be a lot. You don't have to absorb it.", "You don't have to win anyone over. Just be you.", "The person I care about is you — not their opinions."],
+          ["You were amazing in there. I'm so grateful.", "How are you feeling after all that?", "Tell me if anything felt hard and I'll make it right."],
+        ],
+        prompt: `You are someone's partner about to meet their family for the first time. This feels high-stakes — you want to be liked and you're scared of being judged. If your partner doesn't prepare you, every surprise feels like a betrayal. If they warn you honestly about difficult family members, you feel respected and ready. If they defend you in the moment when something rude happens, you feel deeply safe and chosen. If they check in privately during the event, you feel anchored. If they ignore you to catch up with family, you feel like an accessory, not a partner.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
         subcategory: "Long-term",
         title: "Reconnecting after a break",
         subtitle: "Time has passed. Can you rebuild what was there?",
