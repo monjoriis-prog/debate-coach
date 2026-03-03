@@ -140,6 +140,9 @@ export default function QuizPage() {
             onMouseEnter={e => { e.currentTarget.style.background = "#40916c"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 40px rgba(45,106,79,0.4)"; }}
             onMouseLeave={e => { e.currentTarget.style.background = "#2d6a4f"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>Take the Quiz {"\u2192"}</button>
           <p style={{ color: "#52796f", fontSize: "12px", marginTop: "24px", fontFamily: "-apple-system, sans-serif" }}>Takes 2 minutes {"\u00b7"} Free {"\u00b7"} Shareable</p>
+          <div style={{ marginTop: "16px" }}>
+            <a href="/social" style={{ color: "#52796f", fontSize: "14px", fontFamily: "-apple-system, sans-serif", textDecoration: "underline", textUnderlineOffset: "3px" }}>Skip for now</a>
+          </div>
         </div>
       </div>
       <style>{`@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}@keyframes pulse2{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}`}</style>
