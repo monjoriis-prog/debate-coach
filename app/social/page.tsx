@@ -347,7 +347,7 @@ const SCENARIOS = [
       },
       // ── PROACTIVE CONNECTION WITH TEENS ────────────────────────────
       {
-        subcategory: "Proactive Connection",
+        subcategory: "Parenting",
         title: "Finding an activity you both actually enjoy",
         subtitle: "They won't want to do your thing. You won't want to do theirs. Find the overlap.",
         ai_role: "your teenager",
@@ -385,7 +385,7 @@ const SCENARIOS = [
 BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses. Examples: *(doesn't look up from phone)*, *(actually makes eye contact)*, *(tries not to smile)*.`,
       },
       {
-        subcategory: "Proactive Connection",
+        subcategory: "Parenting",
         title: "Creating a weekly ritual they'll actually want to keep",
         subtitle: "One small thing, every week, that becomes your thing together.",
         ai_role: "your teenager",
@@ -423,7 +423,7 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
 BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Proactive Connection",
+        subcategory: "Parenting",
         title: "Being the parent they can talk to about hard stuff",
         subtitle: "They're not going to come to you. Build the trust so they can.",
         ai_role: "your teenager",
@@ -3199,7 +3199,7 @@ function getRecommendations(currentSituation: any, allScenarios: any[], maxRecs:
     "Red Flags & Boundaries": ["Online Dating Safety", "Early Compatibility", "Conflict & repair"],
     "Online Dating Safety": ["Red Flags & Boundaries", "Getting serious", "Early Compatibility"],
     "Early Compatibility": ["Getting serious", "Online Dating Safety", "Newly met"],
-    "Parenting": ["Raising children together", "Proactive Connection", "Family dynamics"],
+    "Parenting": ["Raising children together", "Family dynamics"],
     "Family dynamics": ["Parenting", "Extended family", "Emotional support & connection"],
     "Conflict & repair": ["Red Flags & Boundaries", "Reconnecting", "Peer relationships"],
     "Getting serious": ["Early Compatibility", "Long-term", "Newly met"],
@@ -3216,7 +3216,7 @@ function getRecommendations(currentSituation: any, allScenarios: any[], maxRecs:
     "Finance & Budget": ["Family dynamics", "Married couples", "Guidance & life decisions"],
     "Navigating in-laws": ["Extended family", "Married couples", "Conflict & repair"],
     "Raising children together": ["Parenting", "Married couples", "Conflict & repair"],
-    "Proactive Connection": ["Parenting", "Raising children together", "Getting serious"],
+    
     "Guidance & life decisions": ["Married couples", "Family dynamics", "Managing up"],
     "College students": ["Out & about", "Introverts specifically", "Newly met"],
     "Seniors & retirees": ["Reconnecting", "Extended family", "Introverts specifically"],
