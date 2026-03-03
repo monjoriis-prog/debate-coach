@@ -460,6 +460,44 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
 
 BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses. Examples: *(picks at food)*, *(glances over to see your reaction)*, *(voice gets very quiet)*.`,
       },
+      {
+        subcategory: "Parenting",
+        title: "Starting conversations your teen will actually engage with",
+        subtitle: "Stop getting one-word answers. Start getting real ones.",
+        ai_role: "your teenager",
+        voice: { pitch: 1.1, rate: 0.85, preferFemale: true },
+        lessons: [
+          {
+            tip: "Ask sideways, not head-on",
+            why: "Teens shut down when they feel interrogated. 'How was school?' gets 'fine.' But 'what was the most boring part of your day?' gets a real answer because it's specific, unexpected, and doesn't feel like a test.",
+            bad: { user: "How was school today?", ai: "*(not looking up)* Fine.", note: "\u274c The most useless question in parenting. You'll never get a real answer this way." },
+            good: { user: "Okay be honest \u2014 what was the most boring thing that happened today?", ai: "*(slight smirk)* Ugh, Mr. Davis made us watch a documentary from like 1997. It was painful.", note: "\u2713 Sideways question got a real answer. They're talking. Keep it light and they'll keep going." },
+          },
+          {
+            tip: "Use car rides and parallel activities, not face-to-face",
+            why: "Direct eye contact feels like pressure to teens. Side-by-side activities \u2014 driving, cooking, walking, gaming \u2014 create space for conversation without the intensity. The best teen conversations happen when you're both looking at something else.",
+            bad: { user: "Can you sit down? I want to talk to you about something.", ai: "*(tenses up)* Am I in trouble?", note: "\u274c 'We need to talk' is the four scariest words for a teenager. They're already in defense mode." },
+            good: { user: "*(driving together)* Hey, I heard this song that reminded me of you. Want to hear it?", ai: "*(curious)* Wait, what song? *(puts earbud out)* Okay play it.", note: "\u2713 You're side-by-side, doing something together, and you just showed you think about them. The walls come down naturally." },
+          },
+          {
+            tip: "Share your own stories from their age \u2014 especially the messy ones",
+            why: "Teens think you don't understand them. When you share something real from when you were their age \u2014 something embarrassing, something you got wrong, a time you felt exactly how they feel \u2014 they realize you're not just a parent. You were them.",
+            bad: { user: "When I was your age, I had responsibilities. I didn't have time to just sit around.", ai: "*(shuts down)* Cool, good for you.", note: "\u274c You used your past to lecture. They heard: 'I had it harder, so your feelings don't matter.'" },
+            good: { user: "I never told you this, but when I was your age, I got so nervous before presentations that I literally hid in the bathroom once.", ai: "*(looks up, surprised)* Wait, really? You? ...I literally almost did that last week.", note: "\u2713 You showed vulnerability. They realized you understand because you LIVED it. Now they feel safe sharing." },
+          },
+        ],
+        suggestions: [
+          ["What was the most boring thing that happened today?", "Did anything make you laugh today?", "Who did you eat lunch with?"],
+          ["What's the drama right now? I won't judge, I just want to know.", "Is there anyone at school who's annoying you lately?", "What's everyone talking about right now?"],
+          ["I heard this song that reminded me of you.", "Want to help me cook tonight? I need a sous chef.", "Feel like going for a drive? No agenda."],
+          ["I never told you this, but when I was your age...", "Want to hear about the dumbest thing I did as a teenager?", "I used to feel that way too. Can I tell you what happened?"],
+          ["I'm not going to lecture. I just want to listen.", "You don't have to tell me everything. But I'm here if you want to.", "I'm proud of you, you know that?"],
+          ["What's something you wish I understood better?", "If you could change one thing about our family, what would it be?", "Is there anything you've been wanting to tell me?"],
+        ],
+        prompt: `You are a teenager (13-17). When your parent asks generic questions like "how was school" you give one-word answers because you're bored of the question. When they sit you down for a "talk" you immediately get defensive. But when they ask interesting, sideways questions ("what was the most boring thing today?"), you actually answer because it's different. When they do activities with you side-by-side without forcing eye contact, you slowly open up. When they share embarrassing or vulnerable stories from their own teenage years, you're surprised and curious \u2014 and you start sharing too. You want to connect with your parent but you need them to meet you where you are, not where they want you to be.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses. Examples: *(still looking at phone but actually listening)*, *(half smile)*, *(finally makes eye contact)*.`,
+      },
       // ── SCHOOL ADVOCACY ────────────────────────────────────────────
       {
         subcategory: "Parenting",
@@ -1538,6 +1576,44 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
     accent: "#2d6a4f",
     situations: [
       {
+        subcategory: "Ice Breakers",
+        title: "Ice breakers that actually start real conversations",
+        subtitle: "Skip the boring questions. Make them remember you.",
+        ai_role: "your date",
+        voice: { pitch: 1.12, rate: 0.82, preferFemale: true },
+        lessons: [
+          {
+            tip: "Ask about experiences, not resumes",
+            why: "'What do you do?' is a job interview. 'What's the best meal you've had this year?' is a conversation. Experience questions reveal personality, spark stories, and create energy that fact-based questions never will.",
+            bad: { user: "So, what do you do for work?", ai: "*(polite smile)* I'm in marketing. What about you?", note: "\u274c Now you're both reciting LinkedIn profiles. Nobody's feeling anything." },
+            good: { user: "Okay random question \u2014 what's the last thing you got completely obsessed with?", ai: "*(lights up)* Oh my god, okay, so I just started making my own pasta and I'm way too into it.", note: "\u2713 Now you're talking about passion, not job titles. This is where real connection starts." },
+          },
+          {
+            tip: "Share something small and real about yourself first",
+            why: "Most people wait for the other person to open up. But vulnerability is contagious \u2014 when you share something genuine (not heavy, just real), they mirror it. You go first, they follow.",
+            bad: { user: "Tell me about yourself.", ai: "*(thinks)* Um, well, I grew up here, went to State, now I work in finance...", note: "\u274c You asked a job interview question and got a job interview answer. Nobody's fault but the question's." },
+            good: { user: "I have to be honest, I almost cancelled tonight because I was nervous. But I'm really glad I didn't.", ai: "*(relaxes, laughs)* That's so funny because same. I changed my outfit three times.", note: "\u2713 You were human first. Now they feel safe being human too. The wall just came down." },
+          },
+          {
+            tip: "Notice something specific and ask about it",
+            why: "Generic compliments feel hollow. But noticing something specific \u2014 their ring, their book choice, their order \u2014 shows you're actually paying attention. That's more flattering than any compliment.",
+            bad: { user: "You look really nice tonight.", ai: "*(smiles politely)* Thanks, you too.", note: "\u274c Nice but generic. The conversation dies right there." },
+            good: { user: "That's a really cool ring \u2014 is there a story behind it?", ai: "*(touches ring, smiles)* Actually yeah \u2014 my grandmother gave it to me. She was this incredible woman who...", note: "\u2713 You noticed something specific. Now they're telling you about someone they love. You're already in a real conversation." },
+          },
+        ],
+        suggestions: [
+          ["What's something you've been obsessed with lately?", "What's the best meal you've had recently?", "If you could live anywhere for a year, where would you go?"],
+          ["I'll be honest, I was a little nervous coming tonight.", "I have to confess \u2014 I almost suggested we do something different.", "Can I tell you something? I'm actually glad we ended up here."],
+          ["That's a great choice \u2014 what made you order that?", "I noticed your tattoo. Is there a story there?", "Your energy is really easy to be around. Do people tell you that?"],
+          ["What's something you wish more people asked you about?", "What are you most looking forward to right now?", "Tell me something surprising about you."],
+          ["I'm having a really good time.", "This feels easy \u2014 that doesn't happen often.", "I like talking to you. Just wanted to say that."],
+          ["What's your take on second dates?", "So what's the verdict \u2014 am I getting a callback?", "I'd really like to do this again. What do you think?"],
+        ],
+        prompt: `You are someone on a date. If they ask boring, generic questions ("what do you do?", "where are you from?"), you give short, polite but flat answers. If they ask interesting, experience-based questions or share something genuine about themselves first, you open up, get animated, and share real stories. If they notice something specific about you, you're genuinely touched and share the story behind it. You're looking for someone who makes conversation feel easy and real \u2014 not like an interview.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses. Examples: *(leans in)*, *(plays with straw)*, *(makes direct eye contact and smiles)*.`,
+      },
+      {
         subcategory: "Newly met",
         title: "First meeting at a café",
         subtitle: "You just sat down across from each other. Hearts racing.",
@@ -2304,6 +2380,44 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
     accent: "#40916c",
     situations: [
       {
+        subcategory: "Ice Breakers",
+        title: "Breaking the ice with someone you want to be friends with",
+        subtitle: "You clicked. Now how do you turn it into something real?",
+        ai_role: "someone you just met at a social event",
+        voice: { pitch: 1.05, rate: 0.82, preferFemale: true },
+        lessons: [
+          {
+            tip: "Bond over a shared observation, not a shared fact",
+            why: "'Where are you from?' is forgettable. 'Is it just me or is the DJ playing the same song on loop?' is an instant bond. Shared observations create a 'we' moment \u2014 suddenly you're on the same team.",
+            bad: { user: "Hi, I'm Alex. How do you know the host?", ai: "*(polite)* Oh, we went to school together. You?", note: "\u274c Fine, but transactional. You exchanged information, not energy." },
+            good: { user: "Okay is it just me or is this dip absolutely unreal? I've gone back three times and I'm not even sorry.", ai: "*(laughs)* I thought I was the only one! I've been hovering near the table trying not to be obvious.", note: "\u2713 You bonded over something silly and specific. Now you have an inside joke and you just met." },
+          },
+          {
+            tip: "Compliment their energy, not their appearance",
+            why: "Telling someone they seem fun, interesting, or easy to talk to is way more meaningful than commenting on their outfit. It says 'I like who you are' not just 'I like what you look like.'",
+            bad: { user: "I like your jacket!", ai: "*(smiles)* Oh thanks, I got it on sale.", note: "\u274c Nice, but the conversation ends right there." },
+            good: { user: "I feel like you're the most interesting person in this room and I had to come say hi.", ai: "*(surprised laugh)* That might be the best thing anyone's said to me at one of these. Okay, you have my attention.", note: "\u2713 Bold, warm, and genuine. They're flattered AND curious about you now." },
+          },
+          {
+            tip: "Bridge to real life before the moment ends",
+            why: "The graveyard of potential friendships is full of great conversations that ended with 'nice meeting you.' If you clicked, say it. Suggest something. Exchange numbers. The window closes fast.",
+            bad: { user: "Well, it was really nice talking to you!", ai: "*(nods)* Yeah, you too! Maybe see you around.", note: "\u274c You'll never see them again. A great connection just evaporated." },
+            good: { user: "Okay I'm just going to say it \u2014 you're really fun to talk to and I don't want this to be a one-time thing. Can I get your number?", ai: "*(genuinely pleased)* Yes! I was literally thinking the same thing. Here, put your number in.", note: "\u2713 You named what was happening and made it real. Most people are too scared to do this. That's why most people don't make new friends." },
+          },
+        ],
+        suggestions: [
+          ["Is it just me or is this event way better than expected?", "Okay what's your honest review of this place so far?", "I feel like we're the only two people here who actually want to talk. Hi."],
+          ["You have really good energy \u2014 I had to come say hi.", "I feel like you're someone I'd get along with. Am I wrong?", "Okay I need an ally here. You seem like the right person."],
+          ["What are you into outside of whatever this is?", "What's keeping you busy these days \u2014 in a good way?", "Do you have a go-to spot around here?"],
+          ["I feel like we could actually be friends. Is that weird to say?", "I'm going to be bold \u2014 can I get your number?", "We should actually hang out. What are you doing this weekend?"],
+          ["This was the best conversation I've had in a while.", "I'm really glad I came over and said hi.", "You're one of those people who makes everything more fun."],
+          ["Let's do this again soon \u2014 for real.", "I'm texting you tomorrow so you don't forget me.", "Okay new friend, what's our first hangout going to be?"],
+        ],
+        prompt: `You are someone at a social event \u2014 a party, a meetup, a friend's gathering. You're friendly but a bit guarded because most conversations at these things are boring and forgettable. If someone approaches with a generic introduction, you're polite but don't invest much energy. But if they make a shared observation, say something bold or funny, or compliment your energy (not your appearance), you light up and become genuinely engaged. If they ask to exchange numbers or suggest hanging out, you're impressed by their directness and say yes enthusiastically.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses. Examples: *(turns to face you fully)*, *(laughs and touches your arm)*, *(pulls out phone)*.`,
+      },
+      {
         subcategory: "Out & about",
         title: "Meeting someone at a party",
         subtitle: "They seem interesting. Make your move.",
@@ -2845,6 +2959,44 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
     color: "#f0f4f7",
     accent: "#1b4332",
     situations: [
+      {
+        subcategory: "Ice Breakers",
+        title: "Ice breakers for networking and new professional settings",
+        subtitle: "Stop being forgettable. Start real conversations at work events.",
+        ai_role: "a professional at a networking event",
+        voice: { pitch: 0.95, rate: 0.82, preferFemale: false },
+        lessons: [
+          {
+            tip: "Lead with curiosity about their work, not your pitch",
+            why: "Everyone at networking events is waiting for their turn to talk about themselves. The person who asks genuinely curious questions stands out because they're rare. People remember how you made them feel, not what you said.",
+            bad: { user: "Hi, I'm in product management at a fintech startup. We're building a really exciting platform for...", ai: "*(glazes over slightly)* Oh interesting. Yeah, we're doing something similar in our space...", note: "\u274c You led with your pitch and got their pitch back. Neither of you is listening." },
+            good: { user: "What's the most interesting problem you're working on right now?", ai: "*(pauses, thinks)* Actually, that's a great question. We're trying to figure out how to... you know what, let me tell you about this.", note: "\u2713 You asked something nobody else asked. Now they're engaged, animated, and they'll remember you." },
+          },
+          {
+            tip: "Find the human behind the title",
+            why: "Titles are boring. Stories are memorable. Getting someone to tell you WHY they do what they do \u2014 not just WHAT they do \u2014 creates a connection that outlasts business cards.",
+            bad: { user: "What's your role at the company?", ai: "*(automatic)* I'm VP of Operations. Been there about four years.", note: "\u274c LinkedIn in real life. You learned nothing real about this person." },
+            good: { user: "So what made you get into this field? Was it always the plan or did you fall into it?", ai: "*(chuckles)* Honestly? Total accident. I was actually studying music and then...", note: "\u2713 Now they're telling you their real story. This is how professional relationships with actual depth begin." },
+          },
+          {
+            tip: "Close with value, not just a card swap",
+            why: "Trading business cards is meaningless. But saying 'I know someone you should talk to' or 'I read something about exactly what you described' \u2014 that makes you unforgettable. Give before you ask.",
+            bad: { user: "Great meeting you. Here's my card \u2014 let's connect on LinkedIn.", ai: "*(takes card)* Sure, sounds good. Nice meeting you too.", note: "\u274c That card is going in a drawer. No reason to follow up." },
+            good: { user: "You know what \u2014 you mentioned that supply chain challenge. I actually know someone who solved a similar problem. Let me connect you two.", ai: "*(genuinely surprised)* Really? That would be amazing. Thank you. Okay wait, give me your email \u2014 I want to make sure we actually stay in touch.", note: "\u2713 You offered something specific and valuable. Now THEY'RE chasing the connection. That's how networking actually works." },
+          },
+        ],
+        suggestions: [
+          ["What's the most interesting problem you're working on?", "What brought you to this event \u2014 anything specific you're hoping to find?", "What's something exciting happening in your world right now?"],
+          ["How did you end up in this field? Was it always the plan?", "What's the part of your job that actually energizes you?", "If you weren't doing this, what would you be doing?"],
+          ["What's the biggest challenge in your industry right now?", "What trend are you paying attention to that others might be missing?", "What's one thing you wish you'd known starting out?"],
+          ["I know someone who might be perfect for what you described. Can I connect you?", "I just read something about exactly this \u2014 let me send it to you.", "I think we should actually continue this conversation. What's the best way to reach you?"],
+          ["This is one of the best conversations I've had at one of these.", "You're easy to talk to \u2014 that's rare at these things.", "I feel like there's more to explore here."],
+          ["Let me follow up this week while it's fresh.", "I'll send you that article tomorrow.", "Looking forward to staying in touch \u2014 this was genuinely great."],
+        ],
+        prompt: `You are a professional at a networking event. You attend these regularly and most conversations are forgettable \u2014 people pitching themselves at you, exchanging cards, making small talk about the industry. If someone leads with their own pitch, you're polite but checked out. If someone asks genuinely curious questions about your work \u2014 especially about the human story behind your career \u2014 you become engaged and impressed. If they offer to connect you with someone or share a resource, you're genuinely surprised and grateful because almost nobody does that. You remember people who made you feel interesting, not people who tried to impress you.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses. Examples: *(pockets the phone)*, *(turns away from the crowd to face you)*, *(nods thoughtfully)*.`,
+      },
       {
         subcategory: "Managing up",
         title: "Asking for a raise",
