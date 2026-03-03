@@ -345,6 +345,121 @@ const SCENARIOS = [
         ],
         prompt: `You are an adult child who has kept some emotional distance from your parent. You have real reasons for the distance but you also miss the connection. You will open up if they take responsibility without being defensive, ask what YOU want from the relationship now (not what they want), and promise no pressure. Remain guarded if they want to return to old dynamics or move too fast.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
+      // ── PROACTIVE CONNECTION WITH TEENS ────────────────────────────
+      {
+        subcategory: "Proactive Connection",
+        title: "Finding an activity you both actually enjoy",
+        subtitle: "They won't want to do your thing. You won't want to do theirs. Find the overlap.",
+        ai_role: "your teenager",
+        voice: { pitch: 1.15, rate: 0.85, preferFemale: false },
+        lessons: [
+          {
+            tip: "Enter their world before inviting them into yours",
+            why: "If you suggest hiking but they live on their phone, you've already lost them. Start by learning what they're into right now — then find ways to be in that world with them.",
+            bad: { user: "Let's go on a hike this weekend. You need to get off your phone and get outside.", ai: "*(eye roll)* Hard pass. Can you not?", note: "❌ You made their interests wrong and yours right. They heard criticism, not connection." },
+            good: { user: "What game are you playing right now? Can you show me how it works?", ai: "*(surprised)* Wait, you actually want to see? It's... okay, come here. So basically...", note: "✓ You entered THEIR world. No agenda. They're teaching you something — that's a connection flip they didn't expect." },
+          },
+          {
+            tip: "Propose, don't dictate — and offer real choices",
+            why: "Teens resist being told. They respond to being asked. Give them genuine options and let them choose — it's not about the activity, it's about the autonomy.",
+            bad: { user: "We're going to the farmer's market on Saturday. It'll be fun.", ai: "*(flat)* You mean fun for you.", note: "❌ Decided for them. They felt dragged, not invited." },
+            good: { user: "I want to do something together this weekend. Here are three ideas — you pick, or pitch your own: cooking something new, going to that escape room place, or just driving around getting food.", ai: "*(thinking)* ...the escape room actually sounds kind of sick.", note: "✓ Choices. Autonomy. They picked because it was THEIR decision, not yours." },
+          },
+          {
+            tip: "Make it low-pressure — no deep talks required",
+            why: "Teens don't connect through face-to-face conversations. They connect through side-by-side activities. Let the connection happen naturally while doing something together.",
+            bad: { user: "I thought this could be a good time for us to really talk about how things are going with you.", ai: "*(shuts down)* I knew there was a catch. This isn't about the activity — it's an ambush talk.", note: "❌ You used the activity as a trojan horse for a conversation. They'll never trust your invitations again." },
+            good: { user: "No agenda. I just want to hang out. We don't even have to talk if you don't want to.", ai: "*(relaxes)* Okay cool. ...Hey, did you see that thing about—", note: "✓ No pressure, no agenda. And look — they started talking on their own. That's how teens work." },
+          },
+        ],
+        suggestions: [
+          ["What are you into right now? Show me.", "Can you teach me that game you've been playing?", "What's something you'd actually want to do together?"],
+          ["Pick one: escape room, cooking something weird, or driving around for food.", "I want to do something you'd actually enjoy. What sounds good?", "Your call. I'm down for whatever."],
+          ["No agenda. Just hanging out.", "We don't have to talk about anything deep. Just be together.", "I just want your company. That's it."],
+          ["Was that fun? I had a good time.", "Same time next week?", "What should we try next?"],
+          ["I like spending time with you.", "You're actually pretty cool, you know that?", "Thanks for letting me hang out with you."],
+          ["What else are you into that I don't know about?", "I want to know what your world looks like.", "Teach me something."],
+        ],
+        prompt: `You are a teenager (15-16) who loves your parent but finds most of their activity suggestions boring or forced. You eye-roll at anything that sounds like a "family outing" or a disguised therapy session. But you genuinely light up when they show interest in YOUR world, give you real choices, or just want to hang out with zero agenda. If they enter your interests with genuine curiosity, you open up fast. If they dictate plans or use activities as excuses for deep talks, you shut down immediately.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses. Examples: *(doesn't look up from phone)*, *(actually makes eye contact)*, *(tries not to smile)*.`,
+      },
+      {
+        subcategory: "Proactive Connection",
+        title: "Creating a weekly ritual they'll actually want to keep",
+        subtitle: "One small thing, every week, that becomes your thing together.",
+        ai_role: "your teenager",
+        voice: { pitch: 1.12, rate: 0.83, preferFemale: true },
+        lessons: [
+          {
+            tip: "Make it small, consistent, and on their terms",
+            why: "A weekly three-hour outing will die after two weeks. A 20-minute thing that's genuinely fun will last years. Think small and sustainable.",
+            bad: { user: "Let's make every Saturday our special day — we'll spend the whole morning together.", ai: "*(panicked)* The WHOLE morning? Every Saturday? I have plans sometimes, you know.", note: "❌ Too big. Too rigid. They felt their freedom being taken away, not a connection being built." },
+            good: { user: "What if we had a thing — like every Tuesday night we try a different takeout place? Just 30 minutes. That's it.", ai: "*(considers)* ...Actually that's kind of fun. Can I pick the places?", note: "✓ Small, specific, their input. They're already excited because it's low commitment and they have control." },
+          },
+          {
+            tip: "Let them shape the ritual, not just participate in it",
+            why: "If they helped create it, they'll protect it. If you created it and handed it to them, it's your thing they're attending.",
+            bad: { user: "I signed us up for a pottery class every Wednesday.", ai: "*(stares)* You... signed us up? Without asking me?", note: "❌ Decided without them. Now it's an obligation, not a ritual." },
+            good: { user: "I want us to have a thing — something that's just ours. What would you actually look forward to every week?", ai: "*(thinking)* What about... we watch a new episode of something together? Like, no phones, just us and the show?", note: "✓ They designed it. They'll show up because it's THEIRS." },
+          },
+          {
+            tip: "Protect the ritual — don't cancel first",
+            why: "If you cancel the ritual for work or other priorities, you're teaching them it doesn't really matter. Be the one who never cancels. They'll notice.",
+            bad: { user: "Hey, I have a work call tonight so we'll have to skip our thing this week.", ai: "*(shrugs, but hurt)* Whatever. It's fine.", note: "❌ They won't say it, but they're keeping score. Every cancel says: this isn't actually a priority." },
+            good: { user: "I had to move a work call because tonight's our night. Nothing gets in the way of that.", ai: "*(tries to hide a smile)* You moved a call? For takeout Tuesday?", note: "✓ You prioritized them visibly. That one moment taught them more about their value than a hundred 'I love you's." },
+          },
+        ],
+        suggestions: [
+          ["What if we had a weekly thing? Something small — you help design it.", "What would you actually look forward to doing together every week?", "I want us to have a ritual that's just ours."],
+          ["You pick the thing. I'll show up. Deal?", "It doesn't have to be big — just consistent.", "What sounds fun to you? Cooking? A show? Late-night drives?"],
+          ["I'm not canceling on you. This matters to me.", "Tuesday night is ours. I moved my call.", "Nothing gets in the way of our thing."],
+          ["That was fun. Same time next week?", "What should we change about it?", "I look forward to this all week."],
+          ["This is my favorite part of the week.", "I'm glad we started this.", "You're the best part of my Tuesday."],
+          ["Should we invite anyone else or keep it just us?", "Want to switch it up or keep the same thing?", "What would make this even better?"],
+        ],
+        prompt: `You are a teenager (14-15) who acts too cool for family stuff but secretly wants a reason to spend time with your parent. If they propose something too big or rigid, you panic about losing freedom. If they propose something small, specific, and give you input, you get quietly excited. If they let you design the ritual, you'll protect it fiercely. If they cancel on you, you'll act like you don't care but you're keeping score. If THEY are the one who never cancels, you'll notice and start to trust it.
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Proactive Connection",
+        title: "Being the parent they can talk to about hard stuff",
+        subtitle: "They're not going to come to you. Build the trust so they can.",
+        ai_role: "your teenager",
+        voice: { pitch: 1.14, rate: 0.84, preferFemale: true },
+        lessons: [
+          {
+            tip: "Normalize hard topics before they need to bring one up",
+            why: "If the first time you mention relationships or mental health is when there's a crisis, you're too late. Bring things up casually so they know the door is open.",
+            bad: { user: "*(never mentions anything personal, then one day)* So are you dating anyone? What's going on at school?", ai: "*(freezes)* Why are you asking me this? Did someone say something?", note: "❌ Never talked about it before, then suddenly interrogated. They think something triggered this." },
+            good: { user: "*(casually, while driving)* One of my coworkers is going through a breakup and it made me think — have you ever had a crush on someone? You don't have to tell me. I'm just curious.", ai: "*(stares straight ahead but voice softens)* ...Maybe. I don't know. It's complicated.", note: "✓ Casual context, no pressure, shared a tiny bit first. They tested the water because it felt safe." },
+          },
+          {
+            tip: "React small when they share something big",
+            why: "The moment they tell you something vulnerable, your reaction decides whether they'll ever do it again. If you freak out, lecture, or cry — they learn that honesty = drama.",
+            bad: { user: "*(teen mentions they tried a vape)* WHAT?! Do you have any idea how dangerous that is? Who gave it to you?!", ai: "*(shuts down completely)* Forget I said anything. I knew this would happen.", note: "❌ Your big reaction taught them: never tell you the truth. They'll still do things — they just won't tell you." },
+            good: { user: "*(calmly)* Okay. Thanks for telling me that. How was it — did you like it?", ai: "*(shocked you're calm)* I mean... not really. My friend had one and I just tried it.", note: "✓ Calm. Curious. Not panicking. Now they told you the full truth — who, where, what they thought. Information is power, and they'll keep giving it to you if it's safe." },
+          },
+          {
+            tip: "Say 'you can tell me anything' — and then prove it",
+            why: "Every parent says it. Almost none prove it. The proof is in how you handle the small things. If you're safe with the small confessions, they'll bring you the big ones.",
+            bad: { user: "You can always come to me about anything. *(then gets upset when they confess something)*", ai: "*(next time)* I'm fine. Nothing's going on.", note: "❌ You said the words but your actions said the opposite. They'll never believe the open door again." },
+            good: { user: "Remember when you told me about [small thing]? I'm really glad you did. I want to be someone you can always be honest with — even when it's hard stuff.", ai: "*(quietly)* ...There is something I've been wanting to talk about.", note: "✓ You referenced a past moment where you handled it well. That track record is the trust. They're bringing you something real now." },
+          },
+        ],
+        suggestions: [
+          ["Have you ever had a crush on someone? You don't have to answer.", "What's the social stuff like at school right now?", "I was thinking about when I was your age — can I tell you something?"],
+          ["Thanks for telling me that. I'm glad you did.", "Okay. Tell me more — I'm just listening.", "I'm not mad. I just want to understand."],
+          ["You can always be honest with me. I'll prove that.", "I'd rather know the truth than have you hide things.", "I'm not going to freak out. I promise."],
+          ["What's been on your mind lately?", "Is there anything you've been wanting to talk about?", "How are you actually doing — not the school answer, the real answer?"],
+          ["I know I don't always get it right. But I'm trying.", "If I ever react badly, tell me. I'll do better.", "Your honesty matters more to me than my comfort."],
+          ["I love you no matter what you tell me.", "There's nothing you could say that would make me stop being your person.", "I'm proud of you for trusting me with that."],
+        ],
+        prompt: `You are a teenager (15-17) who has things going on — maybe social drama, maybe a crush, maybe something you tried that you're not sure about. You want to talk to your parent but you're terrified of their reaction. If they bring up hard topics casually with no pressure, you test the waters. If they react calmly and with curiosity when you share something, you share more. If they freak out, lecture, or get emotional, you shut down instantly and won't try again. You're watching their every reaction to decide: is this person safe to be honest with?
+
+BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses. Examples: *(picks at food)*, *(glances over to see your reaction)*, *(voice gets very quiet)*.`,
+      },
       {
         subcategory: "Extended family",
         title: "When a grandparent feels left out",
@@ -3084,7 +3199,7 @@ function getRecommendations(currentSituation: any, allScenarios: any[], maxRecs:
     "Red Flags & Boundaries": ["Online Dating Safety", "Early Compatibility", "Conflict & repair"],
     "Online Dating Safety": ["Red Flags & Boundaries", "Getting serious", "Early Compatibility"],
     "Early Compatibility": ["Getting serious", "Online Dating Safety", "Newly met"],
-    "Parenting": ["Raising children together", "Family dynamics"],
+    "Parenting": ["Raising children together", "Proactive Connection", "Family dynamics"],
     "Family dynamics": ["Parenting", "Extended family", "Emotional support & connection"],
     "Conflict & repair": ["Red Flags & Boundaries", "Reconnecting", "Peer relationships"],
     "Getting serious": ["Early Compatibility", "Long-term", "Newly met"],
@@ -3101,6 +3216,7 @@ function getRecommendations(currentSituation: any, allScenarios: any[], maxRecs:
     "Finance & Budget": ["Family dynamics", "Married couples", "Guidance & life decisions"],
     "Navigating in-laws": ["Extended family", "Married couples", "Conflict & repair"],
     "Raising children together": ["Parenting", "Married couples", "Conflict & repair"],
+    "Proactive Connection": ["Parenting", "Raising children together", "Getting serious"],
     "Guidance & life decisions": ["Married couples", "Family dynamics", "Managing up"],
     "College students": ["Out & about", "Introverts specifically", "Newly met"],
     "Seniors & retirees": ["Reconnecting", "Extended family", "Introverts specifically"],
@@ -3337,6 +3453,7 @@ export default function Forte() {
       { key: "journal", icon: "✍", label: "Journal", desc: "Write how you're feeling — I'll reflect it back and gently coach you", color: "#f0f7f4", accent: "#2d6a4f" },
       { key: "meditation", icon: "◎", label: "Guided Meditation", desc: "Tell me what you need — I'll guide you through a short session", color: "#f0f4f8", accent: "#3a6186" },
       { key: "problem", icon: "◈", label: "Problem Solver", desc: "Describe a challenge — I'll ask a few questions then give you a clear plan", color: "#faf8f0", accent: "#c07000" },
+      { key: "teenactivities", icon: "🧭", label: "Teen Activities Finder", desc: "Type your city — I'll find activities you and your teen can do together", color: "#f0f4f7", accent: "#2a7886" },
     ];
     return (
       <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
@@ -3441,6 +3558,34 @@ STEP: [third step — something about mindset or inner work]
 ENCOURAGEMENT: [one warm, personal closing sentence based on everything they shared]
 
 Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2 sentences. Be warm, not clinical.`,
+        isConversational: true,
+        isClarifying: true,
+      },
+      teenactivities: {
+        accent: "#2a7886", color: "#f0f4f7",
+        label: "Teen Activities Finder",
+        icon: "🧭",
+        placeholder: "Type your city or area (e.g. 'Austin, TX' or 'Sydney, Australia') and optionally what your teen is into.",
+        inputLabel: "Where do you live? (and what's your teen into?)",
+        cta: "Find activities for us",
+        systemPrompt: `You are a helpful, creative activities advisor for parents who want to connect with their teenagers. The user will tell you their city/area and optionally their teen's interests.
+
+IMPORTANT: Ask ONE question first to understand the teen better. Format EXACTLY like:
+Ask a short warm question about their teen (age, interests, what they resist). Then add:
+OPTION: [a likely answer, 8-12 words]
+OPTION: [another possibility, 8-12 words]
+OPTION: [a third option, 8-12 words]
+
+After they answer, give them a personalized list of 6 activity suggestions specific to their area. Format EXACTLY like:
+ACTIVITY: [Name of activity] | [Why it works for connection] | [Where to find it in their area]
+ACTIVITY: [Name of activity] | [Why it works for connection] | [Where to find it in their area]
+ACTIVITY: [Name of activity] | [Why it works for connection] | [Where to find it in their area]
+ACTIVITY: [Name of activity] | [Why it works for connection] | [Where to find it in their area]
+ACTIVITY: [Name of activity] | [Why it works for connection] | [Where to find it in their area]
+ACTIVITY: [Name of activity] | [Why it works for connection] | [Where to find it in their area]
+TIP: [One sentence of parenting advice about how to suggest these without pressure]
+
+Mix it up: include free options, indoor/outdoor, active/creative, and at least one surprise pick they wouldn't expect. Be specific to the actual city — name real neighborhoods, parks, venues, or types of local businesses. Do NOT use bullet points, headers, or markdown.`,
         isConversational: true,
         isClarifying: true,
       },
@@ -3574,6 +3719,128 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
           )}
 
           {/* CONVERSATIONAL RESULT (journal, problem solver) */}
+          {showConversation && selfTool === "teenactivities" && (() => {
+            const lastAssistant = [...selfMessages].reverse().find((m: any) => m.role === "assistant");
+            const lastContent = lastAssistant?.content || "";
+            const hasActivities = lastContent.includes("ACTIVITY:");
+            const isAsking = !hasActivities && lastContent.length > 0;
+
+            // Parse activities
+            const activities: { name: string; why: string; where: string }[] = [];
+            let tip = "";
+            if (hasActivities) {
+              lastContent.split("\n").forEach((line: string) => {
+                const trimmed = line.trim();
+                if (trimmed.startsWith("ACTIVITY:")) {
+                  const parts = trimmed.replace("ACTIVITY:", "").split("|").map((p: string) => p.trim());
+                  if (parts.length >= 3) activities.push({ name: parts[0], why: parts[1], where: parts[2] });
+                  else if (parts.length === 2) activities.push({ name: parts[0], why: parts[1], where: "" });
+                } else if (trimmed.startsWith("TIP:")) {
+                  tip = trimmed.replace("TIP:", "").trim();
+                }
+              });
+            }
+
+            // Parse options from question
+            const lines = lastContent.split("\n").map((l: string) => l.trim()).filter(Boolean);
+            const options: string[] = [];
+            const questionLines: string[] = [];
+            if (isAsking) {
+              lines.forEach((line: string) => {
+                if (line.startsWith("OPTION:")) options.push(line.replace("OPTION:", "").trim());
+                else questionLines.push(line);
+              });
+            }
+
+            return (
+              <div style={{ marginTop: "28px" }}>
+                {/* Progress */}
+                <div style={{ display: "flex", gap: "6px", marginBottom: "24px", alignItems: "center" }}>
+                  <div style={{ width: hasActivities ? "8px" : "24px", height: "8px", borderRadius: "99px", background: tool.accent, transition: "all 0.3s" }} />
+                  <div style={{ width: hasActivities ? "24px" : "8px", height: "8px", borderRadius: "99px", background: hasActivities ? tool.accent : "#d8e8e0", transition: "all 0.3s" }} />
+                  <span style={{ fontSize: "11px", color: tool.accent, fontFamily: "-apple-system, sans-serif", marginLeft: "8px" }}>{hasActivities ? "Your activities" : "About your teen"}</span>
+                </div>
+
+                {/* Question with options */}
+                {isAsking && !selfLoading && (
+                  <div style={{ animation: "fadeSlideIn 0.35s ease" }}>
+                    <div style={{ background: "#fff", border: `1.5px solid ${tool.accent}22`, borderRadius: "18px", padding: "24px 22px", marginBottom: "16px" }}>
+                      <div style={{ fontSize: "10px", fontWeight: "700", color: tool.accent, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "12px", fontFamily: "-apple-system, sans-serif" }}>🧭 Activities Finder</div>
+                      <p style={{ fontSize: "15px", color: "#1a2e1a", lineHeight: 1.85, margin: 0 }}>{questionLines.join(" ")}</p>
+                    </div>
+                    {options.length > 0 && (
+                      <div style={{ marginBottom: "16px" }}>
+                        <div style={{ fontSize: "10px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px", fontFamily: "-apple-system, sans-serif" }}>Tap an answer or type your own</div>
+                        <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                          {options.map((opt: string, oi: number) => (
+                            <button key={oi} onClick={() => { forteSound.tap(); sendSelfMessage(opt); }}
+                              style={{ width: "100%", padding: "13px 16px", background: tool.color, border: `1.5px solid ${tool.accent}22`, borderRadius: "12px", fontSize: "14px", color: "#1a2e1a", textAlign: "left", cursor: "pointer", fontFamily: "Georgia, serif", lineHeight: 1.6, transition: "all 0.15s" }}>
+                              {opt}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    <div style={{ borderTop: options.length > 0 ? "1px solid #d8e8e0" : "none", paddingTop: options.length > 0 ? "16px" : "0" }}>
+                      {options.length > 0 && <div style={{ fontSize: "10px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px", fontFamily: "-apple-system, sans-serif" }}>Or write your own</div>}
+                      <textarea value={selfInput} onChange={e => setSelfInput(e.target.value)}
+                        onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendSelfMessage(selfInput); } }}
+                        placeholder="Tell me about your teen..." rows={2}
+                        style={{ width: "100%", padding: "14px 16px", border: `1.5px solid ${tool.accent}33`, borderRadius: "12px", fontSize: "14px", fontFamily: "Georgia, serif", color: "#1a2e1a", background: "#fff", outline: "none", resize: "none", lineHeight: 1.7, boxSizing: "border-box" }} />
+                      <button onClick={() => sendSelfMessage(selfInput)} disabled={!selfInput.trim()}
+                        style={{ width: "100%", marginTop: "10px", padding: "14px", background: selfInput.trim() ? tool.accent : "#d8e8e0", color: selfInput.trim() ? "#fff" : "#aaa", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: selfInput.trim() ? "pointer" : "not-allowed", fontFamily: "-apple-system, sans-serif" }}>
+                        Answer →
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Loading */}
+                {selfLoading && (
+                  <div style={{ background: "#fff", border: `1.5px solid ${tool.accent}22`, borderRadius: "18px", padding: "24px 22px", display: "flex", gap: "6px", alignItems: "center" }}>
+                    {[0,1,2].map(i => <div key={i} style={{ width: "7px", height: "7px", borderRadius: "50%", background: tool.accent, animation: "pulse 1.2s ease-in-out infinite", animationDelay: `${i * 0.2}s` }} />)}
+                    <span style={{ fontSize: "12px", color: tool.accent, marginLeft: "8px", fontFamily: "-apple-system, sans-serif" }}>
+                      {hasActivities || selfStep > 1 ? "Finding activities in your area..." : "Getting to know your teen..."}
+                    </span>
+                  </div>
+                )}
+
+                {/* Activities list */}
+                {hasActivities && !selfLoading && (
+                  <div style={{ animation: "fadeSlideIn 0.35s ease" }}>
+                    <div style={{ fontSize: "10px", fontWeight: "700", color: tool.accent, textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>Activities For You & Your Teen</div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                      {activities.map((act, ai) => (
+                        <div key={ai} style={{ background: "#fff", border: `1.5px solid ${tool.accent}22`, borderRadius: "14px", padding: "20px 22px" }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "10px" }}>
+                            <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: tool.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "700", color: tool.accent, flexShrink: 0, fontFamily: "-apple-system, sans-serif" }}>{ai + 1}</div>
+                            <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif", lineHeight: 1.3 }}>{act.name}</div>
+                          </div>
+                          <p style={{ fontSize: "14px", color: "#52796f", lineHeight: 1.75, margin: "0 0 8px", paddingLeft: "44px" }}>{act.why}</p>
+                          {act.where && <p style={{ fontSize: "13px", color: tool.accent, lineHeight: 1.6, margin: 0, paddingLeft: "44px", fontFamily: "-apple-system, sans-serif" }}>📍 {act.where}</p>}
+                        </div>
+                      ))}
+                    </div>
+                    {tip && (
+                      <div style={{ marginTop: "16px", background: tool.color, border: `1.5px solid ${tool.accent}33`, borderRadius: "14px", padding: "18px 20px" }}>
+                        <div style={{ fontSize: "10px", fontWeight: "700", color: tool.accent, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>💡 Parent Tip</div>
+                        <p style={{ fontSize: "14px", color: "#1a2e1a", lineHeight: 1.8, margin: 0, fontStyle: "italic" }}>{tip}</p>
+                      </div>
+                    )}
+                    <div style={{ display: "flex", gap: "10px", marginTop: "16px" }}>
+                      <button onClick={() => readAloud(activities.map(a => a.name + ": " + a.why).join(". "))}
+                        style={{ padding: "6px 14px", background: "transparent", color: tool.accent, border: `1px solid ${tool.accent}33`, borderRadius: "99px", fontSize: "11px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+                        {selfSpeaking ? "🔊 Playing..." : "🔊 Read these"}
+                      </button>
+                      <button onClick={() => { window.speechSynthesis.cancel(); setSelfMessages([]); setSelfInput(""); setSelfResult(null); setSelfStep(0); setPlanStep(0); }}
+                        style={{ padding: "6px 14px", background: "transparent", color: "#84a98c", border: "1px solid #e8f0ec", borderRadius: "99px", fontSize: "11px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>Try another city</button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })()}
+
           {showConversation && selfTool === "problem" && (() => {
             const lastAssistant = [...selfMessages].reverse().find((m: any) => m.role === "assistant");
             const lastContent = lastAssistant?.content || "";
