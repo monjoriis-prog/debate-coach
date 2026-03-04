@@ -4475,7 +4475,7 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
             <div style={{ fontSize: "32px", fontWeight: "400", color: "#1a2e1a", letterSpacing: "-1px" }}>FORTE</div>
           </div>
           <h1 style={{ fontSize: "clamp(28px, 6vw, 40px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 16px", lineHeight: 1.3, letterSpacing: "-0.5px" }}>{"What\u2019s Your"}<br />Communication Style?</h1>
-          <p style={{ color: "#52796f", fontSize: "15px", lineHeight: 1.8, margin: "0 0 40px" }}>7 real scenarios. No wrong answers.<br />Discover how you handle tension {"\u2014"} and what it costs you.</p>
+          <p style={{ color: "#52796f", fontSize: "15px", lineHeight: 1.8, margin: "0 0 40px" }}>7 real scenarios. No right answers.<br />Discover how you handle tension {"\u2014"} and what it costs you.</p>
           <button onClick={() => setQuizStarted(true)} style={{ padding: "16px 44px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", transition: "all 0.3s" }}
             onMouseEnter={e => { e.currentTarget.style.background = "#40916c"; e.currentTarget.style.transform = "translateY(-2px)"; }}
             onMouseLeave={e => { e.currentTarget.style.background = "#2d6a4f"; e.currentTarget.style.transform = "none"; }}>{"Take the Quiz \u2192"}</button>
@@ -4577,49 +4577,6 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
     );
   }
 
-  if (phase === "quizHub") return (
-    <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
-      <div style={{ maxWidth: "600px", margin: "0 auto", padding: "48px 24px 64px" }}>
-        <button onClick={() => { forteSound.stepBack(); setPhase("home"); }} style={{ background: "transparent", border: "none", color: "#52796f", fontSize: "14px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", padding: "0", marginBottom: "32px" }}>{"\u2190"} Back</button>
-        <div style={{ textAlign: "center", marginBottom: "40px" }}>
-          <div style={{ fontSize: "36px", marginBottom: "12px" }}>{"\ud83e\udde0"}</div>
-          <h1 style={{ fontSize: "clamp(24px, 5vw, 32px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 8px" }}>Discover Your Style</h1>
-          <p style={{ fontSize: "14px", color: "#52796f", margin: 0, fontFamily: "-apple-system, sans-serif" }}>2-minute quizzes you can share and compare</p>
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-          <a href="/quiz" style={{ textDecoration: "none", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "24px", display: "flex", alignItems: "center", gap: "16px", transition: "all 0.25s" }}
-            onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(45,106,79,0.08)"; }}
-            onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
-            <div style={{ width: "48px", height: "48px", borderRadius: "14px", background: "#f0f7f4", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px", flexShrink: 0 }}>{"\ud83d\udde3\ufe0f"}</div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Communication Style</div>
-              <div style={{ fontSize: "13px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "4px", lineHeight: 1.5 }}>How do you handle tension? Compare with friends, family, or coworkers.</div>
-            </div>
-            <div style={{ fontSize: "16px", color: "#2d6a4f", flexShrink: 0 }}>{"\u2192"}</div>
-          </a>
-          <a href="/quiz/partner" style={{ textDecoration: "none", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "24px", display: "flex", alignItems: "center", gap: "16px", transition: "all 0.25s" }}
-            onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#c9184a"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(201,24,74,0.06)"; }}
-            onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
-            <div style={{ width: "48px", height: "48px", borderRadius: "14px", background: "#fdf2f4", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px", flexShrink: 0 }}>{"\u2764\ufe0f"}</div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Partner Style</div>
-              <div style={{ fontSize: "13px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "4px", lineHeight: 1.5 }}>What kind of partner are you? Send it to yours and see your compatibility.</div>
-            </div>
-            <div style={{ fontSize: "16px", color: "#c9184a", flexShrink: 0 }}>{"\u2192"}</div>
-          </a>
-          <div style={{ background: "#f5f5f5", border: "1.5px dashed #d0d0d0", borderRadius: "16px", padding: "24px", display: "flex", alignItems: "center", gap: "16px" }}>
-            <div style={{ width: "48px", height: "48px", borderRadius: "14px", background: "#f0f0f0", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px", flexShrink: 0 }}>{"\ud83c\udf31"}</div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: "16px", fontWeight: "700", color: "#aaa", fontFamily: "-apple-system, sans-serif" }}>Parenting Style</div>
-              <div style={{ fontSize: "13px", color: "#bbb", fontFamily: "-apple-system, sans-serif", marginTop: "4px", lineHeight: 1.5 }}>What kind of parent are you? Compare with your co-parent.</div>
-            </div>
-            <div style={{ fontSize: "11px", color: "#aaa", fontFamily: "-apple-system, sans-serif", fontWeight: "600", flexShrink: 0 }}>Coming soon</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
   if (phase === "home") return (
     <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
       <div style={{ maxWidth: "680px", margin: "0 auto", padding: "72px 24px 48px" }}>
@@ -4650,17 +4607,6 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
             <div style={{ fontSize: "13px", color: "#2d6a4f", fontFamily: "-apple-system, sans-serif" }}>View →</div>
           </button>
         )}
-        <button onClick={() => setPhase("quizHub")} style={{ width: "100%", background: "linear-gradient(145deg, #f0f7f4, #fff)", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "20px 24px", cursor: "pointer", transition: "all 0.3s", display: "flex", alignItems: "center", gap: "16px", textAlign: "left", marginBottom: "20px" }}
-          onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(45,106,79,0.1)"; }}
-          onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
-          <div style={{ fontSize: "28px" }}>{"\ud83e\udde0"}</div>
-          <div style={{ flex: 1 }}>
-            <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Discover Your Style</div>
-            <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>Quick quizzes you can compare with anyone</div>
-          </div>
-          <div style={{ fontSize: "18px", color: "#2d6a4f" }}>{"\u2192"}</div>
-        </button>
-
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
           {SCENARIOS.map((s) => {
             const locked = isCategoryLocked(s.category);
@@ -4703,6 +4649,30 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
         <p style={{ textAlign: "center", color: "#b7c9be", fontSize: "12px", marginTop: "48px", fontFamily: "-apple-system, sans-serif" }}>
           Learn with examples · Practice with AI · Get personal coaching feedback
         </p>
+
+        <div style={{ marginTop: "32px", display: "flex", flexDirection: "column", gap: "10px" }}>
+          <div style={{ fontSize: "11px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>Quizzes</div>
+          <a href="/quiz" style={{ display: "flex", alignItems: "center", gap: "14px", padding: "16px 20px", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "14px", textDecoration: "none", transition: "all 0.25s" }}
+            onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+            onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; }}>
+            <div style={{ fontSize: "24px" }}>{"\ud83d\udde3\ufe0f"}</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: "14px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Communication Style Quiz</div>
+              <div style={{ fontSize: "12px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>How do you handle tension? Compare with anyone.</div>
+            </div>
+            <div style={{ fontSize: "14px", color: "#2d6a4f" }}>{"\u2192"}</div>
+          </a>
+          <a href="/quiz/partner" style={{ display: "flex", alignItems: "center", gap: "14px", padding: "16px 20px", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "14px", textDecoration: "none", transition: "all 0.25s" }}
+            onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+            onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; }}>
+            <div style={{ fontSize: "24px" }}>{"\u2764\ufe0f"}</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: "14px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Partner Style Quiz</div>
+              <div style={{ fontSize: "12px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>What kind of partner are you? Send it to yours.</div>
+            </div>
+            <div style={{ fontSize: "14px", color: "#2d6a4f" }}>{"\u2192"}</div>
+          </a>
+        </div>
         {!isPro && (
           <button onClick={() => setShowPaywall(true)} style={{ display: "block", margin: "16px auto 0", padding: "10px 24px", background: "transparent", border: "1.5px solid #2d6a4f", borderRadius: "99px", color: "#2d6a4f", fontSize: "13px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
             ✦ Unlock all categories — $4.99/mo
