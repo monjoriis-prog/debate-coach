@@ -8,44 +8,59 @@ const STYLES: Record<StyleKey, any> = {
   protector: {
     name: "The Protector", emoji: "\ud83d\udee1\ufe0f", color: "#2d6a4f",
     tagline: "You love by making sure they never have to worry.",
-    description: "You show love through action \u2014 fixing things, planning ahead, stepping up when life gets hard. Your partner always feels safe with you. Your blind spot? You sometimes take over when they need partnership, not rescue. And you forget to let yourself be taken care of too.",
-    strength: "Your partner never doubts that you\u2019ll show up when it matters.",
-    growth: "Ask \u2018Do you want me to help or just listen?\u2019 before jumping in.",
-    scenarios: ["Letting your partner handle something without stepping in", "Asking for help when YOU need it"]
+    description: "You show love through action \u2014 fixing things, planning ahead, stepping up when life gets hard. Your partner always feels safe with you. You\u2019re the one who checks the locks, handles the logistics, and carries the heavy things \u2014 literal and emotional.\n\nBut here\u2019s the part you don\u2019t see: you sometimes take over when your partner needs a teammate, not a hero. And you rarely let yourself be taken care of \u2014 because needing help feels like failing at your one job.",
+    deepInsight: "You probably learned early that love meant protection \u2014 that your value was in what you could provide, fix, or shield others from. That instinct is beautiful. But it\u2019s also exhausting, and it can quietly communicate to your partner: \u2018I don\u2019t trust you to handle things.\u2019 That\u2019s not what you mean. But it\u2019s what lands.",
+    strength: "Your partner never doubts that you\u2019ll show up. In a world of unreliable people, that\u2019s everything.",
+    growth: "Ask \u2018Do you want my help or just my presence?\u2019 before jumping in. Let yourself be held sometimes.",
+    patterns: ["You\u2019ve taken over a task your partner was handling because you thought you\u2019d do it better", "Being needed feels more natural to you than being wanted", "You have trouble relaxing when something is unresolved or unfinished", "You\u2019ve been told \u2018I can handle it\u2019 and felt useless instead of relieved"],
+    cost: "Your partner may have stopped asking you for emotional vulnerability because you\u2019ve trained them to see you as the strong one. They take care of your feelings by never requiring them.",
+    scenarios: ["Letting your partner handle something without stepping in", "Saying \u2018I\u2019m not okay\u2019 without immediately having a plan to fix it"]
   },
   freeSpirit: {
     name: "The Free Spirit", emoji: "\ud83e\udee7", color: "#7c5cbf",
     tagline: "You love deeply \u2014 but you need room to breathe.",
-    description: "You value growth, independence, and authenticity in love. You\u2019re drawn to partners who have their own thing going on. Your blind spot? What feels like healthy independence to you can feel like distance to someone who needs more closeness. You\u2019re not cold \u2014 you just recharge alone.",
-    strength: "You keep the relationship from becoming codependent. You inspire growth.",
-    growth: "Sometimes \u2018I need space\u2019 lands as \u2018I don\u2019t need you.\u2019 Name the difference.",
-    scenarios: ["Saying \u2018I need alone time\u2019 without it feeling like rejection", "Being fully present when your partner needs closeness"]
+    description: "You value independence, growth, and authenticity in love. You\u2019re drawn to partners who have their own thing going on \u2014 who don\u2019t need you to complete them. You love deeply, but your love needs air. Without space, you feel trapped. With it, you\u2019re the most present, passionate partner imaginable.\n\nBut what feels like healthy independence to you can feel like distance to someone who needs more closeness. You\u2019re not cold \u2014 you\u2019re just wired to recharge alone. The problem is, your partner may not know the difference.",
+    deepInsight: "Your need for space isn\u2019t about not loving enough. It\u2019s often about fear \u2014 fear that too much closeness will swallow who you are. Maybe you watched someone lose themselves in a relationship. Maybe you did. So you built walls that look like independence but function like armor.",
+    strength: "You keep the relationship from becoming codependent. You inspire your partner to grow alongside you, not into you.",
+    growth: "Sometimes \u2018I need space\u2019 lands as \u2018I don\u2019t need you.\u2019 Name the difference out loud. It costs you nothing and means everything to them.",
+    patterns: ["You\u2019ve pulled away after a really intimate moment \u2014 not because it was bad, but because it was a lot", "You\u2019ve been called \u2018hard to read\u2019 or \u2018emotionally unavailable\u2019 and it stung because you DO feel deeply", "You need solo time to process your emotions before you can share them", "You\u2019ve ended something good because it started to feel like it was consuming you"],
+    cost: "The people who love you most may be quietly starving for a closeness you\u2019re capable of but rarely offer. And they\u2019ve stopped asking because they don\u2019t want to be the \u2018needy\u2019 one.",
+    scenarios: ["Saying \u2018I need alone time\u2019 without it feeling like rejection", "Moving toward your partner instead of away when things get intense"]
   },
   nurturer: {
     name: "The Nurturer", emoji: "\ud83e\ude77", color: "#c9184a",
     tagline: "You love by making people feel like they matter.",
-    description: "You\u2019re the partner who remembers the small things, checks in after a hard day, and makes people feel truly seen. Love for you is emotional attentiveness. Your blind spot? You give so much that you can lose yourself. And you sometimes expect your partner to read your needs the way you read theirs.",
-    strength: "Your partner always feels emotionally held and valued.",
-    growth: "Say what you need out loud. Your partner can\u2019t match your intuition \u2014 that\u2019s not a failure of love.",
-    scenarios: ["Asking for care instead of waiting to be noticed", "Setting limits on how much you give"]
+    description: "You\u2019re the partner who remembers the small things \u2014 the coffee order, the hard day at work, the thing they mentioned three weeks ago. You check in. You make people feel seen in a way that most people have never experienced. Love, for you, is emotional attentiveness.\n\nBut here\u2019s the shadow side: you give so much that you lose yourself in the giving. And you expect your partner to read your needs the way you read theirs \u2014 which sets them up to fail, because nobody\u2019s intuition matches yours.",
+    deepInsight: "You may have learned that being loved meant being needed \u2014 that your worth was in how well you anticipated and met other people\u2019s needs. So you became the best at it. But somewhere in the process, your own needs became invisible. Not to others \u2014 to you. You genuinely might not know what you need anymore.",
+    strength: "Your partner feels emotionally held in a way they\u2019ve probably never experienced. That kind of love is transformative.",
+    growth: "Say what you need before it becomes resentment. Your partner can\u2019t match your intuition \u2014 that\u2019s not a failure of their love.",
+    patterns: ["You\u2019ve gotten upset that your partner didn\u2019t notice something you\u2019d never actually asked for", "You feel guilty taking time for yourself when your partner is stressed", "You\u2019ve said \u2018I\u2019m fine\u2019 while holding back tears because the timing wasn\u2019t right", "Other people\u2019s moods directly affect yours \u2014 their bad day becomes your bad day"],
+    cost: "You\u2019re building resentment one unspoken need at a time. And the person you\u2019re resenting has no idea \u2014 because you\u2019ve been so good at seeming fine.",
+    scenarios: ["Asking for care instead of hoping to be noticed", "Letting your partner give back to you without deflecting"]
   },
   spark: {
     name: "The Spark", emoji: "\ud83d\udd25", color: "#e07a2f",
     tagline: "You keep love from ever getting boring.",
-    description: "You bring energy, spontaneity, and passion. You plan surprises, shake up routines, and keep the relationship alive. Your blind spot? You can mistake comfort for complacency. Not every quiet night means something\u2019s wrong. The partner who craves stability might feel exhausted trying to keep up.",
-    strength: "Your partner never takes the relationship for granted. You keep the spark alive.",
-    growth: "Practice being still together. Boredom isn\u2019t a threat \u2014 it\u2019s sometimes just peace.",
-    scenarios: ["Enjoying a quiet night without creating excitement", "Letting your partner set the pace sometimes"]
+    description: "You bring energy, spontaneity, and passion. You plan the surprise weekend trips, the random Tuesday date nights, the \u2018let\u2019s just GO\u2019 moments. You keep the relationship alive because you refuse to let it become routine.\n\nBut here\u2019s the edge: you can mistake comfort for complacency. Not every quiet night means something\u2019s dying. The partner who craves stability might feel exhausted trying to match your pace \u2014 and guilty for wanting to just... be still.",
+    deepInsight: "Your need for intensity might be connected to a fear that ordinary love isn\u2019t real love. If it\u2019s not exciting, is it even alive? That belief keeps the fire burning \u2014 but it also means you might run from the deepest kind of intimacy: the kind that\u2019s quiet, steady, and unspectacular.",
+    strength: "Your partner never takes the relationship for granted. With you, love is an experience, not a contract.",
+    growth: "Practice being bored together. Boredom isn\u2019t a threat \u2014 it\u2019s sometimes just peace wearing different clothes.",
+    patterns: ["You\u2019ve felt panicky when a relationship settled into routine, even if it was healthy", "You create excitement partly because stillness makes you anxious", "You\u2019ve been told you\u2019re \u2018a lot\u2019 \u2014 and you\u2019re not sure if it\u2019s a compliment", "When things are going well, you sometimes unconsciously create drama because calm feels suspicious"],
+    cost: "Your partner might be exhausted but won\u2019t say it because your energy is part of what they fell in love with. They\u2019re performing enthusiasm to match yours \u2014 and slowly burning out.",
+    scenarios: ["Enjoying a quiet night in without creating excitement or fixing the \u2018problem\u2019 of stillness", "Asking your partner what THEY need instead of planning what you think they\u2019ll love"]
   },
   anchor: {
     name: "The Anchor", emoji: "\u2693", color: "#1b4332",
     tagline: "You love by being the person who never wavers.",
-    description: "You\u2019re steady, dependable, and consistent. Your partner always knows where they stand with you. You show love through reliability \u2014 showing up, following through, being the calm in every storm. Your blind spot? Stability can become rigidity. You might resist change or avoid hard conversations to keep the peace.",
-    strength: "Your partner feels grounded and secure. You\u2019re the foundation everything else is built on.",
-    growth: "Stability doesn\u2019t mean avoiding discomfort. Sometimes love requires shaking things up.",
-    scenarios: ["Initiating a hard conversation you\u2019ve been avoiding", "Being spontaneous when your partner needs it"]
+    description: "You\u2019re steady, dependable, and consistent. Your partner always knows where they stand with you. You don\u2019t do grand gestures \u2014 you do every day. You show love through reliability: showing up, following through, being the calm in every storm.\n\nBut here\u2019s the other side: stability can become rigidity. You might resist change, avoid difficult conversations, or stick with what\u2019s comfortable even when it\u2019s no longer working. Your strength is your consistency \u2014 but your blind spot is thinking that consistency alone is enough.",
+    deepInsight: "You may have grown up in chaos \u2014 or you watched someone you loved become unreliable. So you became the opposite. The one who always shows up. The one who never shakes. But in building that steadiness, you may have also learned to avoid anything that might rock the boat \u2014 including the hard truths your relationship needs to hear.",
+    strength: "Your partner feels grounded and secure. In a world of uncertainty, you\u2019re the foundation everything else is built on.",
+    growth: "Stability doesn\u2019t mean avoiding discomfort. The most loving thing you can do is sometimes shake things up.",
+    patterns: ["You\u2019d rather keep a routine than try something your partner is excited about", "You\u2019ve avoided a conversation because things were \u2018fine enough\u2019", "Change \u2014 even positive change \u2014 makes you more anxious than you\u2019d admit", "You show love through actions so consistently that your partner might forget you have emotional needs too"],
+    cost: "Your reliability can become invisible \u2014 like air. Essential, but taken for granted. And you might be so focused on keeping things stable that you\u2019re missing the growth your relationship is asking for.",
+    scenarios: ["Initiating a hard conversation even though nothing is \u2018wrong\u2019", "Doing something spontaneous that makes you uncomfortable but makes your partner light up"]
   },
-};
+}
 
 const COMPAT: Record<string, { dynamic: string; strength: string; watchFor: string; practice: string }> = {
   "protector+protector": { dynamic: "Two Protectors create a fortress \u2014 but nobody\u2019s inside it being vulnerable. You\u2019re both so busy shielding each other that real intimacy gets locked out.", strength: "Unshakable loyalty. You\u2019d go to war for each other.", watchFor: "Competing over who takes care of whom. Neither of you asks for help.", practice: "Take turns being the \u2018weak\u2019 one. Vulnerability isn\u2019t a crack in the armor \u2014 it\u2019s the door." },
@@ -66,56 +81,56 @@ const COMPAT: Record<string, { dynamic: string; strength: string; watchFor: stri
 };
 
 const QUESTIONS = [
-  { scenario: "Your partner had a terrible day at work. They walk in the door looking defeated.", answers: [
-    { text: "Already researching solutions before they finish talking", style: "protector" as StyleKey },
-    { text: "Give them space to decompress alone first", style: "freeSpirit" as StyleKey },
-    { text: "Sit next to them, hold their hand, ask what happened", style: "nurturer" as StyleKey },
-    { text: "Suggest ditching plans and doing something fun to reset", style: "spark" as StyleKey },
-    { text: "Make dinner, keep things calm, let them come to you", style: "anchor" as StyleKey },
+  { scenario: "Your partner had a terrible day. They walk in the door looking defeated. They haven\u2019t said a word yet.", answers: [
+    { text: "Already scanning for what went wrong and how I can fix it before they even sit down", style: "protector" as StyleKey },
+    { text: "Give them quiet space. They\u2019ll talk when they\u2019re ready \u2014 pushing won\u2019t help", style: "freeSpirit" as StyleKey },
+    { text: "Sit close. Touch their hand. \u2018I\u2019m here. Tell me everything or tell me nothing.\u2019", style: "nurturer" as StyleKey },
+    { text: "Suggest scrapping all plans and doing something completely different to reset the energy", style: "spark" as StyleKey },
+    { text: "Quietly handle dinner, keep the house calm, let them come to me when they\u2019re ready", style: "anchor" as StyleKey },
   ]},
-  { scenario: "You\u2019re planning your anniversary. What matters most to you?", answers: [
-    { text: "Making sure everything is handled so they don\u2019t have to think", style: "protector" as StyleKey },
-    { text: "Something meaningful but low-pressure \u2014 no forced romance", style: "freeSpirit" as StyleKey },
-    { text: "A heartfelt letter or gift that shows I really see them", style: "nurturer" as StyleKey },
-    { text: "A surprise they\u2019d never expect \u2014 something unforgettable", style: "spark" as StyleKey },
-    { text: "Revisiting the place or tradition that\u2019s become \u2018ours\u2019", style: "anchor" as StyleKey },
+  { scenario: "Things have been fine between you \u2014 not bad, not great. Just\u2026 flat. You realize you can\u2019t remember the last time you felt truly connected.", answers: [
+    { text: "Plan something intentional to fix it \u2014 a trip, a special dinner, a conversation", style: "protector" as StyleKey },
+    { text: "Focus on my own growth first. When I\u2019m fulfilled, I show up better", style: "freeSpirit" as StyleKey },
+    { text: "Write them a letter about what I love about us and what I\u2019ve been missing", style: "nurturer" as StyleKey },
+    { text: "Shake everything up. Break the routine. Surprise them. Do something we\u2019d never do", style: "spark" as StyleKey },
+    { text: "Trust the season. Not every chapter needs to be a highlight. We\u2019re solid", style: "anchor" as StyleKey },
   ]},
-  { scenario: "Your partner wants to make a big life change \u2014 new career, new city, something risky.", answers: [
-    { text: "Start mapping out how to make it work safely", style: "protector" as StyleKey },
-    { text: "Excited \u2014 growth is what keeps a relationship alive", style: "freeSpirit" as StyleKey },
-    { text: "Ask how they\u2019re feeling about it emotionally, not just logistically", style: "nurturer" as StyleKey },
-    { text: "Jump in with them \u2014 why not? Life\u2019s short", style: "spark" as StyleKey },
-    { text: "Need time to process \u2014 want to make sure it won\u2019t destabilize what we\u2019ve built", style: "anchor" as StyleKey },
+  { scenario: "Your partner tells you: \u2018I don\u2019t feel like you really see me anymore.\u2019 It catches you off guard.", answers: [
+    { text: "Immediately think about what I\u2019ve been missing and start making changes", style: "protector" as StyleKey },
+    { text: "Need a moment. Ask them to explain what they mean \u2014 I can\u2019t fix what I don\u2019t understand", style: "freeSpirit" as StyleKey },
+    { text: "Feel it in my chest. Sit with them and say: \u2018Tell me more. I want to hear all of it.\u2019", style: "nurturer" as StyleKey },
+    { text: "Plan something that proves I see them \u2014 something only I would know they\u2019d love", style: "spark" as StyleKey },
+    { text: "Reflect honestly. Have I been on autopilot? Probably. Time to be more intentional", style: "anchor" as StyleKey },
   ]},
-  { scenario: "Things have felt routine lately. The relationship isn\u2019t bad, just\u2026 flat.", answers: [
-    { text: "Plan something to fix it \u2014 a trip, a date, a reset", style: "protector" as StyleKey },
-    { text: "Focus on my own growth \u2014 when I\u2019m fulfilled, the relationship improves", style: "freeSpirit" as StyleKey },
-    { text: "Write them a note about what I love about us and what I miss", style: "nurturer" as StyleKey },
-    { text: "Shake everything up \u2014 try something new, break the pattern", style: "spark" as StyleKey },
-    { text: "Trust that seasons are normal \u2014 not every week needs to be a highlight reel", style: "anchor" as StyleKey },
+  { scenario: "You disagree about something that matters \u2014 money, family, or a major life decision. Neither of you is budging.", answers: [
+    { text: "Take the lead. Research options, run numbers, present a plan that protects us both", style: "protector" as StyleKey },
+    { text: "Need time alone to think before I can talk about it without reacting emotionally", style: "freeSpirit" as StyleKey },
+    { text: "Before pushing my view, I need to understand what this means to them emotionally", style: "nurturer" as StyleKey },
+    { text: "Hash it out right now. Tension gets worse the longer you let it breathe", style: "spark" as StyleKey },
+    { text: "Find the middle ground that keeps things stable. Compromise keeps us together", style: "anchor" as StyleKey },
   ]},
-  { scenario: "Your partner says \u2018I don\u2019t feel like you really see me.\u2019", answers: [
-    { text: "Think about what I\u2019ve been missing and make changes immediately", style: "protector" as StyleKey },
-    { text: "Ask what they need \u2014 I can\u2019t guess, and that\u2019s okay", style: "freeSpirit" as StyleKey },
-    { text: "Feel it deeply \u2014 sit with them and ask them to tell me more", style: "nurturer" as StyleKey },
-    { text: "Plan something that shows I know them \u2014 actions over words", style: "spark" as StyleKey },
-    { text: "Reflect honestly on whether I\u2019ve been on autopilot", style: "anchor" as StyleKey },
+  { scenario: "Your partner wants to make a big change \u2014 new career, new city, something that would upend your current life together.", answers: [
+    { text: "Start mapping how to make it work safely. If they want this, I\u2019ll build the plan", style: "protector" as StyleKey },
+    { text: "Honestly excited. Growth is what keeps a relationship alive. Let\u2019s evolve", style: "freeSpirit" as StyleKey },
+    { text: "Ask how they\u2019re really feeling about it \u2014 the excitement AND the fear underneath", style: "nurturer" as StyleKey },
+    { text: "Jump in with them. This is what life is for. We\u2019ll figure it out on the way", style: "spark" as StyleKey },
+    { text: "Need time to process. I want to support them but I also need to know we\u2019re not destabilizing everything we\u2019ve built", style: "anchor" as StyleKey },
   ]},
-  { scenario: "You disagree about something important \u2014 finances, family, future plans.", answers: [
-    { text: "Take the lead and find a solution that protects both of us", style: "protector" as StyleKey },
-    { text: "Need time alone to think before I can talk about it clearly", style: "freeSpirit" as StyleKey },
-    { text: "Focus on understanding their feelings before pushing my view", style: "nurturer" as StyleKey },
-    { text: "Hash it out right now \u2014 tension just gets worse when you wait", style: "spark" as StyleKey },
-    { text: "Look for the compromise that keeps things stable and fair", style: "anchor" as StyleKey },
+  { scenario: "After an argument, there\u2019s still tension in the air. You\u2019re both in the same room but neither of you has spoken yet.", answers: [
+    { text: "Break the silence first. Bring a peace offering \u2014 a drink, a blanket, something small that says \u2018I\u2019m still here\u2019", style: "protector" as StyleKey },
+    { text: "Give it time. Rushing repair before we\u2019ve both processed will just restart the fight", style: "freeSpirit" as StyleKey },
+    { text: "Go to them. Touch their arm. \u2018I don\u2019t want to be in this space with you. Can we talk?\u2019", style: "nurturer" as StyleKey },
+    { text: "Say something unexpected. Make them laugh. Break the ice before it freezes solid", style: "spark" as StyleKey },
+    { text: "Wait. Let the dust settle. We\u2019ll talk when we\u2019re both calm and the words will be better", style: "anchor" as StyleKey },
   ]},
-  { scenario: "Your partner does something small but thoughtful \u2014 remembers your coffee order, leaves a note, handles a chore you hate.", answers: [
-    { text: "Think: that\u2019s MY job \u2014 but also feel quietly loved", style: "protector" as StyleKey },
-    { text: "Appreciate it but don\u2019t need it \u2014 love isn\u2019t about small gestures for me", style: "freeSpirit" as StyleKey },
-    { text: "Melt. This is exactly how love should feel. Return it tenfold", style: "nurturer" as StyleKey },
-    { text: "Love it \u2014 and immediately plan something to one-up them", style: "spark" as StyleKey },
-    { text: "Notice it, feel grateful, and remember it for a long time", style: "anchor" as StyleKey },
+  { scenario: "Your partner does something small but deeply thoughtful \u2014 remembers your coffee order after a bad week, leaves a note, handles the thing you hate doing.", answers: [
+    { text: "Think: wait, that\u2019s MY job. But also feel quietly, surprisingly loved", style: "protector" as StyleKey },
+    { text: "Appreciate it. But I don\u2019t need gestures to feel loved \u2014 I need them to respect my space and support my growth", style: "freeSpirit" as StyleKey },
+    { text: "Completely melt. THIS is love. And I will absolutely return it tenfold", style: "nurturer" as StyleKey },
+    { text: "Love it \u2014 and immediately start planning how to one-up them", style: "spark" as StyleKey },
+    { text: "Notice it quietly. Feel grateful in a way I might not say out loud but will remember for months", style: "anchor" as StyleKey },
   ]},
-];
+]
 
 function shuffle<T>(arr: T[], seed: number): T[] {
   const a = [...arr];
@@ -210,17 +225,19 @@ function QuizInner() {
           ) : (
             <>
               <h1 style={{ fontSize: "clamp(32px, 7vw, 48px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 16px", lineHeight: 1.2, letterSpacing: "-0.5px" }}>What Kind of<br />Partner Are You?</h1>
-              <p style={{ color: "#52796f", fontSize: "16px", lineHeight: 1.8, margin: "0 0 40px" }}>7 real relationship moments. No right answers.<br />Discover how you love {"\u2014"} and what your partner needs to know.</p>
+              <p style={{ color: "#52796f", fontSize: "16px", lineHeight: 1.8, margin: "0 0 40px" }}>7 real relationship moments. No wrong answers.<br />Discover how you love {"\u2014"} and what your partner needs to know.</p>
             </>
           )}
           <button onClick={() => setStarted(true)} style={{ padding: "18px 48px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", transition: "all 0.3s" }}
             onMouseEnter={e => { e.currentTarget.style.background = "#40916c"; e.currentTarget.style.transform = "translateY(-2px)"; }}
             onMouseLeave={e => { e.currentTarget.style.background = "#2d6a4f"; e.currentTarget.style.transform = "none"; }}>{compareMode ? "Take the Quiz" : "Take the Quiz \u2192"}</button>
           {!compareMode && (
+            <>
             <p style={{ color: "#84a98c", fontSize: "12px", marginTop: "24px", fontFamily: "-apple-system, sans-serif" }}>Takes 2 minutes {"\u00b7"} Free {"\u00b7"} Send to your partner</p>
               <div style={{ marginTop: "32px", padding: "16px 20px", background: "#fff", borderRadius: "12px", border: "1.5px solid #d8e8e0", display: "inline-block" }}>
                 <a href="/quiz" style={{ color: "#1a2e1a", fontSize: "14px", fontFamily: "-apple-system, sans-serif", textDecoration: "none", fontWeight: "600" }}>{"\ud83d\udde3\ufe0f"} Take the Communication Style Quiz instead</a>
               </div>
+            </>
           )}
         </div>
       </div>
@@ -303,7 +320,9 @@ function QuizInner() {
               <div style={{ fontSize: "48px", marginBottom: "8px" }}>{st.emoji}</div>
               <h2 style={{ fontSize: "32px", fontWeight: "400", color: "#e8f0ec", margin: "0 0 8px", letterSpacing: "-0.5px" }}>{st.name}</h2>
               <p style={{ fontSize: "16px", color: st.color, fontStyle: "italic", margin: "0 0 24px", lineHeight: 1.6 }}>"{st.tagline}"</p>
-              <p style={{ fontSize: "14px", color: "#b7c9be", lineHeight: 1.8, margin: "0 0 24px" }}>{st.description}</p>
+              {st.description.split("\n\n").map((p: string, i: number) => (
+                <p key={i} style={{ fontSize: "14px", color: "#b7c9be", lineHeight: 1.8, margin: "0 0 16px" }}>{p}</p>
+              ))}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
                 <div style={{ background: "#0a1a1218", borderRadius: "12px", padding: "14px", border: "1px solid #2d6a4f22" }}>
                   <div style={{ fontSize: "11px", fontWeight: "700", color: "#2d6a4f", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "6px", fontFamily: "-apple-system, sans-serif" }}>Your Strength</div>
@@ -317,6 +336,26 @@ function QuizInner() {
               <div style={{ marginTop: "20px", textAlign: "center" }}>
                 <div style={{ fontSize: "10px", color: "#52796f", fontFamily: "-apple-system, sans-serif", letterSpacing: "0.15em" }}>FORTE {"\u00b7"} debate-coach-seven.vercel.app</div>
               </div>
+            </div>
+          </div>
+
+
+          <div style={{ background: "#fff", borderRadius: "16px", padding: "24px", border: "1.5px solid #d8e8e0", marginBottom: "16px" }}>
+            <div style={{ fontSize: "11px", fontWeight: "700", color: "#1a2e1a", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>What you might not realize</div>
+            <p style={{ fontSize: "14px", color: "#1a2e1a", lineHeight: 1.8, margin: "0 0 20px", fontFamily: "-apple-system, sans-serif", fontStyle: "italic" }}>{st.deepInsight}</p>
+            <div style={{ fontSize: "11px", fontWeight: "700", color: "#c9184a", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "10px", fontFamily: "-apple-system, sans-serif" }}>What it costs you</div>
+            <p style={{ fontSize: "13px", color: "#52796f", lineHeight: 1.7, margin: 0, fontFamily: "-apple-system, sans-serif" }}>{st.cost}</p>
+          </div>
+
+          <div style={{ background: "#fff", borderRadius: "16px", padding: "24px", border: "1.5px solid #d8e8e0", marginBottom: "16px" }}>
+            <div style={{ fontSize: "11px", fontWeight: "700", color: "#1a2e1a", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>You might recognize this</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+              {st.patterns.map((p: string, i: number) => (
+                <div key={i} style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
+                  <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: st.color, marginTop: "8px", flexShrink: 0 }} />
+                  <div style={{ fontSize: "13px", color: "#52796f", lineHeight: 1.6, fontFamily: "-apple-system, sans-serif" }}>{p}</div>
+                </div>
+              ))}
             </div>
           </div>
 

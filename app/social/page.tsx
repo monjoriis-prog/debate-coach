@@ -1429,6 +1429,205 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         ],
         prompt: `You want to change careers and it's something you've been building toward. You need your partner to lead with belief, not skepticism. You're open to practical questions once you feel supported — but if they come with doubts first, you'll get defensive and feel unseen. Light up if they ask about your vision before testing your plan, and share fears as fears rather than objections.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
+
+      {
+        subcategory: "Guidance & life decisions",
+        title: "Deciding whether to have kids",
+        subtitle: "One of you is sure. The other isn't. This is the conversation.",
+        ai_role: "your partner",
+        voice: { pitch: 1.1, rate: 0.8, preferFemale: true },
+        lessons: [
+          {
+            tip: "Don't treat ambivalence as a problem to solve",
+            why: "Not being sure about kids isn't a flaw \u2014 it's honest. Pressuring someone toward certainty creates resentment, not readiness.",
+            bad: { user: "You need to figure this out. We can't wait forever.", ai: "*(pulls back)* Now I feel like I'm on a deadline instead of in a relationship.", note: "\u274c Turned a deeply personal question into an ultimatum. They shut down." },
+            good: { user: "I know neither of us has a perfect answer right now. Can we just be honest about where we each are?", ai: "*(exhales)* Yeah. I'd like that. I've been afraid to say what I actually feel.", note: "\u2713 Made space for honesty without forcing a verdict." },
+          },
+          {
+            tip: "Share the fear underneath the position",
+            why: "Most disagreements about kids aren't about kids \u2014 they're about identity, freedom, readiness, or what love is supposed to look like.",
+            bad: { user: "I just think we'd be amazing parents and I don't want to miss out.", ai: "*(quietly)* And I don't want to lose who I am. But I can't say that without sounding selfish.", note: "\u274c Only shared the dream. They couldn't share the fear." },
+            good: { user: "I want to be honest \u2014 part of me is scared too. Can you tell me what scares you about it?", ai: "*(opens up)* I'm scared I'll disappear into it. That I won't be me anymore.", note: "\u2713 Named your own fear first. They felt safe enough to name theirs." },
+          },
+          {
+            tip: "Make it a conversation you return to, not a one-time decision",
+            why: "The biggest life decisions shouldn't be settled in one conversation. Build a practice of checking in without pressure.",
+            bad: { user: "So what's your answer? Are we doing this or not?", ai: "*(panicked)* I don't know! Why does this have to be right now?", note: "\u274c Demanded a final answer on something they're still processing." },
+            good: { user: "I don't need an answer today. But I'd like this to be something we keep talking about openly \u2014 no pressure, just honesty.", ai: "*(visibly relieved)* Thank you. I really need that.", note: "\u2713 Removed the pressure. Now they can actually think instead of perform." },
+          },
+        ],
+        suggestions: [
+          ["I want to be honest about where I am \u2014 and hear where you are. No judgment.", "This is something I think about a lot. Can we talk about it without needing to decide?", "I don't want to pressure you. I just want to understand what you're feeling."],
+          ["What scares you most about it? I have fears too.", "Is it the idea of kids that worries you, or the timing, or something deeper?", "I want to know what's underneath your hesitation \u2014 not to fix it, just to understand."],
+          ["What would need to be true for you to feel ready \u2014 or to know you don't want this?", "Can we keep this as an open conversation we come back to?", "I'd rather wait and both be sure than rush and have one of us feel trapped."],
+        ],
+        prompt: `Your partner wants to talk about having children. You're genuinely unsure \u2014 not opposed, but not ready, and maybe not sure you ever will be. You're afraid that saying "I don't know" will be treated as "no" or as something wrong with you. If they pressure you, you'll go quiet. If they make space for your ambivalence without treating it as a problem, you'll slowly open up about what's really underneath \u2014 fears about identity, freedom, readiness, or your own childhood. If they share their own fears first, you'll feel much safer.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Guidance & life decisions",
+        title: "Talking to your parents about your life choices",
+        subtitle: "You've made a decision. They don't agree. You still want their respect.",
+        ai_role: "your parent",
+        voice: { pitch: 0.85, rate: 0.75, preferFemale: true },
+        lessons: [
+          {
+            tip: "Lead with the relationship, not the announcement",
+            why: "When you open with the decision, they react to the decision. When you open with what they mean to you, they listen differently.",
+            bad: { user: "I've decided to drop out of law school. I know you'll be upset but it's my life.", ai: "*(stunned)* You're throwing away everything we worked for? Everything WE sacrificed?", note: "\u274c Led with the decision and a preemptive wall. They heard rejection, not growth." },
+            good: { user: "Before I tell you what I've decided, I want you to know \u2014 your opinion matters to me more than almost anyone's. That's why I'm coming to you first.", ai: "*(softens)* Okay. I'm listening. What's going on?", note: "\u2713 Honored the relationship before delivering the news. They felt valued, not sidelined." },
+          },
+          {
+            tip: "Show them the thought process, not just the conclusion",
+            why: "Parents worry when they think a decision was impulsive. Walking them through your reasoning shows maturity and earns their trust.",
+            bad: { user: "I just know this is right for me. I can feel it.", ai: "*(frustrated)* Feelings don't pay bills. What's your actual plan?", note: "\u274c 'I just feel it' sounds reckless to someone who's watched you grow up." },
+            good: { user: "Here's what I've been thinking through \u2014 the reasons, the risks, and how I plan to handle the hard parts.", ai: "*(nods slowly)* I still have concerns, but I can see you've really thought about this.", note: "\u2713 Showed your work. They can disagree with the conclusion but respect the process." },
+          },
+          {
+            tip: "Let them have their feelings without making it mean they don't support you",
+            why: "A parent's disappointment isn't always disapproval. Sometimes it's grief \u2014 for the future they imagined for you. Give them room to feel it.",
+            bad: { user: "If you can't be happy for me then I don't know what to tell you.", ai: "*(hurt)* I'm your mother. I'm allowed to have feelings about your life.", note: "\u274c Made their feelings the enemy. Now they're defending themselves instead of processing." },
+            good: { user: "I know this isn't what you pictured for me. I'm not asking you to be happy about it right away \u2014 just to stay in this with me.", ai: "*(tearful but present)* I just want you to be okay. That's all I've ever wanted.", note: "\u2713 Gave them permission to grieve without it meaning they've failed you." },
+          },
+        ],
+        suggestions: [
+          ["Before I share what I've decided, I want you to know your opinion matters deeply to me.", "I want to tell you something important \u2014 and I want to do it the right way.", "I've been thinking about something big, and you're the person I want to talk it through with."],
+          ["Here's what I've been thinking through \u2014 the reasons, the risks, and my plan.", "I know this isn't what you expected. Can I walk you through how I got here?", "I didn't come to this lightly. I want to show you what I've considered."],
+          ["I know this isn't what you pictured. I'm not asking you to agree \u2014 just to stay in this conversation with me.", "Your feelings about this matter to me. I can handle your honesty.", "I'd rather have your honest reaction than your silence."],
+        ],
+        prompt: `You are a parent whose child is telling you about a major life decision you disagree with (dropping out of school, changing careers, moving far away, choosing a different path than expected). You're not controlling \u2014 you're scared. You sacrificed a lot for their future and this feels like watching them throw it away. If they acknowledge your feelings and show they've thought it through carefully, you'll slowly come around \u2014 not to agreement, but to respect. If they dismiss your concerns or get defensive, you'll dig in harder.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Guidance & life decisions",
+        title: "When you're thinking about ending a relationship",
+        subtitle: "You're not sure if you should stay or go. The hardest conversation is with yourself.",
+        ai_role: "your close friend and confidant",
+        voice: { pitch: 1.08, rate: 0.82, preferFemale: true },
+        lessons: [
+          {
+            tip: "Name what you're actually feeling, not what you think you should feel",
+            why: "Most people in this position spend months performing confusion when underneath they already know. Honesty with yourself is the first step.",
+            bad: { user: "I don't know. Everything's fine technically. I just feel... off.", ai: "*(gently)* 'Fine technically' is not how someone in love describes their relationship.", note: "\u274c Hiding behind 'fine' keeps you stuck. Your friend sees through it." },
+            good: { user: "I think I've known for a while. I'm scared to say it out loud because then it becomes real.", ai: "*(holds space)* I know. Say it when you're ready. I'm here.", note: "\u2713 Named the fear of naming it. That's the beginning of clarity." },
+          },
+          {
+            tip: "Separate guilt from love",
+            why: "Staying because you feel guilty isn't love \u2014 it's a prison you've built for yourself. You're allowed to leave someone who hasn't done anything 'wrong.'",
+            bad: { user: "They haven't done anything wrong though. I'd be a terrible person for leaving.", ai: "*(firm but kind)* You're not terrible. But you ARE describing a relationship held together by guilt, not love.", note: "\u274c Guilt is not a reason to stay. It's a reason to be kind about how you go." },
+            good: { user: "I care about them deeply. But I think caring about someone and wanting to build a life with them might be different things.", ai: "*(nods)* That's one of the most honest things I've ever heard you say.", note: "\u2713 Distinguished between love and partnership. That clarity changes everything." },
+          },
+          {
+            tip: "Ask yourself the real question",
+            why: "It's not 'should I leave?' It's 'if nothing changes \u2014 exactly as it is right now \u2014 would I choose this for the rest of my life?'",
+            bad: { user: "Maybe things will get better. We just need to work on it.", ai: "*(carefully)* How long have you been saying that? Honestly.", note: "\u274c 'Maybe it'll get better' without specific changes is just hope dressed as a plan." },
+            good: { user: "If nothing changed \u2014 if this is exactly what it is forever \u2014 would I stay? I think that's the question I've been avoiding.", ai: "*(quietly)* And what's the answer?", note: "\u2713 Asked the question that cuts through everything. Now you can answer honestly." },
+          },
+        ],
+        suggestions: [
+          ["I've been carrying something I haven't said out loud yet.", "I think I've known for a while. I'm just scared to admit it.", "Can I be completely honest with you about something I'm struggling with?"],
+          ["I care about them. But I'm not sure caring is enough anymore.", "I keep waiting to feel something I used to feel. And it's not coming back.", "Nothing is wrong exactly. But nothing feels right either."],
+          ["If nothing changed \u2014 would I choose this? That's what I keep asking myself.", "Am I staying because I want to, or because leaving feels too hard?", "I think I owe both of us the truth. Even if it hurts."],
+        ],
+        prompt: `You are a close, trusted friend. The person talking to you is considering leaving a relationship and they need someone who will be honest but not pushy. Don't tell them what to do \u2014 help them hear what they're actually saying. Reflect back what you notice. Ask the hard questions gently. If they're hiding behind "it's fine" or guilt, challenge that with care. If they name something true and hard, honor it. You've watched this situation longer than they realize.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Guidance & life decisions",
+        title: "Coming out to someone you love",
+        subtitle: "You know who you are. You don't know how they'll react.",
+        ai_role: "someone you love",
+        voice: { pitch: 0.9, rate: 0.78, preferFemale: false },
+        lessons: [
+          {
+            tip: "You don't owe anyone a perfect delivery",
+            why: "This is YOUR truth. You don't have to present it perfectly or manage their reaction. The bravest thing is just saying it.",
+            bad: { user: "I need to tell you something but please don't be upset and please don't think of me differently and I'm sorry if this changes things\u2014", ai: "*(concerned)* You're scaring me. What's wrong?", note: "\u274c Apologizing before you've even spoken teaches them this is something to be sorry for." },
+            good: { user: "There's something true about me that I want to share with you. I'm telling you because you matter to me.", ai: "*(present)* Okay. I'm listening.", note: "\u2713 No apology. Just truth and trust. That sets the right tone." },
+          },
+          {
+            tip: "Give them room to catch up",
+            why: "You've had months or years to process this. They're hearing it for the first time. Their initial reaction isn't always their final one.",
+            bad: { user: "I need you to be okay with this right now.", ai: "*(overwhelmed)* I \u2014 I need a minute. This is a lot.", note: "\u274c Demanded immediate acceptance. Their processing time isn't rejection." },
+            good: { user: "You don't have to say the perfect thing right now. I just needed you to know.", ai: "*(takes a breath)* Thank you for trusting me. I might need some time but I'm not going anywhere.", note: "\u2713 Gave them permission to process. That's how you get genuine acceptance, not performed acceptance." },
+          },
+          {
+            tip: "This moment is about your truth \u2014 not their comfort",
+            why: "You can be kind about HOW you say it. But you don't have to shrink WHO YOU ARE to make someone else comfortable.",
+            bad: { user: "It's not a big deal honestly. Nothing really changes.", ai: "*(confused)* If it's not a big deal, why are you shaking?", note: "\u274c Minimizing your truth to manage their reaction. Your identity isn't 'not a big deal.'" },
+            good: { user: "This is important to me. It's part of who I am. And I want the people I love to know the real me.", ai: "*(emotional)* I want to know the real you too.", note: "\u2713 Claimed the weight of the moment. They met you there." },
+          },
+        ],
+        suggestions: [
+          ["There's something true about me that I want to share with you.", "I'm telling you this because you matter to me and I want you to really know me.", "I've been carrying this for a while and I'm ready to say it out loud."],
+          ["This is who I am. It's not new \u2014 I just haven't said it before.", "This is something I've known about myself for a long time.", "I wanted you to hear this from me, not from anyone else."],
+          ["You don't have to say the perfect thing right now. I just needed you to know.", "I'm still the same person. This is just a part of me you didn't know yet.", "Whatever you're feeling right now is okay. I just ask that you stay in this with me."],
+        ],
+        prompt: `Someone you love is coming out to you. You care about this person deeply. You may be surprised, confused, or need time to process \u2014 but you are not hateful. Your reactions should be realistic and human. If they apologize or minimize it, gently challenge that. If they're clear and brave, meet them with warmth. You might say something imperfect. The goal is to stay present, not perform perfect acceptance.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Guidance & life decisions",
+        title: "Asking for a gap year or break from expectations",
+        subtitle: "Everyone has a plan for your life. You need a pause.",
+        ai_role: "your parent or mentor",
+        voice: { pitch: 0.88, rate: 0.78, preferFemale: true },
+        lessons: [
+          {
+            tip: "Frame it as intention, not escape",
+            why: "A gap year that sounds like running away will be met with fear. A gap year that sounds like a plan will be met with curiosity.",
+            bad: { user: "I'm burnt out and I just need to stop everything for a while.", ai: "*(alarmed)* Stop everything? What does that even mean?", note: "\u274c 'Stop everything' sounds directionless. They hear crisis, not clarity." },
+            good: { user: "I want to take a year to do something intentional before I commit to the next phase. I have specific things I want to explore.", ai: "*(interested)* What are you thinking?", note: "\u2713 Intention over escape. They're curious instead of worried." },
+          },
+          {
+            tip: "Acknowledge their investment without apologizing for your needs",
+            why: "The people who want the best for you have invested in your path. Honoring that while choosing differently is the most mature thing you can do.",
+            bad: { user: "I know you spent a lot on my education but this is what I need.", ai: "*(hurt)* So it was all a waste?", note: "\u274c Acknowledged their sacrifice but framed your need as contradicting it." },
+            good: { user: "Everything you've given me brought me to this point \u2014 including the clarity to know I need this. This isn't despite your investment. It's because of it.", ai: "*(pauses)* I hadn't thought of it that way.", note: "\u2713 Reframed the gap year as a product of their support, not a rejection of it." },
+          },
+          {
+            tip: "Show them what success looks like to YOU",
+            why: "They're scared because their definition of success doesn't include pausing. Show them yours does.",
+            bad: { user: "Success isn't just about money and careers, you know.", ai: "*(defensive)* I never said it was. But the world doesn't wait for you to figure yourself out.", note: "\u274c Criticized their values. Now they're defending themselves." },
+            good: { user: "Here's what I want my life to look like \u2014 and here's why this pause helps me build that, not delay it.", ai: "*(thoughtful)* Okay. Tell me more about what you're envisioning.", note: "\u2713 Showed your vision. They can see the purpose behind the pause." },
+          },
+        ],
+        suggestions: [
+          ["I want to take a year to be intentional about what comes next. Can I tell you why?", "Before I commit to the next phase, I want to make sure I'm choosing it \u2014 not just defaulting to it.", "I need a pause. Not from life \u2014 from autopilot."],
+          ["Everything you've given me is exactly what led me to this clarity. This isn't despite your support \u2014 it's because of it.", "I know this isn't the path you expected. But I want to show you what I'm actually thinking.", "I'm not giving up. I'm making sure the next thing I do is the right thing."],
+          ["Here's what I want to do with this time specifically.", "I'd love your input on how to make this year count.", "What would you need to hear from me to feel okay about this?"],
+        ],
+        prompt: `Someone you care about \u2014 your child, mentee, or younger family member \u2014 is asking for a gap year or pause from the expected path (school, career, etc). You're worried this is avoidance or that they'll fall behind. You worked hard to give them opportunities. If they present it as running away or burning out, you'll push back. If they show intention, acknowledge your investment, and paint a vision, you'll soften. You're not against it \u2014 you're scared.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Guidance & life decisions",
+        title: "Navigating a faith or belief change",
+        subtitle: "You believe something different now. The people you love still believe the old thing.",
+        ai_role: "a family member or close friend who shares your original faith",
+        voice: { pitch: 0.9, rate: 0.78, preferFemale: false },
+        lessons: [
+          {
+            tip: "Share your journey, not your conclusion",
+            why: "Leading with 'I don't believe anymore' puts them in defense mode. Leading with 'here's what I've been going through' invites them into your experience.",
+            bad: { user: "I don't believe in God anymore. I just can't.", ai: "*(shocked)* What happened to you? This isn't who you are.", note: "\u274c Dropped a conclusion without context. They feel like they lost you." },
+            good: { user: "I've been on a journey with my faith that I want to share with you. Some of it might be hard to hear, but I trust you.", ai: "*(uncertain but present)* Okay. I want to understand.", note: "\u2713 Invited them into the process. They're listening, not reacting." },
+          },
+          {
+            tip: "Separate the belief from the relationship",
+            why: "Their biggest fear isn't that you've changed your mind \u2014 it's that you've changed your heart toward them. Make clear you haven't.",
+            bad: { user: "I know this changes things between us.", ai: "*(panicked)* So you're saying our whole relationship was built on something you don't even believe anymore?", note: "\u274c Implied the relationship was conditional on shared belief." },
+            good: { user: "My beliefs have changed, but what I feel about you hasn't. I'm still the same person who loves you.", ai: "*(tearful)* I just... I don't want to lose you.", note: "\u2713 Protected the relationship while being honest about the change." },
+          },
+          {
+            tip: "Don't try to convince them \u2014 just ask to be accepted",
+            why: "You're not asking them to change. You're asking them to love you as you are. That's a much smaller ask, and a much bigger one.",
+            bad: { user: "If you really thought about it, you'd see that a lot of it doesn't make sense.", ai: "*(angry)* So now you think I'm stupid for believing?", note: "\u274c Turned your personal change into an argument about their beliefs." },
+            good: { user: "I'm not asking you to agree with me. I'm asking you to still love me. Can you do that?", ai: "*(struggling but honest)* I will always love you. I just need time.", note: "\u2713 Made the ask about love, not logic. They can give you that." },
+          },
+        ],
+        suggestions: [
+          ["I've been on a journey I want to share with you. Some of it might be hard to hear.", "This isn't something that happened overnight. Can I walk you through what I've been going through?", "I trust you enough to tell you something I've been carrying for a while."],
+          ["My beliefs have changed, but what I feel about you hasn't.", "I'm still the same person. This is just one part of me that's different now.", "I didn't lose my values. They just look different than they used to."],
+          ["I'm not asking you to agree. I'm asking you to stay.", "Can you love me even if we believe different things?", "I don't want this to be something between us. I want it to be something we can talk about."],
+        ],
+        prompt: `Someone you love is telling you they've changed their faith or beliefs \u2014 something that has been central to your shared identity. You feel a mix of grief, confusion, fear, and love. You're not hateful but you're scared \u2014 for them, for your relationship, maybe for their soul depending on your beliefs. If they attack your beliefs, you'll get defensive. If they share their journey with vulnerability and make clear they still love you, you'll struggle but stay present. You may cry. You may ask hard questions. But you don't want to lose them.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
       {
         subcategory: "Red Flags & Boundaries",
         isRedFlag: true,
@@ -4475,7 +4674,7 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
             <div style={{ fontSize: "32px", fontWeight: "400", color: "#1a2e1a", letterSpacing: "-1px" }}>FORTE</div>
           </div>
           <h1 style={{ fontSize: "clamp(28px, 6vw, 40px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 16px", lineHeight: 1.3, letterSpacing: "-0.5px" }}>{"What\u2019s Your"}<br />Communication Style?</h1>
-          <p style={{ color: "#52796f", fontSize: "15px", lineHeight: 1.8, margin: "0 0 40px" }}>7 real scenarios. No right answers.<br />Discover how you handle tension {"\u2014"} and what it costs you.</p>
+          <p style={{ color: "#52796f", fontSize: "15px", lineHeight: 1.8, margin: "0 0 40px" }}>7 real scenarios. No wrong answers.<br />Discover how you handle tension {"\u2014"} and what it costs you.</p>
           <button onClick={() => setQuizStarted(true)} style={{ padding: "16px 44px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", transition: "all 0.3s" }}
             onMouseEnter={e => { e.currentTarget.style.background = "#40916c"; e.currentTarget.style.transform = "translateY(-2px)"; }}
             onMouseLeave={e => { e.currentTarget.style.background = "#2d6a4f"; e.currentTarget.style.transform = "none"; }}>{"Take the Quiz \u2192"}</button>
@@ -4577,6 +4776,49 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
     );
   }
 
+  if (phase === "quizHub") return (
+    <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
+      <div style={{ maxWidth: "600px", margin: "0 auto", padding: "48px 24px 64px" }}>
+        <button onClick={() => { forteSound.stepBack(); setPhase("home"); }} style={{ background: "transparent", border: "none", color: "#52796f", fontSize: "14px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", padding: "0", marginBottom: "32px" }}>{"\u2190"} Back</button>
+        <div style={{ textAlign: "center", marginBottom: "40px" }}>
+          <div style={{ fontSize: "36px", marginBottom: "12px" }}>{"\ud83e\udde0"}</div>
+          <h1 style={{ fontSize: "clamp(24px, 5vw, 32px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 8px" }}>Discover Your Style</h1>
+          <p style={{ fontSize: "14px", color: "#52796f", margin: 0, fontFamily: "-apple-system, sans-serif" }}>2-minute quizzes you can share and compare</p>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          <a href="/quiz" style={{ textDecoration: "none", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "24px", display: "flex", alignItems: "center", gap: "16px", transition: "all 0.25s" }}
+            onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(45,106,79,0.08)"; }}
+            onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+            <div style={{ width: "48px", height: "48px", borderRadius: "14px", background: "#f0f7f4", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px", flexShrink: 0 }}>{"\ud83d\udde3\ufe0f"}</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Communication Style</div>
+              <div style={{ fontSize: "13px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "4px", lineHeight: 1.5 }}>How do you handle tension? Compare with friends, family, or coworkers.</div>
+            </div>
+            <div style={{ fontSize: "16px", color: "#2d6a4f", flexShrink: 0 }}>{"\u2192"}</div>
+          </a>
+          <a href="/quiz/partner" style={{ textDecoration: "none", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "24px", display: "flex", alignItems: "center", gap: "16px", transition: "all 0.25s" }}
+            onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#c9184a"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(201,24,74,0.06)"; }}
+            onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+            <div style={{ width: "48px", height: "48px", borderRadius: "14px", background: "#fdf2f4", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px", flexShrink: 0 }}>{"\u2764\ufe0f"}</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Partner Style</div>
+              <div style={{ fontSize: "13px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "4px", lineHeight: 1.5 }}>What kind of partner are you? Send it to yours and see your compatibility.</div>
+            </div>
+            <div style={{ fontSize: "16px", color: "#c9184a", flexShrink: 0 }}>{"\u2192"}</div>
+          </a>
+          <div style={{ background: "#f5f5f5", border: "1.5px dashed #d0d0d0", borderRadius: "16px", padding: "24px", display: "flex", alignItems: "center", gap: "16px" }}>
+            <div style={{ width: "48px", height: "48px", borderRadius: "14px", background: "#f0f0f0", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px", flexShrink: 0 }}>{"\ud83c\udf31"}</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: "16px", fontWeight: "700", color: "#aaa", fontFamily: "-apple-system, sans-serif" }}>Parenting Style</div>
+              <div style={{ fontSize: "13px", color: "#bbb", fontFamily: "-apple-system, sans-serif", marginTop: "4px", lineHeight: 1.5 }}>What kind of parent are you? Compare with your co-parent.</div>
+            </div>
+            <div style={{ fontSize: "11px", color: "#aaa", fontFamily: "-apple-system, sans-serif", fontWeight: "600", flexShrink: 0 }}>Coming soon</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   if (phase === "home") return (
     <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
       <div style={{ maxWidth: "680px", margin: "0 auto", padding: "72px 24px 48px" }}>
@@ -4607,6 +4849,17 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
             <div style={{ fontSize: "13px", color: "#2d6a4f", fontFamily: "-apple-system, sans-serif" }}>View →</div>
           </button>
         )}
+        <button onClick={() => setPhase("quizHub")} style={{ width: "100%", background: "linear-gradient(145deg, #f0f7f4, #fff)", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "20px 24px", cursor: "pointer", transition: "all 0.3s", display: "flex", alignItems: "center", gap: "16px", textAlign: "left", marginBottom: "20px" }}
+          onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(45,106,79,0.1)"; }}
+          onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+          <div style={{ fontSize: "28px" }}>{"\ud83e\udde0"}</div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Discover Your Style</div>
+            <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>Quick quizzes you can compare with anyone</div>
+          </div>
+          <div style={{ fontSize: "18px", color: "#2d6a4f" }}>{"\u2192"}</div>
+        </button>
+
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
           {SCENARIOS.map((s) => {
             const locked = isCategoryLocked(s.category);
@@ -4649,30 +4902,6 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
         <p style={{ textAlign: "center", color: "#b7c9be", fontSize: "12px", marginTop: "48px", fontFamily: "-apple-system, sans-serif" }}>
           Learn with examples · Practice with AI · Get personal coaching feedback
         </p>
-
-        <div style={{ marginTop: "32px", display: "flex", flexDirection: "column", gap: "10px" }}>
-          <div style={{ fontSize: "11px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>Quizzes</div>
-          <a href="/quiz" style={{ display: "flex", alignItems: "center", gap: "14px", padding: "16px 20px", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "14px", textDecoration: "none", transition: "all 0.25s" }}
-            onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-            onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; }}>
-            <div style={{ fontSize: "24px" }}>{"\ud83d\udde3\ufe0f"}</div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: "14px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Communication Style Quiz</div>
-              <div style={{ fontSize: "12px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>How do you handle tension? Compare with anyone.</div>
-            </div>
-            <div style={{ fontSize: "14px", color: "#2d6a4f" }}>{"\u2192"}</div>
-          </a>
-          <a href="/quiz/partner" style={{ display: "flex", alignItems: "center", gap: "14px", padding: "16px 20px", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "14px", textDecoration: "none", transition: "all 0.25s" }}
-            onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-            onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; }}>
-            <div style={{ fontSize: "24px" }}>{"\u2764\ufe0f"}</div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: "14px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Partner Style Quiz</div>
-              <div style={{ fontSize: "12px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>What kind of partner are you? Send it to yours.</div>
-            </div>
-            <div style={{ fontSize: "14px", color: "#2d6a4f" }}>{"\u2192"}</div>
-          </a>
-        </div>
         {!isPro && (
           <button onClick={() => setShowPaywall(true)} style={{ display: "block", margin: "16px auto 0", padding: "10px 24px", background: "transparent", border: "1.5px solid #2d6a4f", borderRadius: "99px", color: "#2d6a4f", fontSize: "13px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
             ✦ Unlock all categories — $4.99/mo
