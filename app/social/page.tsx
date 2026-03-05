@@ -8180,7 +8180,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
     return (
       <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
         <div style={{ maxWidth: "620px", margin: "0 auto", padding: "40px 24px 80px" }}>
-          <button onClick={() => { window.speechSynthesis.cancel(); setPhase("self_hub"); }} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", marginBottom: "32px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
+          <button onClick={() => { window.speechSynthesis.cancel(); setPhase("home"); }} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", marginBottom: "32px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
 
           <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "6px" }}>
             <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: tool.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "18px", color: tool.accent, border: `1px solid ${tool.accent}22` }}>{tool.icon}</div>
@@ -8511,11 +8511,11 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
         <div style={{ fontSize: "40px", marginBottom: "16px" }}>✦</div>
         <h2 style={{ fontSize: "24px", fontWeight: "400", color: "#1a2e1a", margin: "0 0 12px", fontFamily: "Georgia, serif" }}>Unlock Full FORTE</h2>
         <p style={{ fontSize: "14px", color: "#52796f", lineHeight: 1.8, margin: "0 0 24px", fontFamily: "-apple-system, sans-serif" }}>
-          You've used your {sessionsUsed} free practice sessions. Upgrade to unlock every category, unlimited practice, and the full Self toolkit.
+          You've used your {sessionsUsed} free practice sessions. Upgrade to unlock every category, unlimited practice, and the Problem Solver.
         </p>
         <div style={{ background: "#f0f7f4", borderRadius: "14px", padding: "18px", marginBottom: "24px", textAlign: "left" }}>
           <div style={{ fontSize: "11px", fontWeight: "700", color: "#2d6a4f", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "12px", fontFamily: "-apple-system, sans-serif" }}>FORTE Pro includes:</div>
-          {["All 5 categories + every scenario", "Unlimited practice sessions", "Full Self toolkit — Journal, Meditation, Problem Solver, Activities Finder", "Create Your Own scenarios", "New scenarios added regularly"].map((item, i) => (
+          {["All categories + every scenario", "Unlimited practice sessions", "Problem Solver \u2014 describe any challenge, get a clear plan", "200+ scenarios across family, dating, friends & work", "New scenarios added regularly"].map((item, i) => (
             <div key={i} style={{ fontSize: "13px", color: "#1a2e1a", lineHeight: 1.8, fontFamily: "-apple-system, sans-serif", paddingLeft: "20px", position: "relative" }}>
               <span style={{ position: "absolute", left: 0, color: "#2d6a4f" }}>✓</span> {item}
             </div>
@@ -8949,26 +8949,16 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
             </button>
             );
           })}
-          <button onClick={() => { if (!isPro) { setShowPaywall(true); return; } forteSound.category(); setSelectedCategory({ accent: "#7c5cbf", color: "#f5f0fa" }); setSelfTool(""); setPhase("self_hub"); }}
-            style={{ background: isPro ? "#fff" : "#f5f5f5", border: `1px solid ${isPro ? "#e0d5f5" : "#e0e0e0"}`, borderRadius: "16px", padding: "28px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.25s", position: "relative" }}
-            onMouseEnter={e => { if (isPro) { e.currentTarget.style.borderColor = "#7c5cbf"; e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 12px 32px #7c5cbf18"; } }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = isPro ? "#e0d5f5" : "#e0e0e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
-            <div style={{ color: isPro ? "#7c5cbf" : "#c0c0c0", marginBottom: "14px", filter: isPro ? "none" : "grayscale(1)" }}><Icon html={ICONS.self} size={28} color={isPro ? "#7c5cbf" : "#c0c0c0"} /></div>
-            <div style={{ fontSize: "16px", fontWeight: "700", color: isPro ? "#1a2e1a" : "#aaa", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>Self</div>
-            <div style={{ fontSize: "12px", color: isPro ? "#9b8abf" : "#c0c0c0" }}>Affirmations · Journal · Meditation · Problem solver</div>
-            {!isPro && <div style={{ position: "absolute", top: "12px", right: "12px", fontSize: "16px" }}>🔒</div>}
-          </button>
-          <button onClick={() => { if (!isPro) { setShowPaywall(true); return; } setPhase("custom"); }}
-            style={{ background: isPro ? "#fff" : "#f5f5f5", border: `1px ${isPro ? "dashed #b7d8c8" : "solid #e0e0e0"}`, borderRadius: "16px", padding: "28px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.25s", gridColumn: "span 2", position: "relative" }}
-            onMouseEnter={e => { if (isPro) { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.background = "#f0f7f4"; } }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = isPro ? "#b7d8c8" : "#e0e0e0"; e.currentTarget.style.background = isPro ? "#fff" : "#f5f5f5"; }}>
+          <button onClick={() => { forteSound.category(); setSelfTool("problem"); setSelfInput(""); setSelfResult(null); setSelfMessages([]); setSelfStep(0); setPlanStep(0); setPhase("self_tool"); }}
+            style={{ background: "#fff", border: "1px solid #d8e8e0", borderRadius: "16px", padding: "28px 24px", textAlign: "left", cursor: "pointer", transition: "all 0.25s", gridColumn: "span 2", position: "relative" }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 12px 32px #2d6a4f18"; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
             <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-              <Icon html={ICONS.custom} size={28} color={isPro ? "#2d6a4f" : "#c0c0c0"} />
+              <div style={{ fontSize: "28px" }}>{"\u25c8"}</div>
               <div>
-                <div style={{ fontSize: "16px", fontWeight: "700", color: isPro ? "#1a2e1a" : "#aaa", fontFamily: "-apple-system, sans-serif" }}>Create Your Own Scenario</div>
-                <div style={{ fontSize: "13px", color: isPro ? "#84a98c" : "#c0c0c0", marginTop: "2px" }}>Describe any situation you want to practice</div>
+                <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Problem Solver</div>
+                <div style={{ fontSize: "13px", color: "#84a98c", marginTop: "2px" }}>Describe any challenge {"\u2014"} get a clear action plan</div>
               </div>
-              {!isPro && <div style={{ marginLeft: "auto", fontSize: "16px" }}>🔒</div>}
             </div>
           </button>
         </div>
