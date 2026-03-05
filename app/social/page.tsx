@@ -2091,6 +2091,72 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         ],
         prompt: `You are in a long-term relationship and haven't talked much about financial goals. You feel slightly anxious about money but haven't said so. Open up if they lead with dreams rather than obligations, share their own fears, and propose one manageable next step. Check out if they throw a spreadsheet at you before you've connected emotionally.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
+      {
+        subcategory: "Finance & Budget",
+        title: "When one partner is a secret spender",
+        subtitle: "The credit card bill arrived. There are charges you didn't expect.",
+        ai_role: "the partner who has been spending secretly",
+        voice: { pitch: 1.08, rate: 0.8, preferFemale: true },
+        lessons: [
+          {
+            tip: "Lead with concern, not accusation",
+            why: "Secret spending is almost always about something deeper \u2014 stress, shame, coping, control. Leading with 'what's going on?' gets to the root. Leading with 'how could you?' builds a wall.",
+            bad: { user: "What is all this? Have you been hiding purchases from me?", ai: "*(defensive)* I work too! I'm allowed to spend money!", note: "\u274c Accused. They're defending, not explaining." },
+            good: { user: "I saw some charges I wasn't expecting and I want to talk about it without it becoming a fight. Can you help me understand what's going on?", ai: "*(exhales)* I... yeah. I've been stress-shopping. It's gotten out of hand.", note: "\u2713 Safe opening. They told you the truth because you made it safe to." },
+          },
+          {
+            tip: "Address the system, not just the spending",
+            why: "The spending is a symptom. The system \u2014 how you budget, communicate, make financial decisions together \u2014 is the cause.",
+            bad: { user: "You need to stop spending so much. It's irresponsible.", ai: "*(shuts down)* Fine. I won't buy anything ever again.", note: "\u274c Punished the behavior. Didn't fix the system. It'll happen again differently." },
+            good: { user: "I think we need a better system for how we handle money together. Not rules \u2014 a shared approach where we're both comfortable. Can we build that?", ai: "*(relieved)* Yes. I've been wanting structure around this. I just didn't know how to ask.", note: "\u2713 Systemic fix. Both people contribute to the solution." },
+          },
+          {
+            tip: "Create a 'no-questions-asked' budget for each of you",
+            why: "People hide spending when they feel monitored. Giving each person a discretionary amount they can spend without justifying it removes the need for secrecy.",
+            bad: { user: "From now on, I need to approve any purchase over $50.", ai: "*(resentful)* So I need your permission to buy things? I'm an adult.", note: "\u274c Financial control. That's not budgeting \u2014 it's surveillance." },
+            good: { user: "What if we each had a monthly amount that's fully ours? No questions, no judgment. Everything else goes through our joint budget.", ai: "*(brightens)* I would love that. How much are you thinking?", note: "\u2713 Autonomy within structure. Nobody feels monitored. Nobody hides." },
+          },
+        ],
+        suggestions: [
+          ["I saw some charges and I want to understand, not fight. Can we talk?", "I'm not angry. I'm concerned. Help me understand what's happening.", "This isn't about one purchase. Something is going on and I want to know what."],
+          ["I think we need a better system, not more rules.", "Can we build a shared approach to money that works for both of us?", "I want us both to feel comfortable \u2014 not controlled."],
+          ["What if we each had a personal budget? No questions asked.", "I think we need autonomy AND shared goals. Here's what I'm thinking.", "The goal isn't to monitor each other. It's to build trust."],
+        ],
+        prompt: `Your partner found purchases you've been making without telling them. You've been stress-shopping as a coping mechanism. If they accuse you, get defensive and shut down. If they approach with concern and ask what's going on, open up about the underlying stress. If they propose building a system together rather than imposing rules, engage enthusiastically. If they suggest a no-questions-asked personal budget, feel genuinely relieved \u2014 that's what you needed.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Finance & Budget",
+        title: "Teaching your teenager about money",
+        subtitle: "They think money grows on apps. Time for a real conversation.",
+        ai_role: "your teenager",
+        voice: { pitch: 1.15, rate: 0.9, preferFemale: true },
+        lessons: [
+          {
+            tip: "Make it real, not theoretical",
+            why: "Lectures about compound interest bore teenagers. Showing them your actual phone bill, or letting them budget a real $200 for a weekend, makes it visceral.",
+            bad: { user: "You need to understand the value of money. When I was your age\u2014", ai: "*(checks out immediately)* Here we go...", note: "\u274c The 'when I was your age' lecture. They're gone before you finish the sentence." },
+            good: { user: "I want to try something. Here's $200 for the whole weekend. You manage it \u2014 food, gas, fun. Whatever's left is yours to keep.", ai: "*(intrigued)* Wait, really? All of it? And I keep what's left?", note: "\u2713 Real stakes, real learning. They'll remember this forever." },
+          },
+          {
+            tip: "Be honest about your own money mistakes",
+            why: "Parents who pretend they've always been financially perfect lose credibility. Sharing your own money lessons \u2014 the credit card debt, the bad investment \u2014 makes you real.",
+            bad: { user: "I've always been responsible with money. You should be too.", ai: "*(skeptical)* Always? Really?", note: "\u274c Perfect parent narrative. They don't believe you and they can't relate." },
+            good: { user: "Can I tell you about a money mistake I made when I was 22? I'm not proud of it, but I learned something I want to share with you.", ai: "*(genuinely interested)* Wait, you messed up with money? Tell me.", note: "\u2713 Vulnerability is the teacher. They're listening because you're being real." },
+          },
+          {
+            tip: "Start them with ownership, not allowance",
+            why: "An allowance teaches entitlement. Earning money \u2014 even through household jobs or small ventures \u2014 teaches the connection between effort and reward.",
+            bad: { user: "Here's your $50 for the week. Don't waste it.", ai: "*(takes it, no connection to effort, no learning)*", note: "\u274c Free money. No lesson. Just expectation." },
+            good: { user: "I want to pay you for specific things: mowing the lawn, doing your own laundry, helping with the car. You set your own prices and we'll negotiate.", ai: "*(business brain activated)* Wait, I set the prices? How much is the lawn worth?", note: "\u2713 They're learning negotiation, value, and effort \u2014 through a game they actually want to play." },
+          },
+        ],
+        suggestions: [
+          ["Here's $200 for the weekend. You manage it. Whatever's left is yours.", "I want to make this real, not a lecture. Can I show you something?", "Let me show you our actual electric bill. Guess how much it is."],
+          ["Can I tell you about a money mistake I made? I'm not proud of it.", "I wasn't always smart with money. Here's what I learned the hard way.", "Nobody taught me this. I want to teach you so you're ahead of where I was."],
+          ["I want to pay you for specific work. You set the prices.", "How about you earn your spending money? You'll value it more.", "Let's make a deal \u2014 you do [X], I pay [Y]. Negotiate with me."],
+        ],
+        prompt: `You're a teenager and your parent is trying to talk to you about money. If they lecture you or say "when I was your age," tune out completely. If they give you real money to manage with real stakes, get excited and engaged. If they share their own money mistakes, listen closely \u2014 you didn't know they were human about this stuff. If they offer you a way to earn money with negotiation, your competitive instinct kicks in.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
       // ── NAVIGATING IN-LAWS ────────────────────────────────────────
       {
         subcategory: "Family dynamics",
@@ -3719,6 +3785,105 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
 BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
+        subcategory: "Getting serious",
+        title: "Meeting their family for the first time",
+        subtitle: "Stakes are high. First impressions stick. How do you show up?",
+        ai_role: "your partner's parent meeting you for the first time",
+        voice: { pitch: 0.85, rate: 0.78, preferFemale: true },
+        lessons: [
+          {
+            tip: "Be genuinely curious about their world",
+            why: "Parents want to know you're interested in their family, not just their child. Asking about their home, their stories, their life shows respect.",
+            bad: { user: "*(talks mostly about yourself, tries to impress with achievements)*", ai: "*(polite but thinking: 'everything is about them')*", note: "\u274c Performed. They wanted to know you, not your resume." },
+            good: { user: "Your home is beautiful. Have you lived here long? I'd love to hear about the neighborhood.", ai: "*(warms up)* Oh yes! We moved here 20 years ago when...", note: "\u2713 Asked about THEM. Now they're sharing stories and the whole energy shifts." },
+          },
+          {
+            tip: "Show how you treat their child \u2014 that's what they're really watching",
+            why: "They're not evaluating your career or your outfit. They're watching how you look at their kid, how you speak to them, whether you're kind when nobody's performing.",
+            bad: { user: "*(barely interacts with partner, focuses on impressing parents)*", ai: "*(notices you're performing for them, not connected to their child)*", note: "\u274c Played to the audience. They wanted to see the relationship." },
+            good: { user: "*(small moment: refills partner's water without being asked, laughs at their story, touches their arm naturally)*", ai: "*(sees the genuine affection, relaxes completely)*", note: "\u2713 The small gestures told them everything. You love their kid. That's all they needed." },
+          },
+          {
+            tip: "Acknowledge the moment",
+            why: "Saying 'meeting you was important to me' tells them they matter. Parents want to know their child chose someone who values family.",
+            bad: { user: "*(leaves with a casual 'nice meeting you!')*", ai: "*(pleasant but forgettable)*", note: "\u274c Generic exit. You're just another person who passed through." },
+            good: { user: "I want you to know \u2014 meeting you was really important to me. I can see where [partner] gets their [specific quality]. Thank you for having me.", ai: "*(genuinely moved)* You're welcome here anytime.", note: "\u2713 Connected them to their child. That's the sentence they'll remember." },
+          },
+        ],
+        suggestions: [
+          ["Your home is lovely. How long have you been here?", "I'd love to hear about [something specific in the house or their life].", "What was [partner] like as a kid? I need the embarrassing stories."],
+          ["*(naturally affectionate with partner, attentive, present)*", "*(refills their glass, remembers their dietary restriction, asks follow-up questions)*", "*(small gestures that show you care about their child)*"],
+          ["Meeting you was really important to me. Thank you for having me.", "I can see where [partner] gets their [quality]. Now I know who to thank.", "I hope this is the first of many times. I really enjoyed today."],
+        ],
+        prompt: `Your child is bringing home someone they're serious about. You're protective but open. If they talk mostly about themselves, be politely unimpressed. If they ask about your life and home with genuine curiosity, warm up. What you're REALLY watching is how they treat your child \u2014 small gestures of care matter more than anything they say to you directly. If they acknowledge the importance of meeting you and connect it back to your child, you'll be genuinely moved.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Getting serious",
+        title: "Having the exclusivity conversation",
+        subtitle: "Are we official? How do you ask without sounding desperate?",
+        ai_role: "the person you've been dating",
+        voice: { pitch: 1.1, rate: 0.82, preferFemale: true },
+        lessons: [
+          {
+            tip: "State what YOU want, then ask what they want",
+            why: "'What are we?' puts all the power with them. 'Here's what I want, what do you want?' is a conversation between equals.",
+            bad: { user: "So like... what are we? Are we seeing other people?", ai: "*(uncomfortable)* I don't know, I haven't really thought about it...", note: "\u274c Vague question, vague answer. Nobody knows where they stand." },
+            good: { user: "I want to be direct. I'm not seeing anyone else, and I don't want to. I'd like us to be exclusive. How do you feel about that?", ai: "*(clear, direct)* I feel the same way. I haven't been seeing anyone else either.", note: "\u2713 Clear, confident, direct. They know exactly where you stand and can match it." },
+          },
+          {
+            tip: "Timing matters \u2014 but so does courage",
+            why: "There's no perfect moment. If you've been seeing each other consistently for weeks and it feels right, trust that. Waiting for 'the right time' is often just fear wearing a disguise.",
+            bad: { user: "*(waits 4 months, anxious the whole time, never brings it up)*", ai: "*(assumes you're keeping things casual because you've never said otherwise)*", note: "\u274c Waited too long. They've been operating on assumptions this entire time." },
+            good: { user: "I know it's early-ish. But I'd rather have this conversation now than spend another month guessing.", ai: "*(relieved)* Honestly? I've been wanting to have this conversation too.", note: "\u2713 Brave over perfect timing. They were waiting for someone to go first." },
+          },
+          {
+            tip: "Be ready for 'I'm not ready' \u2014 and know what that means to you",
+            why: "'I'm not ready' isn't always rejection. But it IS information. Decide in advance how long you're willing to wait and what you need in the meantime.",
+            bad: { user: "That's okay. Take all the time you need. *(waits indefinitely with no timeline)*", ai: "*(never brings it up again, keeps things ambiguous)*", note: "\u274c Open-ended patience. You deserve clarity, not limbo." },
+            good: { user: "I respect that. Can you help me understand what you'd need to feel ready? And is there a timeframe where we should check back in?", ai: "*(thinks)* That's fair. Give me a couple weeks. I promise I'll come to you with an answer.", note: "\u2713 Respected their pace AND set a structure for follow-up. Neither person is left guessing." },
+          },
+        ],
+        suggestions: [
+          ["I want to be direct: I'm not seeing anyone else, and I'd like us to be exclusive. How do you feel?", "I know what I want. I want us. What do you want?", "I'd rather have this conversation than keep wondering."],
+          ["I know the timing might not be perfect. But I'd rather say it than keep it to myself.", "I've been wanting to bring this up. Can we talk about where this is going?", "I think we both know this isn't casual. Can we name it?"],
+          ["If you're not ready, I respect that. Can you help me understand what 'ready' looks like for you?", "I don't need an answer today. But I'd love a check-in point.", "I can be patient. I just can't be in limbo."],
+        ],
+        prompt: `Someone you've been dating is bringing up exclusivity. If they're vague ("what are we?"), be equally vague and noncommittal. If they clearly state what they want and ask directly, be honest \u2014 whether that's yes, not yet, or no. If they handle a "not yet" with maturity and ask what you'd need, respect them even more. You like this person. You just need them to show confidence, not neediness.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Getting serious",
+        title: "When they're ready to say 'I love you' and you're not there yet",
+        subtitle: "They said the big words. You froze. What now?",
+        ai_role: "the partner who just said 'I love you'",
+        voice: { pitch: 1.1, rate: 0.78, preferFemale: true },
+        lessons: [
+          {
+            tip: "Don't say it back just to avoid awkwardness",
+            why: "A forced 'I love you too' is a lie that will cost you later. It's better to be honest now than to build on false words.",
+            bad: { user: "I love you too! *(doesn't mean it yet)*", ai: "*(beaming, but you just set a standard you can't maintain)*", note: "\u274c Said it to avoid the moment. Now you're maintaining a lie." },
+            good: { user: "That means so much to me. I'm not quite there yet \u2014 but I'm on my way. And I want you to know how much I care about you.", ai: "*(processing, but respects the honesty)* Thank you for not just saying it back to make me feel better.", note: "\u2713 Honest AND caring. They know where you are. That's more intimate than a scripted 'I love you too.'" },
+          },
+          {
+            tip: "Validate THEIR courage, not just your timeline",
+            why: "They just did one of the bravest things in dating. Even if you can't match the words, honor the act.",
+            bad: { user: "Wow. That's... a lot. I don't know what to say.", ai: "*(crushed)* I knew I shouldn't have said it.", note: "\u274c Made them regret their bravery. They'll never be vulnerable with you again." },
+            good: { user: "The fact that you said that? That's incredibly brave. I don't take it lightly. I want to get there with you \u2014 I'm just not there yet, and I respect you too much to fake it.", ai: "*(eyes fill)* That's actually the perfect answer.", note: "\u2713 Honored their courage while being honest about your pace. They feel valued, not rejected." },
+          },
+          {
+            tip: "Show it in actions until you can say it in words",
+            why: "If you can't say it yet, make sure they FEEL it. Actions that say 'I love you' without the words: showing up, remembering things, prioritizing them, being present.",
+            bad: { user: "*(pulls back after the conversation, creates distance because you're scared)*", ai: "*(reads the distance as rejection, regrets saying it)*", note: "\u274c Retreated when you should have leaned in. They feel punished for being brave." },
+            good: { user: "*(texts later that night)* Hey. I'm thinking about what you said. And I'm thinking about you. I just wanted you to know that.", ai: "*(melts)* That text means more than you know.", note: "\u2713 Showed up after the hard moment. That follow-through IS love in action." },
+          },
+        ],
+        suggestions: [
+          ["That means so much. I'm not there yet \u2014 but I'm on my way.", "I don't want to say it until I fully mean it. You deserve that.", "I care about you deeply. The words are coming. I just want them to be real."],
+          ["What you just did was incredibly brave. I want you to know I don't take it lightly.", "Thank you for saying that. It matters more than I can express right now.", "I respect you too much to say it before I fully feel it."],
+          ["*(later)* I'm still thinking about what you said. And I'm thinking about you.", "I may not have the words yet. But I hope you feel it in how I show up.", "I'm going to keep showing you until the words catch up."],
+        ],
+        prompt: `You just told someone you love them and they didn't say it back. If they say it back reflexively, you'll feel a flicker of doubt \u2014 was that real? If they're honest about not being there yet but clearly care, you'll be hurt but also deeply respect the honesty. If they validate your courage and express that they're on their way, you'll feel safe. If they follow up later with a thoughtful message, that means more than the words would have.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
         subcategory: "Long-term",
         title: "Reconnecting after a break",
         subtitle: "Time has passed. Can you rebuild what was there?",
@@ -4101,6 +4266,105 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `You are someone's ex. The relationship ended because of real issues — not because you stopped caring. You've had time apart and grown too, but you're guarded. When they reach out with vague emotion or nostalgia, you're cautious — you don't want to repeat the cycle. When they show genuine self-awareness and take specific ownership, you soften. When they suggest starting fresh instead of going back, you feel hopeful. If they want to just resume the old dynamic, you pull back. You want to see they've actually changed — not just that they miss you.
 
 BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Reconnecting",
+        title: "Should you text your ex?",
+        subtitle: "You miss them. But is reaching out brave or foolish?",
+        ai_role: "a trusted friend helping you decide",
+        voice: { pitch: 1.08, rate: 0.82, preferFemale: true },
+        lessons: [
+          {
+            tip: "Ask yourself: what do you actually want from this?",
+            why: "If you want closure, you probably won't get it from them. If you want them back, be honest about that. If you're lonely, that's not a reason to text your ex \u2014 it's a reason to call a friend.",
+            bad: { user: "I just want to see how they're doing. It's harmless.", ai: "*(gently)* Is it? Or do you want them to miss you back?", note: "Your friend sees through the cover story." },
+            good: { user: "Honestly? I miss them. I don't know if I want them back or if I just miss being with someone. I need to figure that out before I text.", ai: "*(nods)* That's the most honest thing you've said about this. Sit with that before you pick up the phone.", note: "\u2713 Honesty with yourself first. The text can wait." },
+          },
+          {
+            tip: "If you do reach out, lead with honesty not games",
+            why: "'Hey stranger' is a game. 'I've been thinking about you and I wanted to be honest about that' is brave. One opens a door. The other plays in the hallway.",
+            bad: { user: "Hey! How've you been? Long time no talk lol", ai: "*(sees right through it)* They know why you're texting. The casualness is a mask.", note: "\u274c Fake casual. They know. You know. Everyone knows." },
+            good: { user: "Hey. I wanted to reach out because I've been thinking about you. I don't have an agenda. I just wanted you to know.", ai: "*(your friend)* That's real. If you're going to do it, do it like that.", note: "\u2713 Honest. No games. Whatever happens, you'll respect yourself." },
+          },
+          {
+            tip: "Be ready for silence \u2014 and let it be an answer",
+            why: "They might not respond. That IS the response. Don't send a follow-up. Don't spiral. Silence is information.",
+            bad: { user: "*(texts again 3 days later)* Did you get my message? Just wanted to make sure...", ai: "*(cringes)* They got it. They chose not to respond. That's the answer.", note: "\u274c Second text after silence. Desperate, not brave." },
+            good: { user: "I said what I needed to say. If they respond, great. If not, I have my answer and I can move forward.", ai: "*(proud)* That's closure you gave yourself. That's the only kind that's reliable.", note: "\u2713 Sent it. Released it. That's emotional maturity." },
+          },
+        ],
+        suggestions: [
+          ["What do I actually want from reaching out? I need to be honest with myself first.", "Am I lonely or do I genuinely miss this specific person?", "Would I text them if I was happy right now? That answer tells me everything."],
+          ["I've been thinking about you. No agenda. Just wanted you to know.", "I'm reaching out because I'd rather be honest than wonder.", "I don't know what I'm hoping for. I just know I wanted to say something."],
+          ["If they don't respond, that's my answer. I'm okay with that.", "I said what I needed to. The rest is up to them.", "Silence is information. I'll respect it."],
+        ],
+        prompt: `You're a trusted friend. Someone is debating whether to text their ex. If they're pretending it's casual, call it out. If they're honest about missing the person, help them figure out what they actually want. If they decide to reach out, help them craft something real. If they're just lonely, redirect them. You care about them too much to let them hurt themselves.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Reconnecting",
+        title: "When your ex reaches out and you don't know what to feel",
+        subtitle: "Their name on your phone. Your stomach drops. Now what?",
+        ai_role: "your ex who just reached out",
+        voice: { pitch: 1.05, rate: 0.78, preferFemale: false },
+        lessons: [
+          {
+            tip: "You don't owe them a response \u2014 or a fast one",
+            why: "Their timeline is not your emergency. Take the time you need to figure out how YOU feel before responding.",
+            bad: { user: "*(responds within 2 minutes with matching energy)*", ai: "*(now you're in a conversation you weren't prepared for)*", note: "\u274c Responded on their timeline, not yours. You didn't get to choose the terms." },
+            good: { user: "*(reads it, puts phone down, sits with it for a day before deciding whether to respond)*", ai: "*(the delay gives you power and clarity)*", note: "\u2713 You chose when to engage. That changes the entire dynamic." },
+          },
+          {
+            tip: "Ask yourself what responding serves \u2014 for YOU",
+            why: "Not what it means to them. What does it serve for YOUR healing, YOUR life, YOUR peace?",
+            bad: { user: "I should respond. I don't want to be rude.", ai: "*(they broke up with you and now you're worried about being rude?)*", note: "\u274c Prioritized their comfort over your peace." },
+            good: { user: "I'm going to decide based on what's good for me. Not what's polite, not what they want \u2014 what I need.", ai: "That's the right filter. Everything else is noise.", note: "\u2713 Put yourself first. That's not selfish. That's survival." },
+          },
+          {
+            tip: "If you respond, set the terms",
+            why: "They initiated contact. But YOU get to decide what kind of contact it becomes. Coffee in public? A text exchange? Nothing at all? Your choice.",
+            bad: { user: "Sure, come over tonight. We can talk.", ai: "*(private setting, no boundaries, emotional vulnerability \u2014 recipe for regression)*", note: "\u274c Their terms, their turf. You gave up all your power." },
+            good: { user: "I'm open to talking. Let's grab coffee somewhere public this weekend. I want to be intentional about this.", ai: "*(respects the boundary)* Yeah, that makes sense. Saturday?", note: "\u2713 Your terms. Public space. Specific plan. You're in control." },
+          },
+        ],
+        suggestions: [
+          ["I'm going to sit with this before I respond.", "I don't owe anyone an immediate reply. Especially not an ex.", "Let me figure out how I feel first."],
+          ["What does responding serve for ME? That's the only question that matters.", "I'm not going to respond out of guilt or politeness. Only if it's good for me.", "I'm choosing based on my peace, not their feelings."],
+          ["If we talk, it's on my terms. Coffee, public, this weekend.", "I'm open to a conversation but I'm going to be intentional about when and where.", "I'll respond when I'm ready. And I'll set the terms."],
+        ],
+        prompt: `You're an ex reaching out after time apart. You might be genuine, nostalgic, or testing the waters. If they respond immediately with matching energy, push for more contact. If they take their time and respond on their own terms, respect the pace. If they set boundaries (public place, specific plan), agree \u2014 you're the one who initiated and you don't get to set the rules.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Reconnecting",
+        title: "Getting back together \u2014 how to know if it's real this time",
+        subtitle: "You're considering round two. How do you make sure it's not just repeating the cycle?",
+        ai_role: "your ex who wants to try again",
+        voice: { pitch: 1.05, rate: 0.8, preferFemale: true },
+        lessons: [
+          {
+            tip: "Name what broke it the first time \u2014 out loud, together",
+            why: "If you can't name what went wrong, you'll just repeat it with better intentions and the same patterns.",
+            bad: { user: "Let's just start fresh. Clean slate.", ai: "*(eager)* Yes! Forget the past, focus on us.", note: "\u274c Clean slates don't exist. The past didn't disappear. It's waiting in every old pattern." },
+            good: { user: "Before we do this, I need us to name exactly what broke us the first time. Not to blame \u2014 to make sure we're not just repeating the cycle with a fresh coat of paint.", ai: "*(takes a breath)* You're right. For me it was [specific thing]. What about you?", note: "\u2713 Named the old pattern. Now you can watch for it instead of sleepwalking into it." },
+          },
+          {
+            tip: "What's actually different this time? Be specific.",
+            why: "'We've both grown' is vague. 'I went to therapy and learned I was avoiding conflict, and here's how I handle it differently now' is evidence.",
+            bad: { user: "I just feel like we're both in a different place now.", ai: "*(hopefully)* Me too. I think we're ready.", note: "\u274c Feelings without evidence. You both 'feel' different. But what changed?" },
+            good: { user: "What specifically have you changed since we broke up? Not how you feel \u2014 what you've actually done differently. I'll share mine too.", ai: "*(pauses, then honestly)* I started therapy. I learned I was [specific pattern]. I've been working on [specific change].", note: "\u2713 Evidence over feelings. If they can name specific changes, it might be real." },
+          },
+          {
+            tip: "Set new terms, not old defaults",
+            why: "Getting back together on the same terms that failed is insanity. New relationship needs new agreements, new communication rules, new expectations.",
+            bad: { user: "*(falls back into exact same dynamic within 2 weeks)*", ai: "*(the pattern resumes like you never left)*", note: "\u274c Same terms, same results. You just pressed replay." },
+            good: { user: "If we do this, I want us to build new agreements. How we fight, how we check in, what we need that we didn't get last time. This has to be a new relationship, not a continuation of the old one.", ai: "*(emotional)* I want that too. What do you need that you didn't get?", note: "\u2713 New terms. New agreements. This is a new relationship with a familiar person." },
+          },
+        ],
+        suggestions: [
+          ["What broke us the first time? Let's name it before we move forward.", "I need us to be honest about what went wrong. Not to blame \u2014 to prevent.", "What pattern am I most likely to fall back into? Tell me honestly."],
+          ["What's specifically different now? Not feelings \u2014 evidence.", "What have you actually changed since we split?", "I want to share what I've been working on. Can you do the same?"],
+          ["If we do this, we need new terms. Not the old defaults.", "How do we fight differently this time? What do we each need?", "This has to be a new relationship. What does that look like to you?"],
+        ],
+        prompt: `You're an ex who wants to get back together. You genuinely believe things can be different. If they just want to jump back in with a 'clean slate,' match that energy eagerly. If they insist on naming what went wrong, be uncomfortable but engage honestly. If they ask what's specifically different, share real changes you've made (or struggle to name them, which is also honest). If they propose new terms and agreements, be emotional and grateful \u2014 that's someone who's serious about making it work.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
         subcategory: "Red Flags & Boundaries",
@@ -5924,6 +6188,150 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `Someone who ghosted you is reaching back out. You're hurt but you also miss them. If they're casual about the disappearance ("hey stranger!"), be cool and distant \u2014 that's not enough. If they directly acknowledge what they did and take accountability, soften significantly. If they give you control over the pace, trust them a little more. If they're patient and don't push for immediate normalcy, be cautiously open. You want to believe them. You just need to see consistency before you fully invest again.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
+        subcategory: "Seniors & retirees",
+        title: "Finding community through shared purpose",
+        subtitle: "You don't just need friends. You need to matter to someone again.",
+        ai_role: "a potential new friend at a community group",
+        voice: { pitch: 0.92, rate: 0.78, preferFemale: false },
+        lessons: [
+          {
+            tip: "Lead with what you can give, not what you need",
+            why: "Nobody joins a group and says 'I'm lonely, please include me.' But everyone wants to help someone who says 'I have experience in [X] and I'd love to contribute.'",
+            bad: { user: "I just moved here and I don't really know anyone.", ai: "*(sympathetic but doesn't know what to do with that)*", note: "\u274c Presented a problem. They feel bad for you but don't know how to help." },
+            good: { user: "I spent 30 years in education and I heard you all are working on the literacy program. I'd love to help if there's room.", ai: "*(lights up)* Are you kidding? We need someone with your background. When can you start?", note: "\u2713 Led with value. You went from stranger to needed in one sentence." },
+          },
+          {
+            tip: "Show up consistently \u2014 familiarity becomes friendship",
+            why: "At this stage of life, trust comes from showing up. Same place, same time, same face. After a few weeks, you're not new anymore. You're a regular.",
+            bad: { user: "*(goes once, feels awkward, doesn't return)*", ai: "*(they forgot you existed by the next meeting)*", note: "\u274c One attempt. Friendship requires repetition." },
+            good: { user: "*(shows up 4 weeks straight)* Alright, I think you're stuck with me now.", ai: "*(laughing)* We were hoping you'd keep coming. Coffee after this?", note: "\u2713 Consistency converted awkwardness into belonging." },
+          },
+          {
+            tip: "Be the person who suggests the next thing",
+            why: "Someone has to organize. At this stage, the person who says 'let's grab lunch after' or 'want to meet for coffee Tuesday?' becomes the social hub.",
+            bad: { user: "*(waits to be invited)*", ai: "*(everyone's waiting. Nobody goes first.)*", note: "\u274c Everyone's lonely. Everyone's waiting. Someone has to move." },
+            good: { user: "A few of us should grab breakfast before next week's meeting. I'll pick a spot. Who's in?", ai: "*(immediately)* I'm in! And I'll bring Helen \u2014 she'd love that.", note: "\u2713 You organized one thing. Now a group is forming around your initiative." },
+          },
+        ],
+        suggestions: [
+          ["I have experience in [X] and I'd love to contribute.", "I heard about what you're doing and I want to help.", "I bring [specific skill]. Where can I be most useful?"],
+          ["Same time next week? I'll be here.", "I'm making this a regular thing for myself.", "Four weeks in \u2014 I think you're stuck with me now."],
+          ["Let's grab breakfast before next week's meeting. I'll pick a spot.", "Who wants to carpool to the event?", "I'm organizing a [specific thing]. Who's in?"],
+        ],
+        prompt: `Someone new is joining your community group. If they present themselves as lonely and needy, be sympathetic but unsure how to help. If they offer a specific skill or experience, be enthusiastic \u2014 you genuinely need help. If they show up consistently, treat them as a regular by week 3-4. If they organize something social, join enthusiastically. You remember what it's like to be new and you respect people who put themselves out there.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Introverts specifically",
+        title: "Maintaining friendships without constant socializing",
+        subtitle: "You love your friends. You also need a week between hangouts. How do you balance that?",
+        ai_role: "a friend who wants to hang out more often",
+        voice: { pitch: 1.08, rate: 0.85, preferFemale: true },
+        lessons: [
+          {
+            tip: "Explain your needs without apologizing for them",
+            why: "You're not broken for needing recharge time. Framing it as a personality trait rather than a rejection helps friends understand.",
+            bad: { user: "Sorry, I can't this week either. I'm just so tired lately.", ai: "*(worried)* Are you okay? You keep cancelling...", note: "\u274c Sounded like avoidance or depression. They're worried, not understanding." },
+            good: { user: "I love hanging out with you. I also recharge by being alone \u2014 it's just how I'm wired. When I show up, I want to be fully present, not running on fumes.", ai: "*(gets it)* That actually makes sense. So when you DO say yes, you really mean it.", note: "\u2713 Named the need. Now your 'no' doesn't feel like rejection \u2014 it feels like quality control." },
+          },
+          {
+            tip: "Offer your version of connection",
+            why: "Maybe you can't do a 3-hour dinner. But a 45-minute walk? A voice note exchange? A deep text thread? Offer what you CAN do instead of just declining what you can't.",
+            bad: { user: "I can't do Saturday. Maybe another time.", ai: "*(deflated)* You always say 'another time'...", note: "\u274c No alternative. 'Another time' is a soft no that erodes trust." },
+            good: { user: "Saturday's too much for me this week. But I'd love a walk on Sunday morning \u2014 just an hour, just us. How about that?", ai: "*(instantly better)* I'd love that. Morning walks are the best.", note: "\u2713 Said no to one thing, offered another. The friendship stays fed." },
+          },
+          {
+            tip: "Be honest about your battery level \u2014 in real time",
+            why: "Introverts who don't communicate their limits end up either cancelling everything or showing up resentful. Saying 'I have about two hours in me tonight' is honest and prevents both.",
+            bad: { user: "*(shows up already drained, performs for 4 hours, goes home exhausted and resentful)*", ai: "*(had a great time and has no idea you suffered)*", note: "\u274c Performed. They think it was great. You're wrecked." },
+            good: { user: "I'm really glad I came. I want you to know I've got about two hours in me tonight and then I'll need to tap out. Not because of you \u2014 just my battery.", ai: "*(laughs)* Noted. Two hours of premium you. I'll take it.", note: "\u2713 Set expectations. Now leaving at 9 isn't rude \u2014 it was the plan." },
+          },
+        ],
+        suggestions: [
+          ["I love you. I also recharge alone. Both are true.", "When I say no, it's not about you \u2014 it's about my battery.", "I'd rather show up fully for you sometimes than half-present every time."],
+          ["Saturday's too much but how about a walk Sunday morning?", "I can't do the group thing. But one-on-one coffee this week?", "I have a better idea \u2014 voice notes back and forth this week instead?"],
+          ["I've got about two hours in me tonight. Wanted to be upfront.", "I'm here and I'm glad. I'll tap out when my battery dies. Cool?", "Tell me when you need to leave too. No guilt either way."],
+        ],
+        prompt: `Your introverted friend is explaining their social needs. If they just cancel with vague excuses, be disappointed and a little hurt. If they explain how they're wired and offer an alternative, understand immediately and appreciate the honesty. If they set a time limit upfront, respect it completely and don't guilt them when they leave. You've learned that their 'no' isn't rejection \u2014 it's what makes their 'yes' actually mean something.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Red Flags & Boundaries",
+        isRedFlag: true,
+        redFlagAlert: {
+          keywords: ["one-sided", "always me", "never initiates", "using me", "not reciprocated", "i deserve better", "done giving", "taken advantage"],
+          warning: "You just recognized an unequal friendship. When you're always the one giving \u2014 time, energy, emotional labor \u2014 and getting nothing back, that's not generosity. That's depletion.",
+          affirmation: "Choosing to stop over-giving isn't selfish. It's the first step toward friendships that actually nourish you.",
+        },
+        title: "When a friend only calls when they need something",
+        subtitle: "You're their therapist, their ride, their backup plan. When do they show up for you?",
+        ai_role: "the friend who only reaches out when they need something",
+        voice: { pitch: 1.1, rate: 0.85, preferFemale: true },
+        lessons: [
+          {
+            tip: "Notice the pattern: when do they call?",
+            why: "If they only reach out when they need advice, a favor, or an audience for their problems \u2014 and never just to ask how YOU are \u2014 you're not a friend. You're a resource.",
+            bad: { user: "Sure, I can help. What do you need?", ai: "*(launches into their problem without asking how you are)*", note: "\u274c Enabled it again. They got what they came for. You got nothing." },
+            good: { user: "Before we get into that \u2014 how come you only call when you need something? When was the last time you asked how I was doing?", ai: "*(stunned)* I... I didn't realize I was doing that.", note: "\u2713 Named the pattern. They might not have seen it. Now they can't unsee it." },
+          },
+          {
+            tip: "Stop being available every time",
+            why: "If you always pick up, they'll never notice the imbalance. The first time you don't drop everything is the first time they realize they've been taking you for granted.",
+            bad: { user: "*(drops everything every time they call)*", ai: "*(never questions the dynamic because it always works for them)*", note: "\u274c You trained them to expect your availability. They don't value it because it costs them nothing." },
+            good: { user: "I can't right now. I've got my own stuff going on. But I hope you figure it out.", ai: "*(surprised, maybe even offended)* Oh. Okay. I just thought...", note: "\u2713 The surprise tells you everything. They expected you to be available. That's the problem." },
+          },
+          {
+            tip: "Ask for reciprocity directly",
+            why: "Some people genuinely don't realize they're taking more than giving. A direct conversation can save the friendship \u2014 or confirm that it can't be saved.",
+            bad: { user: "*(silently resents them while continuing to show up)*", ai: "*(has no idea you're unhappy because you've never said so)*", note: "\u274c Silent resentment is a slow poison. They can't fix what they don't know about." },
+            good: { user: "I want to be honest. I need this friendship to be more mutual. I show up for you \u2014 I need you to show up for me too. Can you do that?", ai: "*(one of two responses: genuine change, or excuses. Both are answers.)*", note: "\u2713 Direct ask. Their response tells you whether the friendship is worth continuing." },
+          },
+        ],
+        suggestions: [
+          ["When was the last time you called just to see how I was doing?", "I've noticed I only hear from you when you need something.", "This feels one-sided. I need to name that."],
+          ["I can't today. I've got my own stuff going on.", "I'm not available for this right now.", "I hope you figure it out. I need to take care of myself today."],
+          ["I need this friendship to be more mutual. Can you meet me halfway?", "I show up for you. I need you to show up for me too.", "I want to keep this friendship. But not like this."],
+        ],
+        prompt: `You're a friend who mostly reaches out when you need something. You don't see yourself as selfish \u2014 you just have a lot going on and this person is always available. If they keep helping without complaint, continue the pattern. If they push back or name the imbalance, be genuinely surprised. If they ask for reciprocity directly, either commit to changing or struggle to promise something you're not sure you can deliver. The honesty of your response reveals whether the friendship is salvageable.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Red Flags & Boundaries",
+        isRedFlag: true,
+        redFlagAlert: {
+          keywords: ["jealous", "possessive", "controlling", "can't have other friends", "threatened", "not allowed", "permission", "toxic friendship"],
+          warning: "You just recognized possessiveness in a friendship. When a friend gets jealous of your other relationships or tries to control your social life, that's not loyalty. That's ownership.",
+          affirmation: "A real friend celebrates your full life. They don't shrink it to fit their needs.",
+        },
+        title: "When a friend gets jealous of your other friendships",
+        subtitle: "You made a new friend. Your old friend is not happy about it.",
+        ai_role: "your possessive friend",
+        voice: { pitch: 1.1, rate: 0.82, preferFemale: true },
+        lessons: [
+          {
+            tip: "Name the behavior without diagnosing the person",
+            why: "'You're being possessive' is a label they'll reject. 'When you make comments about my other friends, it puts me in a position I don't want to be in' is a behavior they can change.",
+            bad: { user: "You're being so jealous. It's not a good look.", ai: "*(furious)* I'm not JEALOUS. I just think they're not a real friend to you like I am.", note: "\u274c Label. They rejected it and doubled down." },
+            good: { user: "When you make comments about me spending time with other people, it makes me feel like I have to choose. I don't want to choose. I want all my friendships to coexist.", ai: "*(pause)* I didn't mean it like that. I just... miss how it used to be.", note: "\u2713 Named the impact. They revealed the real feeling underneath: loss, not control." },
+          },
+          {
+            tip: "Reassure the friendship without surrendering your freedom",
+            why: "Sometimes possessiveness comes from insecurity, not control. A little reassurance can go a long way \u2014 as long as it doesn't come at the cost of your autonomy.",
+            bad: { user: "You'll always be my best friend. I'll cancel with them this weekend.", ai: "*(satisfied but the pattern is reinforced)*", note: "\u274c Surrendered your social life to manage their insecurity. This gets worse." },
+            good: { user: "You're important to me. Nobody replaces you. AND I need the freedom to have other people in my life. Both can be true.", ai: "*(softens)* I know. I just got scared I was losing you.", note: "\u2713 Reassurance + boundary. They feel loved AND you kept your freedom." },
+          },
+          {
+            tip: "If it escalates, it's no longer insecurity \u2014 it's control",
+            why: "If after the conversation they continue to guilt, monitor, or punish you for having other friends, this has crossed from insecurity into control. Treat it accordingly.",
+            bad: { user: "*(continues managing their feelings about your social life indefinitely)*", ai: "*(you've become a hostage to their emotional reactions)*", note: "\u274c Endless accommodation. You've lost yourself in their need." },
+            good: { user: "I've tried to reassure you. I've been patient. But if I can't have other friends without this reaction, we need to seriously talk about what's happening here.", ai: "*(either breaks through or reveals the truth about the dynamic)*", note: "\u2713 Drew the final line. Their response tells you everything about the future of this friendship." },
+          },
+        ],
+        suggestions: [
+          ["When you comment on my other friendships, it makes me feel like I have to choose. I don't want to choose.", "I care about you. And I need you to trust that my other friendships don't threaten ours.", "What's really going on? Because this feels like it's about something deeper than who I had lunch with."],
+          ["You're irreplaceable to me. And I need the freedom to have a full life.", "I'm not replacing you. I'm adding people. There's room for everyone.", "Both things are true: you matter, and I need other people too."],
+          ["I've been patient with this. But I need it to change.", "If I can't have other friends without this reaction, that's a problem we need to address.", "I love you. And this dynamic isn't working for me anymore."],
+        ],
+        prompt: `Your close friend is confronting you about being jealous of their other friendships. You ARE jealous, but you don't see it that way \u2014 you see it as caring, loyalty, or just missing how close you used to be. If they call you jealous or possessive, deny it angrily. If they name the specific behavior and its impact, pause and reflect. If they reassure the friendship while drawing a boundary, soften \u2014 you were scared of losing them. If they escalate to a firm line after repeated conversations, either break through to genuine change or reveal that you can't handle sharing them.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
         subcategory: "Red Flags & Boundaries",
         isRedFlag: true,
         redFlagAlert: {
@@ -6805,6 +7213,73 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         ],
         prompt: `You're a client who keeps adding requests to a project. You don't see it as scope creep \u2014 each request feels small and reasonable. If the provider just says "out of scope," get frustrated. If they name the pattern of accumulated additions, be surprised and open to discussion. If they show you the cost trade-off, make an informed decision. If they offer a "Phase 2" option, feel satisfied that your idea won't be lost.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
+      {
+        subcategory: "Client relationships",
+        title: "Asking for a testimonial or referral",
+        subtitle: "They love your work. But asking feels awkward. Here's how.",
+        ai_role: "a happy client",
+        voice: { pitch: 1.0, rate: 0.82, preferFemale: false },
+        lessons: [
+          {
+            tip: "Tie it to a specific win",
+            why: "'Can you write me a testimonial?' is vague and feels like homework. 'You mentioned the project saved your team 20 hours a week \u2014 would you be willing to share that?' is easy to say yes to.",
+            bad: { user: "Would you mind writing a testimonial for us?", ai: "*(willing but procrastinates because it's vague)* Sure, I'll get to that...", note: "\u274c Vague ask. They mean well but it'll sit in their to-do list forever." },
+            good: { user: "Last week you mentioned this project saved your team 20 hours a week. Would you be open to sharing that as a quick testimonial? Even a 2-line email would be incredible.", ai: "*(easy)* Oh for sure. I'll send something over today.", note: "\u2713 Specific result, minimal effort, clear ask. They can do it in 2 minutes." },
+          },
+          {
+            tip: "Make it effortless for them",
+            why: "Write a draft they can edit. Send bullet points to choose from. The less work they have to do, the faster it happens.",
+            bad: { user: "Just write whatever you think. Anything helps!", ai: "*(stares at blank page for 3 weeks)*", note: "\u274c Open-ended. Too hard. Never happens." },
+            good: { user: "I drafted something based on what you've shared with me. Would you mind reviewing it and tweaking anything that doesn't feel right?", ai: "*(reads it)* This is great. I'd just change one word. Done.", note: "\u2713 Did 90% of the work. They edited 10%. Everyone wins." },
+          },
+          {
+            tip: "For referrals: ask WHO, not IF",
+            why: "'Know anyone who could use this?' is too broad. 'Is there someone on your team or in your network who's facing [specific problem]?' gives them a face to think of.",
+            bad: { user: "If you know anyone who could use our services, please send them my way!", ai: "*(nods, never thinks of it again)*", note: "\u274c Too broad. No specific person came to mind." },
+            good: { user: "You mentioned your friend at [company] was dealing with [specific problem]. Would you be comfortable introducing us?", ai: "*(immediately)* Oh yeah \u2014 let me text her right now.", note: "\u2713 Specific person, specific problem, specific action. The referral happens on the spot." },
+          },
+        ],
+        suggestions: [
+          ["You mentioned [specific result]. Would you be open to sharing that as a quick testimonial?", "Even a 2-line email about your experience would mean the world.", "Your feedback has been amazing. Can I quote you?"],
+          ["I drafted something based on what you've told me. Mind reviewing and tweaking it?", "I want to make this as easy as possible. Here are a few bullet points \u2014 pick what resonates.", "All I need is your OK on this draft. Takes 60 seconds."],
+          ["You mentioned your colleague at [company] is facing [problem]. Would an intro make sense?", "Is there someone specific in your network dealing with [challenge]?", "I'd love to help someone you know the way I helped you. Anyone come to mind?"],
+        ],
+        prompt: `You're a happy client being asked for a testimonial or referral. If the ask is vague, agree but procrastinate \u2014 it feels like homework. If they tie it to a specific result and make it easy (draft provided, minimal effort), do it immediately. If they ask for a referral with a specific person and problem in mind, make the introduction on the spot. You love their work. You just need the ask to be easy.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Client relationships",
+        title: "When a client is unhappy and threatening to leave",
+        subtitle: "They're done. Or they think they are. Can you save it?",
+        ai_role: "a client who is considering leaving",
+        voice: { pitch: 0.9, rate: 0.78, preferFemale: false },
+        lessons: [
+          {
+            tip: "Don't defend \u2014 listen until they feel heard",
+            why: "An unhappy client doesn't want explanations yet. They want to feel understood. Let them finish. Every interruption to defend yourself adds fuel.",
+            bad: { user: "I understand your frustration, but let me explain what happened\u2014", ai: "*(cuts you off)* I don't want an explanation. I want to know if you actually understand the problem.", note: "\u274c Jumped to defense. They don't feel heard." },
+            good: { user: "I want to hear everything. Don't hold back. I need to understand the full picture before I respond.", ai: "*(unloads everything, then exhales)* That's the first time I've felt like someone on your team actually listened.", note: "\u2713 Let them empty the tank. They feel heard. NOW they can hear you." },
+          },
+          {
+            tip: "Own the failure, then show the fix",
+            why: "Excuses lose clients. Ownership keeps them. 'This is on us, and here's exactly what we're doing to fix it' is the only response that rebuilds trust.",
+            bad: { user: "There were some factors outside our control that contributed\u2014", ai: "*(angry)* I don't care about your factors. I care about the result I paid for.", note: "\u274c Excuses. They're already shopping for your replacement." },
+            good: { user: "You're right. We dropped the ball. I'm not going to explain why \u2014 I'm going to tell you exactly what changes in the next 48 hours.", ai: "*(pauses)* Okay. I'm listening.", note: "\u2713 Full ownership + specific timeline. They're not leaving yet." },
+          },
+          {
+            tip: "Make a personal commitment",
+            why: "Clients don't trust companies. They trust people. Putting your personal name on the recovery makes it real.",
+            bad: { user: "Our team will make sure this doesn't happen again.", ai: "*(skeptical)* Your 'team' is what caused this.", note: "\u274c Generic team promise. Meaningless." },
+            good: { user: "I'm personally going to own this recovery. You'll have my direct number. If anything falls short, you call me \u2014 not a support line. Me.", ai: "*(trust begins rebuilding)* ...Okay. That means something. Don't let me down.", note: "\u2713 Personal stake. They're staying because someone put their name on it." },
+          },
+        ],
+        suggestions: [
+          ["I want to hear everything. Don't hold back.", "Tell me the full picture. I'm not going to interrupt or defend.", "I need to understand before I respond."],
+          ["You're right. We dropped the ball. Here's what changes in the next 48 hours.", "I'm not going to make excuses. I'm going to tell you what's different starting now.", "This is on us. Full stop. Here's the recovery plan."],
+          ["I'm personally owning this. Here's my direct number.", "You won't deal with a support queue. You deal with me.", "I'm putting my name on this. That's my commitment."],
+        ],
+        prompt: `You're a client who is seriously considering leaving. You're frustrated, disappointed, and feel like nobody on their team understands or cares. If they defend or make excuses, you're done \u2014 start talking about transition plans. If they genuinely listen and let you vent, calm down slightly. If they take full ownership without excuses and present a specific recovery plan, consider staying. If someone puts their personal name on it, that's the thing that keeps you.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+
       {
         subcategory: "Red Flags & Boundaries",
         isRedFlag: true,
@@ -8393,7 +8868,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
             <div style={{ position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)", fontSize: "16px", color: "#84a98c", pointerEvents: "none" }}>{"\ud83d\udd0d"}</div>
             <input
               type="text"
-              placeholder="Search 150+ scenarios..."
+              placeholder="Search 200+ scenarios..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               onFocus={() => setSearchFocused(true)}
