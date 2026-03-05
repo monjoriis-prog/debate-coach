@@ -5,87 +5,87 @@ import { useSearchParams } from "next/navigation";
 type Dimension = "conflict" | "intimacy" | "communication" | "independence" | "support" | "growth" | "trust";
 
 const DIMENSIONS: Record<Dimension, { name: string; emoji: string; color: string }> = {
-  conflict: { name: "Conflict Style", emoji: "\u26a1", color: "#c9184a" },
-  intimacy: { name: "Intimacy & Closeness", emoji: "\ud83d\udd25", color: "#e07a2f" },
-  communication: { name: "Communication", emoji: "\ud83d\udde3\ufe0f", color: "#2d6a4f" },
-  independence: { name: "Independence", emoji: "\ud83e\udee7", color: "#7c5cbf" },
-  support: { name: "Emotional Support", emoji: "\ud83e\ude77", color: "#1b4332" },
-  growth: { name: "Growth & Change", emoji: "\ud83c\udf31", color: "#40916c" },
-  trust: { name: "Trust & Security", emoji: "\ud83d\udee1\ufe0f", color: "#52796f" },
+  conflict: { name: "How You Repair", emoji: "\u26a1", color: "#c9184a" },
+  intimacy: { name: "How You Connect", emoji: "\ud83d\udd25", color: "#e07a2f" },
+  communication: { name: "How You Process Pain", emoji: "\ud83d\udde3\ufe0f", color: "#2d6a4f" },
+  independence: { name: "How Close Is Close Enough", emoji: "\ud83e\udee7", color: "#7c5cbf" },
+  support: { name: "How You Show Up in Hard Times", emoji: "\ud83e\ude77", color: "#1b4332" },
+  growth: { name: "How You Handle Change", emoji: "\ud83c\udf31", color: "#40916c" },
+  trust: { name: "What Trust Means to You", emoji: "\ud83d\udee1\ufe0f", color: "#52796f" },
 };
 
 const QUESTIONS: { question: string; dimension: Dimension; optionA: string; optionB: string; labelA: string; labelB: string; insightMatch: string; insightClash: string }[] = [
   {
-    question: "When we disagree about something important, I usually want to\u2026",
-    dimension: "conflict",
-    optionA: "Talk it through right now, even if it gets heated",
-    optionB: "Take space first and come back to it when we're both calm",
-    labelA: "Address immediately",
-    labelB: "Process first",
-    insightMatch: "You're aligned on timing. Whether you both want to talk it out now or take space first, being on the same page about WHEN to engage means less resentment and fewer blow-ups.",
-    insightClash: "One of you needs to talk NOW and the other needs space FIRST. Neither is wrong \u2014 but without awareness, the pursuer feels abandoned and the spacer feels attacked. The fix: the spacer gives a time ('I need 30 minutes, then I'm coming back') and the pursuer trusts the return.",
-  },
-  {
-    question: "When it comes to quality time, I feel most connected when\u2026",
+    question: "It\u2019s been a long, draining week. You both finally have a free evening. What happens?",
     dimension: "intimacy",
-    optionA: "We're doing something together \u2014 an experience, an adventure, something active",
-    optionB: "We're just being together \u2014 couch, quiet, no agenda, just us",
-    labelA: "Shared experiences",
-    labelB: "Quiet presence",
-    insightMatch: "You both recharge the same way. This is a huge advantage \u2014 you'll naturally plan time together that actually fills both of you up instead of draining one to fill the other.",
-    insightClash: "One of you needs adventure to feel alive and the other needs stillness to feel close. Neither is wrong. The key: alternate. One weekend is theirs, the next is yours. And both of you show up fully for the other's version of connection.",
+    optionA: "I want to go somewhere \u2014 dinner, a walk, a drive. Being out together recharges me",
+    optionB: "I want to stay in. Just us, the couch, maybe not even talking. Presence is enough",
+    labelA: "Connection through doing",
+    labelB: "Connection through being",
+    insightMatch: "You recharge the same way. This sounds small but it\u2019s massive \u2014 couples who align on how they recover from stress naturally protect each other\u2019s energy instead of accidentally draining it. Your Friday nights will feel like home to both of you.",
+    insightClash: "After a hard week, one of you wants to GO and the other wants to STOP. This creates a quiet resentment cycle: the doer feels like the homebody is boring, the homebody feels like the doer never slows down. The fix isn\u2019t compromise every time \u2014 it\u2019s taking turns. This Friday is yours. Next Friday is mine. And both of you show up fully for the other\u2019s version of rest.",
   },
   {
-    question: "When something is bothering me, I tend to\u2026",
+    question: "Your partner says something that hurts you. It wasn\u2019t intentional, but it stung. What do you do?",
     dimension: "communication",
-    optionA: "Say it directly, even if it's uncomfortable",
-    optionB: "Wait for the right moment and hint at it first",
-    labelA: "Direct communicator",
-    labelB: "Gradual communicator",
-    insightMatch: "You speak the same language. Whether you're both direct or both gradual, you understand each other's style intuitively. Less guessing, less frustration.",
-    insightClash: "One of you says it straight and the other hints. The direct one may miss the hints entirely ('why didn't you just tell me?'). The gradual one may feel bulldozed by the directness ('you didn't even ease into it'). The bridge: direct communicators learn to soften the opening. Gradual communicators practice saying it sooner.",
+    optionA: "Say something right away: \u2018Hey, that landed hard. Can we talk about it?\u2019",
+    optionB: "Sit with it first. Figure out if it\u2019s really about what they said or something deeper before bringing it up",
+    labelA: "Process out loud",
+    labelB: "Process internally first",
+    insightMatch: "You process pain the same way. This means when one of you is hurt, the other instinctively knows what\u2019s happening. The out-loud processors get to talk through it together. The internal processors give each other the space they both need. Either way, you\u2019re not misreading silence as anger or words as attack.",
+    insightClash: "One of you needs to say it NOW. The other needs time to THINK first. Here\u2019s what happens: the talker brings it up, the thinker isn\u2019t ready, the talker reads silence as not caring, the thinker feels ambushed. The solution that changes everything: \u2018I need to talk about something. Is now a good time, or do you need a minute?\u2019 That one question prevents 80% of the escalation.",
   },
   {
-    question: "When it comes to alone time vs. together time, I need\u2026",
-    dimension: "independence",
-    optionA: "More together time \u2014 being with my partner is how I recharge",
-    optionB: "More alone time \u2014 I need space to come back to the relationship energized",
-    labelA: "Togetherness-oriented",
-    labelB: "Independence-oriented",
-    insightMatch: "Your attachment needs are similar. This means less anxiety about whether the other person wants 'too much' or 'too little.' You naturally give each other what you both need.",
-    insightClash: "This is one of the most common relationship tensions. One person's need for closeness feels like clinginess to the other. One person's need for space feels like rejection to the other. The truth: BOTH needs are valid. Name them. Schedule both. 'Tuesday is our night, Thursday is mine.' Structure creates safety.",
-  },
-  {
-    question: "When my partner is going through a hard time, my instinct is to\u2026",
-    dimension: "support",
-    optionA: "Fix it \u2014 problem-solve, research, take action, make it better",
-    optionB: "Feel it \u2014 listen, hold space, be present, let them process",
-    labelA: "Action-oriented support",
-    labelB: "Presence-oriented support",
-    insightMatch: "You support each other the same way you want to be supported. This is rare and powerful \u2014 you intuitively give what the other needs without having to translate.",
-    insightClash: "One of you shows love by solving and the other by sitting. The solver feels useless 'just listening.' The listener feels unheard when they get a solution instead of empathy. The magic phrase: 'Do you want me to help fix this, or just hear you right now?' Ask every time.",
-  },
-  {
-    question: "When it comes to personal growth and change, I believe\u2026",
-    dimension: "growth",
-    optionA: "We should push each other to grow \u2014 comfort zones aren't where magic happens",
-    optionB: "We should accept each other as we are \u2014 love means not trying to change someone",
-    labelA: "Growth-focused",
-    labelB: "Acceptance-focused",
-    insightMatch: "You agree on what love looks like in practice. Whether you both push for growth or both prioritize acceptance, you won't feel like the other person is trying to fix you or hold you back.",
-    insightClash: "The growth-focused one sees potential everywhere and pushes their partner toward it. The acceptance-focused one feels like they're never enough as they are. Both are expressions of love \u2014 one says 'I believe you can be more,' the other says 'you're already enough.' The bridge: push with permission, accept with honesty.",
-  },
-  {
-    question: "When trust feels shaky \u2014 after a mistake, a lie, or a rough patch \u2014 I need\u2026",
+    question: "You find out your partner has been stressed about something for weeks and didn\u2019t tell you. How do you feel?",
     dimension: "trust",
-    optionA: "Transparency and proof \u2014 show me through actions that things are different now",
-    optionB: "Time and space \u2014 don't hover, just be consistent and let trust rebuild naturally",
-    labelA: "Needs visible proof",
-    labelB: "Needs patient consistency",
-    insightMatch: "You rebuild trust the same way. This means neither of you will feel smothered or abandoned during repair \u2014 you'll naturally give what the other needs.",
-    insightClash: "One needs to SEE the change (transparency, check-ins, openness) and the other needs to FEEL it over time (consistency, patience, no pressure). If the proof-seeker pushes too hard, the patience-seeker feels controlled. If the patience-seeker goes quiet, the proof-seeker panics. The fix: agree on specific, small acts of transparency with a timeline for reducing them.",
+    optionA: "Hurt. If we\u2019re partners, I should know when you\u2019re struggling. Silence feels like being shut out",
+    optionB: "I get it. Not everything needs to be shared immediately. I trust them to come to me when they\u2019re ready",
+    labelA: "Transparency = trust",
+    labelB: "Autonomy = trust",
+    insightMatch: "You define trust the same way. This is foundational \u2014 you\u2019ll never have the fight where one person says \u2018why didn\u2019t you tell me?\u2019 and the other says \u2018because I was handling it.\u2019 Your definition of partnership matches, and that\u2019s one of the most stabilizing things a couple can share.",
+    insightClash: "One of you thinks trust means full transparency: tell me everything, even the hard stuff, especially the hard stuff. The other thinks trust means autonomy: I\u2019ll handle what I can and come to you when I need to. Neither is wrong. But the transparency person will feel shut out, and the autonomy person will feel surveilled. The bridge: agree on what MUST be shared (health, finances, major decisions) and what\u2019s okay to process alone first. Define the lines together so nobody has to guess.",
   },
-];
+  {
+    question: "Your partner wants to make a big change \u2014 new career, new city, something that disrupts the plan you had together.",
+    dimension: "growth",
+    optionA: "I\u2019m excited. Growth keeps a relationship alive. Let\u2019s figure out how to make it work",
+    optionB: "I need to understand the impact first. Change is fine but not at the expense of what we\u2019ve built",
+    labelA: "Change is fuel",
+    labelB: "Stability is foundation",
+    insightMatch: "You respond to change the same way. This means neither of you will feel held back or reckless to the other. When life throws curveballs, you\u2019ll face them with the same energy \u2014 and that kind of alignment is what gets couples through the hardest pivots.",
+    insightClash: "One of you hears \u2018change\u2019 and feels alive. The other hears \u2018change\u2019 and feels afraid. The change-lover thinks the stability-seeker is holding them back. The stability-seeker thinks the change-lover is being reckless with their shared life. The truth: you BOTH want a good future \u2014 you just have different relationships with uncertainty. The move: the change-lover slows down to acknowledge what the stability-seeker would lose. The stability-seeker names their fear without making it a veto. Meet in the middle with a timeline both of you helped create.",
+  },
+  {
+    question: "It\u2019s Sunday morning. Your partner is in the other room doing their own thing. You haven\u2019t spoken in an hour. How does that feel?",
+    dimension: "independence",
+    optionA: "A little lonely. I\u2019d rather be in the same room, even if we\u2019re not talking",
+    optionB: "Great. I love that we can exist in the same house without needing to be together every second",
+    labelA: "Closeness-seeking",
+    labelB: "Space-comfortable",
+    insightMatch: "Your baseline need for proximity matches. This prevents the silent Sunday morning tension that slowly erodes a lot of relationships. You both feel the same thing about shared silence \u2014 whether that\u2019s \u2018let\u2019s be together\u2019 or \u2018let\u2019s have our own space\u2019 \u2014 and that alignment creates day-to-day peace that\u2019s hard to overstate.",
+    insightClash: "This is the \u2018roommate vs. soulmate\u2019 tension. The closeness-seeker interprets the other\u2019s comfort with distance as not caring enough. The space-comfortable person interprets the other\u2019s need for proximity as neediness. Neither is true. What\u2019s actually happening: you have different nervous system baselines for \u2018safe enough.\u2019 The closeness-seeker needs physical proximity to feel connected. The space-comfy person needs autonomy to feel like themselves. Say this out loud to each other. Literally: \u2018When you\u2019re in the other room, I feel [X]. What does it mean for you?\u2019 The answer will surprise you.",
+  },
+  {
+    question: "Your partner made a mistake that affected you. They\u2019ve apologized sincerely. What do you need to move forward?",
+    dimension: "conflict",
+    optionA: "I need to see change. The apology is the beginning, not the end. Show me through actions over time",
+    optionB: "If the apology is genuine, I can move on. I don\u2019t want to hold it over them. People make mistakes",
+    labelA: "Trust through proof",
+    labelB: "Trust through grace",
+    insightMatch: "You repair the same way. This is huge for long-term survival \u2014 every couple will hurt each other eventually. If you agree on what repair looks like, you\u2019ll get through it. The proof people rebuild through demonstrated change. The grace people rebuild through forgiveness. Either path works when both people are on it together.",
+    insightClash: "After a mistake, one of you needs to SEE change over time before trust returns. The other wants to forgive and move on because holding onto it feels toxic. Here\u2019s the tension: the proof-seeker feels like the grace-giver is letting them off too easy (or worse, enabling repeat behavior). The grace-giver feels like the proof-seeker is punishing them indefinitely. The bridge: the grace-giver acknowledges that forgiveness doesn\u2019t erase impact. The proof-seeker gives a clear picture of what \u2018enough change\u2019 looks like so it\u2019s not an open-ended sentence. Name the finish line.",
+  },
+  {
+    question: "You\u2019re going through something hard and your partner asks \u2018What can I do?\u2019 What\u2019s your honest answer?",
+    dimension: "support",
+    optionA: "Help me figure this out. Think with me. Take something off my plate. DO something",
+    optionB: "Just be here. Don\u2019t try to fix it. I need to feel like someone is with me in this, not managing it",
+    labelA: "Support = action",
+    labelB: "Support = presence",
+    insightMatch: "You speak the same support language. When life gets hard \u2014 and it will \u2014 you\u2019ll instinctively give each other what\u2019s actually needed instead of what YOU would want. That\u2019s rarer than you think. Most couples spend years giving support in their own language, not their partner\u2019s.",
+    insightClash: "This mismatch is responsible for more relationship resentment than almost anything else. Person A is drowning and their partner starts problem-solving. Person A doesn\u2019t feel helped \u2014 they feel managed. Meanwhile Person B IS drowning and their partner sits with them, holds space, says nothing useful. Person B doesn\u2019t feel supported \u2014 they feel watched. The question that fixes this permanently: \u2018Do you want me to help you solve this, or just be here with you?\u2019 Ask it every single time. Never assume.",
+  },
+]
 
 function encode(answers: number[]): string {
   return answers.map(a => a.toString()).join("");
@@ -162,7 +162,7 @@ function CompatInner() {
 
   const handleShare = async () => {
     const link = `https://debate-coach-seven.vercel.app/quiz/compatibility?from=${encodeURIComponent(userName)}&a=${encode(answers)}`;
-    const txt = `I just took a relationship compatibility quiz on FORTE. Now I want to see how we compare \u2014 take it and we'll get our results together:\n\n${link}`;
+    const txt = `I just answered 7 questions about how I experience our relationship. Now it\u2019s your turn \u2014 when you answer, we\u2019ll both see where we align and where our real conversations need to happen.\n\nTakes 2 minutes:\n${link}`;
     if (navigator.share) {
       try { await navigator.share({ title: "Compatibility Quiz", text: txt, url: link }); } catch {}
     } else {
@@ -188,14 +188,14 @@ function CompatInner() {
                 <div style={{ fontSize: "36px", marginBottom: "8px" }}>{"\ud83d\udd17"}</div>
                 <div style={{ fontSize: "14px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginBottom: "4px" }}>{partnerName} took the quiz</div>
                 <div style={{ fontSize: "20px", color: "#e8f0ec", fontWeight: "400" }}>Now it{"\u2019"}s your turn</div>
-                <div style={{ fontSize: "13px", color: "#52796f", fontStyle: "italic", marginTop: "8px" }}>Answer the same 7 questions and see your compatibility</div>
+                <div style={{ fontSize: "13px", color: "#52796f", fontStyle: "italic", marginTop: "8px" }}>They answered honestly. Now it{"\u2019"}s your turn. Same questions. Then you{"\u2019"}ll both see the truth.</div>
               </div>
               <h1 style={{ fontSize: "clamp(24px, 5vw, 32px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 16px", lineHeight: 1.3 }}>How Compatible<br />Are You Really?</h1>
             </>
           ) : (
             <>
               <h1 style={{ fontSize: "clamp(32px, 7vw, 44px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 16px", lineHeight: 1.2, letterSpacing: "-0.5px" }}>How Compatible<br />Are You Really?</h1>
-              <p style={{ color: "#52796f", fontSize: "16px", lineHeight: 1.8, margin: "0 0 40px" }}>7 questions about how you experience your relationship.<br />Send it to your partner. See where you align {"\u2014"} and where the work is.</p>
+              <p style={{ color: "#52796f", fontSize: "16px", lineHeight: 1.8, margin: "0 0 40px" }}>7 real relationship moments. Both of you answer.<br />See where you align, where the friction is {"\u2014"}<br />and exactly what to do about it.</p>
             </>
           )}
           <button onClick={() => setStarted(true)} style={{ padding: "18px 48px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", transition: "all 0.3s" }}
@@ -239,7 +239,7 @@ function CompatInner() {
               </div>
             </div>
             <p style={{ fontSize: "14px", color: "#52796f", fontFamily: "-apple-system, sans-serif", lineHeight: 1.6 }}>
-              {score >= 70 ? "Strong alignment. You naturally understand each other\u2019s needs in most areas. The places you differ are where the real growth happens." : score >= 40 ? "A mix of alignment and friction. This is actually normal \u2014 and the differences are where the most important conversations live." : "Significant differences in how you experience the relationship. This isn\u2019t bad \u2014 it means you need more conversation, not less. The gap is the map."}
+              {score >= 70 ? `Strong alignment across ${matches.length} of 7 dimensions. You naturally understand each other\u2019s needs in most areas. But don\u2019t let alignment make you complacent \u2014 the places you differ are where the deepest growth lives. Couples who are \"mostly aligned\" often ignore their friction points because everything else is easy. Don\u2019t. Those ${clashes.length} areas are where your next level lives.` : score >= 40 ? `A mix of alignment and real friction. This is actually what most healthy relationships look like \u2014 not perfect symmetry, but enough overlap to feel safe and enough difference to keep growing. Your ${clashes.length} friction points aren\u2019t problems to solve. They\u2019re conversations to keep having. The couples who make it aren\u2019t the ones who agree on everything. They\u2019re the ones who know exactly where they disagree and talk about it without fear.` : `Significant differences across ${clashes.length} of 7 dimensions. Before you panic: this doesn\u2019t mean you\u2019re incompatible. It means your relationship needs more active communication than most. Every friction point below is a place where one of you has been silently adapting to the other \u2014 and that adaptation has a shelf life. The good news? You now have the map. Use it. Have the conversations. The gap between you isn\u2019t the problem. The silence about the gap is.`}
             </p>
           </div>
 
@@ -288,9 +288,11 @@ function CompatInner() {
           <div style={{ background: "linear-gradient(145deg, #1a3a28, #2d4a3a)", borderRadius: "20px", padding: "24px", marginBottom: "24px" }}>
             <div style={{ fontSize: "10px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "10px", fontFamily: "-apple-system, sans-serif" }}>{"\ud83c\udfaf"} What This Means</div>
             <p style={{ fontSize: "14px", color: "#e8f0ec", lineHeight: 1.8, margin: 0, fontFamily: "-apple-system, sans-serif" }}>
-              {score === 100 ? "Perfect alignment is rare \u2014 and it doesn\u2019t mean there\u2019s no work to do. It means you have a strong foundation. The growth comes from going deeper, not bridging gaps."
-              : clashes.length <= 2 ? `Your friction points are in ${clashes.map(c => DIMENSIONS[c].name.toLowerCase()).join(" and ")}. These aren\u2019t problems \u2014 they\u2019re conversations waiting to happen. Have them before they become patterns.`
-              : "Multiple areas of difference means your relationship needs active communication to thrive. The good news: you now have a map. Every friction point above is a conversation starter, not a death sentence."}
+              {score === 100 ? "Perfect alignment is beautiful and rare. But it can also make you lazy \u2014 when everything feels easy, you stop having the conversations that keep a relationship evolving. Your work isn\u2019t bridging gaps. It\u2019s making sure comfort doesn\u2019t become complacency. Keep asking each other the hard questions, even when things are good. Especially when things are good."
+              : clashes.length === 1 ? `Your one friction point \u2014 ${DIMENSIONS[clashes[0]].name.toLowerCase()} \u2014 is the conversation you\u2019ve probably been having versions of for a while without resolving it. Read the insight above carefully. Then sit down together and say: \u2018This is where we\u2019re different. How do we make it work for both of us?\u2019 One honest conversation about one dimension can shift an entire relationship.`
+              : clashes.length <= 3 ? `Your friction points \u2014 ${clashes.map(c => DIMENSIONS[c].name.toLowerCase()).join(", ")} \u2014 are probably already showing up as small recurring tensions. The kind where you both walk away thinking \u2018why does this keep happening?\u2019 Now you know why. Each clash above has a specific bridge. Use them. Start with the one that frustrates you most.`
+              : `With ${clashes.length} areas of difference, you\u2019re in a relationship that requires real work \u2014 but that work is what transforms a relationship from something you\u2019re in to something you\u2019ve built. The couples who survive major differences aren\u2019t lucky. They\u2019re intentional. Pick one friction point above. Just one. Have the conversation this week. Then pick another next week. That\u2019s how you rebuild the bridge, one plank at a time.`}
+            </p>
             </p>
           </div>
 
@@ -300,8 +302,8 @@ function CompatInner() {
           </div>
 
           <div style={{ background: "#fff", borderRadius: "16px", padding: "24px", border: "1.5px solid #d8e8e0", textAlign: "center" }}>
-            <h3 style={{ fontSize: "17px", fontWeight: "600", color: "#1a2e1a", margin: "0 0 8px", fontFamily: "-apple-system, sans-serif" }}>Practice These Conversations</h3>
-            <p style={{ fontSize: "13px", color: "#52796f", lineHeight: 1.6, margin: "0 0 16px", fontFamily: "-apple-system, sans-serif" }}>FORTE has real scenarios for every friction point above. Practice them together with AI that reacts to HOW you say it.</p>
+            <h3 style={{ fontSize: "17px", fontWeight: "600", color: "#1a2e1a", margin: "0 0 8px", fontFamily: "-apple-system, sans-serif" }}>Practice the Hard Conversations</h3>
+            <p style={{ fontSize: "13px", color: "#52796f", lineHeight: 1.6, margin: "0 0 16px", fontFamily: "-apple-system, sans-serif" }}>Every friction point above has matching scenarios in FORTE where you can practice the exact conversation with AI that reacts to HOW you say it. Not what to say {"\u2014"} how to say it so it actually lands.</p>
             <a href="/social" style={{ display: "block", padding: "16px", background: "#2d6a4f", color: "#fff", borderRadius: "12px", fontSize: "15px", fontWeight: "600", textDecoration: "none", textAlign: "center", fontFamily: "-apple-system, sans-serif" }}>Try FORTE Free {"\u2192"}</a>
           </div>
         </div>
@@ -318,7 +320,7 @@ function CompatInner() {
           <div style={{ animation: "fadeUp 0.6s ease-out" }}>
             <div style={{ fontSize: "48px", marginBottom: "16px" }}>{"\u2705"}</div>
             <h2 style={{ fontSize: "28px", fontWeight: "400", color: "#1a2e1a", margin: "0 0 12px" }}>Your answers are locked in</h2>
-            <p style={{ color: "#52796f", fontSize: "15px", lineHeight: 1.8, margin: "0 0 36px", fontFamily: "-apple-system, sans-serif" }}>Now send it to your partner. When they take it,<br />you{"\u2019"}ll both see where you align and where the work is.</p>
+            <p style={{ color: "#52796f", fontSize: "15px", lineHeight: 1.8, margin: "0 0 36px", fontFamily: "-apple-system, sans-serif" }}>Now comes the real part. Send this to your partner.<br />When they answer the same 7 questions, you{"\u2019"}ll both see<br />exactly where you align {"\u2014"} and where the real conversations need to happen.</p>
 
             {!nameSubmitted ? (
               <div style={{ background: "#fff", borderRadius: "16px", padding: "24px", border: "1.5px solid #2d6a4f", marginBottom: "24px", textAlign: "left" }}>
