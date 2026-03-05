@@ -7422,6 +7422,50 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
               <h2 style={{ fontSize: "28px", fontWeight: "400", margin: 0, color: "#1a2e1a" }}>{subcategoryFilter}</h2>
             </div>
             <p style={{ color: "#84a98c", fontSize: "14px", marginBottom: "36px", fontFamily: "-apple-system, sans-serif" }}>Choose a scenario — you'll learn first, then practice.</p>
+            {selectedCategory.category === "Dating & Romance" && (
+              <div style={{ display: "flex", gap: "10px", marginBottom: "24px" }}>
+                <a href="/quiz/partner" style={{ flex: 1, display: "flex", alignItems: "center", gap: "10px", padding: "14px 16px", background: "#fff", border: "1.5px solid #f0d8dc", borderRadius: "12px", textDecoration: "none", transition: "all 0.25s" }}
+                  onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#c9184a"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+                  onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#f0d8dc"; e.currentTarget.style.transform = "none"; }}>
+                  <div style={{ fontSize: "20px" }}>{"\u2764\ufe0f"}</div>
+                  <div>
+                    <div style={{ fontSize: "13px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Partner Style Quiz</div>
+                    <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif" }}>Compare with your partner</div>
+                  </div>
+                </a>
+                <a href="/quiz" style={{ flex: 1, display: "flex", alignItems: "center", gap: "10px", padding: "14px 16px", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "12px", textDecoration: "none", transition: "all 0.25s" }}
+                  onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+                  onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; }}>
+                  <div style={{ fontSize: "20px" }}>{"\ud83d\udde3\ufe0f"}</div>
+                  <div>
+                    <div style={{ fontSize: "13px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Communication Quiz</div>
+                    <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif" }}>Compare with anyone</div>
+                  </div>
+                </a>
+              </div>
+            )}
+            {selectedCategory.category === "Family Conversations" && (
+              <div style={{ display: "flex", gap: "10px", marginBottom: "24px" }}>
+                <a href="/quiz" style={{ flex: 1, display: "flex", alignItems: "center", gap: "10px", padding: "14px 16px", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "12px", textDecoration: "none", transition: "all 0.25s" }}
+                  onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+                  onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; }}>
+                  <div style={{ fontSize: "20px" }}>{"\ud83d\udde3\ufe0f"}</div>
+                  <div>
+                    <div style={{ fontSize: "13px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Communication Style Quiz</div>
+                    <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif" }}>Compare with family members</div>
+                  </div>
+                </a>
+                <a href="/quiz/partner" style={{ flex: 1, display: "flex", alignItems: "center", gap: "10px", padding: "14px 16px", background: "#fff", border: "1.5px solid #f0d8dc", borderRadius: "12px", textDecoration: "none", transition: "all 0.25s" }}
+                  onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#c9184a"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+                  onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#f0d8dc"; e.currentTarget.style.transform = "none"; }}>
+                  <div style={{ fontSize: "20px" }}>{"\u2764\ufe0f"}</div>
+                  <div>
+                    <div style={{ fontSize: "13px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Partner Style Quiz</div>
+                    <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif" }}>Compare with your partner</div>
+                  </div>
+                </a>
+              </div>
+            )}
             <div style={{ border: `1.5px solid ${selectedCategory.accent}22`, borderRadius: "14px", overflow: "hidden" }}>
               {group?.situations.map((s: any, i: number) => {
                 const scenarioLocked = !isPro && i >= 2;
