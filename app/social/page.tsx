@@ -7433,34 +7433,16 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
             </div>
             <p style={{ color: "#84a98c", fontSize: "14px", marginBottom: "36px", fontFamily: "-apple-system, sans-serif" }}>Choose a scenario — you'll learn first, then practice.</p>
             {selectedCategory.category === "Dating & Romance" && (
-              <div style={{ display: "flex", gap: "10px", marginBottom: "24px", flexWrap: "wrap" }}>
-                <a href="/quiz/compatibility" style={{ flex: "1 1 100%", display: "flex", alignItems: "center", gap: "10px", padding: "14px 16px", background: "#fff", border: "1.5px solid #f0e0d0", borderRadius: "12px", textDecoration: "none", transition: "all 0.25s" }}
-                  onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#e07a2f"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-                  onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#f0e0d0"; e.currentTarget.style.transform = "none"; }}>
-                  <div style={{ fontSize: "20px" }}>{"\ud83d\udd17"}</div>
+              <div style={{ marginBottom: "24px" }}>
+                <a href="/quiz/compatibility" style={{ display: "flex", alignItems: "center", gap: "14px", padding: "16px 20px", background: "#fff", border: "1.5px solid #f0e0d0", borderRadius: "14px", textDecoration: "none", transition: "all 0.25s" }}
+                  onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#e07a2f"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(224,122,47,0.08)"; }}
+                  onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#f0e0d0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+                  <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "#fef3e8", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "22px", flexShrink: 0 }}>{"\ud83d\udd17"}</div>
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: "13px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Compatibility Quiz</div>
-                    <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif" }}>Both partners answer. See where you align.</div>
+                    <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Compatibility Quiz</div>
+                    <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>Both partners answer 7 questions. See where you align and where the work is.</div>
                   </div>
-                  <div style={{ fontSize: "14px", color: "#e07a2f" }}>{"\u2192"}</div>
-                </a>
-                <a href="/quiz/partner" style={{ flex: 1, display: "flex", alignItems: "center", gap: "10px", padding: "14px 16px", background: "#fff", border: "1.5px solid #f0d8dc", borderRadius: "12px", textDecoration: "none", transition: "all 0.25s" }}
-                  onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#c9184a"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-                  onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#f0d8dc"; e.currentTarget.style.transform = "none"; }}>
-                  <div style={{ fontSize: "20px" }}>{"\u2764\ufe0f"}</div>
-                  <div>
-                    <div style={{ fontSize: "13px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Partner Style Quiz</div>
-                    <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif" }}>Compare with your partner</div>
-                  </div>
-                </a>
-                <a href="/quiz" style={{ flex: 1, display: "flex", alignItems: "center", gap: "10px", padding: "14px 16px", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "12px", textDecoration: "none", transition: "all 0.25s" }}
-                  onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-                  onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; }}>
-                  <div style={{ fontSize: "20px" }}>{"\ud83d\udde3\ufe0f"}</div>
-                  <div>
-                    <div style={{ fontSize: "13px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Communication Quiz</div>
-                    <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif" }}>Compare with anyone</div>
-                  </div>
+                  <div style={{ fontSize: "16px", color: "#e07a2f", flexShrink: 0 }}>{"\u2192"}</div>
                 </a>
               </div>
             )}
