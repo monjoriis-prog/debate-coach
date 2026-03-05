@@ -7262,6 +7262,8 @@ export default function Forte() {
     bestStreak: number;
   }>({ practiceDays: [], totalSessions: 0, scenariosDone: [], bestStreak: 0 });
   const [showProgress, setShowProgress] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchFocused, setSearchFocused] = useState(false);
 
   // Quiz state
   const [quizDone, setQuizDone] = useState<boolean | null>(null);
@@ -8384,6 +8386,78 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
           </div>
           <div style={{ fontSize: "18px", color: "#2d6a4f" }}>{"\u2192"}</div>
         </button>
+
+        {/* SEARCH */}
+        <div style={{ marginBottom: "20px", position: "relative" }}>
+          <div style={{ position: "relative" }}>
+            <div style={{ position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)", fontSize: "16px", color: "#84a98c", pointerEvents: "none" }}>{"\ud83d\udd0d"}</div>
+            <input
+              type="text"
+              placeholder="Search 150+ scenarios..."
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              onFocus={() => setSearchFocused(true)}
+              onBlur={() => { setTimeout(() => setSearchFocused(false), 200); }}
+              style={{ width: "100%", padding: "16px 16px 16px 44px", border: `1.5px solid ${searchFocused ? "#2d6a4f" : "#d8e8e0"}`, borderRadius: "14px", fontSize: "15px", fontFamily: "-apple-system, sans-serif", color: "#1a2e1a", background: "#fff", outline: "none", transition: "border-color 0.2s", boxSizing: "border-box" }}
+            />
+            {searchQuery && (
+              <button onClick={() => setSearchQuery("")} style={{ position: "absolute", right: "14px", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", fontSize: "18px", color: "#84a98c", cursor: "pointer", padding: "4px" }}>{"\u2715"}</button>
+            )}
+          </div>
+
+          {/* Search Results */}
+          {searchQuery.trim().length >= 2 && (() => {
+            const q = searchQuery.toLowerCase();
+            const results: { scenario: any; category: any }[] = [];
+            SCENARIOS.forEach((cat: any) => {
+              cat.situations.forEach((s: any) => {
+                const match = (s.title?.toLowerCase().includes(q)) || (s.subtitle?.toLowerCase().includes(q)) || (s.subcategory?.toLowerCase().includes(q));
+                if (match) results.push({ scenario: s, category: cat });
+              });
+            });
+            return (
+              <div style={{ marginTop: "12px" }}>
+                <div style={{ fontSize: "12px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginBottom: "10px" }}>
+                  {results.length === 0 ? "No scenarios found" : `${results.length} scenario${results.length !== 1 ? "s" : ""} found`}
+                </div>
+                {results.length > 0 && (
+                  <div style={{ border: "1.5px solid #d8e8e0", borderRadius: "14px", overflow: "hidden", maxHeight: "400px", overflowY: "auto" }}>
+                    {results.slice(0, 12).map((r, i) => {
+                      const locked = !isPro && (isCategoryLocked(r.category.category));
+                      return (
+                        <button key={i} onClick={() => {
+                          if (locked) { setShowPaywall(true); return; }
+                          if (!canPractice) { setShowPaywall(true); return; }
+                          forteSound.select();
+                          setSelectedCategory(r.category);
+                          setSelectedSituation(r.scenario);
+                          setLessonIndex(0);
+                          setRedFlagStep(0);
+                          setSearchQuery("");
+                          setPhase("learn");
+                        }}
+                          style={{ width: "100%", background: locked ? "#fafafa" : "#fff", border: "none", borderTop: i > 0 ? "1px solid #e8f0ec" : "none", padding: "16px 20px", textAlign: "left", cursor: "pointer", display: "flex", alignItems: "center", gap: "14px", transition: "background 0.15s" }}
+                          onMouseEnter={e => { if (!locked) e.currentTarget.style.background = "#f0f7f4"; }}
+                          onMouseLeave={e => { e.currentTarget.style.background = locked ? "#fafafa" : "#fff"; }}>
+                          <div style={{ flex: 1 }}>
+                            <div style={{ fontSize: "14px", fontWeight: "600", color: locked ? "#aaa" : "#1a2e1a", marginBottom: "3px", fontFamily: "-apple-system, sans-serif" }}>{r.scenario.title}</div>
+                            <div style={{ fontSize: "12px", color: "#84a98c", fontFamily: "-apple-system, sans-serif" }}>{r.category.category} · {r.scenario.subcategory}</div>
+                          </div>
+                          {locked ? <div style={{ fontSize: "14px" }}>🔒</div> : <div style={{ fontSize: "16px", color: "#2d6a4f" }}>›</div>}
+                        </button>
+                      );
+                    })}
+                    {results.length > 12 && (
+                      <div style={{ padding: "12px 20px", fontSize: "12px", color: "#84a98c", textAlign: "center", fontFamily: "-apple-system, sans-serif", borderTop: "1px solid #e8f0ec" }}>
+                        +{results.length - 12} more results. Try a more specific search.
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
+        </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
           {SCENARIOS.map((s) => {
