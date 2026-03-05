@@ -174,7 +174,7 @@ function RedFlagInner() {
           <button onClick={() => setStarted(true)} style={{ padding: "18px 48px", background: "#c9184a", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", transition: "all 0.3s" }}
             onMouseEnter={e => { e.currentTarget.style.background = "#e0506a"; e.currentTarget.style.transform = "translateY(-2px)"; }}
             onMouseLeave={e => { e.currentTarget.style.background = "#c9184a"; e.currentTarget.style.transform = "none"; }}>Test My Red Flag IQ {"\u2192"}</button>
-          <p style={{ color: "#84a98c", fontSize: "12px", marginTop: "24px", fontFamily: "-apple-system, sans-serif" }}>Takes 3 minutes {"\u00b7"} Free {"\u00b7"} Shareable scorecard</p>
+          <p style={{ color: "#84a98c", fontSize: "12px", marginTop: "24px", fontFamily: "-apple-system, sans-serif" }}>Takes 3 minutes {"\u00b7"} Free</p>
         </div>
       </div>
       <style>{`@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}`}</style>
@@ -189,58 +189,127 @@ function RedFlagInner() {
     });
     const missed = correct.filter(c => !c.isCorrect);
     const caught = correct.filter(c => c.isCorrect);
+    const isGreatScore = score >= 9;
+    const isGoodScore = score >= 7;
+
+    const shareUrl = `https://debate-coach-seven.vercel.app/quiz/redflag`;
+    const shareText = `\ud83d\udea9 I scored ${score}/${SCENARIOS.length} on the Red Flag IQ test \u2014 "${tier.name}"\n\nCan you beat my score? Most people miss at least 3.`;
+
+    const shareToFacebook = () => {
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`, "_blank", "width=600,height=400");
+    };
+    const shareToTikTok = () => {
+      navigator.clipboard.writeText(`${shareText}\n\n${shareUrl}`);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+      alert("Link & caption copied! Paste it in your TikTok bio or comment.");
+    };
+    const copyLink = () => {
+      navigator.clipboard.writeText(`${shareText}\n\n${shareUrl}`);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    };
 
     return (
-      <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
-        <div style={{ maxWidth: "520px", margin: "0 auto", padding: "48px 24px" }}>
+      <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif", position: "relative", overflow: "hidden" }}>
 
-          {/* SHAREABLE CARD — designed for screenshots */}
-          <div style={{ background: "linear-gradient(145deg, #1a2e1a, #2d4a3a)", borderRadius: "24px", padding: "40px 32px", marginBottom: "24px", textAlign: "center", position: "relative", overflow: "hidden", animation: "fadeUp 0.6s ease-out" }}>
-            {/* Decorative flags */}
-            <div style={{ position: "absolute", top: "20px", left: "24px", fontSize: "24px", opacity: 0.1 }}>{"\ud83d\udea9"}</div>
-            <div style={{ position: "absolute", top: "40px", right: "32px", fontSize: "18px", opacity: 0.08 }}>{"\ud83d\udea9"}</div>
-            <div style={{ position: "absolute", bottom: "30px", left: "40px", fontSize: "16px", opacity: 0.06 }}>{"\ud83d\udea9"}</div>
-            <div style={{ position: "absolute", bottom: "50px", right: "24px", fontSize: "20px", opacity: 0.08 }}>{"\ud83d\udea9"}</div>
+        {/* Confetti for great scores */}
+        {isGoodScore && (
+          <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 100 }}>
+            {Array.from({ length: 40 }).map((_, i) => {
+              const colors = ["#c9184a", "#2d6a4f", "#e07a2f", "#7c5cbf", "#40916c", "#f0a050"];
+              const color = colors[i % colors.length];
+              const left = Math.random() * 100;
+              const delay = Math.random() * 2;
+              const duration = 2.5 + Math.random() * 2;
+              const size = 6 + Math.random() * 8;
+              const rotation = Math.random() * 360;
+              return (
+                <div key={i} style={{
+                  position: "absolute",
+                  left: `${left}%`,
+                  top: "-20px",
+                  width: `${size}px`,
+                  height: `${size * 0.6}px`,
+                  background: color,
+                  borderRadius: "2px",
+                  transform: `rotate(${rotation}deg)`,
+                  animation: `confettiFall ${duration}s ease-in ${delay}s forwards`,
+                  opacity: 0,
+                }} />
+              );
+            })}
+          </div>
+        )}
 
-            <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.3em", color: "#84a98c", textTransform: "uppercase", marginBottom: "24px", fontFamily: "-apple-system, sans-serif" }}>Red Flag IQ</div>
-            <div style={{ fontSize: "72px", fontWeight: "700", color: "#fff", fontFamily: "-apple-system, sans-serif", lineHeight: 1 }}>{score}</div>
-            <div style={{ fontSize: "20px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginBottom: "16px" }}>out of {SCENARIOS.length}</div>
-            <div style={{ display: "inline-block", padding: "8px 24px", background: `${tier.color}22`, borderRadius: "99px", marginBottom: "20px" }}>
-              <span style={{ fontSize: "20px", marginRight: "8px" }}>{tier.emoji}</span>
-              <span style={{ fontSize: "18px", fontWeight: "700", color: tier.color, fontFamily: "-apple-system, sans-serif" }}>{tier.name}</span>
+        <div style={{ maxWidth: "520px", margin: "0 auto", padding: "48px 24px", position: "relative", zIndex: 1 }}>
+
+          {/* Score celebration popup */}
+          <div style={{ textAlign: "center", marginBottom: "32px", animation: "popIn 0.6s cubic-bezier(0.34,1.56,0.64,1)" }}>
+            <div style={{ fontSize: isGreatScore ? "72px" : "56px", marginBottom: "12px" }}>
+              {isGreatScore ? "\ud83c\udf89" : isGoodScore ? "\ud83d\udd25" : score >= 5 ? "\ud83d\udc40" : "\ud83d\ude2c"}
             </div>
-            <p style={{ fontSize: "14px", color: "#b8d4c8", lineHeight: 1.7, margin: "0 0 24px", fontFamily: "-apple-system, sans-serif" }}>{tier.desc}</p>
-            <div style={{ borderTop: "1px solid #ffffff15", paddingTop: "16px" }}>
+            <div style={{ fontSize: "64px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif", lineHeight: 1 }}>{score}<span style={{ fontSize: "28px", color: "#84a98c" }}>/{SCENARIOS.length}</span></div>
+            <div style={{ display: "inline-block", padding: "6px 20px", background: `${tier.color}15`, borderRadius: "99px", marginTop: "12px", marginBottom: "8px" }}>
+              <span style={{ fontSize: "16px", marginRight: "6px" }}>{tier.emoji}</span>
+              <span style={{ fontSize: "16px", fontWeight: "700", color: tier.color, fontFamily: "-apple-system, sans-serif" }}>{tier.name}</span>
+            </div>
+          </div>
+
+          {/* Shareable card — designed for screenshots */}
+          <div style={{ background: "linear-gradient(145deg, #1a2e1a, #2d4a3a)", borderRadius: "24px", padding: "36px 28px", marginBottom: "24px", textAlign: "center", position: "relative", overflow: "hidden", animation: "fadeUp 0.6s ease-out 0.3s both" }}>
+            <div style={{ position: "absolute", top: "16px", left: "20px", fontSize: "20px", opacity: 0.1 }}>{"\ud83d\udea9"}</div>
+            <div style={{ position: "absolute", bottom: "20px", right: "24px", fontSize: "16px", opacity: 0.08 }}>{"\ud83d\udea9"}</div>
+            <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.3em", color: "#84a98c", textTransform: "uppercase", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>Red Flag IQ</div>
+            <div style={{ fontSize: "56px", fontWeight: "700", color: "#fff", fontFamily: "-apple-system, sans-serif", lineHeight: 1 }}>{score}<span style={{ fontSize: "22px", color: "#84a98c" }}>/{SCENARIOS.length}</span></div>
+            <div style={{ fontSize: "22px", fontWeight: "600", color: tier.color, marginTop: "8px", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>{tier.emoji} {tier.name}</div>
+            <p style={{ fontSize: "13px", color: "#b8d4c8", lineHeight: 1.7, margin: "0 0 16px", fontFamily: "-apple-system, sans-serif" }}>{tier.desc}</p>
+            <div style={{ borderTop: "1px solid #ffffff12", paddingTop: "12px" }}>
               <div style={{ fontSize: "10px", color: "#52796f", fontFamily: "-apple-system, sans-serif", letterSpacing: "0.15em" }}>FORTE {"\u00b7"} Practice real conversations before they happen</div>
             </div>
           </div>
 
-          {/* Share buttons */}
-          <div style={{ display: "flex", gap: "10px", marginBottom: "32px" }}>
-            <button onClick={handleShare} style={{ flex: 1, padding: "16px", background: "#c9184a", color: "#fff", border: "none", borderRadius: "14px", fontSize: "15px", fontWeight: "700", cursor: "pointer", fontFamily: "-apple-system, sans-serif", transition: "all 0.2s" }}
-              onMouseEnter={e => e.currentTarget.style.transform = "translateY(-2px)"}
-              onMouseLeave={e => e.currentTarget.style.transform = "none"}>
-              {copied ? "Link Copied!" : "\ud83d\udea9 Share My Score"}
-            </button>
-            <button onClick={restart} style={{ padding: "16px 20px", background: "transparent", color: "#52796f", border: "1.5px solid #d8e8e0", borderRadius: "14px", fontSize: "14px", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>Retake</button>
+          {/* Share section */}
+          <div style={{ animation: "fadeUp 0.6s ease-out 0.6s both" }}>
+            <p style={{ fontSize: "15px", fontWeight: "600", color: "#1a2e1a", textAlign: "center", marginBottom: "14px", fontFamily: "-apple-system, sans-serif" }}>
+              {isGreatScore ? "That score deserves to be seen \ud83d\udc40" : isGoodScore ? "Challenge your friends \u2014 can they beat you?" : "Think your friends would do better?"}
+            </p>
+            <div style={{ display: "flex", gap: "8px", marginBottom: "12px" }}>
+              <button onClick={shareToFacebook} style={{ flex: 1, padding: "14px", background: "#1877F2", color: "#fff", border: "none", borderRadius: "12px", fontSize: "13px", fontWeight: "700", cursor: "pointer", fontFamily: "-apple-system, sans-serif", transition: "all 0.2s" }}
+                onMouseEnter={e => e.currentTarget.style.transform = "translateY(-2px)"}
+                onMouseLeave={e => e.currentTarget.style.transform = "none"}>
+                Facebook
+              </button>
+              <button onClick={shareToTikTok} style={{ flex: 1, padding: "14px", background: "#000", color: "#fff", border: "none", borderRadius: "12px", fontSize: "13px", fontWeight: "700", cursor: "pointer", fontFamily: "-apple-system, sans-serif", transition: "all 0.2s" }}
+                onMouseEnter={e => e.currentTarget.style.transform = "translateY(-2px)"}
+                onMouseLeave={e => e.currentTarget.style.transform = "none"}>
+                TikTok
+              </button>
+              <button onClick={copyLink} style={{ flex: 1, padding: "14px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "12px", fontSize: "13px", fontWeight: "700", cursor: "pointer", fontFamily: "-apple-system, sans-serif", transition: "all 0.2s" }}
+                onMouseEnter={e => e.currentTarget.style.transform = "translateY(-2px)"}
+                onMouseLeave={e => e.currentTarget.style.transform = "none"}>
+                {copied ? "Copied!" : "Copy Link"}
+              </button>
+            </div>
+            <p style={{ fontSize: "11px", color: "#84a98c", textAlign: "center", marginBottom: "32px", fontFamily: "-apple-system, sans-serif" }}>or screenshot the card above for your story</p>
           </div>
-
-          <p style={{ fontSize: "12px", color: "#84a98c", textAlign: "center", marginBottom: "32px", fontFamily: "-apple-system, sans-serif" }}>Screenshot the card above to share on your story</p>
 
           {/* Breakdown */}
-          <div style={{ marginBottom: "24px" }}>
-            <div style={{ fontSize: "11px", fontWeight: "700", color: "#c9184a", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "12px", fontFamily: "-apple-system, sans-serif" }}>{"\u274c"} What you missed ({missed.length})</div>
-            {missed.map((m, i) => (
-              <div key={i} style={{ background: "#fff", border: "1.5px solid #f0d8dc", borderRadius: "14px", padding: "16px 20px", marginBottom: "8px" }}>
-                <div style={{ fontSize: "13px", color: "#1a2e1a", lineHeight: 1.6, marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>{m.situation}</div>
-                <div style={{ fontSize: "11px", fontWeight: "700", color: "#c9184a", marginBottom: "6px", fontFamily: "-apple-system, sans-serif" }}>{m.isRedFlag ? "\ud83d\udea9 This IS a red flag" : "\u2705 This is NOT a red flag"}</div>
-                <div style={{ fontSize: "12px", color: "#52796f", lineHeight: 1.6, fontFamily: "-apple-system, sans-serif" }}>{m.explanation}</div>
-              </div>
-            ))}
-          </div>
+          {missed.length > 0 && (
+            <div style={{ marginBottom: "24px", animation: "fadeUp 0.6s ease-out 0.9s both" }}>
+              <div style={{ fontSize: "11px", fontWeight: "700", color: "#c9184a", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "12px", fontFamily: "-apple-system, sans-serif" }}>{"\u274c"} What you missed ({missed.length})</div>
+              {missed.map((m, i) => (
+                <div key={i} style={{ background: "#fff", border: "1.5px solid #f0d8dc", borderRadius: "14px", padding: "16px 20px", marginBottom: "8px" }}>
+                  <div style={{ fontSize: "13px", color: "#1a2e1a", lineHeight: 1.6, marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>{m.situation}</div>
+                  <div style={{ fontSize: "11px", fontWeight: "700", color: "#c9184a", marginBottom: "6px", fontFamily: "-apple-system, sans-serif" }}>{m.isRedFlag ? "\ud83d\udea9 This IS a red flag" : "\u2705 This is NOT a red flag"}</div>
+                  <div style={{ fontSize: "12px", color: "#52796f", lineHeight: 1.6, fontFamily: "-apple-system, sans-serif" }}>{m.explanation}</div>
+                </div>
+              ))}
+            </div>
+          )}
 
-          {missed.length < SCENARIOS.length && (
-            <div style={{ marginBottom: "24px" }}>
+          {caught.length > 0 && (
+            <div style={{ marginBottom: "24px", animation: "fadeUp 0.6s ease-out 1.2s both" }}>
               <div style={{ fontSize: "11px", fontWeight: "700", color: "#2d6a4f", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "12px", fontFamily: "-apple-system, sans-serif" }}>{"\u2714"} What you caught ({caught.length})</div>
               {caught.map((m, i) => (
                 <div key={i} style={{ background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "14px", padding: "16px 20px", marginBottom: "8px" }}>
@@ -251,10 +320,14 @@ function RedFlagInner() {
             </div>
           )}
 
-          {/* CTA to full app */}
+          {/* Retake + CTA */}
+          <div style={{ display: "flex", gap: "10px", marginBottom: "24px" }}>
+            <button onClick={restart} style={{ flex: 1, padding: "16px", background: "transparent", color: "#52796f", border: "1.5px solid #d8e8e0", borderRadius: "14px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>Retake Quiz</button>
+          </div>
+
           <div style={{ background: "#fff", borderRadius: "16px", padding: "24px", border: "1.5px solid #d8e8e0", textAlign: "center" }}>
             <h3 style={{ fontSize: "17px", fontWeight: "600", color: "#1a2e1a", margin: "0 0 8px", fontFamily: "-apple-system, sans-serif" }}>Want to Practice These Conversations?</h3>
-            <p style={{ fontSize: "13px", color: "#52796f", lineHeight: 1.6, margin: "0 0 16px", fontFamily: "-apple-system, sans-serif" }}>FORTE lets you rehearse real red flag scenarios with AI that reacts to how you respond. Learn to set boundaries, name manipulation, and protect yourself {"\u2014"} before you need to.</p>
+            <p style={{ fontSize: "13px", color: "#52796f", lineHeight: 1.6, margin: "0 0 16px", fontFamily: "-apple-system, sans-serif" }}>FORTE lets you rehearse real red flag scenarios with AI that reacts to how you respond. Learn to set boundaries and protect yourself {"\u2014"} before you need to.</p>
             <a href="/social" style={{ display: "block", padding: "16px", background: "#2d6a4f", color: "#fff", borderRadius: "12px", fontSize: "15px", fontWeight: "600", textDecoration: "none", textAlign: "center", fontFamily: "-apple-system, sans-serif" }}>Try FORTE Free {"\u2192"}</a>
           </div>
 
@@ -264,7 +337,11 @@ function RedFlagInner() {
             <a href="/quiz/compatibility" style={{ color: "#84a98c", fontSize: "13px", fontFamily: "-apple-system, sans-serif", textDecoration: "underline", textUnderlineOffset: "3px" }}>Compatibility Quiz</a>
           </div>
         </div>
-        <style>{`@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}`}</style>
+        <style>{`
+          @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+          @keyframes popIn{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:scale(1)}}
+          @keyframes confettiFall{0%{opacity:1;transform:translateY(0) rotate(0deg)}100%{opacity:0;transform:translateY(100vh) rotate(720deg)}}
+        `}</style>
       </div>
     );
   }

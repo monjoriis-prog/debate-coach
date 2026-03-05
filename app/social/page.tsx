@@ -8804,7 +8804,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
             <div style={{ width: "48px", height: "48px", borderRadius: "14px", background: "#fdf2f4", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px", flexShrink: 0 }}>{"\ud83d\udea9"}</div>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Red Flag IQ</div>
-              <div style={{ fontSize: "13px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "4px", lineHeight: 1.5 }}>12 scenarios. Can you spot the red flags? Share your score.</div>
+              <div style={{ fontSize: "13px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "4px", lineHeight: 1.5 }}>12 scenarios. Can you spot the red flags? Can you spot them?.</div>
             </div>
             <div style={{ fontSize: "16px", color: "#c9184a", flexShrink: 0 }}>{"\u2192"}</div>
           </a>
@@ -9177,7 +9177,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
               <div style={{ fontSize: "24px", flexShrink: 0 }}>{"\ud83d\udea9"}</div>
               <div>
                 <div style={{ fontSize: "14px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Red Flag IQ</div>
-                <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>Share your score</div>
+                <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>Can you spot them?</div>
               </div>
             </a>
           </div>
