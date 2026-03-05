@@ -6315,12 +6315,6 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
 
 BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
-          {
-            tip: "Protect yourself quietly and professionally",
-            why: "A colleague who manipulates may eventually try to push you out or damage your reputation. Build your protection now, before you need it — quietly, professionally, without tipping them off.",
-            bad: { user: "I had no record of anything. When they went to HR with their version of events I had nothing to counter it with.", ai: "*(HR officer tone)* We're hearing very different accounts here and without evidence it's hard to determine what happened.", note: "📋 Reality: A strategic manipulator may already be building a narrative about you. You need a counter-record that exists independently of their version." },
-            good: { user: "I keep a private log on my personal device — dates, what happened, exact quotes when I can. I also forward any concerning emails to my personal address immediately.", ai: "*(HR officer tone)* This level of documentation is exactly what helps us investigate these situations properly.", note: "✓ Three steps to take right now: (1) Start a private log — date, what happened, who witnessed it. (2) Forward any concerning emails to your personal address. (3) Note witnesses. Do this quietly — it protects you without escalating prematurely." },
-          },
     ],
   },
 ];
