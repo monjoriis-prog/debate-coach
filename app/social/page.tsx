@@ -8321,6 +8321,16 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
             </div>
             <div style={{ fontSize: "16px", color: "#e07a2f", flexShrink: 0 }}>{"\u2192"}</div>
           </a>
+          <a href="/quiz/redflag" style={{ textDecoration: "none", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "24px", display: "flex", alignItems: "center", gap: "16px", transition: "all 0.25s" }}
+            onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#c9184a"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(201,24,74,0.06)"; }}
+            onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+            <div style={{ width: "48px", height: "48px", borderRadius: "14px", background: "#fdf2f4", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px", flexShrink: 0 }}>{"\ud83d\udea9"}</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Red Flag IQ</div>
+              <div style={{ fontSize: "13px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "4px", lineHeight: 1.5 }}>12 scenarios. Can you spot the red flags? Share your score.</div>
+            </div>
+            <div style={{ fontSize: "16px", color: "#c9184a", flexShrink: 0 }}>{"\u2192"}</div>
+          </a>
           <div style={{ background: "#f5f5f5", border: "1.5px dashed #d0d0d0", borderRadius: "16px", padding: "24px", display: "flex", alignItems: "center", gap: "16px" }}>
             <div style={{ width: "48px", height: "48px", borderRadius: "14px", background: "#f0f0f0", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px", flexShrink: 0 }}>{"\ud83c\udf31"}</div>
             <div style={{ flex: 1 }}>
