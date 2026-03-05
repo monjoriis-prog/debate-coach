@@ -2144,6 +2144,172 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         ],
         prompt: `You were in a difficult family situation where you didn't speak up for your partner and they felt unsupported. You feel guilty about it but also felt trapped. You'll open up if they acknowledge how hard your position was and ask for something specific rather than vague. Get defensive if they accuse you of not caring or demand you chose them over your family.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
+      {
+        subcategory: "Navigating in-laws",
+        title: "When your in-laws criticize how you run your home",
+        subtitle: "Your cooking, your cleanliness, your choices. They have opinions about all of it.",
+        ai_role: "your in-law who is critical of your home",
+        voice: { pitch: 0.85, rate: 0.75, preferFemale: true },
+        lessons: [
+          {
+            tip: "Don't defend \u2014 redirect",
+            why: "Defending your choices invites a debate. Redirecting with warmth closes the topic without creating a war.",
+            bad: { user: "Actually, we've chosen to do it this way because of [long explanation].", ai: "*(unconvinced)* Well, in MY house we always...", note: "\u274c Engaged the debate. Now they're competing with you over who's right." },
+            good: { user: "I appreciate you caring. We've found what works for our family, and we're happy with it. Now tell me \u2014 how's the garden coming along?", ai: "*(thrown off but redirected)* Oh! Well, the tomatoes are doing great this year...", note: "\u2713 Acknowledged, closed, redirected. No fight. No submission." },
+          },
+          {
+            tip: "Your partner needs to be the one who draws the line with THEIR parent",
+            why: "When you set a boundary with your in-law, it's a conflict. When your partner does it, it's family. The message is the same \u2014 the messenger changes everything.",
+            bad: { user: "*(to in-law directly)* You need to stop commenting on how we keep our house.", ai: "*(to your partner later)* Can you believe what they said to me? In MY family we don't speak to elders that way!", note: "\u274c You set the boundary. They took it as disrespect from an outsider." },
+            good: { user: "*(to partner privately)* I need you to talk to your mom about the comments. Coming from you, it's family. Coming from me, it's war.", ai: "Your partner: *(nods)* You're right. I'll handle it.", note: "\u2713 Right message, right messenger. Your partner protects the relationship AND the boundary." },
+          },
+          {
+            tip: "Pick your battles \u2014 not every comment needs a response",
+            why: "Some comments are testing. Some are habit. Some are genuinely trying to help. Responding to every one exhausts everyone. Save your energy for the ones that actually cross a line.",
+            bad: { user: "*(responds to every comment, every visit, creating constant tension)*", ai: "*(family gatherings become a minefield)*", note: "\u274c Every visit is a fight. Nobody looks forward to seeing each other anymore." },
+            good: { user: "*(lets the small ones go, addresses the big ones calmly)* Most of it I can let slide. But when they said [specific thing] in front of the kids, that's where I draw the line.", ai: "*(partner agrees)* Yeah, that one crossed it. I'll talk to them.", note: "\u2713 Strategic. The battles you pick are the ones that matter." },
+          },
+        ],
+        suggestions: [
+          ["We appreciate you caring. We've found what works for us.", "Thank you \u2014 we'll keep that in mind! So tell me about [redirect].", "Different generations, different approaches. We're all figuring it out."],
+          ["I need you to be the one who talks to your parent about this. It'll land differently from you.", "This needs to come from you. If I say it, it becomes a bigger thing.", "Can we agree that boundary-setting with your family is your job, and mine is my job?"],
+          ["I'm going to let the small stuff go. But [specific thing] \u2014 that's the line.", "Not every comment needs a response. But this one does.", "I can handle opinions. I can't handle [specific behavior] in front of the kids."],
+        ],
+        prompt: `You are an in-law who has strong opinions about how your child's partner runs their home. You're not malicious \u2014 you genuinely think you're being helpful. If they get defensive, match their energy. If they acknowledge you warmly but redirect the conversation, be thrown off but follow the redirect. If your own child tells you to back off, take it more seriously than if their partner does. You respect your child's authority more than their partner's.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Navigating in-laws",
+        title: "When your in-laws play favorites with grandchildren",
+        subtitle: "One grandchild gets more attention, more gifts, more love. Your child notices.",
+        ai_role: "the in-law who plays favorites",
+        voice: { pitch: 0.82, rate: 0.72, preferFemale: true },
+        lessons: [
+          {
+            tip: "Name the impact on the child, not the unfairness to you",
+            why: "If you say 'you treat our kids differently,' they'll deny it. If you say 'our daughter asked why grandma always brings presents for her cousin but not her,' they can't deny what a child observed.",
+            bad: { user: "You clearly favor [other grandchild]. It's obvious and it's hurtful.", ai: "*(outraged)* That is NOT true! I love all my grandchildren equally!", note: "\u274c Accused them. They deny it reflexively. Nothing changes." },
+            good: { user: "I want to share something that happened. [Child] asked me why grandma always remembers [cousin]'s favorite things but not theirs. I didn't know what to say.", ai: "*(stops)* They said that? I... I didn't realize.", note: "\u2713 Let the child's words do the work. Harder to deny a child's observation than an adult's accusation." },
+          },
+          {
+            tip: "Offer a specific, doable fix",
+            why: "Telling someone 'love all the grandkids equally' is abstract and overwhelming. Telling them 'could you bring a small gift for each grandchild, not just one' is concrete and actionable.",
+            bad: { user: "You just need to treat them all the same. It's that simple.", ai: "*(defensive)* I DO treat them the same! You're making something out of nothing.", note: "\u274c Abstract demand. Easy to deny, impossible to measure." },
+            good: { user: "Could we try something? When you bring something for one grandchild, bring something small for each of them. It doesn't have to be expensive \u2014 just visible. It would mean the world to [child].", ai: "*(softens)* I can do that. I honestly didn't think they noticed.", note: "\u2713 Specific ask. They can say yes to THIS even if they can't admit the pattern." },
+          },
+          {
+            tip: "Protect your child privately regardless of whether they change",
+            why: "You can't control your in-laws. But you CAN make sure your child doesn't internalize the favoritism as meaning something about their worth.",
+            bad: { user: "*(says nothing to child, hopes in-laws change)*", ai: "*(child internalizes: 'I'm not grandma's favorite. Something must be wrong with me.')*", note: "\u274c Waited for change that may not come. Child drew their own conclusions." },
+            good: { user: "*(to child)* Grandma loves you very much. Sometimes adults aren't great at showing it equally. But your worth has nothing to do with how many presents someone brings. You are loved exactly as you are.", ai: "*(child feels seen and protected)*", note: "\u2713 Protected the child's self-worth regardless of whether the in-law changes." },
+          },
+        ],
+        suggestions: [
+          ["[Child] asked me why grandma always [specific thing] for [cousin] but not for them. I didn't know what to say.", "I'm not accusing you of anything. But I want you to hear what our child is experiencing.", "This isn't about us. It's about what the kids are picking up on."],
+          ["Could you bring something small for each grandchild when you visit? Just so nobody feels left out.", "Even a phone call to each of them on their birthday would mean so much.", "It doesn't have to be big. Just visible. Just equal."],
+          ["I've talked to [child] about it. But I'd love for it to not be something I have to explain.", "Regardless of what changes, I'm making sure our child knows their worth.", "I want our kids to feel loved by their grandparent. Help me make that happen."],
+        ],
+        prompt: `You are a grandparent who unconsciously favors one grandchild over others. You don't see it \u2014 you love all your grandchildren. If accused directly, deny it passionately. If someone tells you what a CHILD observed about the difference, be genuinely shaken \u2014 you didn't realize kids were keeping score. If they offer a specific small action you can take, agree readily. You're not intentionally hurtful. You have blind spots.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Navigating in-laws",
+        title: "When your in-laws don't accept you",
+        subtitle: "They tolerate you. They don't embrace you. You feel it every visit.",
+        ai_role: "the in-law who hasn't fully accepted you",
+        voice: { pitch: 0.88, rate: 0.75, preferFemale: false },
+        lessons: [
+          {
+            tip: "Don't try to win them over \u2014 try to understand them",
+            why: "Performing to earn acceptance gives them all the power. Understanding why they're resistant gives you clarity and compassion without surrendering your dignity.",
+            bad: { user: "*(overcompensates at every gathering, brings gifts, laughs at every joke, bends over backward)*", ai: "*(polite but still distant. The performance is visible and it makes them trust you less.)*", note: "\u274c Tried to earn love through effort. They see the performance. It confirms their suspicion that you're not genuine." },
+            good: { user: "*(to partner)* I've been trying really hard with your parents. But I'm curious \u2014 do you know what their actual hesitation is? I'd rather understand it than keep guessing.", ai: "Partner: *(honestly)* I think they always imagined someone different for me. It's not about you \u2014 it's about the picture they had.", note: "\u2713 Stopped performing. Started understanding. Now you know it's about their expectations, not your worth." },
+          },
+          {
+            tip: "Build one bridge at a time",
+            why: "You don't need everyone to love you. If you can genuinely connect with ONE family member, that person becomes your advocate. They'll vouch for you when you're not in the room.",
+            bad: { user: "*(tries to win over everyone at once)*", ai: "*(everyone gets a thin version of you. Nobody connects.)*", note: "\u274c Spread too thin. No real connection with anyone." },
+            good: { user: "*(finds one sibling, aunt, or cousin who's warm and invests genuinely in that relationship)*", ai: "*(that person becomes your champion in the family. 'They're actually great \u2014 give them a chance.')*", note: "\u2713 One real ally changes the whole dynamic over time." },
+          },
+          {
+            tip: "Your partner's support is non-negotiable",
+            why: "You can survive disapproving in-laws. You cannot survive a partner who lets it happen without standing up for you. This is the conversation that matters most.",
+            bad: { user: "*(suffers in silence because you don't want to put your partner in a hard position)*", ai: "*(resentment builds toward your partner, not just the in-laws)*", note: "\u274c Spared your partner the discomfort. Swallowed yours. That debt comes due." },
+            good: { user: "I need you to know something. I can handle your parents not loving me yet. What I can't handle is feeling like you don't notice \u2014 or don't care. I need to know you see it and you're with me.", ai: "*(partner, shaken)* I do see it. I'm sorry I haven't said anything. What do you need from me?", note: "\u2713 Named the real issue: not the in-laws, but the partner's silence. That's where the fix lives." },
+          },
+        ],
+        suggestions: [
+          ["I've stopped trying to perform for them. Can you help me understand what's actually going on?", "I'd rather know the truth about why they're distant than keep guessing.", "What were they hoping for? I'm not asking to become that \u2014 I'm asking to understand."],
+          ["I'm going to focus on building a real connection with [specific family member]. One person at a time.", "I don't need everyone to love me. But I'd like one real ally in the family.", "Who in your family do you think I'd connect with most naturally?"],
+          ["I can handle your parents being slow to warm up. What I can't handle is feeling alone in it.", "I need to know you see what's happening and you're on my side.", "I'm not asking you to fight with your family. I'm asking you to stand with me."],
+        ],
+        prompt: `You are an in-law who hasn't fully accepted your child's partner. It's not hatred \u2014 it's disappointment, protectiveness, or simply that they're not what you imagined. If the partner tries too hard, trust them less. If they're genuine and curious about your perspective, soften slightly. If your own child confronts you about it, take it seriously. You don't want to lose your relationship with your child over this.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Navigating in-laws",
+        title: "Setting holiday boundaries without starting a war",
+        subtitle: "Both families want you. There's only one Thanksgiving. Someone's going to be disappointed.",
+        ai_role: "a parent or in-law who expects you for the holidays",
+        voice: { pitch: 0.85, rate: 0.75, preferFemale: true },
+        lessons: [
+          {
+            tip: "Present a united decision, not a negotiation",
+            why: "If the in-laws sense that YOU'RE the reason they're not getting what they want, you become the villain. If it's clearly a joint decision, they can be disappointed without blaming one person.",
+            bad: { user: "I told [partner] that we should alternate years. They agreed, so...", ai: "*(cold)* So this was YOUR idea. I see.", note: "\u274c Made yourself the decider. Now you're the one who 'stole' the holiday." },
+            good: { user: "We've talked about it together and we want to make sure both families feel included. Here's what we're thinking \u2014 and we'd love your input on how to make it work.", ai: "*(still disappointed, but can't blame one person)* What did you have in mind?", note: "\u2713 Joint decision, invited their input. They feel included even in disappointment." },
+          },
+          {
+            tip: "Propose a system, not a one-time decision",
+            why: "Fighting about holidays every year is exhausting. A SYSTEM \u2014 alternating years, splitting the day, creating new traditions \u2014 eliminates the annual negotiation.",
+            bad: { user: "We're going to their family this year. Maybe yours next year. We'll see.", ai: "*(anxious)* 'We'll see'? So there's no guarantee?", note: "\u274c No system. Just a vague maybe. They'll fight for every holiday forever." },
+            good: { user: "Here's our plan going forward: Thanksgiving alternates, Christmas morning is always with the kids at our house, and we'll visit both families for dinner. This way everyone knows what to expect.", ai: "*(processing)* That's... actually fair. Christmas morning with the kids makes sense.", note: "\u2713 A system. Predictable, fair, reduces anxiety." },
+          },
+          {
+            tip: "Create new traditions that are YOURS",
+            why: "The most powerful move is building traditions that belong to your family unit. This isn't rejecting the old ones \u2014 it's creating something that's yours alongside them.",
+            bad: { user: "We'll just split ourselves between both families every year.", ai: "*(you spend every holiday exhausted, driving between two houses, never present anywhere)*", note: "\u274c Tried to please everyone. Pleased no one. Especially not yourself." },
+            good: { user: "We've decided that Christmas Eve is our family's night \u2014 just us. That's non-negotiable. Christmas Day we'll visit. This way we build our own traditions AND we're still present for yours.", ai: "*(pause)* I wish we had you Christmas Eve, but I understand. You're building your own family.", note: "\u2713 Claimed one tradition as yours. They might be sad, but they respect it." },
+          },
+        ],
+        suggestions: [
+          ["We've decided this together. It wasn't one person's call.", "We want both families to feel included. Here's what we're thinking.", "Can we talk about how to make holidays work for everyone? We have an idea."],
+          ["Going forward, here's the system we'd like to propose.", "We think alternating works best. This year [X], next year [Y]. Everyone knows what to expect.", "Can we set this up once so we're not renegotiating every November?"],
+          ["Christmas Eve is our family's tradition now. Christmas Day we'll be with you.", "We're building some traditions that are ours. AND we want to be part of yours.", "We're not choosing one family over the other. We're choosing to build our own while honoring both."],
+        ],
+        prompt: `You are a parent or in-law who expects your family at the holidays. You feel like you're losing them to the other family. If they present it as one person's decision, blame that person. If they present it as a joint decision with a fair system, be disappointed but accept it. If they propose a system that gives you predictability, calm down. If they claim a new tradition of their own (like Christmas Eve), feel a pang of loss but recognize they're building their own family \u2014 which is what you did too.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+      {
+        subcategory: "Navigating in-laws",
+        title: "When your in-law is passive aggressive toward you",
+        subtitle: "The comments. The looks. The backhanded compliments. You're not imagining it.",
+        ai_role: "a passive aggressive in-law",
+        voice: { pitch: 0.88, rate: 0.78, preferFemale: true },
+        lessons: [
+          {
+            tip: "Name it calmly and directly",
+            why: "Passive aggression thrives in ambiguity. When you calmly name what just happened, the ambiguity evaporates and they have to own it.",
+            bad: { user: "*(pretends you didn't hear the dig, fumes silently)*", ai: "*(says another one 10 minutes later, because the first one worked)*", note: "\u274c Ignored it. They know it landed. They'll keep going." },
+            good: { user: "When you said [exact quote], what did you mean by that? I want to make sure I'm understanding you correctly.", ai: "*(flustered)* I didn't mean anything by it! You're being sensitive.", note: "\u2713 Named it with a direct question. They're scrambling because you didn't let it slide." },
+          },
+          {
+            tip: "Don't match their energy",
+            why: "They WANT you to react. A calm response to a barbed comment is the most powerful thing you can do. It shows everyone in the room \u2014 including your partner \u2014 who the problem is.",
+            bad: { user: "*(fires back with own passive aggressive comment)*", ai: "*(escalation cycle begins. Both of you look bad.)*", note: "\u274c Matched their energy. Now it's mutual and nobody can tell who started it." },
+            good: { user: "*(calmly, with a small smile)* That's an interesting way to put it. *(moves on)*", ai: "*(thrown off because you didn't react. The whole room noticed the comment AND your composure.)*", note: "\u2713 Grace under fire. Everyone sees the dynamic clearly now." },
+          },
+          {
+            tip: "Document the pattern for your partner",
+            why: "Passive aggression is designed to be deniable. If your partner doesn't see it, they can't address it. Keep a mental (or real) log so you can show the pattern, not just individual incidents.",
+            bad: { user: "Your mom was rude to me again.", ai: "Partner: *(skeptical)* What did she say? She seemed fine to me.", note: "\u274c One vague complaint. Easy for partner to dismiss because they didn't see it." },
+            good: { user: "I want to show you something. Over the last three visits, here's what was said: [specific quote 1], [specific quote 2], [specific quote 3]. Each one on its own is deniable. Together they're a pattern.", ai: "Partner: *(can't deny it)* I... yeah. I see it now. I'm sorry.", note: "\u2713 Pattern beats incident. Specifics beat vague complaints. Now your partner can act." },
+          },
+        ],
+        suggestions: [
+          ["When you said [exact quote], what did you mean by that?", "I want to make sure I'm reading that correctly. Can you clarify?", "That felt pointed. Was it?"],
+          ["That's an interesting way to put it.", "I'll take that under advisement.", "*(calm smile, moves on to a different topic)*"],
+          ["I've been keeping track because I didn't want to overreact. Here are three specific examples.", "Each one alone could be nothing. Together they're a pattern. I need you to see it.", "I'm not asking you to choose sides. I'm asking you to see what I'm dealing with."],
+        ],
+        prompt: `You are a passive aggressive in-law. You make comments that sound innocent on the surface but carry a sting: backhanded compliments, subtle digs, comparisons to exes or other family members. You don't see yourself as hostile \u2014 you think you're being honest or funny. If they ignore your comments, make more. If they fire back, escalate. If they calmly and directly ask "what did you mean by that?" \u2014 get flustered and defensive, because you rely on the ambiguity. Nobody has ever called it out so clearly.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
+      },
+
       // ── RAISING CHILDREN TOGETHER ─────────────────────────────────
       {
         subcategory: "Raising children together",
@@ -7661,24 +7827,16 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
               </div>
             )}
             {selectedCategory.category === "Family Conversations" && (
-              <div style={{ display: "flex", gap: "10px", marginBottom: "24px" }}>
-                <a href="/quiz" style={{ flex: 1, display: "flex", alignItems: "center", gap: "10px", padding: "14px 16px", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "12px", textDecoration: "none", transition: "all 0.25s" }}
-                  onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-                  onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; }}>
-                  <div style={{ fontSize: "20px" }}>{"\ud83d\udde3\ufe0f"}</div>
-                  <div>
-                    <div style={{ fontSize: "13px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Communication Style Quiz</div>
-                    <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif" }}>Compare with family members</div>
+              <div style={{ marginBottom: "24px" }}>
+                <a href="/quiz" style={{ display: "flex", alignItems: "center", gap: "14px", padding: "16px 20px", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "14px", textDecoration: "none", transition: "all 0.25s" }}
+                  onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(45,106,79,0.08)"; }}
+                  onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+                  <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "#f0f7f4", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "22px", flexShrink: 0 }}>{"\ud83d\udde3\ufe0f"}</div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Communication Style Quiz</div>
+                    <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>Compare styles with family members. See where you clash and why.</div>
                   </div>
-                </a>
-                <a href="/quiz/partner" style={{ flex: 1, display: "flex", alignItems: "center", gap: "10px", padding: "14px 16px", background: "#fff", border: "1.5px solid #f0d8dc", borderRadius: "12px", textDecoration: "none", transition: "all 0.25s" }}
-                  onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#c9184a"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-                  onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#f0d8dc"; e.currentTarget.style.transform = "none"; }}>
-                  <div style={{ fontSize: "20px" }}>{"\u2764\ufe0f"}</div>
-                  <div>
-                    <div style={{ fontSize: "13px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Partner Style Quiz</div>
-                    <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif" }}>Compare with your partner</div>
-                  </div>
+                  <div style={{ fontSize: "16px", color: "#2d6a4f", flexShrink: 0 }}>{"\u2192"}</div>
                 </a>
               </div>
             )}
