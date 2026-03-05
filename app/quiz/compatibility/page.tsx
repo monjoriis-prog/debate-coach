@@ -134,7 +134,10 @@ const QUESTIONS: { question: string; dimension: Dimension; optionA: string; opti
     labelA: "Openness expectation",
     labelB: "Privacy default",
   },
-]
+];
+
+function shuffle<T>(arr: T[], seed: number): T[] {
+  const a = [...arr];
   let s = seed;
   for (let i = a.length - 1; i > 0; i--) {
     s = (s * 16807 + 0) % 2147483647;
