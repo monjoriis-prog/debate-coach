@@ -9160,6 +9160,28 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
           <h2 style={{ fontSize: "28px", fontWeight: "400", margin: 0, color: "#1a2e1a" }}>{selectedCategory.category}</h2>
         </div>
         <p style={{ color: "#84a98c", fontSize: "14px", marginBottom: "36px", fontFamily: "-apple-system, sans-serif" }}>Choose a topic to explore.</p>
+        {selectedCategory.category === "Dating & Romance" && (
+          <div style={{ display: "flex", gap: "10px", marginBottom: "24px" }}>
+            <a href="/quiz/compatibility" style={{ flex: 1, display: "flex", alignItems: "center", gap: "12px", padding: "16px", background: "#fff", border: "1.5px solid #f0e0d0", borderRadius: "14px", textDecoration: "none", transition: "all 0.25s" }}
+              onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#e07a2f"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(224,122,47,0.08)"; }}
+              onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#f0e0d0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+              <div style={{ fontSize: "24px", flexShrink: 0 }}>{"\ud83d\udd17"}</div>
+              <div>
+                <div style={{ fontSize: "14px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Compatibility Quiz</div>
+                <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>Both partners answer</div>
+              </div>
+            </a>
+            <a href="/quiz/redflag" style={{ flex: 1, display: "flex", alignItems: "center", gap: "12px", padding: "16px", background: "#fff", border: "1.5px solid #f0d8dc", borderRadius: "14px", textDecoration: "none", transition: "all 0.25s" }}
+              onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#c9184a"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(201,24,74,0.08)"; }}
+              onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#f0d8dc"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+              <div style={{ fontSize: "24px", flexShrink: 0 }}>{"\ud83d\udea9"}</div>
+              <div>
+                <div style={{ fontSize: "14px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Red Flag IQ</div>
+                <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>Share your score</div>
+              </div>
+            </a>
+          </div>
+        )}
         <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
           {groups.map((group) => (
             <button key={group.name}
