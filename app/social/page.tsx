@@ -4554,25 +4554,25 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       {
         subcategory: "Online Dating Safety",
         isRedFlag: true,
-        title: "When they want to meet somewhere private for a first date",
-        subtitle: "Their place. A secluded spot. Somewhere no one would see you. Always say no.",
+        title: "ALWAYS SAY NO \u2014 When they want to meet somewhere private",
+        subtitle: "Their place. A secluded spot. Somewhere no one would see you. The answer is always no. Every time. No exceptions.",
         redFlagDescription: {
           what: "A first meeting should always be in a public place with people around. When someone suggests their apartment, a remote location, or anywhere without witnesses for a first meeting, they're removing your safety infrastructure. It doesn't matter how charming, how reasonable, or how good the conversation has been \u2014 a stranger is a stranger until proven otherwise.",
           why: "People who have good intentions don't mind meeting in public. People who resist public first meetings are telling you something. The discomfort of insisting on a public place is nothing compared to the danger of meeting a stranger in private.",
           signs: ["They suggest their apartment or yours for a first meeting", "They propose somewhere remote or off the beaten path", "They offer to cook for you at their place \u2014 before you've ever met", "They frame public places as 'basic' or 'boring'", "They push back when you suggest a café or restaurant"],
-          training: "Practice insisting on public places firmly, handling pushback without caving, and recognizing that someone who fights your safety measures is the reason you need safety measures.",
+          training: "ALWAYS SAY NO. Practice insisting on public places firmly, handling pushback without caving, and recognizing that someone who fights your safety measures is the reason you need safety measures. There is no version of this where a private first meeting is okay.",
         },
         ai_role: "someone from an app who wants to meet somewhere private",
         voice: { pitch: 1.05, rate: 0.82, preferFemale: false },
         redFlagAlert: {
           keywords: ["public place", "not comfortable", "my safety", "let's meet at", "a café", "a restaurant", "somewhere with people", "that's not happening", "non-negotiable"],
-          warning: "You just insisted on a public first meeting. That's not paranoid \u2014 that's the bare minimum of self-protection. Anyone who makes you feel bad about this was never worth meeting.",
-          affirmation: "You prioritized your safety over their opinion. That instinct will protect you for the rest of your life.",
+          warning: "You said no. That's always the right answer. A private first meeting is never okay \u2014 no matter how great they seem. Anyone who makes you feel bad about protecting yourself was never safe to begin with.",
+          affirmation: "ALWAYS SAY NO to private first meetings. You just did. That instinct will protect you for the rest of your life. Never apologize for it.",
         },
         lessons: [
           {
-            tip: "First meetings are always public. No exceptions.",
-            why: "This isn't negotiable. Coffee shops, restaurants, busy parks \u2014 somewhere with people, exits, and witnesses. Your safety is more important than their convenience or your desire to seem easygoing.",
+            tip: "ALWAYS SAY NO. First meetings are public. No exceptions. Ever.",
+            why: "This is not negotiable. Not debatable. Not flexible. Coffee shops, restaurants, busy parks \u2014 somewhere with people, exits, and witnesses. It doesn't matter how nice they seem, how long you've talked, or how safe you feel. Your safety is more important than their convenience, your desire to seem easygoing, or the fear of being 'too much.' Say no. Every single time.",
             bad: { user: "Sure, your place works. You seem really normal.", ai: "*(you are now alone with a stranger in a private location)*", note: "\u274c 'You seem normal' is not a safety plan. Everyone seems normal online." },
             good: { user: "I'd love to meet! Let's do [specific public place]. I always do first meetings somewhere busy \u2014 it's just my thing.", ai: "*(their response is the test)*", note: "\u2713 Framed it as a personal policy, not an accusation. If they respect it, great. If not, answer received." },
           },
