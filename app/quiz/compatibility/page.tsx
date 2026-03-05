@@ -136,6 +136,14 @@ const QUESTIONS: { question: string; dimension: Dimension; optionA: string; opti
   },
 ];
 
+function encode(answers: number[]): string {
+  return answers.map(a => a.toString()).join("");
+}
+
+function decode(s: string): number[] {
+  return s.split("").map(Number).filter(n => n === 0 || n === 1);
+}
+
 function shuffle<T>(arr: T[], seed: number): T[] {
   const a = [...arr];
   let s = seed;
