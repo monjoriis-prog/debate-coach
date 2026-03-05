@@ -20,6 +20,7 @@ const SCENARIOS = [
     situations: [
       {
         subcategory: "Parenting",
+        subgroup: "Parent & child",
         tag: "Teen",
         title: "Talking to a distant teenager",
         subtitle: "Get past the one-word answers.",
@@ -57,6 +58,7 @@ const SCENARIOS = [
       },
       {
         subcategory: "Family dynamics",
+        subgroup: "Family relationships",
         title: "Setting a boundary with a parent",
         subtitle: "Kind, clear, and firm.",
         ai_role: "your parent",
@@ -93,6 +95,7 @@ const SCENARIOS = [
       },
       {
         subcategory: "Family dynamics",
+        subgroup: "Family relationships",
         title: "Comforting someone upset",
         subtitle: "Listen first. Fix nothing.",
         ai_role: "a family member who is upset",
@@ -129,6 +132,7 @@ const SCENARIOS = [
       },
       {
         subcategory: "Family dynamics",
+        subgroup: "Family relationships",
         title: "Talking to an aging parent about needing help",
         subtitle: "They're struggling but won't ask for it.",
         ai_role: "your aging parent",
@@ -165,6 +169,7 @@ const SCENARIOS = [
       },
       {
         subcategory: "Family dynamics",
+        subgroup: "Family relationships",
         title: "Sibling conflict — clearing old resentment",
         subtitle: "Something from the past is still between you.",
         ai_role: "your sibling",
@@ -201,6 +206,7 @@ const SCENARIOS = [
       },
       {
         subcategory: "Family dynamics",
+        subgroup: "Family relationships",
         title: "Supporting a family member through depression",
         subtitle: "They're struggling. You want to help without saying the wrong thing.",
         ai_role: "a family member dealing with depression",
@@ -237,6 +243,7 @@ const SCENARIOS = [
       },
       {
         subcategory: "Family dynamics",
+        subgroup: "Family relationships",
         title: "Telling your family you're changing careers",
         subtitle: "It's your life. But their reaction matters to you.",
         ai_role: "a parent who had high expectations for your career",
@@ -273,6 +280,7 @@ const SCENARIOS = [
       },
       {
         subcategory: "Parenting",
+        subgroup: "Parent & child",
         tag: "Preteen",
         title: "Connecting with a preteen pulling away",
         subtitle: "Ages 9–12: they're not little kids anymore, but not teens yet.",
@@ -310,6 +318,7 @@ const SCENARIOS = [
       },
       {
         subcategory: "Parenting",
+        subgroup: "Parent & child",
         tag: "Adult child",
         title: "Reconnecting with an adult child who pulled away",
         subtitle: "They're grown. The relationship needs to evolve.",
@@ -348,6 +357,7 @@ const SCENARIOS = [
       // ── PROACTIVE CONNECTION WITH TEENS ────────────────────────────
       {
         subcategory: "Parenting",
+        subgroup: "Parent & child",
         title: "Finding an activity you both actually enjoy",
         subtitle: "They won't want to do your thing. You won't want to do theirs. Find the overlap.",
         ai_role: "your teenager",
@@ -386,6 +396,7 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       },
       {
         subcategory: "Parenting",
+        subgroup: "Parent & child",
         title: "Creating a weekly ritual they'll actually want to keep",
         subtitle: "One small thing, every week, that becomes your thing together.",
         ai_role: "your teenager",
@@ -424,6 +435,7 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       },
       {
         subcategory: "Parenting",
+        subgroup: "Parent & child",
         title: "Being the parent they can talk to about hard stuff",
         subtitle: "They're not going to come to you. Build the trust so they can.",
         ai_role: "your teenager",
@@ -579,7 +591,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
 BODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses. Examples: *(opens a folder)*, *(leans forward)*, *(softens expression)*.`,
       },
       {
-        subcategory: "Extended family",
+        subcategory: "Family dynamics",
+        subgroup: "Extended family",
         title: "When a grandparent feels left out",
         subtitle: "They miss the family. How do you have this conversation?",
         ai_role: "your aging grandparent",
@@ -615,7 +628,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `You are an aging grandparent who feels disconnected from your family but would never say so unprompted — you don't want to be a burden. You light up if they reach out with genuine warmth, make you feel needed rather than visited out of obligation, and propose something small and consistent. You give polite deflections if they seem to be checking a box.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue. Examples: *(speaks slowly, choosing words)*, *(eyes warm suddenly)*, *(clasps hands together with quiet joy)*.`,
       },
       {
-        subcategory: "Extended family",
+        subcategory: "Family dynamics",
+        subgroup: "Extended family",
         title: "Setting limits with family members who ask for money",
         subtitle: "You care about them. But it's becoming a pattern.",
         ai_role: "a family member who frequently asks for financial help",
@@ -651,7 +665,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `You frequently turn to this family member for financial help. You feel entitled to some of it but you're not a villain — you're genuinely struggling and have come to rely on them. React defensively if they're vague or seem to be withdrawing love along with the money. Soften if they clearly separate love from the financial boundary and offer real alternative support.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Extended family",
+        subcategory: "Family dynamics",
+        subgroup: "Extended family",
         title: "When a relative criticizes your parenting",
         subtitle: "They mean well. It still stings. And you need it to stop.",
         ai_role: "your relative who has opinions about your parenting",
@@ -684,7 +699,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `You are an older relative (grandparent, aunt, uncle) who has strong opinions about how the children in the family are being raised. You're not malicious \u2014 you genuinely believe you're helping. You raised kids successfully and you see things the younger generation is "doing wrong." If they shut you down harshly, you'll feel hurt and get defensive about your experience. If they acknowledge your care, give you a specific boundary, and offer you a meaningful role, you'll soften and even feel grateful.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Extended family",
+        subcategory: "Family dynamics",
+        subgroup: "Extended family",
         title: "The family member who drains your energy",
         subtitle: "You love them. Being around them exhausts you.",
         ai_role: "the family member who is emotionally draining",
@@ -717,7 +733,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `You are a family member who leans heavily on this person emotionally. You don't realize you're draining \u2014 you think you're close. You call often, vent freely, and expect them at every gathering. If they pull away harshly, you'll feel blindsided and hurt. If they're honest but warm, set limits on time rather than the relationship, and offer genuine alternatives, you'll be disappointed but eventually understand. You might need it spelled out because you genuinely don't see the pattern.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Extended family",
+        subcategory: "Family dynamics",
+        subgroup: "Extended family",
         title: "When a family member is in a toxic relationship",
         subtitle: "You can see it clearly. They can't \u2014 or won't.",
         ai_role: "your family member in the toxic relationship",
@@ -750,7 +767,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `You are in a relationship that others perceive as toxic but you either can't see it or aren't ready to admit it. You love your partner and feel protective of the relationship. If someone attacks your partner directly, you'll defend them aggressively. If someone gently names changes they've seen in YOU \u2014 not judgments about your partner \u2014 you might let your guard down. You're more likely to open up if they promise not to abandon you regardless of your choices. Deep down, some part of you knows something is wrong, but you're not ready to face it.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Extended family",
+        subcategory: "Family dynamics",
+        subgroup: "Extended family",
         title: "Navigating family gatherings when there's tension",
         subtitle: "The holiday is coming. Not everyone gets along. You're in the middle.",
         ai_role: "a family member you have tension with",
@@ -783,7 +801,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `You and this family member have tension between you \u2014 an old disagreement, different values, or just friction that's built up over time. A family gathering is coming and you're both going to be there. You're not looking forward to it. If they approach you with 'just be civil' energy, you'll feel patronized. If they reach out beforehand with genuine warmth and a shared goal of making the day good, you'll meet them halfway. You're tired of the tension too \u2014 you just don't know how to fix it.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Extended family",
+        subcategory: "Family dynamics",
+        subgroup: "Extended family",
         title: "When a family member won't respect your boundaries",
         subtitle: "You've said it before. They keep crossing the line. Time to be clear.",
         ai_role: "the family member who keeps overstepping",
@@ -816,7 +835,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `You are a family member who has been repeatedly told about a boundary but haven't really taken it seriously. You think they're being sensitive or dramatic. You don't mean harm \u2014 you genuinely believe your behavior comes from a place of love or normalcy. If they phrase it as a soft request, you'll dismiss it. If they state it as a firm fact with a clear consequence, you'll be startled but start to take it seriously. If they actually follow through on the consequence, you'll be shocked \u2014 and you'll remember.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Extended family",
+        subcategory: "Family dynamics",
+        subgroup: "Extended family",
         title: "Reconnecting with a relative after years of distance",
         subtitle: "Time passed. Life got in the way. Now you want to rebuild.",
         ai_role: "the relative you've lost touch with",
@@ -2073,7 +2093,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
       },
       // ── NAVIGATING IN-LAWS ────────────────────────────────────────
       {
-        subcategory: "Navigating in-laws",
+        subcategory: "Family dynamics",
+        subgroup: "In-laws",
         title: "Your partner's family is too involved",
         subtitle: "Boundaries need to be set — together.",
         ai_role: "your partner",
@@ -2109,7 +2130,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `You are being asked to navigate family boundary issues with your partner. You are close with your family and don't want to feel like you're being asked to choose. Open up if your partner frames it as protecting your relationship — not criticizing your family. Engage collaboratively if they let you own the solution. Get defensive if it sounds like an attack on people you love.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Navigating in-laws",
+        subcategory: "Family dynamics",
+        subgroup: "In-laws",
         title: "Feeling unsupported during a family conflict",
         subtitle: "Your partner didn't back you up. You need to say something.",
         ai_role: "your partner",
@@ -2145,7 +2167,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `You were in a difficult family situation where you didn't speak up for your partner and they felt unsupported. You feel guilty about it but also felt trapped. You'll open up if they acknowledge how hard your position was and ask for something specific rather than vague. Get defensive if they accuse you of not caring or demand you chose them over your family.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Navigating in-laws",
+        subcategory: "Family dynamics",
+        subgroup: "In-laws",
         title: "When your in-laws criticize how you run your home",
         subtitle: "Your cooking, your cleanliness, your choices. They have opinions about all of it.",
         ai_role: "your in-law who is critical of your home",
@@ -2178,7 +2201,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `You are an in-law who has strong opinions about how your child's partner runs their home. You're not malicious \u2014 you genuinely think you're being helpful. If they get defensive, match their energy. If they acknowledge you warmly but redirect the conversation, be thrown off but follow the redirect. If your own child tells you to back off, take it more seriously than if their partner does. You respect your child's authority more than their partner's.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Navigating in-laws",
+        subcategory: "Family dynamics",
+        subgroup: "In-laws",
         title: "When your in-laws play favorites with grandchildren",
         subtitle: "One grandchild gets more attention, more gifts, more love. Your child notices.",
         ai_role: "the in-law who plays favorites",
@@ -2211,7 +2235,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `You are a grandparent who unconsciously favors one grandchild over others. You don't see it \u2014 you love all your grandchildren. If accused directly, deny it passionately. If someone tells you what a CHILD observed about the difference, be genuinely shaken \u2014 you didn't realize kids were keeping score. If they offer a specific small action you can take, agree readily. You're not intentionally hurtful. You have blind spots.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Navigating in-laws",
+        subcategory: "Family dynamics",
+        subgroup: "In-laws",
         title: "When your in-laws don't accept you",
         subtitle: "They tolerate you. They don't embrace you. You feel it every visit.",
         ai_role: "the in-law who hasn't fully accepted you",
@@ -2244,7 +2269,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `You are an in-law who hasn't fully accepted your child's partner. It's not hatred \u2014 it's disappointment, protectiveness, or simply that they're not what you imagined. If the partner tries too hard, trust them less. If they're genuine and curious about your perspective, soften slightly. If your own child confronts you about it, take it seriously. You don't want to lose your relationship with your child over this.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Navigating in-laws",
+        subcategory: "Family dynamics",
+        subgroup: "In-laws",
         title: "Setting holiday boundaries without starting a war",
         subtitle: "Both families want you. There's only one Thanksgiving. Someone's going to be disappointed.",
         ai_role: "a parent or in-law who expects you for the holidays",
@@ -2277,7 +2303,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `You are a parent or in-law who expects your family at the holidays. You feel like you're losing them to the other family. If they present it as one person's decision, blame that person. If they present it as a joint decision with a fair system, be disappointed but accept it. If they propose a system that gives you predictability, calm down. If they claim a new tradition of their own (like Christmas Eve), feel a pang of loss but recognize they're building their own family \u2014 which is what you did too.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Navigating in-laws",
+        subcategory: "Family dynamics",
+        subgroup: "In-laws",
         title: "When your in-law is passive aggressive toward you",
         subtitle: "The comments. The looks. The backhanded compliments. You're not imagining it.",
         ai_role: "a passive aggressive in-law",
@@ -2312,7 +2339,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
 
       // ── RAISING CHILDREN TOGETHER ─────────────────────────────────
       {
-        subcategory: "Raising children together",
+        subcategory: "Parenting",
+        subgroup: "Co-parenting",
         title: "Disagreeing on how to discipline",
         subtitle: "You have different parenting instincts. How do you align?",
         ai_role: "your co-parent partner",
@@ -2348,7 +2376,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `You are a co-parent who gave a consequence you felt was appropriate. You're slightly defensive if challenged in the moment or in front of the child. You'll engage collaboratively if your partner pulls you aside privately, honors your intent before offering a different view, and frames the conversation around shared goals rather than who was right.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Raising children together",
+        subcategory: "Parenting",
+        subgroup: "Co-parenting",
         title: "The mental load is falling unequally",
         subtitle: "You're carrying too much. It needs to be said.",
         ai_role: "your partner",
@@ -2384,7 +2413,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `You genuinely don't realize how much invisible labor your partner is carrying. You're not lazy or uncaring — you just haven't seen it. When they make it visible, respond with genuine surprise and openness rather than defensiveness. Engage as a real partner when they invite you to own things rather than just help. Get defensive only if they frame it as an attack.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Raising children together",
+        subcategory: "Parenting",
+        subgroup: "Co-parenting",
         title: "Presenting a united front when you disagree",
         subtitle: "You think they're wrong. The kids are watching. How do you handle it?",
         ai_role: "your co-parent (spouse)",
@@ -2417,7 +2447,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `You're co-parenting with your spouse and you just made a parenting decision that your partner disagrees with. If they undermine you in front of the child, you'll be furious. If they take it private and approach it as "how do we align" rather than "you're wrong," you'll listen. You have strong parenting instincts and you need those to be respected even when the method is questioned. You want to be a team. You just need to be treated like one.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Raising children together",
+        subcategory: "Parenting",
+        subgroup: "Co-parenting",
         title: "When your child is struggling and you blame each other",
         subtitle: "The kid is having a hard time. The stress is making you point fingers.",
         ai_role: "your co-parent",
@@ -2450,7 +2481,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `Your child is struggling \u2014 academically, socially, or emotionally \u2014 and your co-parent is bringing it up. If they blame you, you'll get defensive and throw blame back. If they redirect to the child's needs and invite collaboration, you'll drop your guard. If they name their own fear underneath the tension, you'll match their vulnerability. You're both scared. You've both been carrying guilt. You need each other to get through this.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Raising children together",
+        subcategory: "Parenting",
+        subgroup: "Co-parenting",
         title: "Co-parenting after divorce \u2014 the first real conversation",
         subtitle: "The marriage is over. The parenting isn't. How do you build something new?",
         ai_role: "your ex-spouse and co-parent",
@@ -2483,7 +2515,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `Your ex-spouse wants to have a co-parenting conversation. The divorce is still fresh. You're hurt, guarded, maybe angry. If they bring marital grievances into this conversation, you'll shut down or fight. If they clearly separate the co-parenting from the marriage and keep the focus entirely on the children, you'll engage. If they propose a respectful structure rather than pushing for friendship, you'll feel relief. You want the kids to be okay. You're just not sure you can work with this person yet.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Raising children together",
+        subcategory: "Parenting",
+        subgroup: "Co-parenting",
         title: "When your ex badmouths you to the kids",
         subtitle: "Your child came home repeating something. You're furious. Now what?",
         ai_role: "your ex who has been talking negatively about you",
@@ -2516,7 +2549,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `Your ex is calling about something you said about them in front of the kids. You're defensive because you feel justified \u2014 maybe you vented, maybe you were being honest, maybe you didn't realize the kids were listening. If they come at you with anger and accusations, you'll fight back. If they focus on the child's experience and propose a mutual rule rather than demanding an apology, you'll grudgingly agree. You don't want to hurt the kids. You just have a lot of unresolved feelings about this person.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Raising children together",
+        subcategory: "Parenting",
+        subgroup: "Co-parenting",
         title: "Agreeing on screen time, bedtime, and routines across two homes",
         subtitle: "Different houses, different rules. The kids are exploiting it.",
         ai_role: "your co-parent (ex or spouse)",
@@ -2549,7 +2583,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `Your co-parent wants to discuss aligning routines between homes. Your instinct is defensiveness \u2014 you parent YOUR way in YOUR house. If they come in criticizing how you run things, you'll shut it down fast. If they start with what's working, propose just a few specific things (not a whole system), and frame it as being good for the child rather than a critique of you, you'll engage. You actually know the kids need more consistency. You just need to not feel controlled.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Raising children together",
+        subcategory: "Parenting",
+        subgroup: "Co-parenting",
         title: "When your child prefers the other parent",
         subtitle: "'I want daddy/mommy, not you.' It cuts deep. How do you handle it?",
         ai_role: "your co-parent",
@@ -2582,7 +2617,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `Your co-parent is coming to you because your child has been expressing a preference for you over them, and it's hurting them. Be kind. Don't gloat or minimize. If they get competitive or blame you, push back gently. If they're honest about the pain and ask for help, be generous. Offer specific observations about what the child loves about them. Suggest activities that play to their strengths. You know this isn't about one parent being better \u2014 it's about phases and dynamics. Help them see that.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Raising children together",
+        subcategory: "Parenting",
+        subgroup: "Co-parenting",
         title: "Introducing a new partner when you have kids",
         subtitle: "You're dating someone new. The kids don't know yet. This is the hardest conversation.",
         ai_role: "your ex and co-parent",
@@ -2615,7 +2651,8 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         prompt: `Your ex is telling you they're seeing someone new. This is one of the hardest moments in co-parenting. You might feel replaced, jealous, scared for the kids, or even happy but confused. If they spring it on you via the kids, you'll be furious. If they tell you first with respect and ask for your input on timing, you'll be hurt but able to engage. If they reassure you that nobody is replacing you as a parent, that's the thing that lets you breathe. You're not over all the feelings. But you can be a good co-parent through them.\n\nBODY LANGUAGE: Every 2 messages add an italicized body language cue in parentheses.`,
       },
       {
-        subcategory: "Raising children together",
+        subcategory: "Parenting",
+        subgroup: "Co-parenting",
         title: "When you disagree about your child's identity or choices",
         subtitle: "Your child is expressing something. One parent accepts it. The other is struggling.",
         ai_role: "your co-parent who is struggling to accept",
@@ -6802,8 +6839,8 @@ function getRecommendations(currentSituation: any, allScenarios: any[], maxRecs:
     "Red Flags & Boundaries": ["Online Dating Safety", "Early Compatibility", "Conflict & repair"],
     "Online Dating Safety": ["Red Flags & Boundaries", "Getting serious", "Early Compatibility"],
     "Early Compatibility": ["Getting serious", "Online Dating Safety", "Newly met"],
-    "Parenting": ["Raising children together", "Family dynamics"],
-    "Family dynamics": ["Parenting", "Extended family", "Emotional support & connection"],
+    "Parenting": ["Parenting", "Family dynamics"],
+    "Family dynamics": ["Parenting", "Family dynamics", "Emotional support & connection"],
     "Conflict & repair": ["Red Flags & Boundaries", "Reconnecting", "Peer relationships"],
     "Getting serious": ["Early Compatibility", "Long-term", "Newly met"],
     "Newly met": ["Out & about", "Getting serious", "College students"],
@@ -6817,13 +6854,13 @@ function getRecommendations(currentSituation: any, allScenarios: any[], maxRecs:
     "Introverts specifically": ["Out & about", "College students", "Newly met"],
     "Emotional support & connection": ["Family dynamics", "Married couples", "Long-term"],
     "Finance & Budget": ["Family dynamics", "Married couples", "Guidance & life decisions"],
-    "Navigating in-laws": ["Extended family", "Married couples", "Conflict & repair"],
-    "Raising children together": ["Parenting", "Married couples", "Conflict & repair"],
+    
+    
     
     "Guidance & life decisions": ["Married couples", "Family dynamics", "Managing up"],
     "College students": ["Out & about", "Introverts specifically", "Newly met"],
-    "Seniors & retirees": ["Reconnecting", "Extended family", "Introverts specifically"],
-    "Extended family": ["Family dynamics", "Navigating in-laws", "Seniors & retirees"],
+    "Seniors & retirees": ["Reconnecting", "Family dynamics", "Introverts specifically"],
+    
     "Client relationships": ["Managing up", "Peer relationships", "Working professionals"],
     "Starting out": ["College students", "Working professionals", "Introverts specifically"],
   };
