@@ -7654,7 +7654,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
                   <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "#fef3e8", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "22px", flexShrink: 0 }}>{"\ud83d\udd17"}</div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Compatibility Quiz</div>
-                    <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>Both partners answer 7 questions. See where you align and where the work is.</div>
+                    <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>Both partners answer 14 questions. See where you align and where the work is.</div>
                   </div>
                   <div style={{ fontSize: "16px", color: "#e07a2f", flexShrink: 0 }}>{"\u2192"}</div>
                 </a>
