@@ -293,7 +293,6 @@ function CompatInner() {
               : clashes.length <= 3 ? `Your friction points \u2014 ${clashes.map(c => DIMENSIONS[c].name.toLowerCase()).join(", ")} \u2014 are probably already showing up as small recurring tensions. The kind where you both walk away thinking \u2018why does this keep happening?\u2019 Now you know why. Each clash above has a specific bridge. Use them. Start with the one that frustrates you most.`
               : `With ${clashes.length} areas of difference, you\u2019re in a relationship that requires real work \u2014 but that work is what transforms a relationship from something you\u2019re in to something you\u2019ve built. The couples who survive major differences aren\u2019t lucky. They\u2019re intentional. Pick one friction point above. Just one. Have the conversation this week. Then pick another next week. That\u2019s how you rebuild the bridge, one plank at a time.`}
             </p>
-            </p>
           </div>
 
           <div style={{ display: "flex", gap: "10px", marginBottom: "24px" }}>
