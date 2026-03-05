@@ -8225,7 +8225,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
     const qst = QUIZ_STYLES[quizResult];
     const finishQuiz = () => { setQuizDone(true); try { localStorage.setItem("forte_quiz_done", "true"); } catch {} };
     const handleQShare = async () => {
-      const txt = `I'm "${qst.name}" \u2014 ${qst.tagline}\n\nWhat's your communication style?\nhttps://forte-social.vercel.app/quiz`;
+      const txt = `I'm "${qst.name}" \u2014 ${qst.tagline}\n\nWhat's your communication style?\nhttps://debate-coach-seven.vercel.app/quiz`;
       if (navigator.share) { try { await navigator.share({ title: `I'm ${qst.name}`, text: txt }); } catch {} }
       else { navigator.clipboard.writeText(txt); setQuizCopied(true); setTimeout(() => setQuizCopied(false), 2000); }
     };

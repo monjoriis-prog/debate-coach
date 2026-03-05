@@ -210,7 +210,7 @@ function CompatInner() {
   };
 
   const handleShare = async () => {
-    const link = `https://forte-social.vercel.app/quiz/compatibility?from=${encodeURIComponent(userName)}&a=${encode(answers)}`;
+    const link = `https://debate-coach-seven.vercel.app/quiz/compatibility?from=${encodeURIComponent(userName)}&a=${encode(answers)}`;
     const txt = `I just answered 14 questions about how I experience our relationship. Now it\u2019s your turn \u2014 when you answer, we\u2019ll both see where we align and where our real conversations need to happen.\n\nTakes 3 minutes:\n${link}`;
     if (navigator.share) {
       try { await navigator.share({ title: "Compatibility Quiz", text: txt, url: link }); } catch {}

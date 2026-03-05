@@ -192,13 +192,13 @@ function QuizInner() {
     }, 600);
   };
 
-  const shareText = result ? `I'm "${STYLES[result].name}" \u2014 ${STYLES[result].tagline}\n\nWhat's your communication style?\nhttps://forte-social.vercel.app/quiz` : "";
+  const shareText = result ? `I'm "${STYLES[result].name}" \u2014 ${STYLES[result].tagline}\n\nWhat's your communication style?\nhttps://debate-coach-seven.vercel.app/quiz` : "";
   const handleShare = async () => {
     if (navigator.share) { try { await navigator.share({ title: `I'm ${STYLES[result!].name}`, text: shareText }); } catch {} }
     else { navigator.clipboard.writeText(shareText); setCopied(true); setTimeout(() => setCopied(false), 2000); }
   };
   const handleCompareShare = async () => {
-    const link = `https://forte-social.vercel.app/quiz?from=${encodeURIComponent(userName)}&s=${result}`;
+    const link = `https://debate-coach-seven.vercel.app/quiz?from=${encodeURIComponent(userName)}&s=${result}`;
     const txt = `I just took a communication style quiz and I\u2019m "${STYLES[result!].name}." Now I want to see how we compare:\n\n${link}`;
     if (navigator.share) { try { await navigator.share({ title: "Compare communication styles", text: txt, url: link }); } catch {} }
     else { navigator.clipboard.writeText(txt); setCompareCopied(true); setTimeout(() => setCompareCopied(false), 2000); }
