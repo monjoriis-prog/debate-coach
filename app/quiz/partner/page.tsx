@@ -192,13 +192,13 @@ function QuizInner() {
     }, 600);
   };
 
-  const shareText = result ? `In love, I'm "${STYLES[result].name}" \u2014 ${STYLES[result].tagline}\n\nWhat kind of partner are you?\nhttps://debate-coach-seven.vercel.app/quiz/partner` : "";
+  const shareText = result ? `In love, I'm "${STYLES[result].name}" \u2014 ${STYLES[result].tagline}\n\nWhat kind of partner are you?\nhttps://forte-social.vercel.app/quiz/partner` : "";
   const handleShare = async () => {
     if (navigator.share) { try { await navigator.share({ title: `I'm ${STYLES[result!].name}`, text: shareText }); } catch {} }
     else { navigator.clipboard.writeText(shareText); setCopied(true); setTimeout(() => setCopied(false), 2000); }
   };
   const handleCompareShare = async () => {
-    const link = `https://debate-coach-seven.vercel.app/quiz/partner?from=${encodeURIComponent(userName)}&s=${result}`;
+    const link = `https://forte-social.vercel.app/quiz/partner?from=${encodeURIComponent(userName)}&s=${result}`;
     const txt = `I just took a partner style quiz and I\u2019m "${STYLES[result!].name}." Take it and see how we match:\n\n${link}`;
     if (navigator.share) { try { await navigator.share({ title: "Compare partner styles", text: txt, url: link }); } catch {} }
     else { navigator.clipboard.writeText(txt); setCompareCopied(true); setTimeout(() => setCompareCopied(false), 2000); }
@@ -334,7 +334,7 @@ function QuizInner() {
                 </div>
               </div>
               <div style={{ marginTop: "20px", textAlign: "center" }}>
-                <div style={{ fontSize: "10px", color: "#52796f", fontFamily: "-apple-system, sans-serif", letterSpacing: "0.15em" }}>FORTE {"\u00b7"} debate-coach-seven.vercel.app</div>
+                <div style={{ fontSize: "10px", color: "#52796f", fontFamily: "-apple-system, sans-serif", letterSpacing: "0.15em" }}>FORTE {"\u00b7"} forte-social.vercel.app</div>
               </div>
             </div>
           </div>
