@@ -7030,6 +7030,7 @@ export default function Forte() {
   const [customSituation, setCustomSituation] = useState("");
   const [customGoal, setCustomGoal] = useState("");
   const [subcategoryFilter, setSubcategoryFilter] = useState<string>("All");
+  const [expandedSubgroups, setExpandedSubgroups] = useState<Set<string>>(new Set());
   const recognitionRef = useRef<any>(null);
   const bottomRef = useRef<any>(null);
 
@@ -8146,7 +8147,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
       return (
         <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
           <div style={{ maxWidth: "640px", margin: "0 auto", padding: "40px 24px 64px" }}>
-            <button onClick={() => { forteSound.stepBack(); setSubcategoryFilter("All"); }} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", marginBottom: "36px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
+            <button onClick={() => { forteSound.stepBack(); setSubcategoryFilter("All"); setExpandedSubgroups(new Set()); }} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", marginBottom: "36px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>← Back</button>
             <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "6px" }}>
               <Icon html={ICONS[selectedCategory.iconKey as keyof typeof ICONS]} size={24} color={selectedCategory.accent} />
               <h2 style={{ fontSize: "28px", fontWeight: "400", margin: 0, color: "#1a2e1a" }}>{subcategoryFilter}</h2>
@@ -8180,33 +8181,89 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
                 </a>
               </div>
             )}
-            <div style={{ border: `1.5px solid ${selectedCategory.accent}22`, borderRadius: "14px", overflow: "hidden" }}>
-              {group?.situations.map((s: any, i: number) => {
-                const scenarioLocked = !isPro && i >= 2;
-                const showSubgroupHeader = s.subgroup && (i === 0 || group.situations[i - 1]?.subgroup !== s.subgroup);
-                return (
-                <div key={i}>
-                {showSubgroupHeader && (
-                  <div style={{ padding: "14px 24px 10px", background: `${selectedCategory.accent}08`, borderTop: i > 0 ? `1.5px solid ${selectedCategory.accent}22` : "none" }}>
-                    <div style={{ fontSize: "11px", fontWeight: "700", color: selectedCategory.accent, textTransform: "uppercase", letterSpacing: "0.12em", fontFamily: "-apple-system, sans-serif" }}>{s.subgroup}</div>
-                  </div>
-                )}
-                <button onClick={() => { if (scenarioLocked) { setShowPaywall(true); return; } if (!canPractice) { setShowPaywall(true); return; } forteSound.select(); setSelectedSituation(s); setLessonIndex(0); setRedFlagStep(0); setPhase("learn"); }}
-                  style={{ width: "100%", background: scenarioLocked ? "#fafafa" : "#fff", border: "none", borderTop: !showSubgroupHeader && i > 0 ? "1px solid #e8f0ec" : "none", padding: "20px 24px", textAlign: "left", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "background 0.15s" }}
-                  onMouseEnter={e => { if (!scenarioLocked) e.currentTarget.style.background = selectedCategory.color; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = scenarioLocked ? "#fafafa" : "#fff"; }}>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: "15px", fontWeight: "600", color: scenarioLocked ? "#aaa" : "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>{s.title}</div>
-                    <div style={{ fontSize: "13px", color: "#84a98c", fontStyle: "italic", filter: scenarioLocked ? "blur(5px)" : "none", userSelect: scenarioLocked ? "none" : "auto" }}>{s.subtitle}</div>
-                  </div>
-                  {scenarioLocked
-                    ? <div style={{ fontSize: "16px", marginLeft: "12px", flexShrink: 0 }}>🔒</div>
-                    : <div style={{ fontSize: "20px", color: selectedCategory.accent, marginLeft: "12px", flexShrink: 0 }}>›</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+              {(() => {
+                // Group by subgroup
+                const subgroups: { name: string; situations: any[] }[] = [];
+                const sgSeen: Record<string, number> = {};
+                group?.situations.forEach((s: any) => {
+                  const sg = s.subgroup || "__none__";
+                  if (sgSeen[sg] === undefined) {
+                    sgSeen[sg] = subgroups.length;
+                    subgroups.push({ name: sg, situations: [] });
                   }
-                </button>
-                </div>
-                );
-              })}
+                  subgroups[sgSeen[sg]].situations.push(s);
+                });
+
+                const hasSubgroups = subgroups.some(sg => sg.name !== "__none__");
+
+                // If no subgroups, render flat list
+                if (!hasSubgroups) {
+                  return (
+                    <div style={{ border: `1.5px solid ${selectedCategory.accent}22`, borderRadius: "14px", overflow: "hidden" }}>
+                      {group?.situations.map((s: any, i: number) => {
+                        const scenarioLocked = !isPro && i >= 2;
+                        return (
+                          <button key={i} onClick={() => { if (scenarioLocked) { setShowPaywall(true); return; } if (!canPractice) { setShowPaywall(true); return; } forteSound.select(); setSelectedSituation(s); setLessonIndex(0); setRedFlagStep(0); setPhase("learn"); }}
+                            style={{ width: "100%", background: scenarioLocked ? "#fafafa" : "#fff", border: "none", borderTop: i > 0 ? "1px solid #e8f0ec" : "none", padding: "20px 24px", textAlign: "left", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "background 0.15s" }}
+                            onMouseEnter={e => { if (!scenarioLocked) e.currentTarget.style.background = selectedCategory.color; }}
+                            onMouseLeave={e => { e.currentTarget.style.background = scenarioLocked ? "#fafafa" : "#fff"; }}>
+                            <div style={{ flex: 1 }}>
+                              <div style={{ fontSize: "15px", fontWeight: "600", color: scenarioLocked ? "#aaa" : "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>{s.title}</div>
+                              <div style={{ fontSize: "13px", color: "#84a98c", fontStyle: "italic", filter: scenarioLocked ? "blur(5px)" : "none", userSelect: scenarioLocked ? "none" : "auto" }}>{s.subtitle}</div>
+                            </div>
+                            {scenarioLocked ? <div style={{ fontSize: "16px", marginLeft: "12px", flexShrink: 0 }}>🔒</div> : <div style={{ fontSize: "20px", color: selectedCategory.accent, marginLeft: "12px", flexShrink: 0 }}>›</div>}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  );
+                }
+
+                // Has subgroups: render as collapsible accordions
+                let globalIdx = 0;
+                return subgroups.map((sg, sgIdx) => {
+                  const isOpen = expandedSubgroups.has(sg.name);
+                  const count = sg.situations.length;
+                  const startIdx = globalIdx;
+                  globalIdx += count;
+
+                  return (
+                    <div key={sgIdx} style={{ border: `1.5px solid ${selectedCategory.accent}18`, borderRadius: "14px", overflow: "hidden", transition: "all 0.3s" }}>
+                      <button onClick={() => { forteSound.tap(); setExpandedSubgroups(prev => { const next = new Set(prev); if (next.has(sg.name)) next.delete(sg.name); else next.add(sg.name); return next; }); }}
+                        style={{ width: "100%", background: isOpen ? `${selectedCategory.accent}08` : "#fff", border: "none", padding: "20px 24px", textAlign: "left", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "all 0.2s" }}
+                        onMouseEnter={e => { if (!isOpen) e.currentTarget.style.background = selectedCategory.color; }}
+                        onMouseLeave={e => { if (!isOpen) e.currentTarget.style.background = "#fff"; }}>
+                        <div>
+                          <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>{sg.name}</div>
+                          <div style={{ fontSize: "12px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginTop: "4px" }}>{count} scenario{count !== 1 ? "s" : ""}</div>
+                        </div>
+                        <div style={{ fontSize: "18px", color: selectedCategory.accent, transition: "transform 0.3s", transform: isOpen ? "rotate(90deg)" : "rotate(0deg)" }}>›</div>
+                      </button>
+                      {isOpen && (
+                        <div style={{ borderTop: `1px solid ${selectedCategory.accent}15` }}>
+                          {sg.situations.map((s: any, i: number) => {
+                            const absIdx = startIdx + i;
+                            const scenarioLocked = !isPro && absIdx >= 2;
+                            return (
+                              <button key={i} onClick={() => { if (scenarioLocked) { setShowPaywall(true); return; } if (!canPractice) { setShowPaywall(true); return; } forteSound.select(); setSelectedSituation(s); setLessonIndex(0); setRedFlagStep(0); setPhase("learn"); }}
+                                style={{ width: "100%", background: scenarioLocked ? "#fafafa" : "#fff", border: "none", borderTop: i > 0 ? "1px solid #e8f0ec" : "none", padding: "18px 24px", textAlign: "left", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "background 0.15s", animation: "fadeSlideIn 0.25s ease" }}
+                                onMouseEnter={e => { if (!scenarioLocked) e.currentTarget.style.background = selectedCategory.color; }}
+                                onMouseLeave={e => { e.currentTarget.style.background = scenarioLocked ? "#fafafa" : "#fff"; }}>
+                                <div style={{ flex: 1 }}>
+                                  <div style={{ fontSize: "14px", fontWeight: "600", color: scenarioLocked ? "#aaa" : "#1a2e1a", marginBottom: "3px", fontFamily: "-apple-system, sans-serif" }}>{s.title}</div>
+                                  <div style={{ fontSize: "12px", color: "#84a98c", fontStyle: "italic", filter: scenarioLocked ? "blur(5px)" : "none", userSelect: scenarioLocked ? "none" : "auto" }}>{s.subtitle}</div>
+                                </div>
+                                {scenarioLocked ? <div style={{ fontSize: "14px", marginLeft: "12px", flexShrink: 0 }}>🔒</div> : <div style={{ fontSize: "18px", color: selectedCategory.accent, marginLeft: "12px", flexShrink: 0 }}>›</div>}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  );
+                });
+              })()}
             </div>
           </div>
           {paywallOverlay}
