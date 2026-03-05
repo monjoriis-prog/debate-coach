@@ -6691,7 +6691,6 @@ export default function Forte() {
       { key: "journal", icon: "✍", label: "Journal", desc: "Write how you're feeling — I'll reflect it back and gently coach you", color: "#f0f7f4", accent: "#2d6a4f" },
       { key: "meditation", icon: "◎", label: "Guided Meditation", desc: "Tell me what you need — I'll guide you through a short session", color: "#f0f4f8", accent: "#3a6186" },
       { key: "problem", icon: "◈", label: "Problem Solver", desc: "Describe a challenge — I'll ask a few questions then give you a clear plan", color: "#faf8f0", accent: "#c07000" },
-      { key: "teenactivities", icon: "🧭", label: "Teen Activities Finder", desc: "Type your city — I'll find activities you and your teen can do together", color: "#f0f4f7", accent: "#2a7886" },
     ];
     return (
       <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
@@ -6796,34 +6795,6 @@ STEP: [third step — something about mindset or inner work]
 ENCOURAGEMENT: [one warm, personal closing sentence based on everything they shared]
 
 Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2 sentences. Be warm, not clinical.`,
-        isConversational: true,
-        isClarifying: true,
-      },
-      teenactivities: {
-        accent: "#2a7886", color: "#f0f4f7",
-        label: "Teen Activities Finder",
-        icon: "🧭",
-        placeholder: "Type your city or area (e.g. 'Austin, TX' or 'Sydney, Australia') and optionally what your teen is into.",
-        inputLabel: "Where do you live? (and what's your teen into?)",
-        cta: "Find activities for us",
-        systemPrompt: `You are a helpful, creative activities advisor for parents who want to connect with their teenagers. The user will tell you their city/area and optionally their teen's interests.
-
-IMPORTANT: Ask ONE question first to understand the teen better. Format EXACTLY like:
-Ask a short warm question about their teen (age, interests, what they resist). Then add:
-OPTION: [a likely answer, 8-12 words]
-OPTION: [another possibility, 8-12 words]
-OPTION: [a third option, 8-12 words]
-
-After they answer, give them a personalized list of 6 activity suggestions specific to their area. Format EXACTLY like:
-ACTIVITY: [Name of activity] | [Why it works for connection] | [Where to find it in their area]
-ACTIVITY: [Name of activity] | [Why it works for connection] | [Where to find it in their area]
-ACTIVITY: [Name of activity] | [Why it works for connection] | [Where to find it in their area]
-ACTIVITY: [Name of activity] | [Why it works for connection] | [Where to find it in their area]
-ACTIVITY: [Name of activity] | [Why it works for connection] | [Where to find it in their area]
-ACTIVITY: [Name of activity] | [Why it works for connection] | [Where to find it in their area]
-TIP: [One sentence of parenting advice about how to suggest these without pressure]
-
-Mix it up: include free options, indoor/outdoor, active/creative, and at least one surprise pick they wouldn't expect. Be specific to the actual city — name real neighborhoods, parks, venues, or types of local businesses. Do NOT use bullet points, headers, or markdown.`,
         isConversational: true,
         isClarifying: true,
       },
@@ -6957,127 +6928,7 @@ Mix it up: include free options, indoor/outdoor, active/creative, and at least o
           )}
 
           {/* CONVERSATIONAL RESULT (journal, problem solver) */}
-          {showConversation && selfTool === "teenactivities" && (() => {
-            const lastAssistant = [...selfMessages].reverse().find((m: any) => m.role === "assistant");
-            const lastContent = lastAssistant?.content || "";
-            const hasActivities = lastContent.includes("ACTIVITY:");
-            const isAsking = !hasActivities && lastContent.length > 0;
 
-            // Parse activities
-            const activities: { name: string; why: string; where: string }[] = [];
-            let tip = "";
-            if (hasActivities) {
-              lastContent.split("\n").forEach((line: string) => {
-                const trimmed = line.trim();
-                if (trimmed.startsWith("ACTIVITY:")) {
-                  const parts = trimmed.replace("ACTIVITY:", "").split("|").map((p: string) => p.trim());
-                  if (parts.length >= 3) activities.push({ name: parts[0], why: parts[1], where: parts[2] });
-                  else if (parts.length === 2) activities.push({ name: parts[0], why: parts[1], where: "" });
-                } else if (trimmed.startsWith("TIP:")) {
-                  tip = trimmed.replace("TIP:", "").trim();
-                }
-              });
-            }
-
-            // Parse options from question
-            const lines = lastContent.split("\n").map((l: string) => l.trim()).filter(Boolean);
-            const options: string[] = [];
-            const questionLines: string[] = [];
-            if (isAsking) {
-              lines.forEach((line: string) => {
-                if (line.startsWith("OPTION:")) options.push(line.replace("OPTION:", "").trim());
-                else questionLines.push(line);
-              });
-            }
-
-            return (
-              <div style={{ marginTop: "28px" }}>
-                {/* Progress */}
-                <div style={{ display: "flex", gap: "6px", marginBottom: "24px", alignItems: "center" }}>
-                  <div style={{ width: hasActivities ? "8px" : "24px", height: "8px", borderRadius: "99px", background: tool.accent, transition: "all 0.3s" }} />
-                  <div style={{ width: hasActivities ? "24px" : "8px", height: "8px", borderRadius: "99px", background: hasActivities ? tool.accent : "#d8e8e0", transition: "all 0.3s" }} />
-                  <span style={{ fontSize: "11px", color: tool.accent, fontFamily: "-apple-system, sans-serif", marginLeft: "8px" }}>{hasActivities ? "Your activities" : "About your teen"}</span>
-                </div>
-
-                {/* Question with options */}
-                {isAsking && !selfLoading && (
-                  <div style={{ animation: "fadeSlideIn 0.35s ease" }}>
-                    <div style={{ background: "#fff", border: `1.5px solid ${tool.accent}22`, borderRadius: "18px", padding: "24px 22px", marginBottom: "16px" }}>
-                      <div style={{ fontSize: "10px", fontWeight: "700", color: tool.accent, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "12px", fontFamily: "-apple-system, sans-serif" }}>🧭 Activities Finder</div>
-                      <p style={{ fontSize: "15px", color: "#1a2e1a", lineHeight: 1.85, margin: 0 }}>{questionLines.join(" ")}</p>
-                    </div>
-                    {options.length > 0 && (
-                      <div style={{ marginBottom: "16px" }}>
-                        <div style={{ fontSize: "10px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px", fontFamily: "-apple-system, sans-serif" }}>Tap an answer or type your own</div>
-                        <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                          {options.map((opt: string, oi: number) => (
-                            <button key={oi} onClick={() => { forteSound.tap(); sendSelfMessage(opt); }}
-                              style={{ width: "100%", padding: "13px 16px", background: tool.color, border: `1.5px solid ${tool.accent}22`, borderRadius: "12px", fontSize: "14px", color: "#1a2e1a", textAlign: "left", cursor: "pointer", fontFamily: "Georgia, serif", lineHeight: 1.6, transition: "all 0.15s" }}>
-                              {opt}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    <div style={{ borderTop: options.length > 0 ? "1px solid #d8e8e0" : "none", paddingTop: options.length > 0 ? "16px" : "0" }}>
-                      {options.length > 0 && <div style={{ fontSize: "10px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px", fontFamily: "-apple-system, sans-serif" }}>Or write your own</div>}
-                      <textarea value={selfInput} onChange={e => setSelfInput(e.target.value)}
-                        onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendSelfMessage(selfInput); } }}
-                        placeholder="Tell me about your teen..." rows={2}
-                        style={{ width: "100%", padding: "14px 16px", border: `1.5px solid ${tool.accent}33`, borderRadius: "12px", fontSize: "14px", fontFamily: "Georgia, serif", color: "#1a2e1a", background: "#fff", outline: "none", resize: "none", lineHeight: 1.7, boxSizing: "border-box" }} />
-                      <button onClick={() => sendSelfMessage(selfInput)} disabled={!selfInput.trim()}
-                        style={{ width: "100%", marginTop: "10px", padding: "14px", background: selfInput.trim() ? tool.accent : "#d8e8e0", color: selfInput.trim() ? "#fff" : "#aaa", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: selfInput.trim() ? "pointer" : "not-allowed", fontFamily: "-apple-system, sans-serif" }}>
-                        Answer →
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {/* Loading */}
-                {selfLoading && (
-                  <div style={{ background: "#fff", border: `1.5px solid ${tool.accent}22`, borderRadius: "18px", padding: "24px 22px", display: "flex", gap: "6px", alignItems: "center" }}>
-                    {[0,1,2].map(i => <div key={i} style={{ width: "7px", height: "7px", borderRadius: "50%", background: tool.accent, animation: "pulse 1.2s ease-in-out infinite", animationDelay: `${i * 0.2}s` }} />)}
-                    <span style={{ fontSize: "12px", color: tool.accent, marginLeft: "8px", fontFamily: "-apple-system, sans-serif" }}>
-                      {hasActivities || selfStep > 1 ? "Finding activities in your area..." : "Getting to know your teen..."}
-                    </span>
-                  </div>
-                )}
-
-                {/* Activities list */}
-                {hasActivities && !selfLoading && (
-                  <div style={{ animation: "fadeSlideIn 0.35s ease" }}>
-                    <div style={{ fontSize: "10px", fontWeight: "700", color: tool.accent, textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>Activities For You & Your Teen</div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                      {activities.map((act, ai) => (
-                        <div key={ai} style={{ background: "#fff", border: `1.5px solid ${tool.accent}22`, borderRadius: "14px", padding: "20px 22px" }}>
-                          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "10px" }}>
-                            <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: tool.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "700", color: tool.accent, flexShrink: 0, fontFamily: "-apple-system, sans-serif" }}>{ai + 1}</div>
-                            <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif", lineHeight: 1.3 }}>{act.name}</div>
-                          </div>
-                          <p style={{ fontSize: "14px", color: "#52796f", lineHeight: 1.75, margin: "0 0 8px", paddingLeft: "44px" }}>{act.why}</p>
-                          {act.where && <p style={{ fontSize: "13px", color: tool.accent, lineHeight: 1.6, margin: 0, paddingLeft: "44px", fontFamily: "-apple-system, sans-serif" }}>📍 {act.where}</p>}
-                        </div>
-                      ))}
-                    </div>
-                    {tip && (
-                      <div style={{ marginTop: "16px", background: tool.color, border: `1.5px solid ${tool.accent}33`, borderRadius: "14px", padding: "18px 20px" }}>
-                        <div style={{ fontSize: "10px", fontWeight: "700", color: tool.accent, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>💡 Parent Tip</div>
-                        <p style={{ fontSize: "14px", color: "#1a2e1a", lineHeight: 1.8, margin: 0, fontStyle: "italic" }}>{tip}</p>
-                      </div>
-                    )}
-                    <div style={{ display: "flex", gap: "10px", marginTop: "16px" }}>
-                      <button onClick={() => readAloud(activities.map(a => a.name + ": " + a.why).join(". "))}
-                        style={{ padding: "6px 14px", background: "transparent", color: tool.accent, border: `1px solid ${tool.accent}33`, borderRadius: "99px", fontSize: "11px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
-                        {selfSpeaking ? "🔊 Playing..." : "🔊 Read these"}
-                      </button>
-                      <button onClick={() => { window.speechSynthesis.cancel(); setSelfMessages([]); setSelfInput(""); setSelfResult(null); setSelfStep(0); setPlanStep(0); }}
-                        style={{ padding: "6px 14px", background: "transparent", color: "#84a98c", border: "1px solid #e8f0ec", borderRadius: "99px", fontSize: "11px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>Try another city</button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            );
-          })()}
 
           {showConversation && selfTool === "problem" && (() => {
             const lastAssistant = [...selfMessages].reverse().find((m: any) => m.role === "assistant");
