@@ -164,7 +164,7 @@ function RedFlagInner() {
       <div style={{ maxWidth: "520px", margin: "0 auto", padding: "48px 24px", textAlign: "center" }}>
         <div style={{ animation: "fadeUp 0.8s ease-out" }}>
           <div style={{ marginBottom: "24px" }}>
-            <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.25em", color: "#52796f", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif" }}>FORTE</div>
+            <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.25em", color: "#52796f", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif" }}>BeBoldn</div>
             <div style={{ fontSize: "12px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginTop: "4px" }}>Practice real conversations before they happen</div>
           </div>
           <div style={{ fontSize: "64px", marginBottom: "16px" }}>{"\ud83d\udea9"}</div>
@@ -265,7 +265,7 @@ function RedFlagInner() {
             <div style={{ fontSize: "22px", fontWeight: "600", color: tier.color, marginTop: "8px", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>{tier.emoji} {tier.name}</div>
             <p style={{ fontSize: "13px", color: "#b8d4c8", lineHeight: 1.7, margin: "0 0 16px", fontFamily: "-apple-system, sans-serif" }}>{tier.desc}</p>
             <div style={{ borderTop: "1px solid #ffffff12", paddingTop: "12px" }}>
-              <div style={{ fontSize: "10px", color: "#52796f", fontFamily: "-apple-system, sans-serif", letterSpacing: "0.15em" }}>FORTE {"\u00b7"} Practice real conversations before they happen</div>
+              <div style={{ fontSize: "10px", color: "#52796f", fontFamily: "-apple-system, sans-serif", letterSpacing: "0.15em" }}>BeBoldn {"\u00b7"} Practice real conversations before they happen</div>
             </div>
           </div>
 
@@ -327,8 +327,8 @@ function RedFlagInner() {
 
           <div style={{ background: "#fff", borderRadius: "16px", padding: "24px", border: "1.5px solid #d8e8e0", textAlign: "center" }}>
             <h3 style={{ fontSize: "17px", fontWeight: "600", color: "#1a2e1a", margin: "0 0 8px", fontFamily: "-apple-system, sans-serif" }}>Want to Practice These Conversations?</h3>
-            <p style={{ fontSize: "13px", color: "#52796f", lineHeight: 1.6, margin: "0 0 16px", fontFamily: "-apple-system, sans-serif" }}>FORTE lets you rehearse real red flag scenarios with AI that reacts to how you respond. Learn to set boundaries and protect yourself {"\u2014"} before you need to.</p>
-            <a href="/social" style={{ display: "block", padding: "16px", background: "#2d6a4f", color: "#fff", borderRadius: "12px", fontSize: "15px", fontWeight: "600", textDecoration: "none", textAlign: "center", fontFamily: "-apple-system, sans-serif" }}>Try FORTE Free {"\u2192"}</a>
+            <p style={{ fontSize: "13px", color: "#52796f", lineHeight: 1.6, margin: "0 0 16px", fontFamily: "-apple-system, sans-serif" }}>BeBoldn lets you rehearse real red flag scenarios with AI that reacts to how you respond. Learn to set boundaries and protect yourself {"\u2014"} before you need to.</p>
+            <a href="/social" style={{ display: "block", padding: "16px", background: "#2d6a4f", color: "#fff", borderRadius: "12px", fontSize: "15px", fontWeight: "600", textDecoration: "none", textAlign: "center", fontFamily: "-apple-system, sans-serif" }}>Try BeBoldn Free {"\u2192"}</a>
           </div>
 
           <div style={{ display: "flex", justifyContent: "center", gap: "16px", marginTop: "24px" }}>

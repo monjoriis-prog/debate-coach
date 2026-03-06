@@ -7506,7 +7506,7 @@ VERDICT: [2-3 sentence warm encouraging coaching summary — celebrate their gro
 ---END---`;
 
 
-// ── FORTE SOUND ENGINE ──────────────────────────────────────────
+// ── BOLDN SOUND ENGINE ──────────────────────────────────────────
 // Unique synthesized audio signatures using Web Audio API
 function _beep(freq: number, dur: number, wave: string, vol: number, t0: number) {
   try {
@@ -8509,12 +8509,12 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
       <div style={{ position: "absolute", inset: 0, background: "rgba(15,30,20,0.6)", backdropFilter: "blur(6px)" }} />
       <div style={{ position: "relative", background: "#fff", borderRadius: "24px", width: "100%", maxWidth: "440px", padding: "40px 32px", textAlign: "center", boxShadow: "0 24px 80px rgba(0,0,0,0.25)", animation: "modalPop 0.4s cubic-bezier(0.34,1.56,0.64,1)" }}>
         <div style={{ fontSize: "40px", marginBottom: "16px" }}>✦</div>
-        <h2 style={{ fontSize: "24px", fontWeight: "400", color: "#1a2e1a", margin: "0 0 12px", fontFamily: "Georgia, serif" }}>Unlock Full FORTE</h2>
+        <h2 style={{ fontSize: "24px", fontWeight: "400", color: "#1a2e1a", margin: "0 0 12px", fontFamily: "Georgia, serif" }}>Unlock Full BeBoldn</h2>
         <p style={{ fontSize: "14px", color: "#52796f", lineHeight: 1.8, margin: "0 0 24px", fontFamily: "-apple-system, sans-serif" }}>
           You've used your {sessionsUsed} free practice sessions. Upgrade to unlock every category, unlimited practice, and the Problem Solver.
         </p>
         <div style={{ background: "#f0f7f4", borderRadius: "14px", padding: "18px", marginBottom: "24px", textAlign: "left" }}>
-          <div style={{ fontSize: "11px", fontWeight: "700", color: "#2d6a4f", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "12px", fontFamily: "-apple-system, sans-serif" }}>FORTE Pro includes:</div>
+          <div style={{ fontSize: "11px", fontWeight: "700", color: "#2d6a4f", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "12px", fontFamily: "-apple-system, sans-serif" }}>BeBoldn Pro includes:</div>
           {["All categories + every scenario", "Unlimited practice sessions", "Problem Solver \u2014 describe any challenge, get a clear plan", "200+ scenarios across family, dating, friends & work", "New scenarios added regularly"].map((item, i) => (
             <div key={i} style={{ fontSize: "13px", color: "#1a2e1a", lineHeight: 1.8, fontFamily: "-apple-system, sans-serif", paddingLeft: "20px", position: "relative" }}>
               <span style={{ position: "absolute", left: 0, color: "#2d6a4f" }}>✓</span> {item}
@@ -8606,7 +8606,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
         <div style={{ textAlign: "center", marginBottom: "48px" }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: "14px", marginBottom: "16px" }}>
             <div style={{ width: "3px", height: "40px", background: "#2d6a4f", borderRadius: "2px" }} />
-            <h1 style={{ fontSize: "48px", fontWeight: "400", margin: 0, color: "#1a2e1a", letterSpacing: "-1px" }}>FORTE</h1>
+            <h1 style={{ fontSize: "48px", fontWeight: "400", margin: 0, color: "#1a2e1a", letterSpacing: "-1px" }}>BeBoldn</h1>
           </div>
           <p style={{ color: "#52796f", fontSize: "16px", margin: "0", lineHeight: 1.7, fontStyle: "italic" }}>Welcome! Pick one category to explore for free.</p>
           <p style={{ color: "#84a98c", fontSize: "13px", margin: "8px 0 0", fontFamily: "-apple-system, sans-serif" }}>You'll get 3 free practice sessions. Upgrade anytime for full access.</p>
@@ -8653,7 +8653,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
         <div style={{ maxWidth: "520px", margin: "0 auto", padding: "48px 24px", textAlign: "center" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "14px", justifyContent: "center", marginBottom: "48px" }}>
             <div style={{ width: "3px", height: "32px", background: "#2d6a4f", borderRadius: "2px" }} />
-            <div style={{ fontSize: "32px", fontWeight: "400", color: "#1a2e1a", letterSpacing: "-1px" }}>FORTE</div>
+            <div style={{ fontSize: "32px", fontWeight: "400", color: "#1a2e1a", letterSpacing: "-1px" }}>BeBoldn</div>
           </div>
           <h1 style={{ fontSize: "clamp(28px, 6vw, 40px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 16px", lineHeight: 1.3, letterSpacing: "-0.5px" }}>{"What\u2019s Your"}<br />Communication Style?</h1>
           <p style={{ color: "#52796f", fontSize: "15px", lineHeight: 1.8, margin: "0 0 40px" }}>7 real scenarios. No wrong answers.<br />Discover how you handle tension {"\u2014"} and what it costs you.</p>
@@ -8827,7 +8827,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
         <div style={{ marginBottom: "64px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "16px" }}>
             <div style={{ width: "3px", height: "40px", background: "#2d6a4f", borderRadius: "2px" }} />
-            <h1 style={{ fontSize: "48px", fontWeight: "400", margin: 0, color: "#1a2e1a", letterSpacing: "-1px" }}>FORTE</h1>
+            <h1 style={{ fontSize: "48px", fontWeight: "400", margin: 0, color: "#1a2e1a", letterSpacing: "-1px" }}>BeBoldn</h1>
           </div>
           <p style={{ color: "#52796f", fontSize: "16px", margin: "0 0 0 17px", lineHeight: 1.7, fontStyle: "italic" }}>
             Learn first. Then practice.<br />Build the confidence to connect with anyone.
@@ -9526,7 +9526,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
     <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif", display: "flex", flexDirection: "column" }}>
       <div style={{ background: "#fff", borderBottom: "1px solid #e8f0ec", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
         <div>
-          <div style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.15em", color: "#84a98c", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif" }}>FORTE · Practice</div>
+          <div style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.15em", color: "#84a98c", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif" }}>BeBoldn · Practice</div>
           <div style={{ fontSize: "15px", color: "#1a2e1a", marginTop: "2px" }}>{selectedSituation?.title}</div>
         </div>
         <div style={{ display: "flex", gap: "6px" }}>
@@ -9907,7 +9907,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
                   g.beginPath(); g.arc(140, 900, 250, 0, Math.PI * 2); g.fillStyle = "#52796f"; g.fill();
                   g.globalAlpha = 1;
 
-                  // FORTE branding
+                  // BeBoldn branding
                   g.fillStyle = "#52796f";
                   g.font = "700 13px -apple-system, sans-serif";
                   g.letterSpacing = "6px";
@@ -10048,7 +10048,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
                     const file = new File([blob], "forte-score.png", { type: "image/png" });
                     if (navigator.share && navigator.canShare?.({ files: [file] })) {
                       try {
-                        await navigator.share({ files: [file], title: "My FORTE Score" });
+                        await navigator.share({ files: [file], title: "My BeBoldn Score" });
                       } catch {}
                     } else {
                       const url = URL.createObjectURL(blob);

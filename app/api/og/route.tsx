@@ -32,9 +32,9 @@ export async function GET(req: NextRequest) {
         <div style={{ position: "absolute", bottom: "60px", left: "120px", fontSize: "28px", opacity: 0.1, display: "flex" }}>🚩</div>
         <div style={{ position: "absolute", bottom: "100px", right: "80px", fontSize: "42px", opacity: 0.12, display: "flex" }}>🚩</div>
 
-        {/* FORTE brand */}
+        {/* BeBoldn brand */}
         <div style={{ fontSize: "14px", fontWeight: 700, letterSpacing: "0.3em", color: "#84a98c", textTransform: "uppercase" as const, marginBottom: "20px", display: "flex" }}>
-          FORTE
+          BeBoldn
         </div>
 
         {isGeneric ? (
@@ -69,7 +69,7 @@ export async function GET(req: NextRequest) {
 
         {/* Footer */}
         <div style={{ position: "absolute", bottom: "30px", fontSize: "13px", color: "#52796f", display: "flex" }}>
-          FORTE · Practice real conversations before they happen
+          BeBoldn · Practice real conversations before they happen
         </div>
       </div>
     ),
