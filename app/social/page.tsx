@@ -7882,17 +7882,28 @@ export default function Forte() {
     setMessages([]);
     setUserTurns(0);
     setFeedback(null);
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ systemPrompt: SYSTEM_PROMPT(situation.prompt, situation.ai_role), messages: [{ role: "user", content: "Let's begin." }] }),
-    });
-    const data = await res.json();
-    const reply = data.content || "Hey there.";
-    const firstMessages = [{ role: "assistant", content: reply }];
-    setMessages(firstMessages);
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000);
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ systemPrompt: SYSTEM_PROMPT(situation.prompt, situation.ai_role), messages: [{ role: "user", content: "Let's begin." }] }),
+        signal: controller.signal,
+      });
+      clearTimeout(timeout);
+      if (!res.ok) throw new Error("API returned " + res.status);
+      const data = await res.json();
+      const reply = data.content || "Hey there.";
+      const firstMessages = [{ role: "assistant", content: reply }];
+      setMessages(firstMessages);
+      generateSuggestions(firstMessages, situation);
+    } catch (err) {
+      console.error("startChat error:", err);
+      const fallbackMessages = [{ role: "assistant", content: "*(takes a breath and looks at you warmly)*\nHey. I'm here whenever you're ready to start." }];
+      setMessages(fallbackMessages);
+    }
     setLoading(false);
-    generateSuggestions(firstMessages, situation);
   }
 
   function startCustomChat() {
@@ -7947,35 +7958,46 @@ export default function Forte() {
     setDynamicSuggestions([]);
     setUserTurns((t: number) => t + 1);
     setLoading(true);
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        systemPrompt: SYSTEM_PROMPT(selectedSituation.prompt, selectedSituation.ai_role),
-        messages: newMessages.map((m: any) => ({ role: m.role, content: m.content })),
-      }),
-    });
-    const data = await res.json();
-    const reply = data.content || "...";
-    const parsed = parseFeedback(reply);
-    if (parsed) {
-      setFeedback(parsed);
-      if (!isPro) setSessionsUsed(s => s + 1);
-      recordSession(selectedSituation?.title || "Custom");
-      setMessages([...newMessages, { role: "assistant", content: parsed.raw || "That was a wonderful conversation." }]);
-      setPhase("done"); setTimeout(() => { forteSound.coachReveal(); setShowFeedbackModal(true); }, 600);
-    } else {
-      const updatedMessages = [...newMessages, { role: "assistant", content: reply }];
-      setMessages(updatedMessages);
-      generateSuggestions(updatedMessages, selectedSituation);
-      // Red flag intervention check
-      if (selectedSituation?.isRedFlag && selectedSituation?.redFlagAlert && !redFlagPopupShown) {
-        const userMsg = text.toLowerCase();
-        const triggered = selectedSituation.redFlagAlert.keywords.some((kw: string) => userMsg.includes(kw.toLowerCase()));
-        if (triggered) {
-          setTimeout(() => { forteSound.redFlag(); setShowRedFlagPopup(true); setRedFlagPopupShown(true); window.speechSynthesis.cancel(); setSpeaking(false); }, 1500);
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000);
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          systemPrompt: SYSTEM_PROMPT(selectedSituation.prompt, selectedSituation.ai_role),
+          messages: newMessages.map((m: any) => ({ role: m.role, content: m.content })),
+        }),
+        signal: controller.signal,
+      });
+      clearTimeout(timeout);
+      if (!res.ok) throw new Error("API returned " + res.status);
+      const data = await res.json();
+      const reply = data.content || "...";
+      const parsed = parseFeedback(reply);
+      if (parsed) {
+        setFeedback(parsed);
+        if (!isPro) setSessionsUsed(s => s + 1);
+        recordSession(selectedSituation?.title || "Custom");
+        setMessages([...newMessages, { role: "assistant", content: parsed.raw || "That was a wonderful conversation." }]);
+        setPhase("done"); setTimeout(() => { forteSound.coachReveal(); setShowFeedbackModal(true); }, 600);
+      } else {
+        const updatedMessages = [...newMessages, { role: "assistant", content: reply }];
+        setMessages(updatedMessages);
+        generateSuggestions(updatedMessages, selectedSituation);
+        // Red flag intervention check
+        if (selectedSituation?.isRedFlag && selectedSituation?.redFlagAlert && !redFlagPopupShown) {
+          const userMsg = text.toLowerCase();
+          const triggered = selectedSituation.redFlagAlert.keywords.some((kw: string) => userMsg.includes(kw.toLowerCase()));
+          if (triggered) {
+            setTimeout(() => { forteSound.redFlag(); setShowRedFlagPopup(true); setRedFlagPopupShown(true); window.speechSynthesis.cancel(); setSpeaking(false); }, 1500);
+          }
         }
       }
+    } catch (err) {
+      console.error("sendMessage error:", err);
+      const errorReply = "*(pauses thoughtfully)*\nSorry, I lost my train of thought for a moment. Could you say that again?";
+      setMessages([...newMessages, { role: "assistant", content: errorReply }]);
     }
     setLoading(false);
   }
@@ -9555,7 +9577,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
           }
           // AI message — extract scene cues
           const { cues, cleanText } = extractSceneCues(m.content);
-          const roleLabel = (selectedSituation?.ai_role || "partner").replace(/^your /i, "").replace(/^a /i, "");
+          const roleLabel = (selectedSituation?.ai_role || "partner").replace(/^your /i, "").replace(/^a /i, "").replace(/^the /i, "");
           const roleLabelFull = `Your ${roleLabel}`;
           return (
             <div key={i} style={{ display: "flex", flexDirection: "column", gap: "6px", alignItems: "flex-start", maxWidth: "82%" }}>
@@ -9590,7 +9612,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
         {loading && (
           <div style={{ display: "flex", flexDirection: "column", gap: "6px", alignItems: "flex-start", maxWidth: "82%" }}>
             <div style={{ fontSize: "11px", fontWeight: "700", color: "#84a98c", fontFamily: "-apple-system, sans-serif", textTransform: "uppercase", letterSpacing: "0.08em", paddingLeft: "4px" }}>
-              Your {(selectedSituation?.ai_role || "partner").replace(/^your /i, "").replace(/^a /i, "")} says:
+              Your {(selectedSituation?.ai_role || "partner").replace(/^your /i, "").replace(/^a /i, "").replace(/^the /i, "")} says:
             </div>
             <div style={{ padding: "14px 18px", background: "#fff", borderRadius: "4px 18px 18px 18px", display: "flex", gap: "5px", alignItems: "center", boxShadow: "0 1px 6px rgba(0,0,0,0.05)", border: "1px solid #e8f0ec" }}>
               {[0,1,2].map((i) => <div key={i} style={{ width: "7px", height: "7px", borderRadius: "50%", background: accent, animation: "pulse 1.2s ease-in-out infinite", animationDelay: `${i * 0.2}s` }} />)}

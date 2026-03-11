@@ -21,7 +21,7 @@ export async function POST(request) {
       messages: messages,
     });
 
-    const text = response.content[0].text;
+    const text = response.content?.[0]?.text || "I'm here. Go ahead.";
     console.log('Response text:', text);
     return Response.json({ content: text });
   } catch (error) {
