@@ -7846,6 +7846,7 @@ export default function Forte() {
 
   const accent = selectedCategory?.accent || "#2d6a4f";
   const inputStyle: React.CSSProperties = { width: "100%", padding: "12px 16px", border: "1.5px solid #d8e8e0", borderRadius: "10px", fontSize: "14px", fontFamily: "Georgia, serif", color: "#1a2e1a", background: "#fff", outline: "none" };
+  const isNativeApp = typeof window !== "undefined" && !!(window as any).Capacitor;
 
   function startListening() {
     const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
@@ -10116,12 +10117,14 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
             </div>
           )}
 
+          {!isNativeApp && (
           <div style={{ display: "flex", justifyContent: "center", marginBottom: "10px", gap: "8px" }}>
             <button onClick={() => setInputMode("type")} style={{ padding: "5px 14px", background: inputMode === "type" ? accent : "#f0f7f4", color: inputMode === "type" ? "#fff" : "#52796f", border: "none", borderRadius: "99px", fontSize: "12px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>⌨️ Type</button>
             <button onClick={() => setInputMode("voice")} style={{ padding: "5px 14px", background: inputMode === "voice" ? accent : "#f0f7f4", color: inputMode === "voice" ? "#fff" : "#52796f", border: "none", borderRadius: "99px", fontSize: "12px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>🎤 Voice</button>
           </div>
+          )}
 
-          {inputMode === "type" ? (
+          {(inputMode === "type" || isNativeApp) ? (
             <div style={{ display: "flex", gap: "10px", alignItems: "flex-end" }}>
               <textarea value={typedMessage} onChange={e => setTypedMessage(e.target.value)}
                 onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(typedMessage.trim()); } }}
