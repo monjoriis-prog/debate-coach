@@ -8034,17 +8034,22 @@ export default function Forte() {
     return (
       <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div style={{ maxWidth: "440px", margin: "0 auto", padding: "48px 24px", textAlign: "center" }}>
-          <div style={{ fontSize: "48px", marginBottom: "16px" }}>B</div>
+          <div style={{ width: "64px", height: "64px", background: "#2d6a4f", borderRadius: "16px", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px", fontSize: "28px", color: "#fff", fontWeight: "700", fontFamily: "-apple-system, sans-serif" }}>B</div>
           <h1 style={{ fontSize: "28px", fontWeight: "400", color: "#1a2e1a", marginBottom: "8px" }}>Welcome to BeBoldn</h1>
           <p style={{ color: "#52796f", fontSize: "15px", lineHeight: 1.7, marginBottom: "28px" }}>Practice real conversations with AI that responds like a real person.</p>
-          <div style={{ background: "#fff", border: "1px solid #d8e8e0", borderRadius: "16px", padding: "20px 24px", textAlign: "left", marginBottom: "28px", fontSize: "14px", color: "#1a2e1a", lineHeight: 1.7 }}>
-            <p style={{ fontWeight: "600", marginBottom: "12px", color: "#2d6a4f" }}>How your data is used:</p>
-            <p style={{ marginBottom: "8px" }}>When you practice a conversation, the text you type is sent to <strong>Anthropic</strong>, a third-party AI service, to generate realistic responses.</p>
-            <p style={{ marginBottom: "8px" }}>Your conversations are not stored on our servers. Quiz results and progress are saved locally on your device.</p>
-            <p style={{ marginBottom: "0" }}>We do not collect your name, email, or any personal information.</p>
+          <div style={{ background: "#fff", border: "1px solid #e8f0ec", borderRadius: "16px", textAlign: "left", marginBottom: "20px", maxHeight: "240px", overflowY: "auto", WebkitOverflowScrolling: "touch" as any }}>
+            <div style={{ padding: "20px 24px", fontSize: "13px", color: "#3a5a40", lineHeight: 1.8 }}>
+              <p style={{ fontWeight: "700", fontSize: "14px", color: "#1a2e1a", marginBottom: "12px" }}>Privacy Agreement</p>
+              <p style={{ marginBottom: "10px" }}>BeBoldn uses advanced AI technology to generate realistic conversation responses. When you practice a scenario, the text you type is processed by a secure third-party AI service to create your conversation partner's responses.</p>
+              <p style={{ marginBottom: "10px" }}>Your conversations are processed in real time and are not stored on our servers. We do not create accounts or collect personal information such as your name, email, or phone number.</p>
+              <p style={{ marginBottom: "10px" }}>Quiz results, practice history, and preferences are saved locally on your device and never leave it.</p>
+              <p style={{ marginBottom: "10px" }}>We do not use your data for advertising, analytics, or any purpose other than generating your conversation responses.</p>
+              <p style={{ marginBottom: "10px", fontSize: "12px", color: "#84a98c" }}>Conversation text is processed by Anthropic (anthropic.com) in accordance with their privacy policy. All data is transmitted over encrypted connections. For complete details, see our full Privacy Policy.</p>
+            </div>
           </div>
-          <a href="/privacy" target="_blank" style={{ color: "#2d6a4f", fontSize: "13px", textDecoration: "underline", display: "block", marginBottom: "20px" }}>Read our full Privacy Policy</a>
-          <button onClick={acceptConsent} style={{ width: "100%", padding: "16px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>I Understand — Let Me Practice</button>
+          <a href="/privacy" target="_blank" style={{ color: "#84a98c", fontSize: "12px", textDecoration: "underline", display: "block", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>Read full Privacy Policy</a>
+          <button onClick={acceptConsent} style={{ width: "100%", padding: "16px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>Agree & Continue</button>
+          <p style={{ fontSize: "11px", color: "#b0c4b8", marginTop: "12px", fontFamily: "-apple-system, sans-serif" }}>By tapping Agree & Continue, you accept our Privacy Policy.</p>
         </div>
       </div>
     );
