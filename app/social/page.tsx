@@ -7728,6 +7728,16 @@ export default function Forte() {
   const [sessionsUsed, setSessionsUsed] = useState(0);
   const [isPro, setIsPro] = useState(true); // TODO: set to false when ready to launch paywall
   const [showPaywall, setShowPaywall] = useState(false);
+  const [hasConsented, setHasConsented] = useState(false);
+
+  useEffect(() => {
+    try { if (localStorage.getItem("beboldn_consent") === "true") setHasConsented(true); } catch {}
+  }, []);
+
+  function acceptConsent() {
+    setHasConsented(true);
+    try { localStorage.setItem("beboldn_consent", "true"); } catch {}
+  }
 
   // Progress tracking state
   const [progress, setProgress] = useState<{
@@ -8018,6 +8028,27 @@ export default function Forte() {
 
   const staticSuggestions = selectedSituation?.suggestions?.[Math.min(userTurns, (selectedSituation?.suggestions?.length || 1) - 1)] || [];
   const currentSuggestions = dynamicSuggestions.length > 0 ? dynamicSuggestions : staticSuggestions;
+
+  // CONSENT SCREEN
+  if (!hasConsented) {
+    return (
+      <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ maxWidth: "440px", margin: "0 auto", padding: "48px 24px", textAlign: "center" }}>
+          <div style={{ fontSize: "48px", marginBottom: "16px" }}>B</div>
+          <h1 style={{ fontSize: "28px", fontWeight: "400", color: "#1a2e1a", marginBottom: "8px" }}>Welcome to BeBoldn</h1>
+          <p style={{ color: "#52796f", fontSize: "15px", lineHeight: 1.7, marginBottom: "28px" }}>Practice real conversations with AI that responds like a real person.</p>
+          <div style={{ background: "#fff", border: "1px solid #d8e8e0", borderRadius: "16px", padding: "20px 24px", textAlign: "left", marginBottom: "28px", fontSize: "14px", color: "#1a2e1a", lineHeight: 1.7 }}>
+            <p style={{ fontWeight: "600", marginBottom: "12px", color: "#2d6a4f" }}>How your data is used:</p>
+            <p style={{ marginBottom: "8px" }}>When you practice a conversation, the text you type is sent to <strong>Anthropic</strong>, a third-party AI service, to generate realistic responses.</p>
+            <p style={{ marginBottom: "8px" }}>Your conversations are not stored on our servers. Quiz results and progress are saved locally on your device.</p>
+            <p style={{ marginBottom: "0" }}>We do not collect your name, email, or any personal information.</p>
+          </div>
+          <a href="/privacy" target="_blank" style={{ color: "#2d6a4f", fontSize: "13px", textDecoration: "underline", display: "block", marginBottom: "20px" }}>Read our full Privacy Policy</a>
+          <button onClick={acceptConsent} style={{ width: "100%", padding: "16px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>I Understand — Let Me Practice</button>
+        </div>
+      </div>
+    );
+  }
 
   // HOME
 
