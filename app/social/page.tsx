@@ -7711,6 +7711,16 @@ export default function Forte() {
   const [inputMode, setInputMode] = useState<"voice"|"type">("type");
   const [feedback, setFeedback] = useState<any>(null);
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const [streakCelebration, setStreakCelebration] = useState<{ streak: number; emoji: string; title: string; message: string } | null>(null);
+  const STREAK_MILESTONES: Record<number, { emoji: string; title: string; message: string }> = {
+    3: { emoji: "🔥", title: "3-Day Streak!", message: "You're building a habit. Most people quit by day 2 — you didn't." },
+    7: { emoji: "⚡", title: "1 Week Strong!", message: "Seven days of showing up for yourself. That takes real commitment." },
+    14: { emoji: "🌟", title: "2-Week Warrior!", message: "Two weeks of practice. Your conversations are getting sharper." },
+    21: { emoji: "💎", title: "21 Days — Habit Formed!", message: "They say it takes 21 days to build a habit. You just did it." },
+    30: { emoji: "👑", title: "30-Day Legend!", message: "A full month of courage. You're not the same person who started." },
+    50: { emoji: "🏆", title: "50-Day Master!", message: "Fifty days. You've practiced more than most people do in a lifetime." },
+    100: { emoji: "💯", title: "100 DAYS!", message: "One hundred days of boldness. You are truly unstoppable." },
+  };
   const [feedbackReading, setFeedbackReading] = useState(false);
   const [dynamicSuggestions, setDynamicSuggestions] = useState<string[]>([]);
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
@@ -7835,6 +7845,10 @@ export default function Forte() {
       const newTotal = prev.totalSessions + 1;
       const newStreak = calcStreak(newDays);
       const newBest = Math.max(prev.bestStreak, newStreak);
+      const milestone = STREAK_MILESTONES[newStreak];
+      if (milestone && newStreak > prev.bestStreak) {
+        setTimeout(() => setStreakCelebration({ streak: newStreak, ...milestone }), 1200);
+      }
       return { practiceDays: newDays, totalSessions: newTotal, scenariosDone: newScenarios, bestStreak: newBest };
     });
   };
@@ -10246,6 +10260,28 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
       )}
 
       {paywallOverlay}
+
+      {/* STREAK CELEBRATION */}
+      {streakCelebration && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.7)", zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", padding: "24px", animation: "fadeSlideIn 0.4s ease" }}
+          onClick={() => setStreakCelebration(null)}>
+          <div style={{ background: "#fff", borderRadius: "24px", padding: "40px 32px", maxWidth: "360px", width: "100%", textAlign: "center", animation: "modalPop 0.5s ease", position: "relative", overflow: "hidden" }}
+            onClick={e => e.stopPropagation()}>
+            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "4px", background: "linear-gradient(90deg, #ff9800, #ff5722, #e91e63, #9c27b0)" }} />
+            <div style={{ fontSize: "64px", marginBottom: "16px", animation: "pulse 1.2s ease-in-out infinite" }}>{streakCelebration.emoji}</div>
+            <h2 style={{ fontSize: "24px", fontWeight: "700", color: "#1a2e1a", margin: "0 0 8px", fontFamily: "-apple-system, sans-serif" }}>{streakCelebration.title}</h2>
+            <div style={{ fontSize: "48px", fontWeight: "800", color: "#2d6a4f", margin: "8px 0 16px", fontFamily: "-apple-system, sans-serif" }}>{streakCelebration.streak}</div>
+            <p style={{ fontSize: "15px", color: "#52796f", lineHeight: 1.6, margin: "0 0 24px" }}>{streakCelebration.message}</p>
+            <div style={{ display: "flex", gap: "10px" }}>
+              <button onClick={() => setStreakCelebration(null)}
+                style={{ flex: 1, padding: "14px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "15px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+                Keep Going!
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <style>{`
         @keyframes pulse { 0%, 100% { opacity: 0.2; transform: scale(0.7); } 50% { opacity: 1; transform: scale(1.1); } }
           @keyframes modalPop { from { opacity: 0; transform: scale(0.85) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
