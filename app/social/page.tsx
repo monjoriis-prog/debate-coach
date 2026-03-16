@@ -7772,6 +7772,35 @@ export default function Forte() {
     ? Math.min(99, Math.round((confidenceData.totalScoreSum / confidenceData.sessionCount) * 10 * (1 - Math.exp(-confidenceData.sessionCount / 8))))
     : 0;
   const confidenceLevel = confidenceScore < 20 ? "Beginner" : confidenceScore < 40 ? "Growing" : confidenceScore < 60 ? "Confident" : confidenceScore < 80 ? "Bold" : "Fearless";
+
+  // WEEKLY RECAP
+  const [showWeeklyRecap, setShowWeeklyRecap] = useState(false);
+  const getWeeklyStats = () => {
+    const now = new Date();
+    const startOfWeek = new Date(now);
+    startOfWeek.setDate(now.getDate() - now.getDay());
+    startOfWeek.setHours(0, 0, 0, 0);
+    const weekStr = startOfWeek.toISOString().split("T")[0];
+    const thisWeekDays = progress.practiceDays.filter(d => d >= weekStr);
+    const uniqueDays = [...new Set(thisWeekDays)].length;
+    const sessionsThisWeek = thisWeekDays.length;
+    const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const activeDays = dayNames.map((name, i) => {
+      const d = new Date(startOfWeek);
+      d.setDate(d.getDate() + i);
+      const ds = d.toISOString().split("T")[0];
+      return { name, active: thisWeekDays.includes(ds), today: ds === now.toISOString().split("T")[0] };
+    });
+    const motivations = [
+      { min: 0, msg: "Every expert was once a beginner. Start your first session!" },
+      { min: 1, msg: "You showed up. That's the hardest part." },
+      { min: 3, msg: "Three sessions! You're building real momentum." },
+      { min: 5, msg: "Five sessions this week. You're taking this seriously." },
+      { min: 7, msg: "A session every day this week. You're unstoppable." },
+    ];
+    const motivation = [...motivations].reverse().find(m => sessionsThisWeek >= m.min)?.msg || "";
+    return { sessionsThisWeek, uniqueDays, activeDays, motivation };
+  };
   const confidenceColor = confidenceScore < 20 ? "#84a98c" : confidenceScore < 40 ? "#52796f" : confidenceScore < 60 ? "#2d6a4f" : confidenceScore < 80 ? "#1b4332" : "#ff8f00";
   const [searchQuery, setSearchQuery] = useState("");
   const [searchFocused, setSearchFocused] = useState(false);
@@ -9001,6 +9030,24 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
             </div>
           </div>
         )}
+
+        {/* WEEKLY RECAP */}
+        {progress.totalSessions > 0 && (() => {
+          const weekly = getWeeklyStats();
+          return (
+            <button onClick={() => setShowWeeklyRecap(true)}
+              style={{ width: "100%", background: "linear-gradient(145deg, #f0f4f8, #e8edf2)", border: "1.5px solid #c8d6e5", borderRadius: "16px", padding: "20px 24px", cursor: "pointer", transition: "all 0.3s", display: "flex", alignItems: "center", gap: "16px", textAlign: "left" as any, marginBottom: "20px" }}
+              onMouseEnter={(e: any) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.08)"; }}
+              onMouseLeave={(e: any) => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+              <div style={{ fontSize: "28px" }}>{String.fromCodePoint(0x1F4CA)}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: "10px", fontWeight: "700", color: "#3a6186", fontFamily: "-apple-system, sans-serif", textTransform: "uppercase" as any, letterSpacing: "0.08em", marginBottom: "4px" }}>This Week</div>
+                <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>{weekly.sessionsThisWeek} session{weekly.sessionsThisWeek !== 1 ? "s" : ""} {String.fromCodePoint(0x00B7)} {weekly.uniqueDays} day{weekly.uniqueDays !== 1 ? "s" : ""} active</div>
+              </div>
+              <div style={{ fontSize: "13px", color: "#3a6186", fontFamily: "-apple-system, sans-serif" }}>{"View \u2192"}</div>
+            </button>
+          );
+        })()}
 
         {/* DAILY CHALLENGE */}
         {dailyChallenge && (
@@ -10308,6 +10355,59 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
       )}
 
       {paywallOverlay}
+
+      {/* WEEKLY RECAP MODAL */}
+      {showWeeklyRecap && (() => {
+        const weekly = getWeeklyStats();
+        return (
+          <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.6)", zIndex: 9998, display: "flex", alignItems: "center", justifyContent: "center", padding: "24px", animation: "fadeSlideIn 0.3s ease" }}
+            onClick={() => setShowWeeklyRecap(false)}>
+            <div style={{ background: "#fff", borderRadius: "24px", padding: "36px 28px", maxWidth: "400px", width: "100%", animation: "modalPop 0.4s ease" }}
+              onClick={e => e.stopPropagation()}>
+              <div style={{ textAlign: "center", marginBottom: "24px" }}>
+                <div style={{ fontSize: "36px", marginBottom: "8px" }}>{String.fromCodePoint(0x1F4CA)}</div>
+                <h2 style={{ fontSize: "22px", fontWeight: "700", color: "#1a2e1a", margin: "0 0 4px", fontFamily: "-apple-system, sans-serif" }}>Your Week</h2>
+                <div style={{ fontSize: "13px", color: "#84a98c", fontFamily: "-apple-system, sans-serif" }}>Here\u2019s how you showed up</div>
+              </div>
+              <div style={{ display: "flex", justifyContent: "center", gap: "6px", marginBottom: "24px" }}>
+                {weekly.activeDays.map((d: any, i: number) => (
+                  <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
+                    <div style={{ fontSize: "11px", color: d.today ? "#2d6a4f" : "#84a98c", fontWeight: d.today ? "700" : "400", fontFamily: "-apple-system, sans-serif" }}>{d.name}</div>
+                    <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: d.active ? "#2d6a4f" : d.today ? "#f0f7f4" : "#f5f5f5", border: d.today && !d.active ? "2px dashed #2d6a4f" : "2px solid transparent", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", color: d.active ? "#fff" : "#ccc", transition: "all 0.2s" }}>
+                      {d.active ? "\u2713" : ""}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "24px" }}>
+                <div style={{ background: "#f0f7f4", borderRadius: "14px", padding: "16px", textAlign: "center" }}>
+                  <div style={{ fontSize: "28px", fontWeight: "800", color: "#2d6a4f", fontFamily: "-apple-system, sans-serif" }}>{weekly.sessionsThisWeek}</div>
+                  <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "4px" }}>Sessions</div>
+                </div>
+                <div style={{ background: "#f0f7f4", borderRadius: "14px", padding: "16px", textAlign: "center" }}>
+                  <div style={{ fontSize: "28px", fontWeight: "800", color: "#2d6a4f", fontFamily: "-apple-system, sans-serif" }}>{weekly.uniqueDays}</div>
+                  <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "4px" }}>Days Active</div>
+                </div>
+                <div style={{ background: "#f0f7f4", borderRadius: "14px", padding: "16px", textAlign: "center" }}>
+                  <div style={{ fontSize: "28px", fontWeight: "800", color: "#2d6a4f", fontFamily: "-apple-system, sans-serif" }}>{currentStreak}</div>
+                  <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "4px" }}>Day Streak</div>
+                </div>
+                <div style={{ background: "#f0f7f4", borderRadius: "14px", padding: "16px", textAlign: "center" }}>
+                  <div style={{ fontSize: "28px", fontWeight: "800", color: "#2d6a4f", fontFamily: "-apple-system, sans-serif" }}>{confidenceScore}</div>
+                  <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "4px" }}>Confidence</div>
+                </div>
+              </div>
+              <div style={{ background: "#f8faf8", borderRadius: "12px", padding: "14px 16px", marginBottom: "20px", textAlign: "center" }}>
+                <p style={{ fontSize: "14px", color: "#52796f", lineHeight: 1.6, margin: 0, fontStyle: "italic" }}>{weekly.motivation}</p>
+              </div>
+              <button onClick={() => setShowWeeklyRecap(false)}
+                style={{ width: "100%", padding: "14px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "15px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+                Keep Going!
+              </button>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* STREAK CELEBRATION */}
       {streakCelebration && (
