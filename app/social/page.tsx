@@ -9651,8 +9651,8 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
                 {lesson.bad.user}
               </div>
               <div style={{ background: "#fff0f0", borderRadius: "10px", padding: "12px 14px", fontSize: "13px", color: "#333", lineHeight: 1.6, marginBottom: "12px" }}>
-                <div style={{ fontSize: "10px", color: "#bbb", marginBottom: "4px", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>THEM</div>
-                {lesson.bad.ai}
+                <div style={{ fontSize: "10px", color: "#bbb", marginBottom: "4px", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>THEY MIGHT RESPOND</div>
+                {lesson.bad.ai.replace(/\*\([^)]*\)\*\s*/g, "").replace(/\*[^*]+\*\s*/g, "").trim()}
               </div>
               <div style={{ fontSize: "12px", color: "#c0392b", lineHeight: 1.6, fontStyle: "italic" }}>{lesson.bad.note}</div>
             </div>
@@ -9663,8 +9663,8 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
                 {lesson.good.user}
               </div>
               <div style={{ background: "#e6f5ec", borderRadius: "10px", padding: "12px 14px", fontSize: "13px", color: "#333", lineHeight: 1.6, marginBottom: "12px" }}>
-                <div style={{ fontSize: "10px", color: "#bbb", marginBottom: "4px", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>THEM</div>
-                {lesson.good.ai}
+                <div style={{ fontSize: "10px", color: "#bbb", marginBottom: "4px", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>THEY MIGHT RESPOND</div>
+                {lesson.good.ai.replace(/\*\([^)]*\)\*\s*/g, "").replace(/\*[^*]+\*\s*/g, "").trim()}
               </div>
               <div style={{ fontSize: "12px", color: "#2d6a4f", lineHeight: 1.6, fontStyle: "italic" }}>{lesson.good.note}</div>
             </div>
