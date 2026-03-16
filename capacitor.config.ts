@@ -3,7 +3,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.fortesocial.app',
-  appName: 'FORTE',
+  appName: 'BeBoldn',
   webDir: 'out',
   server: {
     url: 'https://debate-coach-seven.vercel.app',

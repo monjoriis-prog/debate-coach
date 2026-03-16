@@ -7797,7 +7797,37 @@ export default function Forte() {
   };
   const currentStreak = calcStreak(progress.practiceDays);
 
+  // DAILY CHALLENGE
+  const getDailyScenario = () => {
+    const allScenarios: { scenario: any; category: any }[] = [];
+    SCENARIOS.forEach((cat: any) => {
+      cat.situations.forEach((s: any) => {
+        if (s.title && s.prompt) allScenarios.push({ scenario: s, category: cat });
+      });
+    });
+    const today = new Date();
+    const dayIndex = Math.floor((today.getFullYear() * 366 + (today.getMonth() + 1) * 31 + today.getDate()) * 7) % allScenarios.length;
+    return allScenarios[dayIndex];
+  };
+  const dailyChallenge = getDailyScenario();
+  const todayStr = new Date().toISOString().split("T")[0];
+  const [dailyCompleted, setDailyCompleted] = useState(false);
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("beboldn_daily");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.date === todayStr) setDailyCompleted(true);
+      }
+    } catch {}
+  }, []);
+  const completeDailyChallenge = () => {
+    setDailyCompleted(true);
+    try { localStorage.setItem("beboldn_daily", JSON.stringify({ date: todayStr })); } catch {}
+  };
+
   const recordSession = (scenarioTitle: string) => {
+    if (dailyChallenge && scenarioTitle === dailyChallenge.scenario.title) completeDailyChallenge();
     const today = new Date().toISOString().split("T")[0];
     setProgress(prev => {
       const newDays = [...prev.practiceDays, today];
@@ -8910,6 +8940,33 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
             <div style={{ fontSize: "13px", color: "#2d6a4f", fontFamily: "-apple-system, sans-serif" }}>View →</div>
           </button>
         )}
+        {/* DAILY CHALLENGE */}
+        {dailyChallenge && (
+          <button onClick={() => {
+            if (dailyCompleted) return;
+            forteSound.select();
+            setSelectedCategory(dailyChallenge.category);
+            setSelectedSituation(dailyChallenge.scenario);
+            setLessonIndex(0);
+            setPhase("learn");
+          }}
+            style={{ width: "100%", background: dailyCompleted ? "linear-gradient(145deg, #f0f7f4, #e8f5e9)" : "linear-gradient(145deg, #fff8e1, #fff3cd)", border: dailyCompleted ? "1.5px solid #a5d6a7" : "1.5px solid #ffe082", borderRadius: "16px", padding: "20px 24px", cursor: dailyCompleted ? "default" : "pointer", transition: "all 0.3s", display: "flex", alignItems: "center", gap: "16px", textAlign: "left" as any, marginBottom: "20px", position: "relative" as any, overflow: "hidden" as any }}
+            onMouseEnter={(e: any) => { if (!dailyCompleted) { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(255,183,0,0.15)"; } }}
+            onMouseLeave={(e: any) => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+            <div style={{ fontSize: "28px" }}>{dailyCompleted ? "\u2705" : "\u26a1"}</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
+                <div style={{ fontSize: "10px", fontWeight: "700", color: dailyCompleted ? "#2e7d32" : "#e65100", fontFamily: "-apple-system, sans-serif", textTransform: "uppercase" as any, letterSpacing: "0.08em" }}>
+                  {dailyCompleted ? "Completed!" : "Today's Challenge"}
+                </div>
+              </div>
+              <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>{dailyChallenge.scenario.title}</div>
+              <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>{dailyChallenge.scenario.subtitle}</div>
+            </div>
+            {!dailyCompleted && <div style={{ fontSize: "18px", color: "#e65100" }}>\u2192</div>}
+          </button>
+        )}
+
         <button onClick={() => setPhase("quizHub")} style={{ width: "100%", background: "linear-gradient(145deg, #f0f7f4, #fff)", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "20px 24px", cursor: "pointer", transition: "all 0.3s", display: "flex", alignItems: "center", gap: "16px", textAlign: "left", marginBottom: "20px" }}
           onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(45,106,79,0.1)"; }}
           onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
