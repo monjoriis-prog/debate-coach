@@ -8022,6 +8022,20 @@ export default function Forte() {
 
   async function sendMessage(text: string) {
     if (!text || loading) return;
+    const trimmed = text.trim();
+    const isTestInput = trimmed.length < 4 && !/^(no|yes|ok|why|how|hi|hey)$/i.test(trimmed);
+    if (isTestInput) {
+      const nudge = [
+        "Try saying something you'd actually say in this situation.",
+        "What would you really want to say here?",
+        "Give it a real try — even if it's not perfect.",
+      ];
+      const randomNudge = nudge[Math.floor(Math.random() * nudge.length)];
+      setMessages(prev => [...prev, { role: "user", content: trimmed }, { role: "assistant", content: "*(waits, looking at you)*\n" + randomNudge }]);
+      setTranscript("");
+      setTypedMessage("");
+      return;
+    }
     const newMessages = [...messages, { role: "user", content: text }];
     setMessages(newMessages);
     setTranscript("");
