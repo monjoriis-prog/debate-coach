@@ -4520,7 +4520,7 @@ BODY LANGUAGE: Every 2 messages add an italicized body language cue in parenthes
         lessons: [
           {
             tip: "Notice the flip",
-            why: "The pattern: you raise a concern \u2192 they get upset that you raised it \u2192 suddenly you're comforting THEM about YOUR complaint. Once you see it, you can't unsee it.",
+            why: "The pattern: you raise a concern → they get upset that you raised it → suddenly you're comforting THEM about YOUR complaint. Once you see it, you can't unsee it.",
             bad: { user: "I'm sorry, I didn't mean to upset you. Let's just drop it.", ai: "*(the deflection worked perfectly)*", note: "\u274c You just apologized for having a concern. Their behavior never got addressed." },
             good: { user: "I notice that I came to you with a concern, and now I'm the one apologizing. That's a pattern. Can we go back to what I originally said?", ai: "*(caught off guard)* What? I'm not\u2014 I was just expressing how I feel!", note: "\u2713 Named the flip in real time. That's the skill that breaks the pattern." },
           },
@@ -8748,7 +8748,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
           <p style={{ color: "#52796f", fontSize: "15px", lineHeight: 1.8, margin: "0 0 40px" }}>7 real scenarios. No wrong answers.<br />Discover how you handle tension {"\u2014"} and what it costs you.</p>
           <button onClick={() => setQuizStarted(true)} style={{ padding: "16px 44px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", transition: "all 0.3s" }}
             onMouseEnter={e => { e.currentTarget.style.background = "#40916c"; e.currentTarget.style.transform = "translateY(-2px)"; }}
-            onMouseLeave={e => { e.currentTarget.style.background = "#2d6a4f"; e.currentTarget.style.transform = "none"; }}>{"Take the Quiz \u2192"}</button>
+            onMouseLeave={e => { e.currentTarget.style.background = "#2d6a4f"; e.currentTarget.style.transform = "none"; }}>{"Take the Quiz →"}</button>
           <div style={{ marginTop: "24px" }}>
             <button onClick={skipQuiz} style={{ background: "none", border: "none", color: "#52796f", fontSize: "14px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", padding: "10px 20px", textDecoration: "underline", textUnderlineOffset: "3px" }}>Skip for now</button>
           </div>
@@ -8824,7 +8824,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
           <div style={{ background: "#fff", borderRadius: "16px", padding: "24px", border: "1.5px solid #d8e8e0", textAlign: "center" }}>
             <h3 style={{ fontSize: "17px", fontWeight: "600", color: "#1a2e1a", margin: "0 0 8px", fontFamily: "-apple-system, sans-serif" }}>Ready to practice?</h3>
             <p style={{ fontSize: "13px", color: "#52796f", lineHeight: 1.6, margin: "0 0 16px", fontFamily: "-apple-system, sans-serif" }}>Practice real conversations with AI coaching matched to your style.</p>
-            <button onClick={finishQuiz} style={{ width: "100%", padding: "16px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "12px", fontSize: "15px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>{"Start Practicing \u2192"}</button>
+            <button onClick={finishQuiz} style={{ width: "100%", padding: "16px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "12px", fontSize: "15px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>{"Start Practicing →"}</button>
           </div>
           <div style={{ marginTop: "20px", padding: "16px 0" }}>
             <div style={{ fontSize: "11px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "12px", fontFamily: "-apple-system, sans-serif" }}>Full Breakdown</div>
@@ -8865,7 +8865,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
               <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Communication Style</div>
               <div style={{ fontSize: "13px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "4px", lineHeight: 1.5 }}>How do you handle tension? Compare with friends, family, or coworkers.</div>
             </div>
-            <div style={{ fontSize: "16px", color: "#2d6a4f", flexShrink: 0 }}>{"\u2192"}</div>
+            <div style={{ fontSize: "16px", color: "#2d6a4f", flexShrink: 0 }}>{"→"}</div>
           </a>
           <a href="/quiz/partner" style={{ textDecoration: "none", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "24px", display: "flex", alignItems: "center", gap: "16px", transition: "all 0.25s" }}
             onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#c9184a"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(201,24,74,0.06)"; }}
@@ -8875,7 +8875,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
               <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Partner Style</div>
               <div style={{ fontSize: "13px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "4px", lineHeight: 1.5 }}>What kind of partner are you? Send it to yours and see your compatibility.</div>
             </div>
-            <div style={{ fontSize: "16px", color: "#c9184a", flexShrink: 0 }}>{"\u2192"}</div>
+            <div style={{ fontSize: "16px", color: "#c9184a", flexShrink: 0 }}>{"→"}</div>
           </a>
           <a href="/quiz/compatibility" style={{ textDecoration: "none", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "24px", display: "flex", alignItems: "center", gap: "16px", transition: "all 0.25s" }}
             onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#e07a2f"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(224,122,47,0.06)"; }}
@@ -8885,7 +8885,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
               <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Compatibility</div>
               <div style={{ fontSize: "13px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "4px", lineHeight: 1.5 }}>Both partners answer. See where you align and where the work is.</div>
             </div>
-            <div style={{ fontSize: "16px", color: "#e07a2f", flexShrink: 0 }}>{"\u2192"}</div>
+            <div style={{ fontSize: "16px", color: "#e07a2f", flexShrink: 0 }}>{"→"}</div>
           </a>
           <a href="/quiz/redflag" style={{ textDecoration: "none", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "24px", display: "flex", alignItems: "center", gap: "16px", transition: "all 0.25s" }}
             onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#c9184a"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(201,24,74,0.06)"; }}
@@ -8895,7 +8895,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
               <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Red Flag IQ</div>
               <div style={{ fontSize: "13px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "4px", lineHeight: 1.5 }}>12 scenarios. Can you spot the red flags? Can you spot them?.</div>
             </div>
-            <div style={{ fontSize: "16px", color: "#c9184a", flexShrink: 0 }}>{"\u2192"}</div>
+            <div style={{ fontSize: "16px", color: "#c9184a", flexShrink: 0 }}>{"→"}</div>
           </a>
           <div style={{ background: "#f5f5f5", border: "1.5px dashed #d0d0d0", borderRadius: "16px", padding: "24px", display: "flex", alignItems: "center", gap: "16px" }}>
             <div style={{ width: "48px", height: "48px", borderRadius: "14px", background: "#f0f0f0", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px", flexShrink: 0 }}>{"\ud83c\udf31"}</div>
@@ -8963,7 +8963,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
               <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>{dailyChallenge.scenario.title}</div>
               <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>{dailyChallenge.scenario.subtitle}</div>
             </div>
-            {!dailyCompleted && <div style={{ fontSize: "18px", color: "#e65100" }}>\u2192</div>}
+            {!dailyCompleted && <div style={{ fontSize: "18px", color: "#e65100" }}>→</div>}
           </button>
         )}
 
@@ -8975,7 +8975,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
             <div style={{ fontSize: "16px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Discover Your Style</div>
             <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>Quick quizzes you can compare with anyone</div>
           </div>
-          <div style={{ fontSize: "18px", color: "#2d6a4f" }}>{"\u2192"}</div>
+          <div style={{ fontSize: "18px", color: "#2d6a4f" }}>{"→"}</div>
         </button>
 
         {/* SEARCH */}
@@ -9158,7 +9158,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
                     <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Compatibility Quiz</div>
                     <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>Both partners answer 14 questions. See where you align and where the work is.</div>
                   </div>
-                  <div style={{ fontSize: "16px", color: "#e07a2f", flexShrink: 0 }}>{"\u2192"}</div>
+                  <div style={{ fontSize: "16px", color: "#e07a2f", flexShrink: 0 }}>{"→"}</div>
                 </a>
               </div>
             )}
@@ -9172,7 +9172,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
                     <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Communication Style Quiz</div>
                     <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>Compare styles with family members. See where you clash and why.</div>
                   </div>
-                  <div style={{ fontSize: "16px", color: "#2d6a4f", flexShrink: 0 }}>{"\u2192"}</div>
+                  <div style={{ fontSize: "16px", color: "#2d6a4f", flexShrink: 0 }}>{"→"}</div>
                 </a>
               </div>
             )}
