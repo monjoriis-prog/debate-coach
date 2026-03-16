@@ -7757,6 +7757,22 @@ export default function Forte() {
     bestStreak: number;
   }>({ practiceDays: [], totalSessions: 0, scenariosDone: [], bestStreak: 0 });
   const [showProgress, setShowProgress] = useState(false);
+  const [confidenceData, setConfidenceData] = useState<{ totalScoreSum: number; sessionCount: number }>({ totalScoreSum: 0, sessionCount: 0 });
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("beboldn_confidence");
+      if (saved) setConfidenceData(JSON.parse(saved));
+    } catch {}
+  }, []);
+  const saveConfidence = (data: { totalScoreSum: number; sessionCount: number }) => {
+    setConfidenceData(data);
+    try { localStorage.setItem("beboldn_confidence", JSON.stringify(data)); } catch {}
+  };
+  const confidenceScore = confidenceData.sessionCount > 0
+    ? Math.min(99, Math.round((confidenceData.totalScoreSum / confidenceData.sessionCount) * 10 * (1 - Math.exp(-confidenceData.sessionCount / 8))))
+    : 0;
+  const confidenceLevel = confidenceScore < 20 ? "Beginner" : confidenceScore < 40 ? "Growing" : confidenceScore < 60 ? "Confident" : confidenceScore < 80 ? "Bold" : "Fearless";
+  const confidenceColor = confidenceScore < 20 ? "#84a98c" : confidenceScore < 40 ? "#52796f" : confidenceScore < 60 ? "#2d6a4f" : confidenceScore < 80 ? "#1b4332" : "#ff8f00";
   const [searchQuery, setSearchQuery] = useState("");
   const [searchFocused, setSearchFocused] = useState(false);
 
@@ -8954,6 +8970,24 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
             <div style={{ fontSize: "13px", color: "#2d6a4f", fontFamily: "-apple-system, sans-serif" }}>View →</div>
           </button>
         )}
+        {/* CONFIDENCE SCORE */}
+        {confidenceData.sessionCount > 0 && (
+          <div style={{ width: "100%", background: "#fff", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "20px 24px", marginBottom: "20px", display: "flex", alignItems: "center", gap: "20px" }}>
+            <div style={{ position: "relative", width: "64px", height: "64px", flexShrink: 0 }}>
+              <svg viewBox="0 0 36 36" style={{ width: "64px", height: "64px", transform: "rotate(-90deg)" }}>
+                <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#e8f0ec" strokeWidth="3" />
+                <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke={confidenceColor} strokeWidth="3" strokeDasharray={`${confidenceScore}, 100`} strokeLinecap="round" />
+              </svg>
+              <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "18px", fontWeight: "800", color: confidenceColor, fontFamily: "-apple-system, sans-serif" }}>{confidenceScore}</div>
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: "15px", fontWeight: "700", color: "#1a2e1a", fontFamily: "-apple-system, sans-serif" }}>Confidence Score</div>
+              <div style={{ fontSize: "13px", color: confidenceColor, fontWeight: "600", fontFamily: "-apple-system, sans-serif", marginTop: "2px" }}>{confidenceLevel}</div>
+              <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginTop: "4px" }}>{confidenceData.sessionCount} session{confidenceData.sessionCount !== 1 ? "s" : ""} completed</div>
+            </div>
+          </div>
+        )}
+
         {/* DAILY CHALLENGE */}
         {dailyChallenge && (
           <button onClick={() => {
