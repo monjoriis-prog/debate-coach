@@ -8851,9 +8851,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
           <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "48px" }}>
             <div style={{ flex: 1, height: "3px", background: "#e0ebe4", borderRadius: "2px", overflow: "hidden" }}>
               <div style={{ height: "100%", width: `${((quizQ + 1) / shuffledQQs.length) * 100}%`, background: "#2d6a4f", borderRadius: "2px", transition: "width 0.5s ease-out" }} />
-            </div>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0" }}>
-              <button onClick={() => { setQuizDone(null); setQuizStarted(false); setQuizQ(0); setQuizScores({ peacekeeper: 0, avoider: 0, challenger: 0, solver: 0, pleaser: 0 }); setQuizResult(null); setQuizSelected(null); }} style={{ background: "none", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "13px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>{"✕ Skip Quiz"}</button>
+
             </div>
             <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif" }}>{quizQ + 1} / {shuffledQQs.length}</div>
             <button onClick={skipQuiz} style={{ background: "none", border: "1px solid #d8e8e0", color: "#52796f", fontSize: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", padding: "4px 12px", borderRadius: "8px" }}>Skip</button>
@@ -8941,9 +8939,6 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
 
   if (phase === "quizHub") return (
     <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
-      <div style={{ maxWidth: "600px", margin: "0 auto", padding: "24px 24px 0" }}>
-        <button onClick={() => setPhase("home")} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>{"← Back"}</button>
-      </div>
       <div style={{ maxWidth: "600px", margin: "0 auto", padding: "48px 24px 64px" }}>
         <button onClick={() => { forteSound.stepBack(); setPhase("home"); }} style={{ background: "transparent", border: "none", color: "#52796f", fontSize: "14px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", padding: "0", marginBottom: "32px" }}>{"\u2190"} Back</button>
         <div style={{ textAlign: "center", marginBottom: "40px" }}>
@@ -9722,7 +9717,6 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
             <div style={{ fontSize: "12px", color: "#84a98c", fontFamily: "-apple-system, sans-serif" }}>Tip {lessonIndex + 1} of {lessons.length}</div>
           </div>
 
-          <button onClick={() => { setPhase("scenario"); }} style={{ background: "transparent", border: "none", color: "#84a98c", cursor: "pointer", fontSize: "14px", marginBottom: "20px", padding: 0, fontFamily: "-apple-system, sans-serif" }}>{"← Back"}</button>
           <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.15em", color: "#84a98c", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif", marginBottom: "8px" }}>LEARN · {selectedSituation.title}</div>
           <h2 style={{ fontSize: "30px", fontWeight: "400", color: "#1a2e1a", margin: "0 0 8px", lineHeight: 1.2 }}>{lesson.tip}</h2>
           <p style={{ color: "#52796f", fontSize: "15px", margin: "0 0 32px", lineHeight: 1.7, fontStyle: "italic" }}>{lesson.why}</p>
@@ -9773,12 +9767,9 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
   return (
     <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif", display: "flex", flexDirection: "column" }}>
       <div style={{ background: "#fff", borderBottom: "1px solid #e8f0ec", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <button onClick={() => { window.speechSynthesis.cancel(); setSpeaking(false); reset(); }} style={{ background: "none", border: "none", fontSize: "18px", color: "#84a98c", cursor: "pointer", padding: "4px", lineHeight: 1 }}>{"✕"}</button>
-          <div>
-            <div style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.15em", color: "#84a98c", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif" }}>BeBoldn · Practice</div>
-            <div style={{ fontSize: "15px", color: "#1a2e1a", marginTop: "2px" }}>{selectedSituation?.title}</div>
-          </div>
+        <div>
+          <div style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.15em", color: "#84a98c", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif" }}>BeBoldn · Practice</div>
+          <div style={{ fontSize: "15px", color: "#1a2e1a", marginTop: "2px" }}>{selectedSituation?.title}</div>
         </div>
         <div style={{ display: "flex", gap: "6px" }}>
           {[1,2,3,4,5,6].map((i) => (
