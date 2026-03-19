@@ -8854,7 +8854,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
 
             </div>
             <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif" }}>{quizQ + 1} / {shuffledQQs.length}</div>
-            <button onClick={skipQuiz} style={{ background: "none", border: "1px solid #d8e8e0", color: "#52796f", fontSize: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", padding: "4px 12px", borderRadius: "8px" }}>Skip</button>
+            <button onClick={skipQuiz} style={{ background: "none", border: "none", color: "#c0392b", fontSize: "13px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", padding: "4px 8px", fontWeight: "600" }}>Skip</button>
           </div>
           <div key={quizQ} style={{ animation: "qSlide 0.4s ease-out" }}>
             <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.2em", color: "#52796f", textTransform: "uppercase", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>Scenario</div>
