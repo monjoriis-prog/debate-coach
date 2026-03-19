@@ -8847,10 +8847,8 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
     const qq = shuffledQQs[quizQ];
     return (
       <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
+        <button onClick={skipQuiz} style={{ position: "fixed", top: "16px", right: "16px", zIndex: 9999, background: "rgba(255,255,255,0.95)", border: "1px solid #d8e8e0", borderRadius: "20px", color: "#52796f", fontSize: "13px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", padding: "8px 16px", boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}>{"✕ Skip Quiz"}</button>
         <div style={{ maxWidth: "560px", margin: "0 auto", padding: "48px 24px" }}>
-          <div style={{ display: "flex", justifyContent: "flex-end", padding: "0 0 8px" }}>
-            <button onClick={skipQuiz} style={{ background: "none", border: "none", color: "#84a98c", fontSize: "14px", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>{"✕ Skip Quiz"}</button>
-          </div>
           <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "48px" }}>
             <div style={{ flex: 1, height: "3px", background: "#e0ebe4", borderRadius: "2px", overflow: "hidden" }}>
               <div style={{ height: "100%", width: `${((quizQ + 1) / shuffledQQs.length) * 100}%`, background: "#2d6a4f", borderRadius: "2px", transition: "width 0.5s ease-out" }} />
