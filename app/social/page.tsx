@@ -8858,6 +8858,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
             <button onClick={skipQuiz} style={{ background: "none", border: "none", color: "#c0392b", fontSize: "13px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", padding: "4px 8px", fontWeight: "600" }}>Skip</button>
           </div>
           <div key={quizQ} style={{ animation: "qSlide 0.4s ease-out" }}>
+          <div style={{ textAlign: "right", marginBottom: "8px" }}><a href="/social" style={{ color: "#84a98c", fontSize: "13px", textDecoration: "none", fontFamily: "-apple-system, sans-serif" }}>{"✕ Skip Quiz"}</a></div>
             <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.2em", color: "#52796f", textTransform: "uppercase", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>Scenario</div>
             <h2 style={{ fontSize: "clamp(20px, 5vw, 24px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 32px", lineHeight: 1.5 }}>{qq.scenario}</h2>
             <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
