@@ -8115,7 +8115,7 @@ export default function Forte() {
       const parsed = parseFeedback(reply);
       if (parsed) {
         setFeedback(parsed);
-        if (!isPro) setSessionsUsed(s => s + 1);
+        // Session counted on scenario click now
         recordSession(selectedSituation?.title || "Custom");
         setMessages([...newMessages, { role: "assistant", content: parsed.raw || "That was a wonderful conversation." }]);
         setPhase("done"); setTimeout(() => { forteSound.coachReveal(); setShowFeedbackModal(true); }, 600);
@@ -9107,6 +9107,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
             forteSound.select();
             setSelectedCategory(dailyChallenge.category);
             setSelectedSituation(dailyChallenge.scenario);
+          if (!isPro) setSessionsUsed(s => s + 1);
             setLessonIndex(0);
             setPhase("learn");
           }}
@@ -9360,7 +9361,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
                       {group?.situations.map((s: any, i: number) => {
                         const scenarioLocked = !isPro && i >= 2;
                         return (
-                          <button key={i} onClick={() => { if (scenarioLocked) { setShowPaywall(true); return; } if (!canPractice) { setShowPaywall(true); return; } forteSound.select(); setSelectedSituation(s); setLessonIndex(0); setRedFlagStep(0); setPhase("learn"); }}
+                          <button key={i} onClick={() => { if (scenarioLocked) { setShowPaywall(true); return; } if (!canPractice) { setShowPaywall(true); return; } forteSound.select(); setSelectedSituation(s); setLessonIndex(0); setRedFlagStep(0); setPhase("learn"); if (!isPro) setSessionsUsed(s2 => s2 + 1); }}
                             style={{ width: "100%", background: scenarioLocked ? "#fafafa" : "#fff", border: "none", borderTop: i > 0 ? "1px solid #e8f0ec" : "none", padding: "20px 24px", textAlign: "left", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "background 0.15s" }}
                             onMouseEnter={e => { if (!scenarioLocked) e.currentTarget.style.background = selectedCategory.color; }}
                             onMouseLeave={e => { e.currentTarget.style.background = scenarioLocked ? "#fafafa" : "#fff"; }}>
@@ -9402,7 +9403,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
                             const absIdx = startIdx + i;
                             const scenarioLocked = !isPro && absIdx >= 2;
                             return (
-                              <button key={i} onClick={() => { if (scenarioLocked) { setShowPaywall(true); return; } if (!canPractice) { setShowPaywall(true); return; } forteSound.select(); setSelectedSituation(s); setLessonIndex(0); setRedFlagStep(0); setPhase("learn"); }}
+                              <button key={i} onClick={() => { if (scenarioLocked) { setShowPaywall(true); return; } if (!canPractice) { setShowPaywall(true); return; } forteSound.select(); setSelectedSituation(s); setLessonIndex(0); setRedFlagStep(0); setPhase("learn"); if (!isPro) setSessionsUsed(s2 => s2 + 1); }}
                                 style={{ width: "100%", background: scenarioLocked ? "#fafafa" : "#fff", border: "none", borderTop: i > 0 ? "1px solid #e8f0ec" : "none", padding: "18px 24px", textAlign: "left", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "background 0.15s", animation: "fadeSlideIn 0.25s ease" }}
                                 onMouseEnter={e => { if (!scenarioLocked) e.currentTarget.style.background = selectedCategory.color; }}
                                 onMouseLeave={e => { e.currentTarget.style.background = scenarioLocked ? "#fafafa" : "#fff"; }}>
