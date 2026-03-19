@@ -8848,6 +8848,9 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
     return (
       <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
         <div style={{ maxWidth: "560px", margin: "0 auto", padding: "48px 24px" }}>
+          <div style={{ display: "flex", justifyContent: "flex-end", padding: "0 0 8px" }}>
+            <button onClick={skipQuiz} style={{ background: "none", border: "none", color: "#84a98c", fontSize: "14px", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>{"✕ Skip Quiz"}</button>
+          </div>
           <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "48px" }}>
             <div style={{ flex: 1, height: "3px", background: "#e0ebe4", borderRadius: "2px", overflow: "hidden" }}>
               <div style={{ height: "100%", width: `${((quizQ + 1) / shuffledQQs.length) * 100}%`, background: "#2d6a4f", borderRadius: "2px", transition: "width 0.5s ease-out" }} />
