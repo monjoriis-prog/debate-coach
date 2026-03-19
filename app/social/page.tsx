@@ -9767,9 +9767,12 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
   return (
     <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif", display: "flex", flexDirection: "column" }}>
       <div style={{ background: "#fff", borderBottom: "1px solid #e8f0ec", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
-        <div>
-          <div style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.15em", color: "#84a98c", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif" }}>BeBoldn · Practice</div>
-          <div style={{ fontSize: "15px", color: "#1a2e1a", marginTop: "2px" }}>{selectedSituation?.title}</div>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <button onClick={() => { window.speechSynthesis.cancel(); setSpeaking(false); reset(); }} style={{ background: "none", border: "none", fontSize: "18px", color: "#84a98c", cursor: "pointer", padding: "4px", lineHeight: 1 }}>{"✕"}</button>
+          <div>
+            <div style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.15em", color: "#84a98c", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif" }}>BeBoldn · Practice</div>
+            <div style={{ fontSize: "15px", color: "#1a2e1a", marginTop: "2px" }}>{selectedSituation?.title}</div>
+          </div>
         </div>
         <div style={{ display: "flex", gap: "6px" }}>
           {[1,2,3,4,5,6].map((i) => (
