@@ -209,6 +209,7 @@ function QuizInner() {
   if (!started) return (
     <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <div style={{ maxWidth: "520px", margin: "0 auto", padding: "48px 24px", textAlign: "center" }}>
+          <button onClick={() => window.location.href = "/social"} style={{ background: "none", border: "none", color: "#84a98c", fontSize: "14px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", padding: "0 0 20px", display: "block" }}>{"← Back"}</button>
         <div style={{ animation: "fadeUp 0.8s ease-out" }}>
           <div style={{ marginBottom: "24px" }}><div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.25em", color: "#52796f", textTransform: "uppercase", fontFamily: "-apple-system, sans-serif" }}>BeBoldn</div><div style={{ fontSize: "12px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginTop: "4px" }}>Practice real conversations before they happen</div></div>
           {compareMode && partnerStyle ? (
