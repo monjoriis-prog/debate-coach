@@ -8809,7 +8809,8 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
   const canPractice = isPro || sessionsUsed < 3;
 
   // ── CATEGORY PICKER (first time only) ───────────────────────────
-  if (!isPro && sessionsUsed >= 3) return (
+  // Paywall handled by overlay now
+  if (false) return (
     <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
       <div style={{ maxWidth: "560px", margin: "0 auto", padding: "72px 24px 48px" }}>
         <div style={{ textAlign: "center", marginBottom: "48px" }}>
