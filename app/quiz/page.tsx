@@ -433,7 +433,7 @@ function QuizInner() {
           <div style={{ fontSize: "11px", fontWeight: "700", letterSpacing: "0.2em", color: "#52796f", textTransform: "uppercase", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>Scenario</div>
           <h2 style={{ fontSize: "clamp(20px, 5vw, 26px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 36px", lineHeight: 1.5 }}>{q.scenario}</h2>
           <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-            <a href="/social" style={{ color: "#84a98c", fontSize: "13px", textDecoration: "none", fontFamily: "-apple-system, sans-serif", padding: "4px 8px" }}>{"u2715 Exit"}</a>            {q.answers.map((a, i) => (
+            <a href="/social" style={{ color: "#84a98c", fontSize: "13px", textDecoration: "none", fontFamily: "-apple-system, sans-serif", padding: "4px 8px" }}>{"✕ Exit"}</a>            {q.answers.map((a, i) => (
               <button key={i} onClick={() => pickAnswer(i, a.style)} disabled={animating}
                 style={{ width: "100%", padding: "18px 20px", background: selectedAnswer === i ? "#2d6a4f" : "#fff", border: `1.5px solid ${selectedAnswer === i ? "#2d6a4f" : "#d8e8e0"}`, borderRadius: "14px", color: selectedAnswer === i ? "#fff" : "#1a2e1a", fontSize: "14px", textAlign: "left", cursor: animating ? "default" : "pointer", fontFamily: "-apple-system, sans-serif", lineHeight: 1.6, transition: "all 0.25s", transform: selectedAnswer === i ? "scale(1.02)" : "none" }}
                 onMouseEnter={e => { if (!animating && selectedAnswer !== i) { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.background = "#f0f5f0"; } }}
