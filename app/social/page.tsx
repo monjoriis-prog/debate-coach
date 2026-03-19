@@ -7736,7 +7736,7 @@ export default function Forte() {
   // Freemium state
   const [freeCategory, setFreeCategory] = useState<string>("");
   const [sessionsUsed, setSessionsUsed] = useState(0);
-  const [isPro, setIsPro] = useState(true); // TODO: set to false when ready to launch paywall
+  const [isPro, setIsPro] = useState(false); // PAYWALL ACTIVE
   const [showPaywall, setShowPaywall] = useState(false);
   const [hasConsented, setHasConsented] = useState(false);
 
@@ -8702,7 +8702,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
         <button
           onClick={() => { /* Stripe link goes here */ alert("Payment coming soon! For now, enjoy your free sessions."); setShowPaywall(false); }}
           style={{ width: "100%", padding: "16px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "12px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", marginBottom: "10px" }}>
-          Upgrade — $4.99/month
+          Upgrade — $9.99/month
         </button>
         <button onClick={() => setShowPaywall(false)}
           style={{ width: "100%", padding: "12px", background: "transparent", color: "#84a98c", border: "none", fontSize: "13px", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
