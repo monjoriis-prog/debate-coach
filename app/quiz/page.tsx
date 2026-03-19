@@ -451,14 +451,23 @@ function QuizInner() {
 
 export default function QuizPage() {
 
-  // Paywall check
+  // Paywall check + count this quiz toward sessions
   const [paywallLocked, setPaywallLocked] = useState(false);
   useEffect(() => {
     try {
       const saved = localStorage.getItem("forte_free");
       if (saved) {
         const data = JSON.parse(saved);
-        if (data.sessionsUsed >= 3 && !data.isPro) setPaywallLocked(true);
+        if (data.sessionsUsed >= 3 && !data.isPro) {
+          setPaywallLocked(true);
+        } else if (!data.isPro) {
+          // Count this quiz visit as a session
+          data.sessionsUsed = (data.sessionsUsed || 0) + 1;
+          localStorage.setItem("forte_free", JSON.stringify(data));
+        }
+      } else {
+        // First time user — create the entry with 1 session used
+        localStorage.setItem("forte_free", JSON.stringify({ sessionsUsed: 1, isPro: false }));
       }
     } catch {}
   }, []);
