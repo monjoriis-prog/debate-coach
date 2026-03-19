@@ -501,6 +501,34 @@ function CompatInner() {
 }
 
 export default function CompatibilityQuizPage() {
+
+  // Paywall check
+  const [paywallLocked, setPaywallLocked] = useState(false);
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("forte_free");
+      if (saved) {
+        const data = JSON.parse(saved);
+        if (data.sessionsUsed >= 3 && !data.isPro) setPaywallLocked(true);
+      }
+    } catch {}
+  }, []);
+
+  if (paywallLocked) return (
+    <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ maxWidth: "420px", margin: "0 auto", padding: "40px 24px", textAlign: "center" }}>
+        <div style={{ fontSize: "48px", marginBottom: "16px" }}>{"\uD83D\uDD12"}</div>
+        <h2 style={{ fontSize: "24px", fontWeight: "400", color: "#1a2e1a", margin: "0 0 12px" }}>Free Sessions Used</h2>
+        <p style={{ fontSize: "14px", color: "#52796f", lineHeight: 1.6, margin: "0 0 24px", fontFamily: "-apple-system, sans-serif" }}>
+          You have used your 3 free sessions. Upgrade to unlock unlimited access.
+        </p>
+        <a href="/social" style={{ display: "inline-block", padding: "14px 32px", background: "#2d6a4f", color: "#fff", borderRadius: "14px", fontSize: "16px", fontWeight: "600", textDecoration: "none", fontFamily: "-apple-system, sans-serif" }}>
+          Go Back
+        </a>
+      </div>
+    </div>
+  );
+
   return (
     <Suspense fallback={<div style={{ minHeight: "100vh", background: "#f8faf8" }} />}>
       <CompatInner />
