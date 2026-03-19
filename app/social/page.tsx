@@ -8699,9 +8699,9 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
         <div style={{ background: "#f0f7f2", borderRadius: "12px", padding: "16px", margin: "16px 0", textAlign: "left" }}>
           <div style={{ fontSize: "13px", color: "#2d6a4f", fontWeight: "600", marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>Your free trial includes:</div>
           <div style={{ fontSize: "13px", color: "#52796f", lineHeight: 1.8, fontFamily: "-apple-system, sans-serif" }}>
-            ✅ 3 practice sessions in any category<br/>
-            ✅ All quizzes (unlimited)<br/>
-            ✅ Daily challenge
+            ✅ 1 practice session<br/>
+            ✅ 1 quiz<br/>
+            ✅ 1 daily challenge
           </div>
         </div>
         <p style={{ fontSize: "12px", color: "#84a98c", margin: "0 0 20px", fontFamily: "-apple-system, sans-serif" }}>After your free sessions, unlock everything for $9.99/month.</p>
