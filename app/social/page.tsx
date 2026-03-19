@@ -8827,6 +8827,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
           style={{ width: "100%", padding: "12px", background: "transparent", color: "#84a98c", border: "none", fontSize: "13px", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
           Maybe later
         </button>
+        <button onClick={handleRestore} style={{ width: "100%", padding: "8px", background: "transparent", color: "#84a98c", border: "none", fontSize: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>Restore Purchases</button>
       </div>
     </div>
   ) : null;
