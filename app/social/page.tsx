@@ -7738,6 +7738,14 @@ export default function Forte() {
   const [sessionsUsed, setSessionsUsed] = useState(0);
   const [isPro, setIsPro] = useState(false); // PAYWALL ACTIVE
   const [showPaywall, setShowPaywall] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(false);
+
+  // Show welcome message on first visit
+  useEffect(() => {
+    if (!isPro && !localStorage.getItem("beboldn_welcomed")) {
+      setShowWelcome(true);
+    }
+  }, [isPro]);
   const [hasConsented, setHasConsented] = useState(false);
 
   useEffect(() => {
@@ -8681,6 +8689,29 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
   }
 
   // ── PAYWALL OVERLAY ────────────────────────────────────────────
+  const welcomeOverlay = showWelcome ? (
+    <div style={{ position: "fixed", inset: 0, zIndex: 2001, display: "flex", alignItems: "center", justifyContent: "center", padding: "16px" }}>
+      <div style={{ position: "absolute", inset: 0, background: "rgba(15,30,20,0.6)", backdropFilter: "blur(6px)" }} />
+      <div style={{ position: "relative", background: "#fff", borderRadius: "24px", width: "100%", maxWidth: "420px", padding: "40px 28px", boxShadow: "0 24px 80px rgba(0,0,0,0.25)", animation: "modalPop 0.4s cubic-bezier(0.34,1.56,0.64,1)", textAlign: "center" }}>
+        <div style={{ fontSize: "48px", marginBottom: "16px" }}>👋</div>
+        <h2 style={{ fontSize: "22px", fontWeight: "400", color: "#1a2e1a", margin: "0 0 12px", fontFamily: "Georgia, serif" }}>Welcome to BeBoldn</h2>
+        <p style={{ fontSize: "14px", color: "#52796f", lineHeight: 1.6, margin: "0 0 8px", fontFamily: "-apple-system, sans-serif" }}>Practice real conversations before they happen.</p>
+        <div style={{ background: "#f0f7f2", borderRadius: "12px", padding: "16px", margin: "16px 0", textAlign: "left" }}>
+          <div style={{ fontSize: "13px", color: "#2d6a4f", fontWeight: "600", marginBottom: "8px", fontFamily: "-apple-system, sans-serif" }}>Your free trial includes:</div>
+          <div style={{ fontSize: "13px", color: "#52796f", lineHeight: 1.8, fontFamily: "-apple-system, sans-serif" }}>
+            ✅ 3 practice sessions in any category<br/>
+            ✅ All quizzes (unlimited)<br/>
+            ✅ Daily challenge
+          </div>
+        </div>
+        <p style={{ fontSize: "12px", color: "#84a98c", margin: "0 0 20px", fontFamily: "-apple-system, sans-serif" }}>After your free sessions, unlock everything for $9.99/month.</p>
+        <button onClick={() => { setShowWelcome(false); localStorage.setItem("beboldn_welcomed", "true"); }} style={{ width: "100%", padding: "16px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+          Got it — let me explore
+        </button>
+      </div>
+    </div>
+  ) : null;
+
   const paywallOverlay = showPaywall ? (
     <div style={{ position: "fixed", inset: 0, zIndex: 2000, display: "flex", alignItems: "center", justifyContent: "center", padding: "16px" }}
       onClick={(e) => { if (e.target === e.currentTarget) setShowPaywall(false); }}>
@@ -8774,11 +8805,11 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
   ) : null;
 
     // Check if category is locked
-  const isCategoryLocked = (categoryName: string) => !isPro && freeCategory && categoryName !== freeCategory;
+  const isCategoryLocked = (categoryName: string) => !isPro && sessionsUsed >= 3;
   const canPractice = isPro || sessionsUsed < 3;
 
   // ── CATEGORY PICKER (first time only) ───────────────────────────
-  if (!isPro && !freeCategory) return (
+  if (!isPro && sessionsUsed >= 3) return (
     <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif" }}>
       <div style={{ maxWidth: "560px", margin: "0 auto", padding: "72px 24px 48px" }}>
         <div style={{ textAlign: "center", marginBottom: "48px" }}>
@@ -9216,6 +9247,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
           </button>
         )}
       </div>
+      {welcomeOverlay}
       {paywallOverlay}
       {progressOverlay}
     </div>
