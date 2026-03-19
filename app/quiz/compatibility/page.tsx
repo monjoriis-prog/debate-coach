@@ -473,9 +473,9 @@ function CompatInner() {
         <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "48px" }}>
           <div style={{ flex: 1, height: "3px", background: "#e0ebe4", borderRadius: "2px", overflow: "hidden" }}>
             <div style={{ height: "100%", width: `${((currentQ + 1) / shuffledQs.length) * 100}%`, background: "#2d6a4f", borderRadius: "2px", transition: "width 0.5s ease-out" }} />
-            <div style={{ textAlign: "right", marginTop: "8px" }}><a href="/social" style={{ fontSize: "12px", color: "#84a98c", textDecoration: "none", fontFamily: "-apple-system, sans-serif" }}>{"✕ Exit Quiz"}</a></div>
           </div>
           <div style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif" }}>{currentQ + 1} / {shuffledQs.length}</div>
+            <button onClick={() => { window.location.href = "/social"; }} style={{ background: "none", border: "none", color: "#84a98c", fontSize: "13px", cursor: "pointer", fontFamily: "-apple-system, sans-serif", padding: "4px 8px", whiteSpace: "nowrap" }}>{"✕ Exit"}</button>
         </div>
         <div key={currentQ} style={{ animation: "slideIn 0.4s ease-out" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "16px" }}>
