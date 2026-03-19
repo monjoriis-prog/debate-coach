@@ -7738,6 +7738,82 @@ export default function Forte() {
   const [sessionsUsed, setSessionsUsed] = useState(0);
   const [isPro, setIsPro] = useState(false); // PAYWALL ACTIVE
   const [showPaywall, setShowPaywall] = useState(false);
+  // ===== IN-APP PURCHASE =====
+  const PRODUCT_ID = "com.fortesocial.app.pro.monthly";
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const initIAP = () => {
+      const store = (window as any).CdvPurchase?.store;
+      if (!store) return;
+
+      store.register([{
+        id: PRODUCT_ID,
+        type: (window as any).CdvPurchase.ProductType.PAID_SUBSCRIPTION,
+        platform: (window as any).CdvPurchase.Platform.APPLE_APPSTORE,
+      }]);
+
+      store.when()
+        .approved((transaction: any) => {
+          transaction.verify();
+        })
+        .verified((receipt: any) => {
+          receipt.finish();
+          setIsPro(true);
+          setShowPaywall(false);
+          try {
+            const saved = localStorage.getItem("forte_free");
+            const data = saved ? JSON.parse(saved) : {};
+            data.isPro = true;
+            localStorage.setItem("forte_free", JSON.stringify(data));
+          } catch {}
+        })
+        .finished(() => {
+          console.log("Purchase finished");
+        });
+
+      store.initialize([
+        (window as any).CdvPurchase.Platform.APPLE_APPSTORE
+      ]);
+    };
+
+    // Wait for Cordova/Capacitor to be ready
+    if ((window as any).CdvPurchase) {
+      initIAP();
+    } else {
+      document.addEventListener("deviceready", initIAP);
+    }
+
+    return () => {
+      document.removeEventListener("deviceready", initIAP);
+    };
+  }, []);
+
+  const handlePurchase = () => {
+    const store = (window as any).CdvPurchase?.store;
+    if (store) {
+      const product = store.get(PRODUCT_ID);
+      if (product) {
+        store.order(product);
+      } else {
+        alert("Subscription not available. Please try again later.");
+      }
+    } else {
+      // Not on native — show message
+      alert("Subscriptions are only available in the iOS app. Download BeBoldn from the App Store.");
+    }
+  };
+
+  const handleRestore = () => {
+    const store = (window as any).CdvPurchase?.store;
+    if (store) {
+      store.restorePurchases();
+    } else {
+      alert("Restore is only available in the iOS app.");
+    }
+  };
+  // ===== END IN-APP PURCHASE =====
+
   const [showWelcome, setShowWelcome] = useState(false);
 
   // Show welcome message on first visit
@@ -7918,6 +7994,18 @@ export default function Forte() {
         if (data.freeCategory) setFreeCategory(data.freeCategory);
         if (data.sessionsUsed) setSessionsUsed(data.sessionsUsed);
         if (data.isPro) setIsPro(data.isPro);
+          // Also check with store for active subscription
+          setTimeout(() => {
+            const store = (window as any).CdvPurchase?.store;
+            if (store) {
+              const product = store.get("com.fortesocial.app.pro.monthly");
+              if (product?.owned) {
+                setIsPro(true);
+                data.isPro = true;
+                localStorage.setItem("forte_free", JSON.stringify(data));
+              }
+            }
+          }, 2000);
       }
       const savedProgress = localStorage.getItem("forte_progress");
       const qf = localStorage.getItem("forte_quiz_done"); setQuizDone(qf === "true");
@@ -8731,7 +8819,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
           ))}
         </div>
         <button
-          onClick={() => { /* Stripe link goes here */ alert("Payment coming soon! For now, enjoy your free sessions."); setShowPaywall(false); }}
+          onClick={handlePurchase}
           style={{ width: "100%", padding: "16px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "12px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", marginBottom: "10px" }}>
           Upgrade — $9.99/month
         </button>
