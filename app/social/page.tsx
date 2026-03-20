@@ -9337,7 +9337,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
         </p>
         {!isPro && (
           <button onClick={() => setShowPaywall(true)} style={{ display: "block", margin: "16px auto 0", padding: "10px 24px", background: "transparent", border: "1.5px solid #2d6a4f", borderRadius: "99px", color: "#2d6a4f", fontSize: "13px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
-            ✦ Unlock all categories — $4.99/mo
+            ✦ Unlock all categories — $9.99/mo
           </button>
         )}
       </div>
