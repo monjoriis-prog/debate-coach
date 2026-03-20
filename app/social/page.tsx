@@ -7789,27 +7789,57 @@ export default function Forte() {
     };
   }, []);
 
+  const [purchaseLoading, setPurchaseLoading] = useState(false);
+  const [purchaseError, setPurchaseError] = useState("");
+
   const handlePurchase = () => {
-    const store = (window as any).CdvPurchase?.store;
-    if (store) {
-      const product = store.get(PRODUCT_ID);
-      if (product) {
-        store.order(product);
+    setPurchaseError("");
+    setPurchaseLoading(true);
+    try {
+      const store = (window as any).CdvPurchase?.store;
+      if (store) {
+        const product = store.get(PRODUCT_ID);
+        if (product) {
+          store.order(product).then(() => {
+            setPurchaseLoading(false);
+          }).catch((err: any) => {
+            setPurchaseLoading(false);
+            setPurchaseError("Purchase could not be completed. Please try again.");
+            console.error("Order error:", err);
+          });
+        } else {
+          setPurchaseLoading(false);
+          setPurchaseError("Subscription not available yet. Please try again in a moment.");
+          // Try to refresh products
+          store.initialize([(window as any).CdvPurchase.Platform.APPLE_APPSTORE]);
+        }
       } else {
-        alert("Subscription not available. Please try again later.");
+        setPurchaseLoading(false);
+        // On web, open App Store link
+        window.open("https://apps.apple.com/app/beboldn/id6743597846", "_blank");
       }
-    } else {
-      // Not on native — show message
-      alert("Subscriptions are only available in the iOS app. Download BeBoldn from the App Store.");
+    } catch (err) {
+      setPurchaseLoading(false);
+      setPurchaseError("Something went wrong. Please try again.");
+      console.error("Purchase error:", err);
     }
   };
 
   const handleRestore = () => {
-    const store = (window as any).CdvPurchase?.store;
-    if (store) {
-      store.restorePurchases();
-    } else {
-      alert("Restore is only available in the iOS app.");
+    setPurchaseError("");
+    setPurchaseLoading(true);
+    try {
+      const store = (window as any).CdvPurchase?.store;
+      if (store) {
+        store.restorePurchases();
+        setTimeout(() => setPurchaseLoading(false), 3000);
+      } else {
+        setPurchaseLoading(false);
+        setPurchaseError("Restore is available in the iOS app.");
+      }
+    } catch (err) {
+      setPurchaseLoading(false);
+      setPurchaseError("Could not restore purchases. Please try again.");
     }
   };
   // ===== END IN-APP PURCHASE =====
@@ -8820,9 +8850,13 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
         </div>
         <button
           onClick={() => { forteSound.affirm(); handlePurchase(); }}
-          style={{ width: "100%", padding: "16px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "12px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", marginBottom: "10px" }}>
-          Upgrade — $9.99/month
+          disabled={purchaseLoading}
+          style={{ width: "100%", padding: "16px", background: purchaseLoading ? "#84a98c" : "#2d6a4f", color: "#fff", border: "none", borderRadius: "12px", fontSize: "16px", fontWeight: "600", cursor: purchaseLoading ? "wait" : "pointer", fontFamily: "-apple-system, sans-serif", marginBottom: "10px", transition: "all 0.2s" }}>
+          {purchaseLoading ? "Processing..." : "Upgrade — $9.99/month"}
         </button>
+        {purchaseError && (
+          <div style={{ fontSize: "12px", color: "#c0392b", marginBottom: "8px", fontFamily: "-apple-system, sans-serif", textAlign: "center" }}>{purchaseError}</div>
+        )}
         <button onClick={() => { forteSound.stepBack(); setShowPaywall(false); }}
           style={{ width: "100%", padding: "12px", background: "transparent", color: "#84a98c", border: "none", fontSize: "13px", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
           Maybe later
