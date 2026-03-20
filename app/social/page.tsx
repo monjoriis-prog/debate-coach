@@ -9303,6 +9303,11 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
           })()}
         </div>
 
+        {!isPro && sessionsUsed < 3 && (
+          <div style={{ textAlign: "center", marginBottom: "12px", padding: "10px 16px", background: "#f0f7f4", borderRadius: "12px", fontSize: "13px", color: "#52796f", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>
+            {3 - sessionsUsed} free session{3 - sessionsUsed !== 1 ? "s" : ""} remaining
+          </div>
+        )}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
           {SCENARIOS.map((s) => {
             const locked = isCategoryLocked(s.category);
@@ -9314,7 +9319,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
               <div style={{ color: locked ? "#c0c0c0" : s.accent, marginBottom: "14px", filter: locked ? "grayscale(1)" : "none" }}><Icon html={ICONS[s.iconKey as keyof typeof ICONS]} size={28} color={locked ? "#c0c0c0" : s.accent} /></div>
               <div style={{ fontSize: "16px", fontWeight: "700", color: locked ? "#aaa" : "#1a2e1a", marginBottom: "4px", fontFamily: "-apple-system, sans-serif" }}>{s.category}</div>
               {locked && <div style={{ position: "absolute", top: "12px", right: "12px", fontSize: "16px" }}>🔒</div>}
-              {!locked && !isPro && <div style={{ fontSize: "11px", color: "#84a98c", fontFamily: "-apple-system, sans-serif", marginTop: "4px" }}>{3 - sessionsUsed} session{3 - sessionsUsed !== 1 ? "s" : ""} left</div>}
+
             </button>
             );
           })}
