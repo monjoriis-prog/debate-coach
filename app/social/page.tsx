@@ -8792,7 +8792,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
             ✅ 1 daily challenge
           </div>
         </div>
-        <p style={{ fontSize: "12px", color: "#84a98c", margin: "0 0 20px", fontFamily: "-apple-system, sans-serif" }}>After your free sessions, unlock everything for $9.99/month. By using BeBoldn you agree to our <a href="/terms" style={{ color: "#84a98c" }}>Terms of Service</a>.</p>
+        <p style={{ fontSize: "12px", color: "#84a98c", margin: "0 0 20px", fontFamily: "-apple-system, sans-serif" }}>After your free sessions, unlock everything for $9.99/month. By using BeBoldn you agree to our <a href="/terms" style={{ color: "#84a98c" }}>Terms of Service</a> and <a href="/privacy" style={{ color: "#84a98c" }}>Privacy Policy</a>.</p>
         <button onClick={() => { forteSound.affirm(); setShowWelcome(false); localStorage.setItem("beboldn_welcomed", "true"); }} style={{ width: "100%", padding: "16px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
           Got it — let me explore
         </button>
@@ -8829,7 +8829,11 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
         </button>
         <button onClick={() => { forteSound.tap(); handleRestore(); }} style={{ width: "100%", padding: "8px", background: "transparent", color: "#84a98c", border: "none", fontSize: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>Restore Purchases</button>
         <div style={{ fontSize: "11px", color: "#b0b0b0", marginTop: "8px", fontFamily: "-apple-system, sans-serif" }}>
-          By subscribing you agree to our <a href="/terms" style={{ color: "#84a98c" }}>Terms of Service</a>. Subscription auto-renews monthly. Cancel anytime in Settings.
+          BeBoldn Pro — $9.99/month. Auto-renews monthly. Cancel anytime in Settings.
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", gap: "16px", marginTop: "10px" }}>
+          <a href="/terms" style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif", textDecoration: "underline", textUnderlineOffset: "3px" }}>Terms of Service</a>
+          <a href="/privacy" style={{ fontSize: "12px", color: "#52796f", fontFamily: "-apple-system, sans-serif", textDecoration: "underline", textUnderlineOffset: "3px" }}>Privacy Policy</a>
         </div>
       </div>
     </div>
