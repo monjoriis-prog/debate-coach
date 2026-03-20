@@ -8610,7 +8610,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
                           rows={2}
                           style={{ width: "100%", padding: "14px 16px", border: `1.5px solid ${tool.accent}33`, borderRadius: "12px", fontSize: "14px", fontFamily: "Georgia, serif", color: "#1a2e1a", background: "#fff", outline: "none", resize: "none", lineHeight: 1.7, boxSizing: "border-box" }}
                         />
-                        <button onClick={() => sendSelfMessage(selfInput)} disabled={!selfInput.trim()}
+                        <button onClick={() => { forteSound.tap(); sendSelfMessage(selfInput); }} disabled={!selfInput.trim()}
                           style={{ width: "100%", marginTop: "10px", padding: "14px", background: selfInput.trim() ? tool.accent : "#e8e0d8", color: selfInput.trim() ? "#fff" : "#aaa", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: selfInput.trim() ? "pointer" : "not-allowed", fontFamily: "-apple-system, sans-serif" }}>
                           Answer →
                         </button>
@@ -8760,11 +8760,11 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
                     style={{ width: "100%", padding: "14px 16px", border: `1.5px solid ${tool.accent}33`, borderRadius: "12px", fontSize: "14px", fontFamily: "Georgia, serif", color: "#1a2e1a", background: "#fff", outline: "none", resize: "none", lineHeight: 1.7, boxSizing: "border-box" }}
                   />
                   <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-                    <button onClick={() => sendSelfMessage(selfInput)} disabled={!selfInput.trim()}
+                    <button onClick={() => { forteSound.tap(); sendSelfMessage(selfInput); }} disabled={!selfInput.trim()}
                       style={{ flex: 1, padding: "12px", background: selfInput.trim() ? tool.accent : "#e8f0ec", color: selfInput.trim() ? "#fff" : "#84a98c", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: selfInput.trim() ? "pointer" : "not-allowed", fontFamily: "-apple-system, sans-serif" }}>
                       Send →
                     </button>
-                    <button onClick={() => { window.speechSynthesis.cancel(); setSelfMessages([]); setSelfInput(""); setSelfResult(null); setSelfStep(0); }}
+                    <button onClick={() => { forteSound.stepBack(); window.speechSynthesis.cancel(); setSelfMessages([]); setSelfInput(""); setSelfResult(null); setSelfStep(0); }}
                       style={{ padding: "12px 18px", background: "#fff", color: "#84a98c", border: "1px solid #e8f0ec", borderRadius: "12px", fontSize: "13px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>Start over</button>
                   </div>
                 </div>
@@ -8793,7 +8793,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
           </div>
         </div>
         <p style={{ fontSize: "12px", color: "#84a98c", margin: "0 0 20px", fontFamily: "-apple-system, sans-serif" }}>After your free sessions, unlock everything for $9.99/month. By using BeBoldn you agree to our <a href="/terms" style={{ color: "#84a98c" }}>Terms of Service</a>.</p>
-        <button onClick={() => { setShowWelcome(false); localStorage.setItem("beboldn_welcomed", "true"); }} style={{ width: "100%", padding: "16px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+        <button onClick={() => { forteSound.affirm(); setShowWelcome(false); localStorage.setItem("beboldn_welcomed", "true"); }} style={{ width: "100%", padding: "16px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
           Got it — let me explore
         </button>
       </div>
@@ -8819,15 +8819,15 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
           ))}
         </div>
         <button
-          onClick={handlePurchase}
+          onClick={() => { forteSound.affirm(); handlePurchase(); }}
           style={{ width: "100%", padding: "16px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "12px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", marginBottom: "10px" }}>
           Upgrade — $9.99/month
         </button>
-        <button onClick={() => setShowPaywall(false)}
+        <button onClick={() => { forteSound.stepBack(); setShowPaywall(false); }}
           style={{ width: "100%", padding: "12px", background: "transparent", color: "#84a98c", border: "none", fontSize: "13px", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
           Maybe later
         </button>
-        <button onClick={handleRestore} style={{ width: "100%", padding: "8px", background: "transparent", color: "#84a98c", border: "none", fontSize: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>Restore Purchases</button>
+        <button onClick={() => { forteSound.tap(); handleRestore(); }} style={{ width: "100%", padding: "8px", background: "transparent", color: "#84a98c", border: "none", fontSize: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>Restore Purchases</button>
         <div style={{ fontSize: "11px", color: "#b0b0b0", marginTop: "8px", fontFamily: "-apple-system, sans-serif" }}>
           By subscribing you agree to our <a href="/terms" style={{ color: "#84a98c" }}>Terms of Service</a>. Subscription auto-renews monthly. Cancel anytime in Settings.
         </div>
@@ -8949,7 +8949,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
         setQuizAnimating(false);
       }, 600);
     };
-    const skipQuiz = () => { setQuizDone(true); try { localStorage.setItem("forte_quiz_done", "true"); } catch {} };
+    const skipQuiz = () => { forteSound.stepBack(); setQuizDone(true); try { localStorage.setItem("forte_quiz_done", "true"); } catch {} };
     if (!quizStarted) return (
       <div style={{ minHeight: "100vh", background: "#f8faf8", fontFamily: "Georgia, serif", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div style={{ maxWidth: "520px", margin: "0 auto", padding: "48px 24px", textAlign: "center" }}>
@@ -8959,7 +8959,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
           </div>
           <h1 style={{ fontSize: "clamp(28px, 6vw, 40px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 16px", lineHeight: 1.3, letterSpacing: "-0.5px" }}>{"What\u2019s Your"}<br />Communication Style?</h1>
           <p style={{ color: "#52796f", fontSize: "15px", lineHeight: 1.8, margin: "0 0 40px" }}>7 real scenarios. No wrong answers.<br />Discover how you handle tension {"\u2014"} and what it costs you.</p>
-          <button onClick={() => setQuizStarted(true)} style={{ padding: "16px 44px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", transition: "all 0.3s" }}
+          <button onClick={() => { forteSound.practiceStart(); setQuizStarted(true); }} style={{ padding: "16px 44px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif", transition: "all 0.3s" }}
             onMouseEnter={e => { e.currentTarget.style.background = "#40916c"; e.currentTarget.style.transform = "translateY(-2px)"; }}
             onMouseLeave={e => { e.currentTarget.style.background = "#2d6a4f"; e.currentTarget.style.transform = "none"; }}>{"Take the Quiz →"}</button>
           <div style={{ marginTop: "24px" }}>
@@ -8987,7 +8987,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
             <h2 style={{ fontSize: "clamp(20px, 5vw, 24px)", fontWeight: "400", color: "#1a2e1a", margin: "0 0 32px", lineHeight: 1.5 }}>{qq.scenario}</h2>
             <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
               {qq.answers.map((a: any, i: number) => (
-                <button key={i} onClick={() => quizPick(i, a.style)} disabled={quizAnimating}
+                <button key={i} onClick={() => { forteSound.tap(); quizPick(i, a.style); }} disabled={quizAnimating}
                   style={{ width: "100%", padding: "16px 20px", background: quizSelected === i ? "#2d6a4f" : "#fff", border: `1.5px solid ${quizSelected === i ? "#2d6a4f" : "#d8e8e0"}`, borderRadius: "14px", color: quizSelected === i ? "#fff" : "#1a2e1a", fontSize: "14px", textAlign: "left", cursor: quizAnimating ? "default" : "pointer", fontFamily: "-apple-system, sans-serif", lineHeight: 1.6, transition: "all 0.25s", transform: quizSelected === i ? "scale(1.02)" : "none" }}
                   onMouseEnter={e => { if (!quizAnimating && quizSelected !== i) { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.background = "#f0f5f0"; } }}
                   onMouseLeave={e => { if (!quizAnimating && quizSelected !== i) { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.background = "#fff"; } }}>
@@ -9035,12 +9035,12 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
             </div>
           </div>
           <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
-            <button onClick={handleQShare} style={{ flex: 1, padding: "14px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>{quizCopied ? "Copied!" : "Share My Result"}</button>
+            <button onClick={() => { forteSound.tap(); handleQShare(); }} style={{ flex: 1, padding: "14px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "12px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>{quizCopied ? "Copied!" : "Share My Result"}</button>
           </div>
           <div style={{ background: "#fff", borderRadius: "16px", padding: "24px", border: "1.5px solid #d8e8e0", textAlign: "center" }}>
             <h3 style={{ fontSize: "17px", fontWeight: "600", color: "#1a2e1a", margin: "0 0 8px", fontFamily: "-apple-system, sans-serif" }}>Ready to practice?</h3>
             <p style={{ fontSize: "13px", color: "#52796f", lineHeight: 1.6, margin: "0 0 16px", fontFamily: "-apple-system, sans-serif" }}>Practice real conversations with AI coaching matched to your style.</p>
-            <button onClick={finishQuiz} style={{ width: "100%", padding: "16px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "12px", fontSize: "15px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>{"Start Practicing →"}</button>
+            <button onClick={() => { forteSound.practiceStart(); finishQuiz(); }} style={{ width: "100%", padding: "16px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "12px", fontSize: "15px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>{"Start Practicing →"}</button>
           </div>
           <div style={{ marginTop: "20px", padding: "16px 0" }}>
             <div style={{ fontSize: "11px", fontWeight: "700", color: "#84a98c", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "12px", fontFamily: "-apple-system, sans-serif" }}>Full Breakdown</div>
@@ -9220,7 +9220,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
           </button>
         )}
 
-        <button onClick={() => setPhase("quizHub")} style={{ width: "100%", background: "linear-gradient(145deg, #f0f7f4, #fff)", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "20px 24px", cursor: "pointer", transition: "all 0.3s", display: "flex", alignItems: "center", gap: "16px", textAlign: "left", marginBottom: "20px" }}
+        <button onClick={() => { forteSound.select(); setPhase("quizHub"); }} style={{ width: "100%", background: "linear-gradient(145deg, #f0f7f4, #fff)", border: "1.5px solid #d8e8e0", borderRadius: "16px", padding: "20px 24px", cursor: "pointer", transition: "all 0.3s", display: "flex", alignItems: "center", gap: "16px", textAlign: "left", marginBottom: "20px" }}
           onMouseEnter={(e: any) => { e.currentTarget.style.borderColor = "#2d6a4f"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(45,106,79,0.1)"; }}
           onMouseLeave={(e: any) => { e.currentTarget.style.borderColor = "#d8e8e0"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
           <div style={{ fontSize: "28px" }}>{"\ud83e\udde0"}</div>
@@ -9341,7 +9341,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
           Learn with examples · Practice with AI · Get personal coaching feedback
         </p>
         {!isPro && (
-          <button onClick={() => setShowPaywall(true)} style={{ display: "block", margin: "16px auto 0", padding: "10px 24px", background: "transparent", border: "1.5px solid #2d6a4f", borderRadius: "99px", color: "#2d6a4f", fontSize: "13px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
+          <button onClick={() => { forteSound.tap(); setShowPaywall(true); }} style={{ display: "block", margin: "16px auto 0", padding: "10px 24px", background: "transparent", border: "1.5px solid #2d6a4f", borderRadius: "99px", color: "#2d6a4f", fontSize: "13px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
             ✦ Unlock all categories — $9.99/mo
           </button>
         )}
@@ -10460,7 +10460,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
                       <div key={i} style={{ background: "#f5f8f6", border: "1px solid #e8f0ec", borderRadius: "10px", padding: "9px 14px", height: "38px", animation: "pulse 1.4s ease-in-out infinite", animationDelay: `${i * 0.15}s` }} />
                     ))
                   : currentSuggestions.map((s: string, i: number) => (
-                      <button key={i} onClick={() => sendMessage(s)}
+                      <button key={i} onClick={() => { forteSound.tap(); sendMessage(s); }}
                         style={{ background: "#f0f7f4", border: "1px solid #d8e8e0", borderRadius: "10px", padding: "9px 14px", textAlign: "left", cursor: "pointer", fontSize: "13px", color: "#2d6a4f", fontFamily: "Georgia, serif", lineHeight: 1.4, transition: "all 0.15s" }}
                         onMouseEnter={e => { e.currentTarget.style.background = "#e0f0e8"; e.currentTarget.style.borderColor = accent; }}
                         onMouseLeave={e => { e.currentTarget.style.background = "#f0f7f4"; e.currentTarget.style.borderColor = "#d8e8e0"; }}>
@@ -10474,8 +10474,8 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
 
           {!isNativeApp && (
           <div style={{ display: "flex", justifyContent: "center", marginBottom: "10px", gap: "8px" }}>
-            <button onClick={() => setInputMode("type")} style={{ padding: "5px 14px", background: inputMode === "type" ? accent : "#f0f7f4", color: inputMode === "type" ? "#fff" : "#52796f", border: "none", borderRadius: "99px", fontSize: "12px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>⌨️ Type</button>
-            <button onClick={() => setInputMode("voice")} style={{ padding: "5px 14px", background: inputMode === "voice" ? accent : "#f0f7f4", color: inputMode === "voice" ? "#fff" : "#52796f", border: "none", borderRadius: "99px", fontSize: "12px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>🎤 Voice</button>
+            <button onClick={() => { forteSound.tap(); setInputMode("type"); }} style={{ padding: "5px 14px", background: inputMode === "type" ? accent : "#f0f7f4", color: inputMode === "type" ? "#fff" : "#52796f", border: "none", borderRadius: "99px", fontSize: "12px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>⌨️ Type</button>
+            <button onClick={() => { forteSound.tap(); setInputMode("voice"); }} style={{ padding: "5px 14px", background: inputMode === "voice" ? accent : "#f0f7f4", color: inputMode === "voice" ? "#fff" : "#52796f", border: "none", borderRadius: "99px", fontSize: "12px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>🎤 Voice</button>
           </div>
           )}
 
@@ -10486,7 +10486,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
                 placeholder="Type your own response... (Enter to send)"
                 disabled={loading} rows={2}
                 style={{ flex: 1, padding: "12px 16px", border: "1.5px solid #d8e8e0", borderRadius: "12px", fontSize: "14px", fontFamily: "Georgia, serif", color: "#1a2e1a", background: "#fff", outline: "none", resize: "none" }} />
-              <button onClick={() => sendMessage(typedMessage.trim())} disabled={!typedMessage.trim() || loading}
+              <button onClick={() => { forteSound.tap(); sendMessage(typedMessage.trim()); }} disabled={!typedMessage.trim() || loading}
                 style={{ padding: "12px 18px", background: typedMessage.trim() && !loading ? accent : "#e8f0ec", color: typedMessage.trim() && !loading ? "#fff" : "#84a98c", border: "none", borderRadius: "12px", fontSize: "14px", cursor: typedMessage.trim() && !loading ? "pointer" : "not-allowed", fontFamily: "-apple-system, sans-serif", fontWeight: "600" }}>
                 Send →
               </button>
