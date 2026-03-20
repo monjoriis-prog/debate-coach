@@ -8262,7 +8262,7 @@ export default function Forte() {
               <p style={{ marginBottom: "10px", fontSize: "12px", color: "#84a98c" }}>Conversation text is processed by Anthropic (anthropic.com) in accordance with their privacy policy. All data is transmitted over encrypted connections. For complete details, see our full Privacy Policy.</p>
             </div>
           </div>
-          <a href="/privacy" target="_blank" style={{ color: "#84a98c", fontSize: "12px", textDecoration: "underline", display: "block", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>Read full Privacy Policy</a>
+          <a href="/terms" style={{ color: "#84a98c", fontSize: "12px", textDecoration: "underline", fontFamily: "-apple-system, sans-serif" }}>Terms</a> &middot; <a href="/privacy" target="_blank" style={{ color: "#84a98c", fontSize: "12px", textDecoration: "underline", display: "block", marginBottom: "16px", fontFamily: "-apple-system, sans-serif" }}>Read full Privacy Policy</a>
           <button onClick={acceptConsent} style={{ width: "100%", padding: "16px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>Agree & Continue</button>
           <p style={{ fontSize: "11px", color: "#b0c4b8", marginTop: "12px", fontFamily: "-apple-system, sans-serif" }}>By tapping Agree & Continue, you accept our Privacy Policy.</p>
         </div>
@@ -8792,7 +8792,7 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
             ✅ 1 daily challenge
           </div>
         </div>
-        <p style={{ fontSize: "12px", color: "#84a98c", margin: "0 0 20px", fontFamily: "-apple-system, sans-serif" }}>After your free sessions, unlock everything for $9.99/month.</p>
+        <p style={{ fontSize: "12px", color: "#84a98c", margin: "0 0 20px", fontFamily: "-apple-system, sans-serif" }}>After your free sessions, unlock everything for $9.99/month. By using BeBoldn you agree to our <a href="/terms" style={{ color: "#84a98c" }}>Terms of Service</a>.</p>
         <button onClick={() => { setShowWelcome(false); localStorage.setItem("beboldn_welcomed", "true"); }} style={{ width: "100%", padding: "16px", background: "#2d6a4f", color: "#fff", border: "none", borderRadius: "14px", fontSize: "16px", fontWeight: "600", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>
           Got it — let me explore
         </button>
@@ -8828,6 +8828,9 @@ Do NOT use bullet points, headers, bold text, or markdown. Keep each step to 1-2
           Maybe later
         </button>
         <button onClick={handleRestore} style={{ width: "100%", padding: "8px", background: "transparent", color: "#84a98c", border: "none", fontSize: "12px", cursor: "pointer", fontFamily: "-apple-system, sans-serif" }}>Restore Purchases</button>
+        <div style={{ fontSize: "11px", color: "#b0b0b0", marginTop: "8px", fontFamily: "-apple-system, sans-serif" }}>
+          By subscribing you agree to our <a href="/terms" style={{ color: "#84a98c" }}>Terms of Service</a>. Subscription auto-renews monthly. Cancel anytime in Settings.
+        </div>
       </div>
     </div>
   ) : null;
